@@ -1,0 +1,363 @@
+{
+ "Resources": {
+  "monitoringTopic3C13FE23": {
+   "Type": "AWS::SNS::Topic",
+   "Properties": {
+    "TopicName": "alerts"
+   }
+  },
+  "monitoringTopicandrewfrazerraindancerscloud0BDD4D41": {
+   "Type": "AWS::SNS::Subscription",
+   "Properties": {
+    "Endpoint": "andrew.frazer@raindancers.cloud",
+    "Protocol": "email",
+    "TopicArn": {
+     "Ref": "monitoringTopic3C13FE23"
+    }
+   }
+  },
+  "teamsChannelServiceRoleBCDB38C3": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "teamsChannelE549935C": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "e4ef0c3b72238137c8f5ee36c166f1a797aaed81f75ee619bd1d3071054d23b9.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TEAMSURL": "https://raindancers.webhook.office.com/webhookb2/ed51609a-3baa-4859-afce-6b268fec875a@52887873-e218-4271-8946-5cf5efb40e73/IncomingWebhook/384da214ba934c2abf3c53cf95c60606/ac8377f0-0cc3-4af0-b350-0ec0009f2252"
+     }
+    },
+    "Handler": "teams.lambda_handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "teamsChannelServiceRoleBCDB38C3",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.10",
+    "Timeout": 15
+   },
+   "DependsOn": [
+    "teamsChannelServiceRoleBCDB38C3"
+   ]
+  },
+  "lambdaServiceRole9B6B11CC": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "lambdaServiceRoleDefaultPolicy8C59F0D7": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sns:Publish",
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "monitoringTopic3C13FE23"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "lambdaServiceRoleDefaultPolicy8C59F0D7",
+    "Roles": [
+     {
+      "Ref": "lambdaServiceRole9B6B11CC"
+     }
+    ]
+   }
+  },
+  "lambda34096358": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "e4ef0c3b72238137c8f5ee36c166f1a797aaed81f75ee619bd1d3071054d23b9.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "SNSARN": {
+       "Ref": "monitoringTopic3C13FE23"
+      }
+     }
+    },
+    "Handler": "processEvent.lambda_handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "lambdaServiceRole9B6B11CC",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.10",
+    "Timeout": 15
+   },
+   "DependsOn": [
+    "lambdaServiceRoleDefaultPolicy8C59F0D7",
+    "lambdaServiceRole9B6B11CC"
+   ]
+  },
+  "deliveryRole1CDD8E68": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "events.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "deliveryRoleDefaultPolicy5937AAE9": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "lambda34096358",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::GetAtt": [
+          "teamsChannelE549935C",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "lambda34096358",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "teamsChannelE549935C",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "deliveryRoleDefaultPolicy5937AAE9",
+    "Roles": [
+     {
+      "Ref": "deliveryRole1CDD8E68"
+     }
+    ]
+   }
+  },
+  "CF9390BA": {
+   "Type": "AWS::Events::Rule",
+   "Properties": {
+    "Description": "Monitor Root activity",
+    "EventPattern": {
+     "detail-type": [
+      "AWS API Call via CloudTrail",
+      "AWS Console Sign In via CloudTrail"
+     ],
+     "detail": {
+      "userIdentity": {
+       "type": [
+        "Root"
+       ]
+      }
+     }
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "deliveryRole1CDD8E68",
+      "Arn"
+     ]
+    },
+    "State": "ENABLED",
+    "Targets": [
+     {
+      "Arn": {
+       "Fn::GetAtt": [
+        "lambda34096358",
+        "Arn"
+       ]
+      },
+      "Id": "Target0"
+     },
+     {
+      "Arn": {
+       "Fn::GetAtt": [
+        "teamsChannelE549935C",
+        "Arn"
+       ]
+      },
+      "Id": "Target1"
+     }
+    ]
+   }
+  },
+  "AllowEventRuleRootMonitoringlambdaE35160BBBA925B90": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "lambda34096358",
+      "Arn"
+     ]
+    },
+    "Principal": "events.amazonaws.com",
+    "SourceArn": {
+     "Fn::GetAtt": [
+      "CF9390BA",
+      "Arn"
+     ]
+    }
+   }
+  },
+  "AllowEventRuleRootMonitoringteamsChannel3AC96647B9906B40": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "teamsChannelE549935C",
+      "Arn"
+     ]
+    },
+    "Principal": "events.amazonaws.com",
+    "SourceArn": {
+     "Fn::GetAtt": [
+      "CF9390BA",
+      "Arn"
+     ]
+    }
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}
