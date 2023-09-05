@@ -4,6 +4,7 @@ import * as core from 'aws-cdk-lib';
 import {
   aws_iam as iam,
   aws_sns as sns,
+  aws_sns_subscriptions as sns_subscriptions,
   aws_lambda,
 }
   from 'aws-cdk-lib';
@@ -22,6 +23,7 @@ export interface EventToSlackProps {
 
 export interface EventToTeamsProps {
   readonly teamsUrl: string;
+  readonly snsTopic?: sns.Topic | undefined;
 }
 
 
@@ -92,5 +94,9 @@ export class EventToTeams extends core.Resource {
         TEAMSURL: props.teamsUrl,
       },
     });
+
+    if (props.snsTopic) {
+      props.snsTopic.addSubscription(new sns_subscriptions.LambdaSubscription(this.function) );
+    }
   }
 }

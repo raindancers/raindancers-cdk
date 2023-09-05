@@ -5,6 +5,206 @@ raindancers-cdk
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### CloudTrailAlarms <a name="CloudTrailAlarms" id="raindancers-cdk.orgTools.CloudTrailAlarms"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.orgTools.CloudTrailAlarms.Initializer"></a>
+
+```typescript
+import { orgTools } from 'raindancers-cdk'
+
+new orgTools.CloudTrailAlarms(scope: Construct, id: string, props: CloudTrailAlarmsProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarms.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarms.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarms.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.orgTools.CloudTrailAlarmsProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.orgTools.CloudTrailAlarms.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.orgTools.CloudTrailAlarms.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.orgTools.CloudTrailAlarms.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.orgTools.CloudTrailAlarmsProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarms.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarms.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.orgTools.CloudTrailAlarms.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="raindancers-cdk.orgTools.CloudTrailAlarms.applyRemovalPolicy"></a>
+
+```typescript
+public applyRemovalPolicy(policy: RemovalPolicy): void
+```
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+###### `policy`<sup>Required</sup> <a name="policy" id="raindancers-cdk.orgTools.CloudTrailAlarms.applyRemovalPolicy.parameter.policy"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarms.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarms.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarms.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.orgTools.CloudTrailAlarms.isConstruct"></a>
+
+```typescript
+import { orgTools } from 'raindancers-cdk'
+
+orgTools.CloudTrailAlarms.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.orgTools.CloudTrailAlarms.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isOwnedResource` <a name="isOwnedResource" id="raindancers-cdk.orgTools.CloudTrailAlarms.isOwnedResource"></a>
+
+```typescript
+import { orgTools } from 'raindancers-cdk'
+
+orgTools.CloudTrailAlarms.isOwnedResource(construct: IConstruct)
+```
+
+Returns true if the construct was created by CDK, and false otherwise.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="raindancers-cdk.orgTools.CloudTrailAlarms.isOwnedResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `isResource` <a name="isResource" id="raindancers-cdk.orgTools.CloudTrailAlarms.isResource"></a>
+
+```typescript
+import { orgTools } from 'raindancers-cdk'
+
+orgTools.CloudTrailAlarms.isResource(construct: IConstruct)
+```
+
+Check whether the given construct is a Resource.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="raindancers-cdk.orgTools.CloudTrailAlarms.isResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarms.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarms.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarms.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarms.property.snsTopic">snsTopic</a></code> | <code>aws-cdk-lib.aws_sns.Topic</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.orgTools.CloudTrailAlarms.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="raindancers-cdk.orgTools.CloudTrailAlarms.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="raindancers-cdk.orgTools.CloudTrailAlarms.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this resource is defined.
+
+---
+
+##### `snsTopic`<sup>Required</sup> <a name="snsTopic" id="raindancers-cdk.orgTools.CloudTrailAlarms.property.snsTopic"></a>
+
+```typescript
+public readonly snsTopic: Topic;
+```
+
+- *Type:* aws-cdk-lib.aws_sns.Topic
+
+---
+
+
 ### EventToSlack <a name="EventToSlack" id="raindancers-cdk.eventalerts.EventToSlack"></a>
 
 #### Initializers <a name="Initializers" id="raindancers-cdk.eventalerts.EventToSlack.Initializer"></a>
@@ -607,6 +807,287 @@ public readonly function: Function;
 
 ## Structs <a name="Structs" id="Structs"></a>
 
+### CloudTrailAlarmsProps <a name="CloudTrailAlarmsProps" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.Initializer"></a>
+
+```typescript
+import { orgTools } from 'raindancers-cdk'
+
+const cloudTrailAlarmsProps: orgTools.CloudTrailAlarmsProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.analyticsReporting">analyticsReporting</a></code> | <code>boolean</code> | Include runtime versioning information in this Stack. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.crossRegionReferences">crossRegionReferences</a></code> | <code>boolean</code> | Enable this flag to allow native cross region stack references. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.description">description</a></code> | <code>string</code> | A description of the stack. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.env">env</a></code> | <code>aws-cdk-lib.Environment</code> | The AWS environment (account/region) where this stack will be deployed. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.permissionsBoundary">permissionsBoundary</a></code> | <code>aws-cdk-lib.PermissionsBoundary</code> | Options for applying a permissions boundary to all IAM Roles and Users created within this Stage. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.stackName">stackName</a></code> | <code>string</code> | Name to deploy the stack with. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.suppressTemplateIndentation">suppressTemplateIndentation</a></code> | <code>boolean</code> | Enable this flag to suppress indentation in generated CloudFormation templates. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.alarms">alarms</a></code> | <code>raindancers-cdk.orgTools.OrgAlarms[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.logGroup">logGroup</a></code> | <code>aws-cdk-lib.aws_logs.ILogGroup</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.nameSpace">nameSpace</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.alarmSNSTopicName">alarmSNSTopicName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `analyticsReporting`<sup>Optional</sup> <a name="analyticsReporting" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.analyticsReporting"></a>
+
+```typescript
+public readonly analyticsReporting: boolean;
+```
+
+- *Type:* boolean
+- *Default:* `analyticsReporting` setting of containing `App`, or value of 'aws:cdk:version-reporting' context key
+
+Include runtime versioning information in this Stack.
+
+---
+
+##### `crossRegionReferences`<sup>Optional</sup> <a name="crossRegionReferences" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.crossRegionReferences"></a>
+
+```typescript
+public readonly crossRegionReferences: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Enable this flag to allow native cross region stack references.
+
+Enabling this will create a CloudFormation custom resource
+in both the producing stack and consuming stack in order to perform the export/import
+
+This feature is currently experimental
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* No description.
+
+A description of the stack.
+
+---
+
+##### `env`<sup>Optional</sup> <a name="env" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.env"></a>
+
+```typescript
+public readonly env: Environment;
+```
+
+- *Type:* aws-cdk-lib.Environment
+- *Default:* The environment of the containing `Stage` if available, otherwise create the stack will be environment-agnostic.
+
+The AWS environment (account/region) where this stack will be deployed.
+
+Set the `region`/`account` fields of `env` to either a concrete value to
+select the indicated environment (recommended for production stacks), or to
+the values of environment variables
+`CDK_DEFAULT_REGION`/`CDK_DEFAULT_ACCOUNT` to let the target environment
+depend on the AWS credentials/configuration that the CDK CLI is executed
+under (recommended for development stacks).
+
+If the `Stack` is instantiated inside a `Stage`, any undefined
+`region`/`account` fields from `env` will default to the same field on the
+encompassing `Stage`, if configured there.
+
+If either `region` or `account` are not set nor inherited from `Stage`, the
+Stack will be considered "*environment-agnostic*"". Environment-agnostic
+stacks can be deployed to any environment but may not be able to take
+advantage of all features of the CDK. For example, they will not be able to
+use environmental context lookups such as `ec2.Vpc.fromLookup` and will not
+automatically translate Service Principals to the right format based on the
+environment's AWS partition, and other such enhancements.
+
+---
+
+*Example*
+
+```typescript
+// Use a concrete account and region to deploy this stack to:
+// `.account` and `.region` will simply return these values.
+new Stack(app, 'Stack1', {
+  env: {
+    account: '123456789012',
+    region: 'us-east-1'
+  },
+});
+
+// Use the CLI's current credentials to determine the target environment:
+// `.account` and `.region` will reflect the account+region the CLI
+// is configured to use (based on the user CLI credentials)
+new Stack(app, 'Stack2', {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION
+  },
+});
+
+// Define multiple stacks stage associated with an environment
+const myStage = new Stage(app, 'MyStage', {
+  env: {
+    account: '123456789012',
+    region: 'us-east-1'
+  }
+});
+
+// both of these stacks will use the stage's account/region:
+// `.account` and `.region` will resolve to the concrete values as above
+new MyStack(myStage, 'Stack1');
+new YourStack(myStage, 'Stack2');
+
+// Define an environment-agnostic stack:
+// `.account` and `.region` will resolve to `{ "Ref": "AWS::AccountId" }` and `{ "Ref": "AWS::Region" }` respectively.
+// which will only resolve to actual values by CloudFormation during deployment.
+new MyStack(app, 'Stack1');
+```
+
+
+##### `permissionsBoundary`<sup>Optional</sup> <a name="permissionsBoundary" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.permissionsBoundary"></a>
+
+```typescript
+public readonly permissionsBoundary: PermissionsBoundary;
+```
+
+- *Type:* aws-cdk-lib.PermissionsBoundary
+- *Default:* no permissions boundary is applied
+
+Options for applying a permissions boundary to all IAM Roles and Users created within this Stage.
+
+---
+
+##### `stackName`<sup>Optional</sup> <a name="stackName" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.stackName"></a>
+
+```typescript
+public readonly stackName: string;
+```
+
+- *Type:* string
+- *Default:* Derived from construct path.
+
+Name to deploy the stack with.
+
+---
+
+##### `suppressTemplateIndentation`<sup>Optional</sup> <a name="suppressTemplateIndentation" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.suppressTemplateIndentation"></a>
+
+```typescript
+public readonly suppressTemplateIndentation: boolean;
+```
+
+- *Type:* boolean
+- *Default:* the value of `@aws-cdk/core:suppressTemplateIndentation`, or `false` if that is not set.
+
+Enable this flag to suppress indentation in generated CloudFormation templates.
+
+If not specified, the value of the `@aws-cdk/core:suppressTemplateIndentation`
+context key will be used. If that is not specified, then the
+default value `false` will be used.
+
+---
+
+##### `synthesizer`<sup>Optional</sup> <a name="synthesizer" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.synthesizer"></a>
+
+```typescript
+public readonly synthesizer: IStackSynthesizer;
+```
+
+- *Type:* aws-cdk-lib.IStackSynthesizer
+- *Default:* The synthesizer specified on `App`, or `DefaultStackSynthesizer` otherwise.
+
+Synthesis method to use while deploying this stack.
+
+The Stack Synthesizer controls aspects of synthesis and deployment,
+like how assets are referenced and what IAM roles to use. For more
+information, see the README of the main CDK package.
+
+If not specified, the `defaultStackSynthesizer` from `App` will be used.
+If that is not specified, `DefaultStackSynthesizer` is used if
+`@aws-cdk/core:newStyleStackSynthesis` is set to `true` or the CDK major
+version is v2. In CDK v1 `LegacyStackSynthesizer` is the default if no
+other synthesizer is specified.
+
+---
+
+##### `tags`<sup>Optional</sup> <a name="tags" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.tags"></a>
+
+```typescript
+public readonly tags: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* {}
+
+Stack tags that will be applied to all the taggable resources and the stack itself.
+
+---
+
+##### `terminationProtection`<sup>Optional</sup> <a name="terminationProtection" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.terminationProtection"></a>
+
+```typescript
+public readonly terminationProtection: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to enable termination protection for this stack.
+
+---
+
+##### `alarms`<sup>Required</sup> <a name="alarms" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.alarms"></a>
+
+```typescript
+public readonly alarms: OrgAlarms[];
+```
+
+- *Type:* raindancers-cdk.orgTools.OrgAlarms[]
+
+---
+
+##### `logGroup`<sup>Required</sup> <a name="logGroup" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.logGroup"></a>
+
+```typescript
+public readonly logGroup: ILogGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.ILogGroup
+
+---
+
+##### `nameSpace`<sup>Required</sup> <a name="nameSpace" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.nameSpace"></a>
+
+```typescript
+public readonly nameSpace: string;
+```
+
+- *Type:* string
+
+---
+
+##### `alarmSNSTopicName`<sup>Optional</sup> <a name="alarmSNSTopicName" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.alarmSNSTopicName"></a>
+
+```typescript
+public readonly alarmSNSTopicName: string;
+```
+
+- *Type:* string
+
+---
+
 ### EventToSlackProps <a name="EventToSlackProps" id="raindancers-cdk.eventalerts.EventToSlackProps"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.eventalerts.EventToSlackProps.Initializer"></a>
@@ -700,6 +1181,7 @@ const eventToTeamsProps: eventalerts.EventToTeamsProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.eventalerts.EventToTeamsProps.property.teamsUrl">teamsUrl</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.eventalerts.EventToTeamsProps.property.snsTopic">snsTopic</a></code> | <code>aws-cdk-lib.aws_sns.Topic</code> | *No description.* |
 
 ---
 
@@ -707,6 +1189,66 @@ const eventToTeamsProps: eventalerts.EventToTeamsProps = { ... }
 
 ```typescript
 public readonly teamsUrl: string;
+```
+
+- *Type:* string
+
+---
+
+##### `snsTopic`<sup>Optional</sup> <a name="snsTopic" id="raindancers-cdk.eventalerts.EventToTeamsProps.property.snsTopic"></a>
+
+```typescript
+public readonly snsTopic: Topic;
+```
+
+- *Type:* aws-cdk-lib.aws_sns.Topic
+
+---
+
+### FilterProps <a name="FilterProps" id="raindancers-cdk.orgTools.FilterProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.orgTools.FilterProps.Initializer"></a>
+
+```typescript
+import { orgTools } from 'raindancers-cdk'
+
+const filterProps: orgTools.FilterProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.FilterProps.property.alarmSNSTopic">alarmSNSTopic</a></code> | <code>aws-cdk-lib.aws_sns.Topic</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.FilterProps.property.logGroup">logGroup</a></code> | <code>aws-cdk-lib.aws_logs.ILogGroup</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.FilterProps.property.nameSpace">nameSpace</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `alarmSNSTopic`<sup>Required</sup> <a name="alarmSNSTopic" id="raindancers-cdk.orgTools.FilterProps.property.alarmSNSTopic"></a>
+
+```typescript
+public readonly alarmSNSTopic: Topic;
+```
+
+- *Type:* aws-cdk-lib.aws_sns.Topic
+
+---
+
+##### `logGroup`<sup>Required</sup> <a name="logGroup" id="raindancers-cdk.orgTools.FilterProps.property.logGroup"></a>
+
+```typescript
+public readonly logGroup: ILogGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.ILogGroup
+
+---
+
+##### `nameSpace`<sup>Required</sup> <a name="nameSpace" id="raindancers-cdk.orgTools.FilterProps.property.nameSpace"></a>
+
+```typescript
+public readonly nameSpace: string;
 ```
 
 - *Type:* string
@@ -813,6 +1355,62 @@ eventalerts.MonitoringRule.rootActivity(scope: Construct, props: TargetProps)
 
 ## Protocols <a name="Protocols" id="Protocols"></a>
 
+### IMetricFilter <a name="IMetricFilter" id="raindancers-cdk.orgTools.IMetricFilter"></a>
+
+- *Implemented By:* raindancers-cdk.orgTools.IMetricFilter
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.IMetricFilter.property.alarm">alarm</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.IMetricFilter.property.logGroup">logGroup</a></code> | <code>aws-cdk-lib.aws_logs.ILogGroup</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.IMetricFilter.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.IMetricFilter.property.nameSpace">nameSpace</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `alarm`<sup>Required</sup> <a name="alarm" id="raindancers-cdk.orgTools.IMetricFilter.property.alarm"></a>
+
+```typescript
+public readonly alarm: string;
+```
+
+- *Type:* string
+
+---
+
+##### `logGroup`<sup>Required</sup> <a name="logGroup" id="raindancers-cdk.orgTools.IMetricFilter.property.logGroup"></a>
+
+```typescript
+public readonly logGroup: ILogGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.ILogGroup
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.orgTools.IMetricFilter.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `nameSpace`<sup>Required</sup> <a name="nameSpace" id="raindancers-cdk.orgTools.IMetricFilter.property.nameSpace"></a>
+
+```typescript
+public readonly nameSpace: string;
+```
+
+- *Type:* string
+
+---
+
 ### IMonitoringRule <a name="IMonitoringRule" id="raindancers-cdk.eventalerts.IMonitoringRule"></a>
 
 - *Implemented By:* raindancers-cdk.eventalerts.IMonitoringRule
@@ -833,6 +1431,118 @@ public readonly arn: string;
 ```
 
 - *Type:* string
+
+---
+
+## Enums <a name="Enums" id="Enums"></a>
+
+### OrgAlarms <a name="OrgAlarms" id="raindancers-cdk.orgTools.OrgAlarms"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.UNAUTHORIZED_API_CALL">UNAUTHORIZED_API_CALL</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.SIGNIN_WITHOUT_MFA">SIGNIN_WITHOUT_MFA</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.ROOT_ACCOUNT_USE">ROOT_ACCOUNT_USE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.IAM_USER_CHANGES">IAM_USER_CHANGES</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.IAM_ROLE_CHANGES">IAM_ROLE_CHANGES</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.IAM_GROUP_CHANGES">IAM_GROUP_CHANGES</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.IAM_POLICY_CHANGES">IAM_POLICY_CHANGES</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.CLOUDTRAIL_CONFIGURATION_CHANGE">CLOUDTRAIL_CONFIGURATION_CHANGE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.SIGNIN_FAILURE">SIGNIN_FAILURE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.DISABLED_CUSTOMER_KEYS">DISABLED_CUSTOMER_KEYS</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.S3_POLICY_CHANGE">S3_POLICY_CHANGE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.CONFIG_SERVICE_CHANGE">CONFIG_SERVICE_CHANGE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.SECURITY_GROUP_CHANGE">SECURITY_GROUP_CHANGE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.NETWORK_ACL_CHANGE">NETWORK_ACL_CHANGE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.NETWORK_GATEWAY_CHANGE">NETWORK_GATEWAY_CHANGE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.ROUTE_TABLE_CHANGE">ROUTE_TABLE_CHANGE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.VPC_CHANGE">VPC_CHANGE</a></code> | *No description.* |
+
+---
+
+##### `UNAUTHORIZED_API_CALL` <a name="UNAUTHORIZED_API_CALL" id="raindancers-cdk.orgTools.OrgAlarms.UNAUTHORIZED_API_CALL"></a>
+
+---
+
+
+##### `SIGNIN_WITHOUT_MFA` <a name="SIGNIN_WITHOUT_MFA" id="raindancers-cdk.orgTools.OrgAlarms.SIGNIN_WITHOUT_MFA"></a>
+
+---
+
+
+##### `ROOT_ACCOUNT_USE` <a name="ROOT_ACCOUNT_USE" id="raindancers-cdk.orgTools.OrgAlarms.ROOT_ACCOUNT_USE"></a>
+
+---
+
+
+##### `IAM_USER_CHANGES` <a name="IAM_USER_CHANGES" id="raindancers-cdk.orgTools.OrgAlarms.IAM_USER_CHANGES"></a>
+
+---
+
+
+##### `IAM_ROLE_CHANGES` <a name="IAM_ROLE_CHANGES" id="raindancers-cdk.orgTools.OrgAlarms.IAM_ROLE_CHANGES"></a>
+
+---
+
+
+##### `IAM_GROUP_CHANGES` <a name="IAM_GROUP_CHANGES" id="raindancers-cdk.orgTools.OrgAlarms.IAM_GROUP_CHANGES"></a>
+
+---
+
+
+##### `IAM_POLICY_CHANGES` <a name="IAM_POLICY_CHANGES" id="raindancers-cdk.orgTools.OrgAlarms.IAM_POLICY_CHANGES"></a>
+
+---
+
+
+##### `CLOUDTRAIL_CONFIGURATION_CHANGE` <a name="CLOUDTRAIL_CONFIGURATION_CHANGE" id="raindancers-cdk.orgTools.OrgAlarms.CLOUDTRAIL_CONFIGURATION_CHANGE"></a>
+
+---
+
+
+##### `SIGNIN_FAILURE` <a name="SIGNIN_FAILURE" id="raindancers-cdk.orgTools.OrgAlarms.SIGNIN_FAILURE"></a>
+
+---
+
+
+##### `DISABLED_CUSTOMER_KEYS` <a name="DISABLED_CUSTOMER_KEYS" id="raindancers-cdk.orgTools.OrgAlarms.DISABLED_CUSTOMER_KEYS"></a>
+
+---
+
+
+##### `S3_POLICY_CHANGE` <a name="S3_POLICY_CHANGE" id="raindancers-cdk.orgTools.OrgAlarms.S3_POLICY_CHANGE"></a>
+
+---
+
+
+##### `CONFIG_SERVICE_CHANGE` <a name="CONFIG_SERVICE_CHANGE" id="raindancers-cdk.orgTools.OrgAlarms.CONFIG_SERVICE_CHANGE"></a>
+
+---
+
+
+##### `SECURITY_GROUP_CHANGE` <a name="SECURITY_GROUP_CHANGE" id="raindancers-cdk.orgTools.OrgAlarms.SECURITY_GROUP_CHANGE"></a>
+
+---
+
+
+##### `NETWORK_ACL_CHANGE` <a name="NETWORK_ACL_CHANGE" id="raindancers-cdk.orgTools.OrgAlarms.NETWORK_ACL_CHANGE"></a>
+
+---
+
+
+##### `NETWORK_GATEWAY_CHANGE` <a name="NETWORK_GATEWAY_CHANGE" id="raindancers-cdk.orgTools.OrgAlarms.NETWORK_GATEWAY_CHANGE"></a>
+
+---
+
+
+##### `ROUTE_TABLE_CHANGE` <a name="ROUTE_TABLE_CHANGE" id="raindancers-cdk.orgTools.OrgAlarms.ROUTE_TABLE_CHANGE"></a>
+
+---
+
+
+##### `VPC_CHANGE` <a name="VPC_CHANGE" id="raindancers-cdk.orgTools.OrgAlarms.VPC_CHANGE"></a>
 
 ---
 
