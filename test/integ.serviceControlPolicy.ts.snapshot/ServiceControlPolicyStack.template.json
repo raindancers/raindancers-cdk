@@ -1,0 +1,313 @@
+{
+ "Resources": {
+  "regions": {
+   "Type": "AWS::Organizations::Policy",
+   "Properties": {
+    "Content": {
+     "Statement": [
+      {
+       "NotAction": [
+        "a4b:*",
+        "acm:*",
+        "aws-marketplace-management:*",
+        "aws-marketplace:*",
+        "aws-portal:*",
+        "awsbillingconsole:*",
+        "budgets:*",
+        "ce:*",
+        "chime:*",
+        "cloudfront:*",
+        "config:*",
+        "cur:*",
+        "directconnect:*",
+        "ec2:DescribeRegions",
+        "ec2:DescribeTransitGateways",
+        "ec2:DescribeVpnGateways",
+        "fms:*",
+        "globalaccelerator:*",
+        "health:*",
+        "iam:*",
+        "importexport:*",
+        "kms:*",
+        "mobileanalytics:*",
+        "networkmanager:*",
+        "organizations:*",
+        "pricing:*",
+        "route53:*",
+        "route53domains:*",
+        "s3:GetAccountPublic*",
+        "s3:ListAllMyBuckets",
+        "s3:PutAccountPublic*",
+        "shield:*",
+        "sts:*",
+        "support:*",
+        "trustedadvisor:*",
+        "waf-regional:*",
+        "waf:*",
+        "wafv2:*",
+        "wellarchitected:*"
+       ],
+       "Condition": {
+        "StringNotEquals": {
+         "aws:RequestedRegion": [
+          "ap-southeast-2"
+         ]
+        }
+       },
+       "Effect": "Deny",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "only permit activity in selected regions",
+    "Name": "regions",
+    "Type": "SERVICE_CONTROL_POLICY"
+   }
+  },
+  "restrictRoot": {
+   "Type": "AWS::Organizations::Policy",
+   "Properties": {
+    "Content": {
+     "Statement": [
+      {
+       "Action": "*",
+       "Condition": {
+        "StringNotEquals": {
+         "aws:PrincipalArn": [
+          "arn:aws:iam::*:root"
+         ]
+        }
+       },
+       "Effect": "Deny",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "Deny Root Activity",
+    "Name": "restrictRoot",
+    "Type": "SERVICE_CONTROL_POLICY"
+   }
+  },
+  "noiamusers": {
+   "Type": "AWS::Organizations::Policy",
+   "Properties": {
+    "Content": {
+     "Statement": [
+      {
+       "Action": [
+        "iam:CreateUser",
+        "iam:CreateAccessKey"
+       ],
+       "Effect": "Deny",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "Prevent Creation of IAM Users",
+    "Name": "noiamusers",
+    "Type": "SERVICE_CONTROL_POLICY"
+   }
+  },
+  "nointernet": {
+   "Type": "AWS::Organizations::Policy",
+   "Properties": {
+    "Content": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:AttachInternetGateway",
+        "ec2:CreateInternetGateway",
+        "ec2:AttachEgressOnlyInternetGateway",
+        "ec2:CreateVpcPeeringConnection",
+        "ec2:AcceptVpcPeeringConnection"
+       ],
+       "Effect": "Deny",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "Prevent Creation of VPC With InternetAccess",
+    "Name": "nointernet",
+    "Type": "SERVICE_CONTROL_POLICY"
+   }
+  },
+  "preventVPCchange": {
+   "Type": "AWS::Organizations::Policy",
+   "Properties": {
+    "Content": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:CreateNatGateway",
+        "ec2:CreateInternetGateway",
+        "ec2:DeleteNatGateway",
+        "ec2:AttachInternetGateway",
+        "ec2:DeleteInternetGateway",
+        "ec2:DetachInternetGateway",
+        "ec2:CreateClientVpnRoute",
+        "ec2:AttachVpnGateway",
+        "ec2:DisassociateClientVpnTargetNetwork",
+        "ec2:DeleteClientVpnEndpoint",
+        "ec2:DeleteVpcPeeringConnection",
+        "ec2:AcceptVpcPeeringConnection",
+        "ec2:ModifyClientVpnEndpoint",
+        "ec2:CreateVpnConnectionRoute",
+        "ec2:RevokeClientVpnIngress",
+        "ec2:RejectVpcPeeringConnection",
+        "ec2:DetachVpnGateway",
+        "ec2:DeleteVpnConnectionRoute",
+        "ec2:CreateClientVpnEndpoint",
+        "ec2:AuthorizeClientVpnIngress",
+        "ec2:DeleteVpnGateway",
+        "ec2:TerminateClientVpnConnections",
+        "ec2:DeleteClientVpnRoute",
+        "ec2:ModifyVpcPeeringConnectionOptions",
+        "ec2:CreateVpnGateway",
+        "ec2:DeleteVpnConnection",
+        "ec2:CreateVpcPeeringConnection",
+        "ec2:CreateVpnConnection",
+        "directconnect:CreatePrivateVirtualInterface",
+        "directconnect:DeleteBGPPeer",
+        "directconnect:DeleteLag",
+        "directconnect:AssociateHostedConnection",
+        "directconnect:CreateInterconnect",
+        "directconnect:CreatePublicVirtualInterface",
+        "directconnect:CreateLag",
+        "directconnect:CreateDirectConnectGateway",
+        "directconnect:AssociateVirtualInterface",
+        "directconnect:AllocateConnectionOnInterconnect",
+        "directconnect:AssociateConnectionWithLag",
+        "directconnect:AllocatePrivateVirtualInterface",
+        "directconnect:DeleteInterconnect",
+        "directconnect:AllocateHostedConnection",
+        "directconnect:DeleteDirectConnectGateway",
+        "directconnect:DeleteVirtualInterface",
+        "directconnect:DeleteDirectConnectGatewayAssociation",
+        "directconnect:CreateDirectConnectGatewayAssociation",
+        "directconnect:DeleteConnection",
+        "directconnect:CreateBGPPeer",
+        "directconnect:AllocatePublicVirtualInterface",
+        "directconnect:CreateConnection",
+        "globalaccelerator:DeleteListener",
+        "globalaccelerator:DeleteAccelerator",
+        "globalaccelerator:UpdateListener",
+        "globalaccelerator:UpdateAccelerator",
+        "globalaccelerator:CreateEndpointGroup",
+        "globalaccelerator:UpdateAcceleratorAttributes",
+        "globalaccelerator:UpdateEndpointGroup",
+        "globalaccelerator:CreateListener",
+        "globalaccelerator:CreateAccelerator",
+        "globalaccelerator:DeleteEndpointGroup"
+       ],
+       "Effect": "Deny",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "Prevent Modification of VPC Settings",
+    "Name": "preventVPCchange",
+    "Type": "SERVICE_CONTROL_POLICY"
+   }
+  },
+  "preventDeleteflowLog": {
+   "Type": "AWS::Organizations::Policy",
+   "Properties": {
+    "Content": {
+     "Statement": [
+      {
+       "Action": [
+        "ec2:DeleteFlowLogs",
+        "logs:DeleteLogGroup",
+        "logs:DeleteLogStream"
+       ],
+       "Effect": "Deny",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "Prevent Flow Log Deletion",
+    "Name": "preventDeleteflowLog",
+    "Type": "SERVICE_CONTROL_POLICY"
+   }
+  },
+  "noPublicS3": {
+   "Type": "AWS::Organizations::Policy",
+   "Properties": {
+    "Content": {
+     "Statement": [
+      {
+       "Action": "s3:PutAccountPublicAccessBlock",
+       "Effect": "Deny",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "Prevent Changing Public S3",
+    "Name": "noPublicS3",
+    "Type": "SERVICE_CONTROL_POLICY"
+   }
+  },
+  "nokms": {
+   "Type": "AWS::Organizations::Policy",
+   "Properties": {
+    "Content": {
+     "Statement": [
+      {
+       "Action": [
+        "kms:ScheduleKeyDeletion",
+        "kms:Delete"
+       ],
+       "Effect": "Deny",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "Prevent Deleting KMS Keys",
+    "Name": "nokms",
+    "Type": "SERVICE_CONTROL_POLICY"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

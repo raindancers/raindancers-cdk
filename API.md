@@ -1353,6 +1353,270 @@ eventalerts.MonitoringRule.rootActivity(scope: Construct, props: TargetProps)
 
 
 
+### PreBuiltServiceControlPolicy <a name="PreBuiltServiceControlPolicy" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.Initializer"></a>
+
+```typescript
+import { serviceControlPolicy } from 'raindancers-cdk'
+
+new serviceControlPolicy.PreBuiltServiceControlPolicy()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.allowedRegions">allowedRegions</a></code> | Restrict Actions to all allowed list. |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventChangingPublicS3">preventChangingPublicS3</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventCreatingDefaultSubnet">preventCreatingDefaultSubnet</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventDeletingFlowLogs">preventDeletingFlowLogs</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventDeletingKMSKeys">preventDeletingKMSKeys</a></code> | An SCP that prevents KMS Keys from being modified. |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventNewIamUser">preventNewIamUser</a></code> | Prevent creating new IAM user Accounts. |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventVPCSettingsChange">preventVPCSettingsChange</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventVPCWithInternetAccess">preventVPCWithInternetAccess</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.restrictRootUser">restrictRootUser</a></code> | RestrictRootUser in Account. |
+
+---
+
+##### `allowedRegions` <a name="allowedRegions" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.allowedRegions"></a>
+
+```typescript
+import { serviceControlPolicy } from 'raindancers-cdk'
+
+serviceControlPolicy.PreBuiltServiceControlPolicy.allowedRegions(scope: Construct, id: string, regions: string[])
+```
+
+Restrict Actions to all allowed list.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.allowedRegions.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.allowedRegions.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `regions`<sup>Required</sup> <a name="regions" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.allowedRegions.parameter.regions"></a>
+
+- *Type:* string[]
+
+array of valid regions.
+
+---
+
+##### `preventChangingPublicS3` <a name="preventChangingPublicS3" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventChangingPublicS3"></a>
+
+```typescript
+import { serviceControlPolicy } from 'raindancers-cdk'
+
+serviceControlPolicy.PreBuiltServiceControlPolicy.preventChangingPublicS3(scope: Construct, id: string)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventChangingPublicS3.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventChangingPublicS3.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `preventCreatingDefaultSubnet` <a name="preventCreatingDefaultSubnet" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventCreatingDefaultSubnet"></a>
+
+```typescript
+import { serviceControlPolicy } from 'raindancers-cdk'
+
+serviceControlPolicy.PreBuiltServiceControlPolicy.preventCreatingDefaultSubnet(scope: Construct, id: string)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventCreatingDefaultSubnet.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventCreatingDefaultSubnet.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `preventDeletingFlowLogs` <a name="preventDeletingFlowLogs" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventDeletingFlowLogs"></a>
+
+```typescript
+import { serviceControlPolicy } from 'raindancers-cdk'
+
+serviceControlPolicy.PreBuiltServiceControlPolicy.preventDeletingFlowLogs(scope: Construct, id: string, excludedRoleArns?: string[])
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventDeletingFlowLogs.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventDeletingFlowLogs.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `excludedRoleArns`<sup>Optional</sup> <a name="excludedRoleArns" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventDeletingFlowLogs.parameter.excludedRoleArns"></a>
+
+- *Type:* string[]
+
+---
+
+##### `preventDeletingKMSKeys` <a name="preventDeletingKMSKeys" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventDeletingKMSKeys"></a>
+
+```typescript
+import { serviceControlPolicy } from 'raindancers-cdk'
+
+serviceControlPolicy.PreBuiltServiceControlPolicy.preventDeletingKMSKeys(scope: Construct, id: string, excludedRoleArns?: Role[])
+```
+
+An SCP that prevents KMS Keys from being modified.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventDeletingKMSKeys.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventDeletingKMSKeys.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `excludedRoleArns`<sup>Optional</sup> <a name="excludedRoleArns" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventDeletingKMSKeys.parameter.excludedRoleArns"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.Role[]
+
+---
+
+##### `preventNewIamUser` <a name="preventNewIamUser" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventNewIamUser"></a>
+
+```typescript
+import { serviceControlPolicy } from 'raindancers-cdk'
+
+serviceControlPolicy.PreBuiltServiceControlPolicy.preventNewIamUser(scope: Construct, id: string, excludedRoleArns?: string[])
+```
+
+Prevent creating new IAM user Accounts.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventNewIamUser.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventNewIamUser.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `excludedRoleArns`<sup>Optional</sup> <a name="excludedRoleArns" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventNewIamUser.parameter.excludedRoleArns"></a>
+
+- *Type:* string[]
+
+, Roles which are excluded from the SCP.
+
+---
+
+##### `preventVPCSettingsChange` <a name="preventVPCSettingsChange" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventVPCSettingsChange"></a>
+
+```typescript
+import { serviceControlPolicy } from 'raindancers-cdk'
+
+serviceControlPolicy.PreBuiltServiceControlPolicy.preventVPCSettingsChange(scope: Construct, id: string, excludedRoleArns?: string[])
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventVPCSettingsChange.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventVPCSettingsChange.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `excludedRoleArns`<sup>Optional</sup> <a name="excludedRoleArns" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventVPCSettingsChange.parameter.excludedRoleArns"></a>
+
+- *Type:* string[]
+
+---
+
+##### `preventVPCWithInternetAccess` <a name="preventVPCWithInternetAccess" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventVPCWithInternetAccess"></a>
+
+```typescript
+import { serviceControlPolicy } from 'raindancers-cdk'
+
+serviceControlPolicy.PreBuiltServiceControlPolicy.preventVPCWithInternetAccess(scope: Construct, id: string, excludedRoleArns?: string[])
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventVPCWithInternetAccess.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventVPCWithInternetAccess.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `excludedRoleArns`<sup>Optional</sup> <a name="excludedRoleArns" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventVPCWithInternetAccess.parameter.excludedRoleArns"></a>
+
+- *Type:* string[]
+
+---
+
+##### `restrictRootUser` <a name="restrictRootUser" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.restrictRootUser"></a>
+
+```typescript
+import { serviceControlPolicy } from 'raindancers-cdk'
+
+serviceControlPolicy.PreBuiltServiceControlPolicy.restrictRootUser(scope: Construct, id: string)
+```
+
+RestrictRootUser in Account.
+
+This should ideally be applyed at the account leel
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.restrictRootUser.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.restrictRootUser.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+
+
 ## Protocols <a name="Protocols" id="Protocols"></a>
 
 ### IMetricFilter <a name="IMetricFilter" id="raindancers-cdk.orgTools.IMetricFilter"></a>
@@ -1428,6 +1692,40 @@ public readonly nameSpace: string;
 
 ```typescript
 public readonly arn: string;
+```
+
+- *Type:* string
+
+---
+
+### IServiceControlPolicy <a name="IServiceControlPolicy" id="raindancers-cdk.serviceControlPolicy.IServiceControlPolicy"></a>
+
+- *Implemented By:* raindancers-cdk.serviceControlPolicy.IServiceControlPolicy
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.IServiceControlPolicy.property.arn">arn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.IServiceControlPolicy.property.id">id</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `arn`<sup>Required</sup> <a name="arn" id="raindancers-cdk.serviceControlPolicy.IServiceControlPolicy.property.arn"></a>
+
+```typescript
+public readonly arn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.serviceControlPolicy.IServiceControlPolicy.property.id"></a>
+
+```typescript
+public readonly id: string;
 ```
 
 - *Type:* string
@@ -1543,6 +1841,39 @@ public readonly arn: string;
 
 
 ##### `VPC_CHANGE` <a name="VPC_CHANGE" id="raindancers-cdk.orgTools.OrgAlarms.VPC_CHANGE"></a>
+
+---
+
+
+### PolicyType <a name="PolicyType" id="raindancers-cdk.serviceControlPolicy.PolicyType"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.PolicyType.AISERVICES_OPT_OUT_POLICY">AISERVICES_OPT_OUT_POLICY</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.PolicyType.BACKUP_POLICY">BACKUP_POLICY</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.PolicyType.SERVICE_CONTROL_POLICY">SERVICE_CONTROL_POLICY</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.PolicyType.TAG_POLICY">TAG_POLICY</a></code> | *No description.* |
+
+---
+
+##### `AISERVICES_OPT_OUT_POLICY` <a name="AISERVICES_OPT_OUT_POLICY" id="raindancers-cdk.serviceControlPolicy.PolicyType.AISERVICES_OPT_OUT_POLICY"></a>
+
+---
+
+
+##### `BACKUP_POLICY` <a name="BACKUP_POLICY" id="raindancers-cdk.serviceControlPolicy.PolicyType.BACKUP_POLICY"></a>
+
+---
+
+
+##### `SERVICE_CONTROL_POLICY` <a name="SERVICE_CONTROL_POLICY" id="raindancers-cdk.serviceControlPolicy.PolicyType.SERVICE_CONTROL_POLICY"></a>
+
+---
+
+
+##### `TAG_POLICY` <a name="TAG_POLICY" id="raindancers-cdk.serviceControlPolicy.PolicyType.TAG_POLICY"></a>
 
 ---
 

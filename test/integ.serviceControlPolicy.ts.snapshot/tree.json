@@ -1,0 +1,440 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "ServiceControlPolicyStack": {
+        "id": "ServiceControlPolicyStack",
+        "path": "ServiceControlPolicyStack",
+        "children": {
+          "regions": {
+            "id": "regions",
+            "path": "ServiceControlPolicyStack/regions",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::Organizations::Policy",
+              "aws:cdk:cloudformation:props": {
+                "content": {
+                  "Statement": [
+                    {
+                      "NotAction": [
+                        "a4b:*",
+                        "acm:*",
+                        "aws-marketplace-management:*",
+                        "aws-marketplace:*",
+                        "aws-portal:*",
+                        "awsbillingconsole:*",
+                        "budgets:*",
+                        "ce:*",
+                        "chime:*",
+                        "cloudfront:*",
+                        "config:*",
+                        "cur:*",
+                        "directconnect:*",
+                        "ec2:DescribeRegions",
+                        "ec2:DescribeTransitGateways",
+                        "ec2:DescribeVpnGateways",
+                        "fms:*",
+                        "globalaccelerator:*",
+                        "health:*",
+                        "iam:*",
+                        "importexport:*",
+                        "kms:*",
+                        "mobileanalytics:*",
+                        "networkmanager:*",
+                        "organizations:*",
+                        "pricing:*",
+                        "route53:*",
+                        "route53domains:*",
+                        "s3:GetAccountPublic*",
+                        "s3:ListAllMyBuckets",
+                        "s3:PutAccountPublic*",
+                        "shield:*",
+                        "sts:*",
+                        "support:*",
+                        "trustedadvisor:*",
+                        "waf-regional:*",
+                        "waf:*",
+                        "wafv2:*",
+                        "wellarchitected:*"
+                      ],
+                      "Condition": {
+                        "StringNotEquals": {
+                          "aws:RequestedRegion": [
+                            "ap-southeast-2"
+                          ]
+                        }
+                      },
+                      "Effect": "Deny",
+                      "Resource": "*"
+                    }
+                  ],
+                  "Version": "2012-10-17"
+                },
+                "description": "only permit activity in selected regions",
+                "name": "regions",
+                "type": "SERVICE_CONTROL_POLICY"
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_organizations.CfnPolicy",
+              "version": "2.93.0"
+            }
+          },
+          "restrictRoot": {
+            "id": "restrictRoot",
+            "path": "ServiceControlPolicyStack/restrictRoot",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::Organizations::Policy",
+              "aws:cdk:cloudformation:props": {
+                "content": {
+                  "Statement": [
+                    {
+                      "Action": "*",
+                      "Condition": {
+                        "StringNotEquals": {
+                          "aws:PrincipalArn": [
+                            "arn:aws:iam::*:root"
+                          ]
+                        }
+                      },
+                      "Effect": "Deny",
+                      "Resource": "*"
+                    }
+                  ],
+                  "Version": "2012-10-17"
+                },
+                "description": "Deny Root Activity",
+                "name": "restrictRoot",
+                "type": "SERVICE_CONTROL_POLICY"
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_organizations.CfnPolicy",
+              "version": "2.93.0"
+            }
+          },
+          "noiamusers": {
+            "id": "noiamusers",
+            "path": "ServiceControlPolicyStack/noiamusers",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::Organizations::Policy",
+              "aws:cdk:cloudformation:props": {
+                "content": {
+                  "Statement": [
+                    {
+                      "Action": [
+                        "iam:CreateUser",
+                        "iam:CreateAccessKey"
+                      ],
+                      "Effect": "Deny",
+                      "Resource": "*"
+                    }
+                  ],
+                  "Version": "2012-10-17"
+                },
+                "description": "Prevent Creation of IAM Users",
+                "name": "noiamusers",
+                "type": "SERVICE_CONTROL_POLICY"
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_organizations.CfnPolicy",
+              "version": "2.93.0"
+            }
+          },
+          "nointernet": {
+            "id": "nointernet",
+            "path": "ServiceControlPolicyStack/nointernet",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::Organizations::Policy",
+              "aws:cdk:cloudformation:props": {
+                "content": {
+                  "Statement": [
+                    {
+                      "Action": [
+                        "ec2:AttachInternetGateway",
+                        "ec2:CreateInternetGateway",
+                        "ec2:AttachEgressOnlyInternetGateway",
+                        "ec2:CreateVpcPeeringConnection",
+                        "ec2:AcceptVpcPeeringConnection"
+                      ],
+                      "Effect": "Deny",
+                      "Resource": "*"
+                    }
+                  ],
+                  "Version": "2012-10-17"
+                },
+                "description": "Prevent Creation of VPC With InternetAccess",
+                "name": "nointernet",
+                "type": "SERVICE_CONTROL_POLICY"
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_organizations.CfnPolicy",
+              "version": "2.93.0"
+            }
+          },
+          "preventVPCchange": {
+            "id": "preventVPCchange",
+            "path": "ServiceControlPolicyStack/preventVPCchange",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::Organizations::Policy",
+              "aws:cdk:cloudformation:props": {
+                "content": {
+                  "Statement": [
+                    {
+                      "Action": [
+                        "ec2:CreateNatGateway",
+                        "ec2:CreateInternetGateway",
+                        "ec2:DeleteNatGateway",
+                        "ec2:AttachInternetGateway",
+                        "ec2:DeleteInternetGateway",
+                        "ec2:DetachInternetGateway",
+                        "ec2:CreateClientVpnRoute",
+                        "ec2:AttachVpnGateway",
+                        "ec2:DisassociateClientVpnTargetNetwork",
+                        "ec2:DeleteClientVpnEndpoint",
+                        "ec2:DeleteVpcPeeringConnection",
+                        "ec2:AcceptVpcPeeringConnection",
+                        "ec2:ModifyClientVpnEndpoint",
+                        "ec2:CreateVpnConnectionRoute",
+                        "ec2:RevokeClientVpnIngress",
+                        "ec2:RejectVpcPeeringConnection",
+                        "ec2:DetachVpnGateway",
+                        "ec2:DeleteVpnConnectionRoute",
+                        "ec2:CreateClientVpnEndpoint",
+                        "ec2:AuthorizeClientVpnIngress",
+                        "ec2:DeleteVpnGateway",
+                        "ec2:TerminateClientVpnConnections",
+                        "ec2:DeleteClientVpnRoute",
+                        "ec2:ModifyVpcPeeringConnectionOptions",
+                        "ec2:CreateVpnGateway",
+                        "ec2:DeleteVpnConnection",
+                        "ec2:CreateVpcPeeringConnection",
+                        "ec2:CreateVpnConnection",
+                        "directconnect:CreatePrivateVirtualInterface",
+                        "directconnect:DeleteBGPPeer",
+                        "directconnect:DeleteLag",
+                        "directconnect:AssociateHostedConnection",
+                        "directconnect:CreateInterconnect",
+                        "directconnect:CreatePublicVirtualInterface",
+                        "directconnect:CreateLag",
+                        "directconnect:CreateDirectConnectGateway",
+                        "directconnect:AssociateVirtualInterface",
+                        "directconnect:AllocateConnectionOnInterconnect",
+                        "directconnect:AssociateConnectionWithLag",
+                        "directconnect:AllocatePrivateVirtualInterface",
+                        "directconnect:DeleteInterconnect",
+                        "directconnect:AllocateHostedConnection",
+                        "directconnect:DeleteDirectConnectGateway",
+                        "directconnect:DeleteVirtualInterface",
+                        "directconnect:DeleteDirectConnectGatewayAssociation",
+                        "directconnect:CreateDirectConnectGatewayAssociation",
+                        "directconnect:DeleteConnection",
+                        "directconnect:CreateBGPPeer",
+                        "directconnect:AllocatePublicVirtualInterface",
+                        "directconnect:CreateConnection",
+                        "globalaccelerator:DeleteListener",
+                        "globalaccelerator:DeleteAccelerator",
+                        "globalaccelerator:UpdateListener",
+                        "globalaccelerator:UpdateAccelerator",
+                        "globalaccelerator:CreateEndpointGroup",
+                        "globalaccelerator:UpdateAcceleratorAttributes",
+                        "globalaccelerator:UpdateEndpointGroup",
+                        "globalaccelerator:CreateListener",
+                        "globalaccelerator:CreateAccelerator",
+                        "globalaccelerator:DeleteEndpointGroup"
+                      ],
+                      "Effect": "Deny",
+                      "Resource": "*"
+                    }
+                  ],
+                  "Version": "2012-10-17"
+                },
+                "description": "Prevent Modification of VPC Settings",
+                "name": "preventVPCchange",
+                "type": "SERVICE_CONTROL_POLICY"
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_organizations.CfnPolicy",
+              "version": "2.93.0"
+            }
+          },
+          "preventDeleteflowLog": {
+            "id": "preventDeleteflowLog",
+            "path": "ServiceControlPolicyStack/preventDeleteflowLog",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::Organizations::Policy",
+              "aws:cdk:cloudformation:props": {
+                "content": {
+                  "Statement": [
+                    {
+                      "Action": [
+                        "ec2:DeleteFlowLogs",
+                        "logs:DeleteLogGroup",
+                        "logs:DeleteLogStream"
+                      ],
+                      "Effect": "Deny",
+                      "Resource": "*"
+                    }
+                  ],
+                  "Version": "2012-10-17"
+                },
+                "description": "Prevent Flow Log Deletion",
+                "name": "preventDeleteflowLog",
+                "type": "SERVICE_CONTROL_POLICY"
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_organizations.CfnPolicy",
+              "version": "2.93.0"
+            }
+          },
+          "noPublicS3": {
+            "id": "noPublicS3",
+            "path": "ServiceControlPolicyStack/noPublicS3",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::Organizations::Policy",
+              "aws:cdk:cloudformation:props": {
+                "content": {
+                  "Statement": [
+                    {
+                      "Action": "s3:PutAccountPublicAccessBlock",
+                      "Effect": "Deny",
+                      "Resource": "*"
+                    }
+                  ],
+                  "Version": "2012-10-17"
+                },
+                "description": "Prevent Changing Public S3",
+                "name": "noPublicS3",
+                "type": "SERVICE_CONTROL_POLICY"
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_organizations.CfnPolicy",
+              "version": "2.93.0"
+            }
+          },
+          "nokms": {
+            "id": "nokms",
+            "path": "ServiceControlPolicyStack/nokms",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::Organizations::Policy",
+              "aws:cdk:cloudformation:props": {
+                "content": {
+                  "Statement": [
+                    {
+                      "Action": [
+                        "kms:ScheduleKeyDeletion",
+                        "kms:Delete"
+                      ],
+                      "Effect": "Deny",
+                      "Resource": "*"
+                    }
+                  ],
+                  "Version": "2012-10-17"
+                },
+                "description": "Prevent Deleting KMS Keys",
+                "name": "nokms",
+                "type": "SERVICE_CONTROL_POLICY"
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_organizations.CfnPolicy",
+              "version": "2.93.0"
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "ServiceControlPolicyStack/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.93.0"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "ServiceControlPolicyStack/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.93.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.93.0"
+        }
+      },
+      "ServiceControlPolicyTest": {
+        "id": "ServiceControlPolicyTest",
+        "path": "ServiceControlPolicyTest",
+        "children": {
+          "DefaultTest": {
+            "id": "DefaultTest",
+            "path": "ServiceControlPolicyTest/DefaultTest",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "ServiceControlPolicyTest/DefaultTest/Default",
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.0.5"
+                }
+              },
+              "DeployAssert": {
+                "id": "DeployAssert",
+                "path": "ServiceControlPolicyTest/DefaultTest/DeployAssert",
+                "children": {
+                  "BootstrapVersion": {
+                    "id": "BootstrapVersion",
+                    "path": "ServiceControlPolicyTest/DefaultTest/DeployAssert/BootstrapVersion",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnParameter",
+                      "version": "2.93.0"
+                    }
+                  },
+                  "CheckBootstrapVersion": {
+                    "id": "CheckBootstrapVersion",
+                    "path": "ServiceControlPolicyTest/DefaultTest/DeployAssert/CheckBootstrapVersion",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnRule",
+                      "version": "2.93.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Stack",
+                  "version": "2.93.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/integ-tests-alpha.IntegTestCase",
+              "version": "2.93.0-alpha.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "@aws-cdk/integ-tests-alpha.IntegTest",
+          "version": "2.93.0-alpha.0"
+        }
+      },
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.0.5"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.93.0"
+    }
+  }
+}

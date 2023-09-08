@@ -1,0 +1,12 @@
+{
+  "version": "33.0.0",
+  "testCases": {
+    "ServiceControlPolicyTest/DefaultTest": {
+      "stacks": [
+        "ServiceControlPolicyStack"
+      ],
+      "assertionStack": "ServiceControlPolicyTest/DefaultTest/DeployAssert",
+      "assertionStackName": "ServiceControlPolicyTestDefaultTestDeployAssert6A1913B7"
+    }
+  }
+}
