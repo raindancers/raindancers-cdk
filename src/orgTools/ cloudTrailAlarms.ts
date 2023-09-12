@@ -27,13 +27,11 @@ export enum OrgAlarms {
   ROOT_ACCOUNT_USE = 'ROOT_ACCOUNT_USE',
   IAM_USER_CHANGES = 'IAM_USER_CHANGES',
   IAM_ROLE_CHANGES = 'IAM_ROLE_CHANGES',
-  IAM_GROUP_CHANGES = 'IAM_GROUP_CHANGES',
   IAM_POLICY_CHANGES = 'IAM_POLICY_CHANGES',
   CLOUDTRAIL_CONFIGURATION_CHANGE = 'CLOUDTRAIL_CONFIGURATION_CHANGE',
   SIGNIN_FAILURE = 'SIGNIN_FAILURE',
   DISABLED_CUSTOMER_KEYS = 'DISABLED_CUSTOMER_KEYS',
   S3_POLICY_CHANGE = 'S3_POLICY_CHANGE',
-  CONFIG_SERVICE_CHANGE = 'CONFIG_SERVICE_CHANGE',
   SECURITY_GROUP_CHANGE = 'SECURITY_GROUP_CHANGE',
   NETWORK_ACL_CHANGE = 'NETWORK_ACL_CHANGE',
   NETWORK_GATEWAY_CHANGE = 'NETWORK_GATEWAY_CHANGE',
@@ -108,14 +106,6 @@ export class CloudTrailAlarms extends core.Resource {
             alarmSNSTopic: this.snsTopic,
           });
           break;
-
-        case OrgAlarms.IAM_GROUP_CHANGES:
-          CloudTrailAlarm.iamGroupChanges(scope, 'IamGroupChanges', {
-            logGroup: props.logGroup,
-            nameSpace: props.nameSpace,
-            alarmSNSTopic: this.snsTopic,
-          });
-          break;
         case OrgAlarms.IAM_POLICY_CHANGES:
           CloudTrailAlarm.iamPolicyChanges(scope, 'IamPolicyChanges', {
             logGroup: props.logGroup,
@@ -146,13 +136,6 @@ export class CloudTrailAlarms extends core.Resource {
           break;
         case OrgAlarms.S3_POLICY_CHANGE:
           CloudTrailAlarm.s3PolicyChanges(scope, 's3PolicyChanges', {
-            logGroup: props.logGroup,
-            nameSpace: props.nameSpace,
-            alarmSNSTopic: this.snsTopic,
-          });
-          break;
-        case OrgAlarms.CONFIG_SERVICE_CHANGE:
-          CloudTrailAlarm.configServiceChanges(scope, 'configServiceChanges', {
             logGroup: props.logGroup,
             nameSpace: props.nameSpace,
             alarmSNSTopic: this.snsTopic,
@@ -206,7 +189,7 @@ abstract class CloudTrailAlarm {
   // will detect activity by the root account.
   public static unAuthorizedAPICall(scope: constructs.Construct, id: string, props: FilterProps): IMetricFilter {
 
-    const name = 'UnAuthorized API Call';
+    const name = 'UnAuthorizedAPICall';
 
     new logs.MetricFilter(scope, id, {
       logGroup: props.logGroup,
@@ -217,15 +200,16 @@ abstract class CloudTrailAlarm {
     });
 
     const alarm = new cloudwatch.CfnAlarm(scope, 'unauthAPI', {
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      evaluationPeriods: 1,
-      actionsEnabled: true,
-      alarmDescription: 'Sign in Without MFA',
-      alarmName: 'SignInWithoutMFA',
+      alarmDescription: 'Unauthorised API Call',
+      alarmName: name,
       metricName: name,
       namespace: props.nameSpace,
-      threshold: 3,
+      statistic: 'sum',
       period: 60,
+      evaluationPeriods: 1,
+      threshold: 3,
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      actionsEnabled: true,
       alarmActions: [props.alarmSNSTopic.topicArn],
     });
 
@@ -240,7 +224,7 @@ abstract class CloudTrailAlarm {
 
   public static signInWithoutMFA(scope: constructs.Construct, id: string, props: FilterProps): IMetricFilter {
 
-    const name = 'Sign In Without MFA';
+    const name = 'SignInWithoutMFA';
 
     new logs.MetricFilter(scope, id, {
       logGroup: props.logGroup,
@@ -251,15 +235,16 @@ abstract class CloudTrailAlarm {
     });
 
     const alarm = new cloudwatch.CfnAlarm(scope, 'noMFAalarm', {
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      evaluationPeriods: 1,
-      actionsEnabled: true,
-      alarmDescription: 'Sign in Without MFA',
-      alarmName: 'SignInWithoutMFA',
+      alarmName: name,
+      alarmDescription: 'Sign In Without MFA',
       metricName: name,
       namespace: props.nameSpace,
-      threshold: 1,
+      statistic: 'sum',
       period: 60,
+      evaluationPeriods: 1,
+      threshold: 1,
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      actionsEnabled: true,
       alarmActions: [props.alarmSNSTopic.topicArn],
     });
 
@@ -284,15 +269,17 @@ abstract class CloudTrailAlarm {
     });
 
     const alarm = new cloudwatch.CfnAlarm(scope, 'rootAccountUseAlarm', {
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      evaluationPeriods: 1,
-      actionsEnabled: true,
+      alarmName: name,
       alarmDescription: 'Root Account Use',
-      alarmName: 'Root Account has been used',
       metricName: name,
       namespace: props.nameSpace,
-      threshold: 1,
+      statistic: 'sum',
       period: 60,
+      evaluationPeriods: 1,
+      threshold: 1,
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      actionsEnabled: true,
+      alarmActions: [props.alarmSNSTopic.topicArn],
     });
 
     return {
@@ -311,20 +298,22 @@ abstract class CloudTrailAlarm {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.exists('{ ($.eventName = DeleteUserPolicy) || ($.eventName = PutUserPolicy) || ($.eventName = AttachUserPolicy) || ($.eventName = DetachUserPolicy) }'),
+      filterPattern: logs.FilterPattern.exists('{($.eventName=AddUserToGroup)||($.eventName=ChangePassword)||($.eventName=CreateAccessKey)||($.eventName=CreateUser)||($.eventName=UpdateAccessKey)||($.eventName=UpdateGroup)||($.eventName=UpdateUser)||($.eventName=AttachGroupPolicy)||($.eventName=AttachUserPolicy)||($.eventName=DeleteUserPolicy)||($.eventName=DetachGroupPolicy)||($.eventName=DetachUserPolicy)||($.eventName=PutUserPolicy)}'),
       metricValue: '1',
     });
 
     const alarm = new cloudwatch.CfnAlarm(scope, 'IamUserChangealarm', {
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      evaluationPeriods: 1,
-      actionsEnabled: true,
-      alarmDescription: 'Iam User Changes',
-      alarmName: 'IAMUserChanges',
+      alarmName: name,
+      alarmDescription: 'Iam user changes',
       metricName: name,
       namespace: props.nameSpace,
+      statistic: 'sum',
+      period: 300,
+      evaluationPeriods: 1,
       threshold: 1,
-      period: 60,
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      actionsEnabled: true,
+      alarmActions: [props.alarmSNSTopic.topicArn],
     });
 
     return {
@@ -367,38 +356,6 @@ abstract class CloudTrailAlarm {
     };
   }
 
-  public static iamGroupChanges(scope: constructs.Construct, id: string, props: FilterProps): IMetricFilter {
-
-    const name = 'IAM Group Changes';
-
-    new logs.MetricFilter(scope, id, {
-      logGroup: props.logGroup,
-      metricNamespace: props.nameSpace,
-      metricName: name,
-      filterPattern: logs.FilterPattern.exists('{ ($.eventName = DeleteGroupPolicy) || ($.eventName = PutGroupPolicy) || ($.eventName = AttachGroupPolicy) || ($.eventName = DetachGroupPolicy) }'),
-      metricValue: '1',
-    });
-
-    const alarm = new cloudwatch.CfnAlarm(scope, 'IamGroupalarm', {
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      evaluationPeriods: 1,
-      actionsEnabled: true,
-      alarmDescription: 'Iam Group Changes',
-      alarmName: 'IAMGroupChanges',
-      metricName: name,
-      namespace: props.nameSpace,
-      threshold: 1,
-      period: 60,
-    });
-
-    return {
-      logGroup: props.logGroup,
-      name: name,
-      nameSpace: props.nameSpace,
-      alarm: alarm.logicalId,
-    };
-  }
-
   public static iamPolicyChanges(scope: constructs.Construct, id: string, props: FilterProps): IMetricFilter {
 
     const name = 'IAM Policy Changes';
@@ -407,20 +364,22 @@ abstract class CloudTrailAlarm {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.exists('{ ($.eventName = DeleteGroupPolicy) || ($.eventName = PutGroupPolicy) || ($.eventName = AttachGroupPolicy) || ($.eventName = DetachGroupPolicy) }'),
+      filterPattern: logs.FilterPattern.exists('{($.eventName=DeleteGroupPolicy)||($.eventName=DeleteRolePolicy)||($.eventName=DeleteUserPolicy)||($.eventName=PutGroupPolicy)||($.eventName=PutRolePolicy)||($.eventName=PutUserPolicy)||($.eventName=CreatePolicy)||($.eventName=DeletePolicy)||($.eventName=CreatePolicyVersion)||($.eventName=DeletePolicyVersion)||($.eventName=AttachRolePolicy)||($.eventName=DetachRolePolicy)||($.eventName=AttachUserPolicy)||($.eventName=DetachUserPolicy)||($.eventName=AttachGroupPolicy)||($.eventName=DetachGroupPolicy)}'),
       metricValue: '1',
     });
 
-    const alarm = new cloudwatch.CfnAlarm(scope, 'IamPolicyalarm', {
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      evaluationPeriods: 1,
-      actionsEnabled: true,
-      alarmDescription: 'Iam Policy Changes',
-      alarmName: 'IAMPolicyChanges',
+    const alarm = new cloudwatch.CfnAlarm(scope, 'IamGroupalarm', {
+      alarmName: name,
+      alarmDescription: 'Iam policy change',
       metricName: name,
       namespace: props.nameSpace,
+      statistic: 'sum',
+      period: 300,
+      evaluationPeriods: 1,
       threshold: 1,
-      period: 60,
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      actionsEnabled: true,
+      alarmActions: [props.alarmSNSTopic.topicArn],
     });
 
     return {
@@ -430,6 +389,7 @@ abstract class CloudTrailAlarm {
       alarm: alarm.logicalId,
     };
   }
+
 
   public static cloudTrailConfiguration(scope: constructs.Construct, id: string, props: FilterProps): IMetricFilter {
 
@@ -444,15 +404,17 @@ abstract class CloudTrailAlarm {
     });
 
     const alarm = new cloudwatch.CfnAlarm(scope, 'CloudTrailConfigurationChange', {
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      evaluationPeriods: 1,
-      actionsEnabled: true,
-      alarmDescription: 'CloudTrail Configuration Changes',
-      alarmName: 'CloudTrailConfigurationchanges',
+      alarmName: name,
+      alarmDescription: 'CloudTrail change',
       metricName: name,
       namespace: props.nameSpace,
+      statistic: 'sum',
+      period: 300,
+      evaluationPeriods: 1,
       threshold: 1,
-      period: 60,
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      actionsEnabled: true,
+      alarmActions: [props.alarmSNSTopic.topicArn],
     });
 
     return {
@@ -476,15 +438,17 @@ abstract class CloudTrailAlarm {
     });
 
     const alarm = new cloudwatch.CfnAlarm(scope, 'signinFailure', {
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      evaluationPeriods: 1,
-      actionsEnabled: true,
-      alarmDescription: 'signinFailures',
-      alarmName: 'signinFailures',
+      alarmName: name,
+      alarmDescription: 'Sign IN Failure',
       metricName: name,
       namespace: props.nameSpace,
-      threshold: 5,
-      period: 180,
+      statistic: 'sum',
+      period: 300,
+      evaluationPeriods: 1,
+      threshold: 3,
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      actionsEnabled: true,
+      alarmActions: [props.alarmSNSTopic.topicArn],
     });
 
     return {
@@ -508,15 +472,17 @@ abstract class CloudTrailAlarm {
     });
 
     const alarm = new cloudwatch.CfnAlarm(scope, 'DisabledCustomerKeysArn', {
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      evaluationPeriods: 1,
-      actionsEnabled: true,
-      alarmDescription: 'Disabled Customer Keys',
-      alarmName: 'DisabledCustomerKeys',
+      alarmName: name,
+      alarmDescription: 'IDisabling Customer KMS',
       metricName: name,
       namespace: props.nameSpace,
-      threshold: 1,
+      statistic: 'sum',
       period: 60,
+      evaluationPeriods: 1,
+      threshold: 1,
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      actionsEnabled: true,
+      alarmActions: [props.alarmSNSTopic.topicArn],
     });
 
     return {
@@ -540,15 +506,17 @@ abstract class CloudTrailAlarm {
     });
 
     const alarm = new cloudwatch.CfnAlarm(scope, 'S3PolicyChangeAlarm', {
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      evaluationPeriods: 1,
-      actionsEnabled: true,
-      alarmDescription: 's3PolicyChange',
-      alarmName: 's3PolicyChange',
+      alarmName: name,
+      alarmDescription: 'S3 Policy Change',
       metricName: name,
       namespace: props.nameSpace,
+      statistic: 'sum',
+      period: 300,
+      evaluationPeriods: 1,
       threshold: 1,
-      period: 60,
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      actionsEnabled: true,
+      alarmActions: [props.alarmSNSTopic.topicArn],
     });
 
     return {
@@ -559,37 +527,6 @@ abstract class CloudTrailAlarm {
     };
   }
 
-  public static configServiceChanges(scope: constructs.Construct, id: string, props: FilterProps): IMetricFilter {
-
-    const name = 'config Service Changes';
-
-    new logs.MetricFilter(scope, id, {
-      logGroup: props.logGroup,
-      metricNamespace: props.nameSpace,
-      metricName: name,
-      filterPattern: logs.FilterPattern.exists('{($.eventSource = config.amazonaws.com) && (($.eventName=StopConfigurationRecorder)||($.eventName=DeleteDeliveryChannel)||($.eventName=PutDeliveryChannel)||($.eventName=PutConfigurationRecorder))}'),
-      metricValue: '1',
-    });
-
-    const alarm = new cloudwatch.CfnAlarm(scope, 'ConfigServiceChangeAlarm', {
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      evaluationPeriods: 1,
-      actionsEnabled: true,
-      alarmDescription: 'configServiceChange',
-      alarmName: 'configServiceChange',
-      metricName: name,
-      namespace: props.nameSpace,
-      threshold: 1,
-      period: 60,
-    });
-
-    return {
-      logGroup: props.logGroup,
-      name: name,
-      nameSpace: props.nameSpace,
-      alarm: alarm.logicalId,
-    };
-  }
 
   public static securityGroupChanges(scope: constructs.Construct, id: string, props: FilterProps): IMetricFilter {
 
@@ -604,15 +541,17 @@ abstract class CloudTrailAlarm {
     });
 
     const alarm = new cloudwatch.CfnAlarm(scope, 'SecurityGroupChanges', {
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      evaluationPeriods: 1,
-      actionsEnabled: true,
-      alarmDescription: 'Security Group Changes',
-      alarmName: 'Security Group Changes',
+      alarmName: name,
+      alarmDescription: 'Security Group Change',
       metricName: name,
       namespace: props.nameSpace,
+      statistic: 'sum',
+      period: 300,
+      evaluationPeriods: 1,
       threshold: 1,
-      period: 60,
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      actionsEnabled: true,
+      alarmActions: [props.alarmSNSTopic.topicArn],
     });
 
     return {
@@ -636,15 +575,17 @@ abstract class CloudTrailAlarm {
     });
 
     const alarm = new cloudwatch.CfnAlarm(scope, 'NEtworkACLChanges', {
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      evaluationPeriods: 1,
-      actionsEnabled: true,
-      alarmDescription: 'Network ACL Changes',
-      alarmName: 'NetworkACLChanges',
+      alarmName: name,
+      alarmDescription: 'Network ACL Change',
       metricName: name,
       namespace: props.nameSpace,
+      statistic: 'sum',
+      period: 300,
+      evaluationPeriods: 1,
       threshold: 1,
-      period: 60,
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      actionsEnabled: true,
+      alarmActions: [props.alarmSNSTopic.topicArn],
     });
 
     return {
@@ -668,15 +609,17 @@ abstract class CloudTrailAlarm {
     });
 
     const alarm = new cloudwatch.CfnAlarm(scope, 'NEtworkGWChanges', {
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      evaluationPeriods: 1,
-      actionsEnabled: true,
-      alarmDescription: 'Network Gateway Changes',
-      alarmName: 'NetworkGatewayChanges',
+      alarmName: name,
+      alarmDescription: 'NW Gateway Change',
       metricName: name,
       namespace: props.nameSpace,
+      statistic: 'sum',
+      period: 300,
+      evaluationPeriods: 1,
       threshold: 1,
-      period: 60,
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      actionsEnabled: true,
+      alarmActions: [props.alarmSNSTopic.topicArn],
     });
 
     return {
@@ -700,15 +643,17 @@ abstract class CloudTrailAlarm {
     });
 
     const alarm = new cloudwatch.CfnAlarm(scope, 'RouteTableChanges', {
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      evaluationPeriods: 1,
-      actionsEnabled: true,
-      alarmDescription: 'RouteTableChanges',
-      alarmName: 'RouteTableChanges',
+      alarmName: name,
+      alarmDescription: 'RouteTableChange',
       metricName: name,
       namespace: props.nameSpace,
+      statistic: 'sum',
+      period: 300,
+      evaluationPeriods: 1,
       threshold: 1,
-      period: 60,
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      actionsEnabled: true,
+      alarmActions: [props.alarmSNSTopic.topicArn],
     });
 
     return {
@@ -732,15 +677,17 @@ abstract class CloudTrailAlarm {
     });
 
     const alarm = new cloudwatch.CfnAlarm(scope, 'VpcChangesAlarm', {
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      evaluationPeriods: 1,
-      actionsEnabled: true,
-      alarmDescription: 'Vpc Changes Alarm',
-      alarmName: 'VpcChangeAlarm',
+      alarmName: name,
+      alarmDescription: 'Vpc Change',
       metricName: name,
       namespace: props.nameSpace,
+      statistic: 'sum',
+      period: 300,
+      evaluationPeriods: 1,
       threshold: 1,
-      period: 60,
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      actionsEnabled: true,
+      alarmActions: [props.alarmSNSTopic.topicArn],
     });
 
     return {

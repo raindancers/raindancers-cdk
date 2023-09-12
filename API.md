@@ -1745,13 +1745,11 @@ public readonly id: string;
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.ROOT_ACCOUNT_USE">ROOT_ACCOUNT_USE</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.IAM_USER_CHANGES">IAM_USER_CHANGES</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.IAM_ROLE_CHANGES">IAM_ROLE_CHANGES</a></code> | *No description.* |
-| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.IAM_GROUP_CHANGES">IAM_GROUP_CHANGES</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.IAM_POLICY_CHANGES">IAM_POLICY_CHANGES</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.CLOUDTRAIL_CONFIGURATION_CHANGE">CLOUDTRAIL_CONFIGURATION_CHANGE</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.SIGNIN_FAILURE">SIGNIN_FAILURE</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.DISABLED_CUSTOMER_KEYS">DISABLED_CUSTOMER_KEYS</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.S3_POLICY_CHANGE">S3_POLICY_CHANGE</a></code> | *No description.* |
-| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.CONFIG_SERVICE_CHANGE">CONFIG_SERVICE_CHANGE</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.SECURITY_GROUP_CHANGE">SECURITY_GROUP_CHANGE</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.NETWORK_ACL_CHANGE">NETWORK_ACL_CHANGE</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.NETWORK_GATEWAY_CHANGE">NETWORK_GATEWAY_CHANGE</a></code> | *No description.* |
@@ -1785,11 +1783,6 @@ public readonly id: string;
 ---
 
 
-##### `IAM_GROUP_CHANGES` <a name="IAM_GROUP_CHANGES" id="raindancers-cdk.orgTools.OrgAlarms.IAM_GROUP_CHANGES"></a>
-
----
-
-
 ##### `IAM_POLICY_CHANGES` <a name="IAM_POLICY_CHANGES" id="raindancers-cdk.orgTools.OrgAlarms.IAM_POLICY_CHANGES"></a>
 
 ---
@@ -1811,11 +1804,6 @@ public readonly id: string;
 
 
 ##### `S3_POLICY_CHANGE` <a name="S3_POLICY_CHANGE" id="raindancers-cdk.orgTools.OrgAlarms.S3_POLICY_CHANGE"></a>
-
----
-
-
-##### `CONFIG_SERVICE_CHANGE` <a name="CONFIG_SERVICE_CHANGE" id="raindancers-cdk.orgTools.OrgAlarms.CONFIG_SERVICE_CHANGE"></a>
 
 ---
 
