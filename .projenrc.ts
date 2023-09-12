@@ -18,4 +18,5 @@ const project = new awscdk.AwsCdkConstructLibrary({
 project.deps.addDependency('@aws-cdk/integ-runner@latest', DependencyType.DEVENV);
 project.deps.addDependency('@aws-cdk/integ-tests-alpha@latest', DependencyType.DEVENV);
 
+project.addGitIgnore('!lambda/**');
 project.synth();

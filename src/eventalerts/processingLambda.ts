@@ -37,7 +37,7 @@ export class EventToSNS extends core.Resource {
     this.function = new aws_lambda.Function(this, 'Resource', {
       runtime: aws_lambda.Runtime.PYTHON_3_10,
       handler: 'processEvent.lambda_handler',
-      code: aws_lambda.Code.fromAsset(path.join(__dirname, './lambda/')),
+      code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../lambda/')),
       timeout: core.Duration.seconds(15),
       memorySize: 256,
       environment: {
@@ -65,7 +65,7 @@ export class EventToSlack extends core.Resource {
     this.function = new aws_lambda.Function(this, 'Resource', {
       runtime: aws_lambda.Runtime.PYTHON_3_10,
       handler: 'slack.lambda_handler',
-      code: aws_lambda.Code.fromAsset(path.join(__dirname, './lambda/')),
+      code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../lambda/')),
       timeout: core.Duration.seconds(15),
       memorySize: 256,
       environment: {
@@ -87,7 +87,7 @@ export class EventToTeams extends core.Resource {
     this.function = new aws_lambda.Function(this, 'Resource', {
       runtime: aws_lambda.Runtime.PYTHON_3_10,
       handler: 'teams.lambda_handler',
-      code: aws_lambda.Code.fromAsset(path.join(__dirname, './lambda/')),
+      code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../lambda/')),
       timeout: core.Duration.seconds(15),
       memorySize: 256,
       environment: {

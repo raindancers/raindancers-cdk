@@ -443,7 +443,7 @@ abstract class CloudTrailAlarm {
       metricValue: '1',
     });
 
-    const alarm = new cloudwatch.CfnAlarm(scope, 'CloudTrailConfigurationalarm', {
+    const alarm = new cloudwatch.CfnAlarm(scope, 'CloudTrailConfigurationChange', {
       comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
       evaluationPeriods: 1,
       actionsEnabled: true,
@@ -475,7 +475,7 @@ abstract class CloudTrailAlarm {
       metricValue: '1',
     });
 
-    const alarm = new cloudwatch.CfnAlarm(scope, 'CloudTrailConfigurationalarm', {
+    const alarm = new cloudwatch.CfnAlarm(scope, 'signinFailure', {
       comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
       evaluationPeriods: 1,
       actionsEnabled: true,
@@ -483,8 +483,8 @@ abstract class CloudTrailAlarm {
       alarmName: 'CloudTrailConfigurationchanges',
       metricName: name,
       namespace: props.nameSpace,
-      threshold: 1,
-      period: 60,
+      threshold: 5,
+      period: 180,
     });
 
     return {
