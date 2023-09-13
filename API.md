@@ -1180,8 +1180,19 @@ const eventToTeamsProps: eventalerts.EventToTeamsProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#raindancers-cdk.eventalerts.EventToTeamsProps.property.teamsImage">teamsImage</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.eventalerts.EventToTeamsProps.property.teamsUrl">teamsUrl</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.eventalerts.EventToTeamsProps.property.snsTopic">snsTopic</a></code> | <code>aws-cdk-lib.aws_sns.Topic</code> | *No description.* |
+
+---
+
+##### `teamsImage`<sup>Required</sup> <a name="teamsImage" id="raindancers-cdk.eventalerts.EventToTeamsProps.property.teamsImage"></a>
+
+```typescript
+public readonly teamsImage: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -1741,11 +1752,12 @@ public readonly id: string;
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.UNAUTHORIZED_API_CALL">UNAUTHORIZED_API_CALL</a></code> | *No description.* |
-| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.SIGNIN_WITHOUT_MFA">SIGNIN_WITHOUT_MFA</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.CONSOLE_SIGNIN_WITHOUT_MFA">CONSOLE_SIGNIN_WITHOUT_MFA</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.ROOT_ACCOUNT_USE">ROOT_ACCOUNT_USE</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.IAM_USER_CHANGES">IAM_USER_CHANGES</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.IAM_ROLE_CHANGES">IAM_ROLE_CHANGES</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.IAM_POLICY_CHANGES">IAM_POLICY_CHANGES</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.OrgAlarms.IAM_USER_CHANGES_SSO">IAM_USER_CHANGES_SSO</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.CLOUDTRAIL_CONFIGURATION_CHANGE">CLOUDTRAIL_CONFIGURATION_CHANGE</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.SIGNIN_FAILURE">SIGNIN_FAILURE</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.OrgAlarms.DISABLED_CUSTOMER_KEYS">DISABLED_CUSTOMER_KEYS</a></code> | *No description.* |
@@ -1763,7 +1775,7 @@ public readonly id: string;
 ---
 
 
-##### `SIGNIN_WITHOUT_MFA` <a name="SIGNIN_WITHOUT_MFA" id="raindancers-cdk.orgTools.OrgAlarms.SIGNIN_WITHOUT_MFA"></a>
+##### `CONSOLE_SIGNIN_WITHOUT_MFA` <a name="CONSOLE_SIGNIN_WITHOUT_MFA" id="raindancers-cdk.orgTools.OrgAlarms.CONSOLE_SIGNIN_WITHOUT_MFA"></a>
 
 ---
 
@@ -1784,6 +1796,11 @@ public readonly id: string;
 
 
 ##### `IAM_POLICY_CHANGES` <a name="IAM_POLICY_CHANGES" id="raindancers-cdk.orgTools.OrgAlarms.IAM_POLICY_CHANGES"></a>
+
+---
+
+
+##### `IAM_USER_CHANGES_SSO` <a name="IAM_USER_CHANGES_SSO" id="raindancers-cdk.orgTools.OrgAlarms.IAM_USER_CHANGES_SSO"></a>
 
 ---
 

@@ -24,6 +24,7 @@ export interface EventToSlackProps {
 export interface EventToTeamsProps {
   readonly teamsUrl: string;
   readonly snsTopic?: sns.Topic | undefined;
+  readonly teamsImage: string;
 }
 
 
@@ -92,6 +93,7 @@ export class EventToTeams extends core.Resource {
       memorySize: 256,
       environment: {
         TEAMSURL: props.teamsUrl,
+        TEAMSIMAGE: props.teamsImage,
       },
     });
 

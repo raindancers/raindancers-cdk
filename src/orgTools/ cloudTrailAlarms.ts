@@ -23,11 +23,12 @@ export interface IMetricFilter {
 
 export enum OrgAlarms {
   UNAUTHORIZED_API_CALL = 'UNAUTHORIZED_API_CALL',
-  SIGNIN_WITHOUT_MFA = 'SIGNIN_WITHOUT_MFA',
+  CONSOLE_SIGNIN_WITHOUT_MFA = 'CONSOLE_SIGNIN_WITHOUT_MFA',
   ROOT_ACCOUNT_USE = 'ROOT_ACCOUNT_USE',
   IAM_USER_CHANGES = 'IAM_USER_CHANGES',
   IAM_ROLE_CHANGES = 'IAM_ROLE_CHANGES',
   IAM_POLICY_CHANGES = 'IAM_POLICY_CHANGES',
+  IAM_USER_CHANGES_SSO = 'IAM_USER_CHANGES_SSO',
   CLOUDTRAIL_CONFIGURATION_CHANGE = 'CLOUDTRAIL_CONFIGURATION_CHANGE',
   SIGNIN_FAILURE = 'SIGNIN_FAILURE',
   DISABLED_CUSTOMER_KEYS = 'DISABLED_CUSTOMER_KEYS',
@@ -75,8 +76,8 @@ export class CloudTrailAlarms extends core.Resource {
           });
           break;
 
-        case OrgAlarms.SIGNIN_WITHOUT_MFA:
-          CloudTrailAlarm.signInWithoutMFA(scope, 'SignInWithoutMFA', {
+        case OrgAlarms.CONSOLE_SIGNIN_WITHOUT_MFA:
+          CloudTrailAlarm.consoleSignInWithoutMFA(scope, 'SignInWithoutMFA', {
             logGroup: props.logGroup,
             nameSpace: props.nameSpace,
             alarmSNSTopic: this.snsTopic,
@@ -93,6 +94,13 @@ export class CloudTrailAlarms extends core.Resource {
 
         case OrgAlarms.IAM_USER_CHANGES:
           CloudTrailAlarm.iamUserChanges(scope, 'IamUserChanges', {
+            logGroup: props.logGroup,
+            nameSpace: props.nameSpace,
+            alarmSNSTopic: this.snsTopic,
+          });
+          break;
+        case OrgAlarms.IAM_USER_CHANGES_SSO:
+          CloudTrailAlarm.iamUserChangesWithSSO(scope, 'IamUserChangesSSO', {
             logGroup: props.logGroup,
             nameSpace: props.nameSpace,
             alarmSNSTopic: this.snsTopic,
@@ -214,21 +222,21 @@ abstract class CloudTrailAlarm {
     };
   }
 
-  public static signInWithoutMFA(scope: constructs.Construct, id: string, props: FilterProps): IMetricFilter {
+  public static consoleSignInWithoutMFA(scope: constructs.Construct, id: string, props: FilterProps): IMetricFilter {
 
-    const name = 'SignInWithoutMFA';
+    const name = 'ConsoleSignInWithoutMFA';
 
     new logs.MetricFilter(scope, id, {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.literal('{ ($.eventName = "ConsoleLogin") && ($.additionalEventData.MFAUsed != "Yes") }'),
+      filterPattern: logs.FilterPattern.literal('{ ($.eventName = "ConsoleLogin") && ($.additionalEventData.MFAUsed != "Yes") && ($.userIdentity.type !="AssumedRole") }'),
       metricValue: '1',
     });
 
     const alarm = new cloudwatch.CfnAlarm(scope, 'noMFAalarm', {
       alarmName: name,
-      alarmDescription: 'Sign In Without MFA',
+      alarmDescription: 'Console Sign In Without MFA',
       metricName: name,
       namespace: props.nameSpace,
       statistic: 'Sum',
@@ -297,6 +305,40 @@ abstract class CloudTrailAlarm {
     const alarm = new cloudwatch.CfnAlarm(scope, 'IamUserChangealarm', {
       alarmName: name,
       alarmDescription: 'Iam user changes',
+      metricName: name,
+      namespace: props.nameSpace,
+      statistic: 'Sum',
+      period: 300,
+      evaluationPeriods: 1,
+      threshold: 1,
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+      actionsEnabled: true,
+      alarmActions: [props.alarmSNSTopic.topicArn],
+    });
+
+    return {
+      logGroup: props.logGroup,
+      name: name,
+      nameSpace: props.nameSpace,
+      alarm: alarm.logicalId,
+    };
+  }
+
+  public static iamUserChangesWithSSO(scope: constructs.Construct, id: string, props: FilterProps): IMetricFilter {
+
+    const name = 'iamUserChangesWithSSO';
+
+    new logs.MetricFilter(scope, id, {
+      logGroup: props.logGroup,
+      metricNamespace: props.nameSpace,
+      metricName: name,
+      filterPattern: logs.FilterPattern.literal('{ (($.eventName=AddUserToGroup)||($.eventName=ChangePassword)||($.eventName=CreateAccessKey)||($.eventName=CreateUser)||($.eventName=UpdateAccessKey)||($.eventName=UpdateGroup)||($.eventName=UpdateUser)||($.eventName=AttachGroupPolicy)||($.eventName=AttachUserPolicy)||($.eventName=DeleteUserPolicy)||($.eventName=DetachGroupPolicy)||($.eventName=DetachUserPolicy)||($.eventName=PutUserPolicy) )&& ($.eventSource!="sso-directory.amazonaws.com") }'),
+      metricValue: '1',
+    });
+
+    const alarm = new cloudwatch.CfnAlarm(scope, 'IamUserChangealarmSSO', {
+      alarmName: name,
+      alarmDescription: 'Iam user changes in SSO environment',
       metricName: name,
       namespace: props.nameSpace,
       statistic: 'Sum',
