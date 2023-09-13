@@ -195,7 +195,7 @@ abstract class CloudTrailAlarm {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.literal('$.errorCode = "*UnauthorizedOperation") || ($.errorCode = "AccessDenied*"'),
+      filterPattern: logs.FilterPattern.literal('{ $.errorCode = "*UnauthorizedOperation") || ($.errorCode = "AccessDenied*" }'),
       metricValue: '1',
     });
 
@@ -230,7 +230,7 @@ abstract class CloudTrailAlarm {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.literal('($.eventName = "ConsoleLogin") && ($.additionalEventData.MFAUsed != "Yes")'),
+      filterPattern: logs.FilterPattern.literal('{ ($.eventName = "ConsoleLogin") && ($.additionalEventData.MFAUsed != "Yes") }'),
       metricValue: '1',
     });
 
@@ -264,7 +264,7 @@ abstract class CloudTrailAlarm {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.literal('$.userIdentity.type = "Root" && $.userIdentity.invokedBy NOT EXISTS && $.eventType != "AwsServiceEvent"'),
+      filterPattern: logs.FilterPattern.literal('{ $.userIdentity.type = "Root" && $.userIdentity.invokedBy NOT EXISTS && $.eventType != "AwsServiceEvent" }'),
       metricValue: '1',
     });
 
@@ -298,7 +298,7 @@ abstract class CloudTrailAlarm {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.literal('($.eventName=AddUserToGroup)||($.eventName=ChangePassword)||($.eventName=CreateAccessKey)||($.eventName=CreateUser)||($.eventName=UpdateAccessKey)||($.eventName=UpdateGroup)||($.eventName=UpdateUser)||($.eventName=AttachGroupPolicy)||($.eventName=AttachUserPolicy)||($.eventName=DeleteUserPolicy)||($.eventName=DetachGroupPolicy)||($.eventName=DetachUserPolicy)||($.eventName=PutUserPolicy)'),
+      filterPattern: logs.FilterPattern.literal('{ ($.eventName=AddUserToGroup)||($.eventName=ChangePassword)||($.eventName=CreateAccessKey)||($.eventName=CreateUser)||($.eventName=UpdateAccessKey)||($.eventName=UpdateGroup)||($.eventName=UpdateUser)||($.eventName=AttachGroupPolicy)||($.eventName=AttachUserPolicy)||($.eventName=DeleteUserPolicy)||($.eventName=DetachGroupPolicy)||($.eventName=DetachUserPolicy)||($.eventName=PutUserPolicy) }'),
       metricValue: '1',
     });
 
@@ -332,7 +332,7 @@ abstract class CloudTrailAlarm {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.literal('($.eventName = DeleteRolePolicy) || ($.eventName = PutRolePolicy) || ($.eventName = AttachRolePolicy) || ($.eventName = DetachRolePolicy)'),
+      filterPattern: logs.FilterPattern.literal('{ ($.eventName = DeleteRolePolicy) || ($.eventName = PutRolePolicy) || ($.eventName = AttachRolePolicy) || ($.eventName = DetachRolePolicy) }'),
       metricValue: '1',
     });
 
@@ -364,7 +364,7 @@ abstract class CloudTrailAlarm {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.literal('($.eventName=DeleteGroupPolicy)||($.eventName=DeleteRolePolicy)||($.eventName=DeleteUserPolicy)||($.eventName=PutGroupPolicy)||($.eventName=PutRolePolicy)||($.eventName=PutUserPolicy)||($.eventName=CreatePolicy)||($.eventName=DeletePolicy)||($.eventName=CreatePolicyVersion)||($.eventName=DeletePolicyVersion)||($.eventName=AttachRolePolicy)||($.eventName=DetachRolePolicy)||($.eventName=AttachUserPolicy)||($.eventName=DetachUserPolicy)||($.eventName=AttachGroupPolicy)||($.eventName=DetachGroupPolicy)'),
+      filterPattern: logs.FilterPattern.literal('{ ($.eventName=DeleteGroupPolicy)||($.eventName=DeleteRolePolicy)||($.eventName=DeleteUserPolicy)||($.eventName=PutGroupPolicy)||($.eventName=PutRolePolicy)||($.eventName=PutUserPolicy)||($.eventName=CreatePolicy)||($.eventName=DeletePolicy)||($.eventName=CreatePolicyVersion)||($.eventName=DeletePolicyVersion)||($.eventName=AttachRolePolicy)||($.eventName=DetachRolePolicy)||($.eventName=AttachUserPolicy)||($.eventName=DetachUserPolicy)||($.eventName=AttachGroupPolicy)||($.eventName=DetachGroupPolicy) }'),
       metricValue: '1',
     });
 
@@ -399,7 +399,7 @@ abstract class CloudTrailAlarm {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.literal('($.eventName = CreateTrail) || ($.eventName = UpdateTrail) || ($.eventName = DeleteTrail) || ($.eventName = StartLogging) || ($.eventName = StopLogging)'),
+      filterPattern: logs.FilterPattern.literal('{ ($.eventName = CreateTrail) || ($.eventName = UpdateTrail) || ($.eventName = DeleteTrail) || ($.eventName = StartLogging) || ($.eventName = StopLogging) }'),
       metricValue: '1',
     });
 
@@ -433,7 +433,7 @@ abstract class CloudTrailAlarm {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.literal('($.eventName = ConsoleLogin) && ($.errorMessage = "Failed authentication")'),
+      filterPattern: logs.FilterPattern.literal('{ ($.eventName = ConsoleLogin) && ($.errorMessage = "Failed authentication") }'),
       metricValue: '1',
     });
 
@@ -467,7 +467,7 @@ abstract class CloudTrailAlarm {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.literal('($.eventSource = kms.amazonaws.com) && (($.eventName=DisableKey)||($.eventName=ScheduleKeyDeletion))'),
+      filterPattern: logs.FilterPattern.literal('{ ($.eventSource = kms.amazonaws.com) && (($.eventName=DisableKey)||($.eventName=ScheduleKeyDeletion)) }'),
       metricValue: '1',
     });
 
@@ -501,7 +501,7 @@ abstract class CloudTrailAlarm {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.literal('($.eventSource = s3.amazonaws.com) && (($.eventName = PutBucketAcl) || ($.eventName = PutBucketPolicy) || ($.eventName = PutBucketCors) || ($.eventName = PutBucketLifecycle) || ($.eventName = PutBucketReplication) || ($.eventName = DeleteBucketPolicy) || ($.eventName = DeleteBucketCors) || ($.eventName = DeleteBucketLifecycle) || ($.eventName = DeleteBucketReplication))'),
+      filterPattern: logs.FilterPattern.literal('{ ($.eventSource = s3.amazonaws.com) && (($.eventName = PutBucketAcl) || ($.eventName = PutBucketPolicy) || ($.eventName = PutBucketCors) || ($.eventName = PutBucketLifecycle) || ($.eventName = PutBucketReplication) || ($.eventName = DeleteBucketPolicy) || ($.eventName = DeleteBucketCors) || ($.eventName = DeleteBucketLifecycle) || ($.eventName = DeleteBucketReplication)) }'),
       metricValue: '1',
     });
 
@@ -536,7 +536,7 @@ abstract class CloudTrailAlarm {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.literal('($.eventName = AuthorizeSecurityGroupIngress) || ($.eventName = AuthorizeSecurityGroupEgress) || ($.eventName = RevokeSecurityGroupIngress) || ($.eventName = RevokeSecurityGroupEgress) || ($.eventName = CreateSecurityGroup) || ($.eventName = DeleteSecurityGroup)'),
+      filterPattern: logs.FilterPattern.literal('{ ($.eventName = AuthorizeSecurityGroupIngress) || ($.eventName = AuthorizeSecurityGroupEgress) || ($.eventName = RevokeSecurityGroupIngress) || ($.eventName = RevokeSecurityGroupEgress) || ($.eventName = CreateSecurityGroup) || ($.eventName = DeleteSecurityGroup) }'),
       metricValue: '1',
     });
 
@@ -570,7 +570,7 @@ abstract class CloudTrailAlarm {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.literal('($.eventName = CreateNetworkAcl) || ($.eventName = CreateNetworkAclEntry) || ($.eventName = DeleteNetworkAcl) || ($.eventName = DeleteNetworkAclEntry) || ($.eventName = ReplaceNetworkAclEntry) || ($.eventName = ReplaceNetworkAclAssociation)'),
+      filterPattern: logs.FilterPattern.literal('{ ($.eventName = CreateNetworkAcl) || ($.eventName = CreateNetworkAclEntry) || ($.eventName = DeleteNetworkAcl) || ($.eventName = DeleteNetworkAclEntry) || ($.eventName = ReplaceNetworkAclEntry) || ($.eventName = ReplaceNetworkAclAssociation) }'),
       metricValue: '1',
     });
 
@@ -604,7 +604,7 @@ abstract class CloudTrailAlarm {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.literal('($.eventName = CreateCustomerGateway) || ($.eventName = DeleteCustomerGateway) || ($.eventName = AttachInternetGateway) || ($.eventName = CreateInternetGateway) || ($.eventName = DeleteInternetGateway) || ($.eventName = DetachInternetGateway)'),
+      filterPattern: logs.FilterPattern.literal('{ ($.eventName = CreateCustomerGateway) || ($.eventName = DeleteCustomerGateway) || ($.eventName = AttachInternetGateway) || ($.eventName = CreateInternetGateway) || ($.eventName = DeleteInternetGateway) || ($.eventName = DetachInternetGateway) }'),
       metricValue: '1',
     });
 
@@ -638,7 +638,7 @@ abstract class CloudTrailAlarm {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.literal('($.eventName = CreateRoute) || ($.eventName = CreateRouteTable) || ($.eventName = ReplaceRoute) || ($.eventName = ReplaceRouteTableAssociation) || ($.eventName = DeleteRouteTable) || ($.eventName = DeleteRoute) || ($.eventName = DisassociateRouteTable)'),
+      filterPattern: logs.FilterPattern.literal('{ ($.eventName = CreateRoute) || ($.eventName = CreateRouteTable) || ($.eventName = ReplaceRoute) || ($.eventName = ReplaceRouteTableAssociation) || ($.eventName = DeleteRouteTable) || ($.eventName = DeleteRoute) || ($.eventName = DisassociateRouteTable) }'),
       metricValue: '1',
     });
 
@@ -672,7 +672,7 @@ abstract class CloudTrailAlarm {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.literal('($.eventName = CreateVpc) || ($.eventName = DeleteVpc) || ($.eventName = ModifyVpcAttribute) || ($.eventName = AcceptVpcPeeringConnection) || ($.eventName = CreateVpcPeeringConnection) || ($.eventName = DeleteVpcPeeringConnection) || ($.eventName = RejectVpcPeeringConnection) || ($.eventName = AttachClassicLinkVpc) || ($.eventName = DetachClassicLinkVpc) || ($.eventName = DisableVpcClassicLink) || ($.eventName = EnableVpcClassicLink)'),
+      filterPattern: logs.FilterPattern.literal('{ ($.eventName = CreateVpc) || ($.eventName = DeleteVpc) || ($.eventName = ModifyVpcAttribute) || ($.eventName = AcceptVpcPeeringConnection) || ($.eventName = CreateVpcPeeringConnection) || ($.eventName = DeleteVpcPeeringConnection) || ($.eventName = RejectVpcPeeringConnection) || ($.eventName = AttachClassicLinkVpc) || ($.eventName = DetachClassicLinkVpc) || ($.eventName = DisableVpcClassicLink) || ($.eventName = EnableVpcClassicLink) }'),
       metricValue: '1',
     });
 
