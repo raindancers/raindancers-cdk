@@ -30,7 +30,7 @@ def lambda_handler(event, context):
             logGroupName='aws-controltower/CloudTrailLogs',
             startTime=int((datetime.today() - timedelta(minutes=5)).timestamp()),
             endTime=int(datetime.now().timestamp()),
-            queryString=query,
+            queryString=queryString,
             limit=10,
         )
         

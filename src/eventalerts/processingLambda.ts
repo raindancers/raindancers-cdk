@@ -25,6 +25,7 @@ export interface EventToTeamsProps {
   readonly teamsUrl: string;
   readonly snsTopic?: sns.Topic | undefined;
   readonly teamsImage: string;
+  readonly logGroupName: string;
 }
 
 
@@ -96,6 +97,24 @@ export class EventToTeams extends core.Resource {
         TEAMSIMAGE: props.teamsImage,
       },
     });
+
+    this.function.addToRolePolicy(new iam.PolicyStatement({
+      actions: [
+        'cloudtrail:StartQuery',
+        'cloudtrail:GetQueryResults',
+      ],
+      effect: iam.Effect.ALLOW,
+      resources: [`arn:${core.Aws.PARTITION}:cloudtrail:${core.Aws.REGION}:${core.Aws.ACCOUNT_ID}:${props.logGroupName}`],
+    }));
+
+    this.function.addToRolePolicy(new iam.PolicyStatement({
+      actions: [
+        'kms:Decrypt',
+        'kms:GenerateDataKey',
+      ],
+      resources: ['*'],
+      effect: iam.Effect.ALLOW,
+    }));
 
     if (props.snsTopic) {
       props.snsTopic.addSubscription(new sns_subscriptions.LambdaSubscription(this.function) );

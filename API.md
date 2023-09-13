@@ -1180,9 +1180,20 @@ const eventToTeamsProps: eventalerts.EventToTeamsProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#raindancers-cdk.eventalerts.EventToTeamsProps.property.logGroupName">logGroupName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.eventalerts.EventToTeamsProps.property.teamsImage">teamsImage</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.eventalerts.EventToTeamsProps.property.teamsUrl">teamsUrl</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.eventalerts.EventToTeamsProps.property.snsTopic">snsTopic</a></code> | <code>aws-cdk-lib.aws_sns.Topic</code> | *No description.* |
+
+---
+
+##### `logGroupName`<sup>Required</sup> <a name="logGroupName" id="raindancers-cdk.eventalerts.EventToTeamsProps.property.logGroupName"></a>
+
+```typescript
+public readonly logGroupName: string;
+```
+
+- *Type:* string
 
 ---
 
