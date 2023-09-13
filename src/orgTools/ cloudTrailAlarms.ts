@@ -98,14 +98,6 @@ export class CloudTrailAlarms extends core.Resource {
             alarmSNSTopic: this.snsTopic,
           });
           break;
-
-        case OrgAlarms.IAM_ROLE_CHANGES:
-          CloudTrailAlarm.iamRoleChanges(scope, 'IamRoleChanges', {
-            logGroup: props.logGroup,
-            nameSpace: props.nameSpace,
-            alarmSNSTopic: this.snsTopic,
-          });
-          break;
         case OrgAlarms.IAM_POLICY_CHANGES:
           CloudTrailAlarm.iamPolicyChanges(scope, 'IamPolicyChanges', {
             logGroup: props.logGroup,
@@ -204,7 +196,7 @@ abstract class CloudTrailAlarm {
       alarmName: name,
       metricName: name,
       namespace: props.nameSpace,
-      statistic: 'sum',
+      statistic: 'Sum',
       period: 60,
       evaluationPeriods: 1,
       threshold: 3,
@@ -239,7 +231,7 @@ abstract class CloudTrailAlarm {
       alarmDescription: 'Sign In Without MFA',
       metricName: name,
       namespace: props.nameSpace,
-      statistic: 'sum',
+      statistic: 'Sum',
       period: 60,
       evaluationPeriods: 1,
       threshold: 1,
@@ -273,7 +265,7 @@ abstract class CloudTrailAlarm {
       alarmDescription: 'Root Account Use',
       metricName: name,
       namespace: props.nameSpace,
-      statistic: 'sum',
+      statistic: 'Sum',
       period: 60,
       evaluationPeriods: 1,
       threshold: 1,
@@ -307,45 +299,13 @@ abstract class CloudTrailAlarm {
       alarmDescription: 'Iam user changes',
       metricName: name,
       namespace: props.nameSpace,
-      statistic: 'sum',
+      statistic: 'Sum',
       period: 300,
       evaluationPeriods: 1,
       threshold: 1,
       comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
       actionsEnabled: true,
       alarmActions: [props.alarmSNSTopic.topicArn],
-    });
-
-    return {
-      logGroup: props.logGroup,
-      name: name,
-      nameSpace: props.nameSpace,
-      alarm: alarm.logicalId,
-    };
-  }
-
-  public static iamRoleChanges(scope: constructs.Construct, id: string, props: FilterProps): IMetricFilter {
-
-    const name = 'IAM Role Changes';
-
-    new logs.MetricFilter(scope, id, {
-      logGroup: props.logGroup,
-      metricNamespace: props.nameSpace,
-      metricName: name,
-      filterPattern: logs.FilterPattern.literal('{ ($.eventName = DeleteRolePolicy) || ($.eventName = PutRolePolicy) || ($.eventName = AttachRolePolicy) || ($.eventName = DetachRolePolicy) }'),
-      metricValue: '1',
-    });
-
-    const alarm = new cloudwatch.CfnAlarm(scope, 'IamRolealarm', {
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      evaluationPeriods: 1,
-      actionsEnabled: true,
-      alarmDescription: 'Iam Role Changes',
-      alarmName: 'IAMRoleChanges',
-      metricName: name,
-      namespace: props.nameSpace,
-      threshold: 1,
-      period: 60,
     });
 
     return {
@@ -358,22 +318,22 @@ abstract class CloudTrailAlarm {
 
   public static iamPolicyChanges(scope: constructs.Construct, id: string, props: FilterProps): IMetricFilter {
 
-    const name = 'IAM Policy Changes';
+    const name = 'IAM Role Changes';
 
     new logs.MetricFilter(scope, id, {
       logGroup: props.logGroup,
       metricNamespace: props.nameSpace,
       metricName: name,
-      filterPattern: logs.FilterPattern.literal('{ ($.eventName=DeleteGroupPolicy)||($.eventName=DeleteRolePolicy)||($.eventName=DeleteUserPolicy)||($.eventName=PutGroupPolicy)||($.eventName=PutRolePolicy)||($.eventName=PutUserPolicy)||($.eventName=CreatePolicy)||($.eventName=DeletePolicy)||($.eventName=CreatePolicyVersion)||($.eventName=DeletePolicyVersion)||($.eventName=AttachRolePolicy)||($.eventName=DetachRolePolicy)||($.eventName=AttachUserPolicy)||($.eventName=DetachUserPolicy)||($.eventName=AttachGroupPolicy)||($.eventName=DetachGroupPolicy) }'),
+      filterPattern: logs.FilterPattern.literal('{ ($.eventName = DeleteRolePolicy) || ($.eventName = PutRolePolicy) || ($.eventName = AttachRolePolicy) || ($.eventName = DetachRolePolicy) }'),
       metricValue: '1',
     });
 
-    const alarm = new cloudwatch.CfnAlarm(scope, 'IamGroupalarm', {
+    const alarm = new cloudwatch.CfnAlarm(scope, 'IamRolealarm', {
       alarmName: name,
       alarmDescription: 'Iam policy change',
       metricName: name,
       namespace: props.nameSpace,
-      statistic: 'sum',
+      statistic: 'Sum',
       period: 300,
       evaluationPeriods: 1,
       threshold: 1,
@@ -389,7 +349,6 @@ abstract class CloudTrailAlarm {
       alarm: alarm.logicalId,
     };
   }
-
 
   public static cloudTrailConfiguration(scope: constructs.Construct, id: string, props: FilterProps): IMetricFilter {
 
@@ -408,7 +367,7 @@ abstract class CloudTrailAlarm {
       alarmDescription: 'CloudTrail change',
       metricName: name,
       namespace: props.nameSpace,
-      statistic: 'sum',
+      statistic: 'Sum',
       period: 300,
       evaluationPeriods: 1,
       threshold: 1,
@@ -442,7 +401,7 @@ abstract class CloudTrailAlarm {
       alarmDescription: 'Sign IN Failure',
       metricName: name,
       namespace: props.nameSpace,
-      statistic: 'sum',
+      statistic: 'Sum',
       period: 300,
       evaluationPeriods: 1,
       threshold: 3,
@@ -476,7 +435,7 @@ abstract class CloudTrailAlarm {
       alarmDescription: 'IDisabling Customer KMS',
       metricName: name,
       namespace: props.nameSpace,
-      statistic: 'sum',
+      statistic: 'Sum',
       period: 60,
       evaluationPeriods: 1,
       threshold: 1,
@@ -510,7 +469,7 @@ abstract class CloudTrailAlarm {
       alarmDescription: 'S3 Policy Change',
       metricName: name,
       namespace: props.nameSpace,
-      statistic: 'sum',
+      statistic: 'Sum',
       period: 300,
       evaluationPeriods: 1,
       threshold: 1,
@@ -545,7 +504,7 @@ abstract class CloudTrailAlarm {
       alarmDescription: 'Security Group Change',
       metricName: name,
       namespace: props.nameSpace,
-      statistic: 'sum',
+      statistic: 'Sum',
       period: 300,
       evaluationPeriods: 1,
       threshold: 1,
@@ -579,7 +538,7 @@ abstract class CloudTrailAlarm {
       alarmDescription: 'Network ACL Change',
       metricName: name,
       namespace: props.nameSpace,
-      statistic: 'sum',
+      statistic: 'Sum',
       period: 300,
       evaluationPeriods: 1,
       threshold: 1,
@@ -613,7 +572,7 @@ abstract class CloudTrailAlarm {
       alarmDescription: 'NW Gateway Change',
       metricName: name,
       namespace: props.nameSpace,
-      statistic: 'sum',
+      statistic: 'Sum',
       period: 300,
       evaluationPeriods: 1,
       threshold: 1,
@@ -647,7 +606,7 @@ abstract class CloudTrailAlarm {
       alarmDescription: 'RouteTableChange',
       metricName: name,
       namespace: props.nameSpace,
-      statistic: 'sum',
+      statistic: 'Sum',
       period: 300,
       evaluationPeriods: 1,
       threshold: 1,
@@ -681,7 +640,7 @@ abstract class CloudTrailAlarm {
       alarmDescription: 'Vpc Change',
       metricName: name,
       namespace: props.nameSpace,
-      statistic: 'sum',
+      statistic: 'Sum',
       period: 300,
       evaluationPeriods: 1,
       threshold: 1,
