@@ -26,7 +26,7 @@ def lambda_handler(event, context):
         queryString
         
         # build a query to look for triggering events from the last 5 minutes.
-        filtered_logs = filter_log_events(
+        filtered_logs = logs.filter_log_events(
             logGroupName=log_group_name,
             startTime=int((datetime.today() - timedelta(minutes=5)).timestamp()),
             endTime=int(datetime.now().timestamp()),
