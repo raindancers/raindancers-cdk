@@ -9,6 +9,7 @@ http = urllib3.PoolManager()
 
 url = os.environ['TEAMSURL']
 teams_image = os.environ['TEAMSIMAGE']
+log_group_name = os.environ['LOGGROUPNAME']
 
 def lambda_handler(event, context):
     
@@ -25,32 +26,22 @@ def lambda_handler(event, context):
         queryString
         
         # build a query to look for triggering events from the last 5 minutes.
-        start_query_response = logs.start_query(
-            logGroupName='aws-controltower/CloudTrailLogs',
+        filtered_logs = filter_log_events(
+            logGroupName=log_group_name,
             startTime=int((datetime.today() - timedelta(minutes=5)).timestamp()),
             endTime=int(datetime.now().timestamp()),
             queryString=queryString,
             limit=10,
         )
         
-        query_id = start_query_response["queryId"]
-        
-        response = {}
-        while response == {} or response["status"] == "Running":
-            print("Waiting for query to complete ...")
-            time.sleep(1)
-            response = logs.get_query_results(queryId=query_id)
-        
         parsed_response = []    
-        for result in range(len(response["results"])):
-            element = {
-                "timestamp": response["results"][result][0]["value"],
-                "username": response["results"][result][1]["value"],
-                "action": response["results"][result][2]["value"],
-                "service": response["results"][result][3]["value"],
-            }
-
-            parsed_response.append(element)
+        for result in filtered_logs["events"]:
+            parsed_response.append(
+                { 
+                    "timestamp": result["timestamp"],
+                    "message": result["message"]        
+                }
+            )
         
         msg = {
             "@type": "MessageCard",
