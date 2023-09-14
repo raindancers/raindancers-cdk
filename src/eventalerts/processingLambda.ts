@@ -104,7 +104,7 @@ export class EventToTeams extends core.Resource {
         'cloudtrail:GetQueryResults',
       ],
       effect: iam.Effect.ALLOW,
-      resources: [`arn:${core.Aws.PARTITION}:cloudtrail:${core.Aws.REGION}:${core.Aws.ACCOUNT_ID}:${props.logGroupName}`],
+      resources: [`arn:${core.Aws.PARTITION}:logs:${core.Aws.REGION}:${core.Aws.ACCOUNT_ID}:log-group:${props.logGroupName}:*`],
     }));
 
     this.function.addToRolePolicy(new iam.PolicyStatement({

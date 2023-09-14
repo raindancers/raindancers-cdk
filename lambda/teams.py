@@ -18,13 +18,12 @@ def lambda_handler(event, context):
     message = (event["Records"][0]["Sns"]["Message"])
     
     if "ConsoleSignInWithoutMFA" in subject:
+        print('creating queryString')
         queryString = '{ ($.eventName = "ConsoleLogin") && ($.additionalEventData.MFAUsed != "Yes")  && ($.userIdentity.type !="AssumedRole")  }'
     
-
-    # a query exists to search Cloudwatch.  Seach
     try:
         queryString
-
+        
         # build a query to look for triggering events from the last 5 minutes.
         start_query_response = logs.start_query(
             logGroupName='aws-controltower/CloudTrailLogs',
@@ -36,10 +35,11 @@ def lambda_handler(event, context):
         
         query_id = start_query_response["queryId"]
         
+        response = {}
         while response == {} or response["status"] == "Running":
             print("Waiting for query to complete ...")
             time.sleep(1)
-            response = client.get_query_results(queryId=query_id)
+            response = logs.get_query_results(queryId=query_id)
         
         parsed_response = []    
         for result in range(len(response["results"])):
@@ -60,7 +60,7 @@ def lambda_handler(event, context):
             "sections": [
                 {
                     "activityTitle": subject,
-                    "activitySubtitle": parsed_response,
+                    "activitySubtitle": json.dumps(parsed_response),
                     "activityImage": teams_image
                 }
             ]
@@ -74,8 +74,11 @@ def lambda_handler(event, context):
             "response": resp.data
         })
 
+    
     # just send the generic alarm without a search
-    except NameError:
+    except:
+
+        print('generic')
 
         msg = {
             "@type": "MessageCard",
