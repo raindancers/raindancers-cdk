@@ -95,26 +95,18 @@ export class EventToTeams extends core.Resource {
       environment: {
         TEAMSURL: props.teamsUrl,
         TEAMSIMAGE: props.teamsImage,
+        LOGGROUPNAME: props.logGroupName,
       },
     });
 
     this.function.addToRolePolicy(new iam.PolicyStatement({
       actions: [
-        'cloudtrail:StartQuery',
-        'cloudtrail:GetQueryResults',
+        'logs:FilterLogEvents',
       ],
       effect: iam.Effect.ALLOW,
       resources: [`arn:${core.Aws.PARTITION}:logs:${core.Aws.REGION}:${core.Aws.ACCOUNT_ID}:log-group:${props.logGroupName}:*`],
     }));
 
-    this.function.addToRolePolicy(new iam.PolicyStatement({
-      actions: [
-        'kms:Decrypt',
-        'kms:GenerateDataKey',
-      ],
-      resources: ['*'],
-      effect: iam.Effect.ALLOW,
-    }));
 
     if (props.snsTopic) {
       props.snsTopic.addSubscription(new sns_subscriptions.LambdaSubscription(this.function) );
