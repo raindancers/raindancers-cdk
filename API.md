@@ -5,6 +5,197 @@ raindancers-cdk
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### ApplySCPOnAccountCreation <a name="ApplySCPOnAccountCreation" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation"></a>
+
+Applys SCP to account when it is created.
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.Initializer"></a>
+
+```typescript
+import { serviceControlPolicy } from 'raindancers-cdk'
+
+new serviceControlPolicy.ApplySCPOnAccountCreation(scope: Construct, id: string, props: ApplySCPOnAccountCreationProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreationProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreationProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.applyRemovalPolicy"></a>
+
+```typescript
+public applyRemovalPolicy(policy: RemovalPolicy): void
+```
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+###### `policy`<sup>Required</sup> <a name="policy" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.applyRemovalPolicy.parameter.policy"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.isConstruct"></a>
+
+```typescript
+import { serviceControlPolicy } from 'raindancers-cdk'
+
+serviceControlPolicy.ApplySCPOnAccountCreation.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isOwnedResource` <a name="isOwnedResource" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.isOwnedResource"></a>
+
+```typescript
+import { serviceControlPolicy } from 'raindancers-cdk'
+
+serviceControlPolicy.ApplySCPOnAccountCreation.isOwnedResource(construct: IConstruct)
+```
+
+Returns true if the construct was created by CDK, and false otherwise.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.isOwnedResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `isResource` <a name="isResource" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.isResource"></a>
+
+```typescript
+import { serviceControlPolicy } from 'raindancers-cdk'
+
+serviceControlPolicy.ApplySCPOnAccountCreation.isResource(construct: IConstruct)
+```
+
+Check whether the given construct is a Resource.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.isResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this resource is defined.
+
+---
+
+
 ### CloudTrailAlarms <a name="CloudTrailAlarms" id="raindancers-cdk.orgTools.CloudTrailAlarms"></a>
 
 #### Initializers <a name="Initializers" id="raindancers-cdk.orgTools.CloudTrailAlarms.Initializer"></a>
@@ -1190,6 +1381,103 @@ The stack in which this resource is defined.
 
 
 ## Structs <a name="Structs" id="Structs"></a>
+
+### ApplySCPOnAccountCreationProps <a name="ApplySCPOnAccountCreationProps" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreationProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreationProps.Initializer"></a>
+
+```typescript
+import { serviceControlPolicy } from 'raindancers-cdk'
+
+const applySCPOnAccountCreationProps: serviceControlPolicy.ApplySCPOnAccountCreationProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreationProps.property.account">account</a></code> | <code>string</code> | The AWS account ID this resource belongs to. |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreationProps.property.environmentFromArn">environmentFromArn</a></code> | <code>string</code> | ARN to deduce region and account from. |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreationProps.property.physicalName">physicalName</a></code> | <code>string</code> | The value passed in by users to the physical name prop of the resource. |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreationProps.property.region">region</a></code> | <code>string</code> | The AWS region this resource belongs to. |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreationProps.property.scp">scp</a></code> | <code>raindancers-cdk.serviceControlPolicy.IServiceControlPolicy[]</code> | ServiceControlPolicys To Be applied when an account is created. |
+
+---
+
+##### `account`<sup>Optional</sup> <a name="account" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreationProps.property.account"></a>
+
+```typescript
+public readonly account: string;
+```
+
+- *Type:* string
+- *Default:* the resource is in the same account as the stack it belongs to
+
+The AWS account ID this resource belongs to.
+
+---
+
+##### `environmentFromArn`<sup>Optional</sup> <a name="environmentFromArn" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreationProps.property.environmentFromArn"></a>
+
+```typescript
+public readonly environmentFromArn: string;
+```
+
+- *Type:* string
+- *Default:* take environment from `account`, `region` parameters, or use Stack environment.
+
+ARN to deduce region and account from.
+
+The ARN is parsed and the account and region are taken from the ARN.
+This should be used for imported resources.
+
+Cannot be supplied together with either `account` or `region`.
+
+---
+
+##### `physicalName`<sup>Optional</sup> <a name="physicalName" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreationProps.property.physicalName"></a>
+
+```typescript
+public readonly physicalName: string;
+```
+
+- *Type:* string
+- *Default:* The physical name will be allocated by CloudFormation at deployment time
+
+The value passed in by users to the physical name prop of the resource.
+
+`undefined` implies that a physical name will be allocated by
+  CloudFormation during deployment.
+- a concrete value implies a specific physical name
+- `PhysicalName.GENERATE_IF_NEEDED` is a marker that indicates that a physical will only be generated
+  by the CDK if it is needed for cross-environment references. Otherwise, it will be allocated by CloudFormation.
+
+---
+
+##### `region`<sup>Optional</sup> <a name="region" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreationProps.property.region"></a>
+
+```typescript
+public readonly region: string;
+```
+
+- *Type:* string
+- *Default:* the resource is in the same region as the stack it belongs to
+
+The AWS region this resource belongs to.
+
+---
+
+##### `scp`<sup>Required</sup> <a name="scp" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreationProps.property.scp"></a>
+
+```typescript
+public readonly scp: IServiceControlPolicy[];
+```
+
+- *Type:* raindancers-cdk.serviceControlPolicy.IServiceControlPolicy[]
+
+ServiceControlPolicys To Be applied when an account is created.
+
+---
 
 ### CloudTrailAlarmsProps <a name="CloudTrailAlarmsProps" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps"></a>
 
