@@ -36,10 +36,12 @@ def get_message_from_s3(message_id):
 
 def create_recipient_list(destination):
     
-    sorted_forwarding_rules = sorted(json.loads(os.environ['FORWARDING_RULE'], key=lambda d: d['priority']))
-    final_destinations = []
-
+    
+    forwarding_list = json.loads(os.environ['FORWARDING_RULE'])
+    sorted_forwarding_rules = sorted(forwarding_list, key=lambda d: d['priority'])
+    
     for rule in sorted_forwarding_rules:
+        sentTo = rule["sentTo"]
         if re.match(rule["sentTo"], destination):
             return rule["forwardTo"]
 
@@ -48,8 +50,7 @@ def create_recipient_list(destination):
 
 def create_message(file_dict, recipients):
 
-    sender = os.environ['MailSender']
-
+    sender = os.environ['SENDER']
     separator = ";"
 
     # Parse the email body.
@@ -101,7 +102,7 @@ def create_message(file_dict, recipients):
 
 
 def send_email(message):
-    aws_region = os.environ['Region']
+
 
 # Create a new SES client.
     client_ses = boto3.client('ses', region)
@@ -132,7 +133,7 @@ def lambda_handler(event, context):
 
     # Create the new recipient list
     new_recipients = create_recipient_list(
-        event['Records'][0]['ses']['mail']['destination']
+        event['Records'][0]['ses']['mail']['destination'][0]
     )
     print(f"new recipients: {new_recipients}")
 

@@ -82,7 +82,7 @@ export class ReMailer extends core.Resource {
     });
 
     // add DKIM and MAIL FROM records
-    const identity = new ses.EmailIdentity(this, 'Identity', {
+    new ses.EmailIdentity(this, 'Identity', {
       identity: ses.Identity.publicHostedZone(props.zone),
     });
 
@@ -114,7 +114,7 @@ export class ReMailer extends core.Resource {
     remailerFn.addToRolePolicy(new iam.PolicyStatement({
       actions: ['ses:SendRawEmail'],
       effect: iam.Effect.ALLOW,
-      resources: [`arn:${core.Aws.PARTITION}:ses:${core.Aws.REGION}:${core.Aws.ACCOUNT_ID}:identity/${identity.emailIdentityName}`],
+      resources: [`arn:${core.Aws.PARTITION}:ses:${core.Aws.REGION}:${core.Aws.ACCOUNT_ID}:identity/*`],
     }));
 
     mailboxBucket.grantRead(remailerFn);
