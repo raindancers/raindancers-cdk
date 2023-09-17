@@ -17,8 +17,7 @@ import * as constructs from 'constructs';
  */
 export interface ForwardingRule {
   /**
-   * a regex expression forthe address of the incoming mail to match on.  This
-   * should only be the portion of the address before the '@'
+   * a regex expression forthe address of the incoming mail to match on.
    */
   readonly sentTo: string;
   /**
@@ -45,7 +44,7 @@ export interface RemailerProps extends core.ResourceProps {
    */
   readonly forwardingRules: ForwardingRule[];
   /**
-   * What is the address of the remailer, should only be specifed as the portion before the '@'
+   * What is the address of the remailer.
    */
   readonly sender: string;
 }
@@ -71,11 +70,11 @@ export class ReMailer extends core.Resource {
           transitions: [
             {
               storageClass: s3.StorageClass.INFREQUENT_ACCESS,
-              transitionAfter: core.Duration.days(7),
+              transitionAfter: core.Duration.days(30),
             },
             {
               storageClass: s3.StorageClass.DEEP_ARCHIVE,
-              transitionAfter: core.Duration.days(30),
+              transitionAfter: core.Duration.days(60),
             },
           ],
         },

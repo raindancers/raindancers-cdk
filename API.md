@@ -1529,9 +1529,6 @@ public readonly sentTo: string;
 
 a regex expression forthe address of the incoming mail to match on.
 
-This 
-should only be the portion of the address before the '@'
-
 ---
 
 ### RemailerProps <a name="RemailerProps" id="raindancers-cdk.remailer.RemailerProps"></a>
@@ -1555,7 +1552,7 @@ const remailerProps: remailer.RemailerProps = { ... }
 | <code><a href="#raindancers-cdk.remailer.RemailerProps.property.physicalName">physicalName</a></code> | <code>string</code> | The value passed in by users to the physical name prop of the resource. |
 | <code><a href="#raindancers-cdk.remailer.RemailerProps.property.region">region</a></code> | <code>string</code> | The AWS region this resource belongs to. |
 | <code><a href="#raindancers-cdk.remailer.RemailerProps.property.forwardingRules">forwardingRules</a></code> | <code>raindancers-cdk.remailer.ForwardingRule[]</code> | Forwarding rules for the zone. |
-| <code><a href="#raindancers-cdk.remailer.RemailerProps.property.sender">sender</a></code> | <code>string</code> | What is the address of the remailer, should only be specifed as the portion before the '@'. |
+| <code><a href="#raindancers-cdk.remailer.RemailerProps.property.sender">sender</a></code> | <code>string</code> | What is the address of the remailer. |
 | <code><a href="#raindancers-cdk.remailer.RemailerProps.property.zone">zone</a></code> | <code>aws-cdk-lib.aws_route53.IPublicHostedZone</code> | the Zone where the Remailer's DNS records are. |
 
 ---
@@ -1643,7 +1640,7 @@ public readonly sender: string;
 
 - *Type:* string
 
-What is the address of the remailer, should only be specifed as the portion before the '@'.
+What is the address of the remailer.
 
 ---
 
