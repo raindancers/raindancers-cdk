@@ -205,6 +205,197 @@ public readonly snsTopic: Topic;
 ---
 
 
+### EnableEnterpriseSupport <a name="EnableEnterpriseSupport" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport"></a>
+
+Creates A support case to enable Enterprise Support, when a new account is created with Control Tower A Lambda is listening to event bridge.
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.Initializer"></a>
+
+```typescript
+import { enterpriseSupport } from 'raindancers-cdk'
+
+new enterpriseSupport.EnableEnterpriseSupport(scope: Construct, id: string, props: EnableEnterpriseSupportProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.enterpriseSupport.EnableEnterpriseSupportProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.enterpriseSupport.EnableEnterpriseSupportProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.applyRemovalPolicy"></a>
+
+```typescript
+public applyRemovalPolicy(policy: RemovalPolicy): void
+```
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+###### `policy`<sup>Required</sup> <a name="policy" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.applyRemovalPolicy.parameter.policy"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
+| <code><a href="#raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.isConstruct"></a>
+
+```typescript
+import { enterpriseSupport } from 'raindancers-cdk'
+
+enterpriseSupport.EnableEnterpriseSupport.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isOwnedResource` <a name="isOwnedResource" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.isOwnedResource"></a>
+
+```typescript
+import { enterpriseSupport } from 'raindancers-cdk'
+
+enterpriseSupport.EnableEnterpriseSupport.isOwnedResource(construct: IConstruct)
+```
+
+Returns true if the construct was created by CDK, and false otherwise.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.isOwnedResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `isResource` <a name="isResource" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.isResource"></a>
+
+```typescript
+import { enterpriseSupport } from 'raindancers-cdk'
+
+enterpriseSupport.EnableEnterpriseSupport.isResource(construct: IConstruct)
+```
+
+Check whether the given construct is a Resource.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.isResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this resource is defined.
+
+---
+
+
 ### EventToSlack <a name="EventToSlack" id="raindancers-cdk.eventalerts.EventToSlack"></a>
 
 #### Initializers <a name="Initializers" id="raindancers-cdk.eventalerts.EventToSlack.Initializer"></a>
@@ -1278,6 +1469,105 @@ public readonly alarmSNSTopicName: string;
 ```
 
 - *Type:* string
+
+---
+
+### EnableEnterpriseSupportProps <a name="EnableEnterpriseSupportProps" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupportProps"></a>
+
+Propertys for EnableEnterpriseSupport.
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupportProps.Initializer"></a>
+
+```typescript
+import { enterpriseSupport } from 'raindancers-cdk'
+
+const enableEnterpriseSupportProps: enterpriseSupport.EnableEnterpriseSupportProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterpriseSupport.EnableEnterpriseSupportProps.property.account">account</a></code> | <code>string</code> | The AWS account ID this resource belongs to. |
+| <code><a href="#raindancers-cdk.enterpriseSupport.EnableEnterpriseSupportProps.property.environmentFromArn">environmentFromArn</a></code> | <code>string</code> | ARN to deduce region and account from. |
+| <code><a href="#raindancers-cdk.enterpriseSupport.EnableEnterpriseSupportProps.property.physicalName">physicalName</a></code> | <code>string</code> | The value passed in by users to the physical name prop of the resource. |
+| <code><a href="#raindancers-cdk.enterpriseSupport.EnableEnterpriseSupportProps.property.region">region</a></code> | <code>string</code> | The AWS region this resource belongs to. |
+| <code><a href="#raindancers-cdk.enterpriseSupport.EnableEnterpriseSupportProps.property.ccEmail">ccEmail</a></code> | <code>string</code> | the Zone where the Remailer's DNS records are. |
+
+---
+
+##### `account`<sup>Optional</sup> <a name="account" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupportProps.property.account"></a>
+
+```typescript
+public readonly account: string;
+```
+
+- *Type:* string
+- *Default:* the resource is in the same account as the stack it belongs to
+
+The AWS account ID this resource belongs to.
+
+---
+
+##### `environmentFromArn`<sup>Optional</sup> <a name="environmentFromArn" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupportProps.property.environmentFromArn"></a>
+
+```typescript
+public readonly environmentFromArn: string;
+```
+
+- *Type:* string
+- *Default:* take environment from `account`, `region` parameters, or use Stack environment.
+
+ARN to deduce region and account from.
+
+The ARN is parsed and the account and region are taken from the ARN.
+This should be used for imported resources.
+
+Cannot be supplied together with either `account` or `region`.
+
+---
+
+##### `physicalName`<sup>Optional</sup> <a name="physicalName" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupportProps.property.physicalName"></a>
+
+```typescript
+public readonly physicalName: string;
+```
+
+- *Type:* string
+- *Default:* The physical name will be allocated by CloudFormation at deployment time
+
+The value passed in by users to the physical name prop of the resource.
+
+`undefined` implies that a physical name will be allocated by
+  CloudFormation during deployment.
+- a concrete value implies a specific physical name
+- `PhysicalName.GENERATE_IF_NEEDED` is a marker that indicates that a physical will only be generated
+  by the CDK if it is needed for cross-environment references. Otherwise, it will be allocated by CloudFormation.
+
+---
+
+##### `region`<sup>Optional</sup> <a name="region" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupportProps.property.region"></a>
+
+```typescript
+public readonly region: string;
+```
+
+- *Type:* string
+- *Default:* the resource is in the same region as the stack it belongs to
+
+The AWS region this resource belongs to.
+
+---
+
+##### `ccEmail`<sup>Required</sup> <a name="ccEmail" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupportProps.property.ccEmail"></a>
+
+```typescript
+public readonly ccEmail: string;
+```
+
+- *Type:* string
+
+the Zone where the Remailer's DNS records are.
 
 ---
 

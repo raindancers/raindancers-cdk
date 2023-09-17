@@ -15,7 +15,7 @@ import * as constructs from 'constructs';
 /**
  * Propertys for EnableEnterpriseSupport
  */
-export interface EnableEnterpriseSupport extends core.ResourceProps {
+export interface EnableEnterpriseSupportProps extends core.ResourceProps {
   /**
    * the Zone where the Remailer's DNS records are
    */
@@ -26,9 +26,9 @@ export interface EnableEnterpriseSupport extends core.ResourceProps {
  * Creates A support case to enable Enterprise Support, when a new account is created with Control Tower
  * A Lambda is listening to event bridge
  */
-export class ReMailer extends core.Resource {
+export class EnableEnterpriseSupport extends core.Resource {
 
-  constructor(scope: constructs.Construct, id: string, props: EnableEnterpriseSupport) {
+  constructor(scope: constructs.Construct, id: string, props: EnableEnterpriseSupportProps) {
     super(scope, id, props);
 
     const addSupportFn = new aws_lambda.Function(this, 'Resource', {
