@@ -81,17 +81,6 @@ export class ReMailer extends core.Resource {
       ],
     });
 
-    mailboxBucket.addToResourcePolicy(new iam.PolicyStatement({
-      effect: iam.Effect.ALLOW,
-      principals: [new iam.ServicePrincipal('ses.amazonaws.com')],
-      actions: ['s3:PutObject'],
-      conditions: {
-        StringEquals: {
-          'aws:Referer': `${core.Aws.ACCOUNT_ID}`,
-        },
-      },
-    }));
-
     // add DKIM and MAIL FROM records
     const identity = new ses.EmailIdentity(this, 'Identity', {
       identity: ses.Identity.publicHostedZone(props.zone),
