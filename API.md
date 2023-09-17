@@ -805,6 +805,199 @@ public readonly function: Function;
 ---
 
 
+### ReMailer <a name="ReMailer" id="raindancers-cdk.remailer.ReMailer"></a>
+
+Creates a remailing service for an entire Domain.
+
+Typical use case is to collate al
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.remailer.ReMailer.Initializer"></a>
+
+```typescript
+import { remailer } from 'raindancers-cdk'
+
+new remailer.ReMailer(scope: Construct, id: string, props: RemailerProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.remailer.ReMailer.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.remailer.ReMailer.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.remailer.ReMailer.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.remailer.RemailerProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.remailer.ReMailer.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.remailer.ReMailer.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.remailer.ReMailer.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.remailer.RemailerProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.remailer.ReMailer.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#raindancers-cdk.remailer.ReMailer.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.remailer.ReMailer.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="raindancers-cdk.remailer.ReMailer.applyRemovalPolicy"></a>
+
+```typescript
+public applyRemovalPolicy(policy: RemovalPolicy): void
+```
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+###### `policy`<sup>Required</sup> <a name="policy" id="raindancers-cdk.remailer.ReMailer.applyRemovalPolicy.parameter.policy"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.remailer.ReMailer.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#raindancers-cdk.remailer.ReMailer.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
+| <code><a href="#raindancers-cdk.remailer.ReMailer.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.remailer.ReMailer.isConstruct"></a>
+
+```typescript
+import { remailer } from 'raindancers-cdk'
+
+remailer.ReMailer.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.remailer.ReMailer.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isOwnedResource` <a name="isOwnedResource" id="raindancers-cdk.remailer.ReMailer.isOwnedResource"></a>
+
+```typescript
+import { remailer } from 'raindancers-cdk'
+
+remailer.ReMailer.isOwnedResource(construct: IConstruct)
+```
+
+Returns true if the construct was created by CDK, and false otherwise.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="raindancers-cdk.remailer.ReMailer.isOwnedResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `isResource` <a name="isResource" id="raindancers-cdk.remailer.ReMailer.isResource"></a>
+
+```typescript
+import { remailer } from 'raindancers-cdk'
+
+remailer.ReMailer.isResource(construct: IConstruct)
+```
+
+Check whether the given construct is a Resource.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="raindancers-cdk.remailer.ReMailer.isResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.remailer.ReMailer.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.remailer.ReMailer.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#raindancers-cdk.remailer.ReMailer.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.remailer.ReMailer.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="raindancers-cdk.remailer.ReMailer.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="raindancers-cdk.remailer.ReMailer.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this resource is defined.
+
+---
+
+
 ## Structs <a name="Structs" id="Structs"></a>
 
 ### CloudTrailAlarmsProps <a name="CloudTrailAlarmsProps" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps"></a>
@@ -1274,6 +1467,195 @@ public readonly nameSpace: string;
 ```
 
 - *Type:* string
+
+---
+
+### ForwardingRule <a name="ForwardingRule" id="raindancers-cdk.remailer.ForwardingRule"></a>
+
+Forward mail sent to an address to an array of of address.
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.remailer.ForwardingRule.Initializer"></a>
+
+```typescript
+import { remailer } from 'raindancers-cdk'
+
+const forwardingRule: remailer.ForwardingRule = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.remailer.ForwardingRule.property.forwardTo">forwardTo</a></code> | <code>string[]</code> | where to forward the mail to. |
+| <code><a href="#raindancers-cdk.remailer.ForwardingRule.property.priority">priority</a></code> | <code>number</code> | The priority of the rule, lower has a higher priority. |
+| <code><a href="#raindancers-cdk.remailer.ForwardingRule.property.sentTo">sentTo</a></code> | <code>string</code> | a regex expression forthe address of the incoming mail to match on. |
+
+---
+
+##### `forwardTo`<sup>Required</sup> <a name="forwardTo" id="raindancers-cdk.remailer.ForwardingRule.property.forwardTo"></a>
+
+```typescript
+public readonly forwardTo: string[];
+```
+
+- *Type:* string[]
+
+where to forward the mail to.
+
+These should be fully specified
+eg.   someaddress@somedomain.com
+
+---
+
+##### `priority`<sup>Required</sup> <a name="priority" id="raindancers-cdk.remailer.ForwardingRule.property.priority"></a>
+
+```typescript
+public readonly priority: number;
+```
+
+- *Type:* number
+
+The priority of the rule, lower has a higher priority.
+
+---
+
+##### `sentTo`<sup>Required</sup> <a name="sentTo" id="raindancers-cdk.remailer.ForwardingRule.property.sentTo"></a>
+
+```typescript
+public readonly sentTo: string;
+```
+
+- *Type:* string
+
+a regex expression forthe address of the incoming mail to match on.
+
+This 
+should only be the portion of the address before the '@'
+
+---
+
+### RemailerProps <a name="RemailerProps" id="raindancers-cdk.remailer.RemailerProps"></a>
+
+Propertys for Remailer.
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.remailer.RemailerProps.Initializer"></a>
+
+```typescript
+import { remailer } from 'raindancers-cdk'
+
+const remailerProps: remailer.RemailerProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.remailer.RemailerProps.property.account">account</a></code> | <code>string</code> | The AWS account ID this resource belongs to. |
+| <code><a href="#raindancers-cdk.remailer.RemailerProps.property.environmentFromArn">environmentFromArn</a></code> | <code>string</code> | ARN to deduce region and account from. |
+| <code><a href="#raindancers-cdk.remailer.RemailerProps.property.physicalName">physicalName</a></code> | <code>string</code> | The value passed in by users to the physical name prop of the resource. |
+| <code><a href="#raindancers-cdk.remailer.RemailerProps.property.region">region</a></code> | <code>string</code> | The AWS region this resource belongs to. |
+| <code><a href="#raindancers-cdk.remailer.RemailerProps.property.forwardingRules">forwardingRules</a></code> | <code>raindancers-cdk.remailer.ForwardingRule[]</code> | Forwarding rules for the zone. |
+| <code><a href="#raindancers-cdk.remailer.RemailerProps.property.sender">sender</a></code> | <code>string</code> | What is the address of the remailer, should only be specifed as the portion before the '@'. |
+| <code><a href="#raindancers-cdk.remailer.RemailerProps.property.zone">zone</a></code> | <code>aws-cdk-lib.aws_route53.IPublicHostedZone</code> | the Zone where the Remailer's DNS records are. |
+
+---
+
+##### `account`<sup>Optional</sup> <a name="account" id="raindancers-cdk.remailer.RemailerProps.property.account"></a>
+
+```typescript
+public readonly account: string;
+```
+
+- *Type:* string
+- *Default:* the resource is in the same account as the stack it belongs to
+
+The AWS account ID this resource belongs to.
+
+---
+
+##### `environmentFromArn`<sup>Optional</sup> <a name="environmentFromArn" id="raindancers-cdk.remailer.RemailerProps.property.environmentFromArn"></a>
+
+```typescript
+public readonly environmentFromArn: string;
+```
+
+- *Type:* string
+- *Default:* take environment from `account`, `region` parameters, or use Stack environment.
+
+ARN to deduce region and account from.
+
+The ARN is parsed and the account and region are taken from the ARN.
+This should be used for imported resources.
+
+Cannot be supplied together with either `account` or `region`.
+
+---
+
+##### `physicalName`<sup>Optional</sup> <a name="physicalName" id="raindancers-cdk.remailer.RemailerProps.property.physicalName"></a>
+
+```typescript
+public readonly physicalName: string;
+```
+
+- *Type:* string
+- *Default:* The physical name will be allocated by CloudFormation at deployment time
+
+The value passed in by users to the physical name prop of the resource.
+
+`undefined` implies that a physical name will be allocated by
+  CloudFormation during deployment.
+- a concrete value implies a specific physical name
+- `PhysicalName.GENERATE_IF_NEEDED` is a marker that indicates that a physical will only be generated
+  by the CDK if it is needed for cross-environment references. Otherwise, it will be allocated by CloudFormation.
+
+---
+
+##### `region`<sup>Optional</sup> <a name="region" id="raindancers-cdk.remailer.RemailerProps.property.region"></a>
+
+```typescript
+public readonly region: string;
+```
+
+- *Type:* string
+- *Default:* the resource is in the same region as the stack it belongs to
+
+The AWS region this resource belongs to.
+
+---
+
+##### `forwardingRules`<sup>Required</sup> <a name="forwardingRules" id="raindancers-cdk.remailer.RemailerProps.property.forwardingRules"></a>
+
+```typescript
+public readonly forwardingRules: ForwardingRule[];
+```
+
+- *Type:* raindancers-cdk.remailer.ForwardingRule[]
+
+Forwarding rules for the zone.
+
+---
+
+##### `sender`<sup>Required</sup> <a name="sender" id="raindancers-cdk.remailer.RemailerProps.property.sender"></a>
+
+```typescript
+public readonly sender: string;
+```
+
+- *Type:* string
+
+What is the address of the remailer, should only be specifed as the portion before the '@'.
+
+---
+
+##### `zone`<sup>Required</sup> <a name="zone" id="raindancers-cdk.remailer.RemailerProps.property.zone"></a>
+
+```typescript
+public readonly zone: IPublicHostedZone;
+```
+
+- *Type:* aws-cdk-lib.aws_route53.IPublicHostedZone
+
+the Zone where the Remailer's DNS records are.
 
 ---
 
