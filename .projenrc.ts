@@ -19,4 +19,5 @@ project.deps.addDependency('@aws-cdk/integ-runner@latest', DependencyType.DEVENV
 project.deps.addDependency('@aws-cdk/integ-tests-alpha@latest', DependencyType.DEVENV);
 
 project.addGitIgnore('!lambda/**');
+project.addGitIgnore('!bootstraptemplates/**');
 project.synth();

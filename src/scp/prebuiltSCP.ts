@@ -104,7 +104,7 @@ export abstract class PreBuiltServiceControlPolicy {
         resources: ['*'],
         effect: iam.Effect.DENY,
         conditions: {
-          StringNotEquals: {
+          StringEquals: {
             'aws:PrincipalArn': ['arn:aws:iam::*:root'],
           },
         },
