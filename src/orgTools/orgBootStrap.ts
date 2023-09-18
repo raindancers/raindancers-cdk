@@ -1,7 +1,6 @@
 import * as path from 'path';
 import * as core from 'aws-cdk-lib';
 import {
-
   aws_lambda as lambda,
   aws_iam as iam,
   aws_codebuild as codebuild,
@@ -15,14 +14,14 @@ import * as constructs from 'constructs';
 
 
 export interface BootstrapStacks {
-  stackName: string;
-  regions: string[];
+  readonly stackName: string;
+  readonly regions: string[];
 }
 
+
 export interface CdkOrgBootstrapperProps {
-  cdkBootstrapRootQualifier: string;// what to qualify the cdkbootstrap with
-  cdkBootstrapRootRegions: string[];// what regions to boostrap
-  bootStrapStacks: BootstrapStacks;
+  readonly cdkBootstrapRootQualifier: string;// what to qualify the cdkbootstrap with
+  readonly cdkBootstrapRootRegions: string[];// what regions to boostrap
 }
 
 export class CdkOrgBootstrapper extends constructs.Construct {
@@ -30,9 +29,8 @@ export class CdkOrgBootstrapper extends constructs.Construct {
   constructor(scope: constructs.Construct, id: string, props: CdkOrgBootstrapperProps ) {
     super(scope, id);
 
-
     // Create an asset for the Codebuild Job
-    let codebuildAsset = new s3assets.Asset(this, 'codebuildAssets', {
+    const codebuildAsset = new s3assets.Asset(this, 'codebuildAssets', {
       path: './bootstraptemplates',
     });
 
@@ -48,6 +46,7 @@ export class CdkOrgBootstrapper extends constructs.Construct {
       }),
     });
 
+    // This allows the code build job permission to use the ControlTowerExecutionRole
     bootStrapperCodeBuild.addToRolePolicy(
       new iam.PolicyStatement({
         actions: ['sts:AssumeRole'],
@@ -71,7 +70,6 @@ export class CdkOrgBootstrapper extends constructs.Construct {
       environment: {
         CDK_BOOTSTRAP_QUALIFER: props.cdkBootstrapRootQualifier,
         CDK_BOOTSTRAP_REGIONS: JSON.stringify(props.cdkBootstrapRootRegions),
-        CDK_APPS: JSON.stringify(props.bootStrapStacks),
         ROOT_ACCOUNT_ID: core.Aws.ACCOUNT_ID,
         CODEBUILD_PROJECT_NAME: bootStrapperCodeBuild.projectName,
       },

@@ -196,6 +196,105 @@ The stack in which this resource is defined.
 ---
 
 
+### CdkOrgBootstrapper <a name="CdkOrgBootstrapper" id="raindancers-cdk.orgTools.CdkOrgBootstrapper"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.orgTools.CdkOrgBootstrapper.Initializer"></a>
+
+```typescript
+import { orgTools } from 'raindancers-cdk'
+
+new orgTools.CdkOrgBootstrapper(scope: Construct, id: string, props: CdkOrgBootstrapperProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapper.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapper.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapper.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.orgTools.CdkOrgBootstrapperProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.orgTools.CdkOrgBootstrapper.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.orgTools.CdkOrgBootstrapper.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.orgTools.CdkOrgBootstrapper.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.orgTools.CdkOrgBootstrapperProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapper.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.orgTools.CdkOrgBootstrapper.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapper.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.orgTools.CdkOrgBootstrapper.isConstruct"></a>
+
+```typescript
+import { orgTools } from 'raindancers-cdk'
+
+orgTools.CdkOrgBootstrapper.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.orgTools.CdkOrgBootstrapper.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapper.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.orgTools.CdkOrgBootstrapper.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
 ### CloudTrailAlarms <a name="CloudTrailAlarms" id="raindancers-cdk.orgTools.CloudTrailAlarms"></a>
 
 #### Initializers <a name="Initializers" id="raindancers-cdk.orgTools.CloudTrailAlarms.Initializer"></a>
@@ -1476,6 +1575,84 @@ public readonly scp: IServiceControlPolicy[];
 - *Type:* raindancers-cdk.serviceControlPolicy.IServiceControlPolicy[]
 
 ServiceControlPolicys To Be applied when an account is created.
+
+---
+
+### BootstrapStacks <a name="BootstrapStacks" id="raindancers-cdk.orgTools.BootstrapStacks"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.orgTools.BootstrapStacks.Initializer"></a>
+
+```typescript
+import { orgTools } from 'raindancers-cdk'
+
+const bootstrapStacks: orgTools.BootstrapStacks = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.BootstrapStacks.property.regions">regions</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.BootstrapStacks.property.stackName">stackName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `regions`<sup>Required</sup> <a name="regions" id="raindancers-cdk.orgTools.BootstrapStacks.property.regions"></a>
+
+```typescript
+public readonly regions: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `stackName`<sup>Required</sup> <a name="stackName" id="raindancers-cdk.orgTools.BootstrapStacks.property.stackName"></a>
+
+```typescript
+public readonly stackName: string;
+```
+
+- *Type:* string
+
+---
+
+### CdkOrgBootstrapperProps <a name="CdkOrgBootstrapperProps" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps.Initializer"></a>
+
+```typescript
+import { orgTools } from 'raindancers-cdk'
+
+const cdkOrgBootstrapperProps: orgTools.CdkOrgBootstrapperProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.cdkBootstrapRootQualifier">cdkBootstrapRootQualifier</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.cdkBootstrapRootRegions">cdkBootstrapRootRegions</a></code> | <code>string[]</code> | *No description.* |
+
+---
+
+##### `cdkBootstrapRootQualifier`<sup>Required</sup> <a name="cdkBootstrapRootQualifier" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.cdkBootstrapRootQualifier"></a>
+
+```typescript
+public readonly cdkBootstrapRootQualifier: string;
+```
+
+- *Type:* string
+
+---
+
+##### `cdkBootstrapRootRegions`<sup>Required</sup> <a name="cdkBootstrapRootRegions" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.cdkBootstrapRootRegions"></a>
+
+```typescript
+public readonly cdkBootstrapRootRegions: string[];
+```
+
+- *Type:* string[]
 
 ---
 

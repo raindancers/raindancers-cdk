@@ -10,7 +10,6 @@ def on_event(event, context):
 
 	CDK_BOOTSTRAP_QUALIFER = os.environ['CDK_BOOTSTRAP_QUALIFER']
 	CDK_BOOTSTRAP_REGIONS = json.loads(os.environ['CDK_BOOTSTRAP_REGIONS'])
-	CDK_APPS = json.loads(os.environ['CDK_APPS'])
 	ROOT_ACCOUNT_ID = json.loads(os.environ['ROOT_ACCOUNT_ID'])
 	CODEBUILD_PROJECT_NAME = os.environ['CODEBUILD_PROJECT_NAME']
 	
@@ -46,7 +45,6 @@ def on_event(event, context):
 
 	# commands to cdk bootstrap the account
 	cdk_bootstrap_env = [
-		'cd includelab',
 		'npm update -g npm@latest',
 		'npm install',
 		'npx cdk bootstrap --show-template > lib/cfn/bootstrap-template.yaml',
@@ -80,27 +78,6 @@ def on_event(event, context):
 	
 	print('bootstrap_cmds:', cdk_bootstrap_env)
 
-	# create a string of commands to deploy cdk apps
-	deploy_bootstrap_stacks = []
-	for stack in CDK_APPS:
-		for region in stack['Regions']:
-			deploy_bootstrap_stacks.extend(
-				[
-					# 'unset AWS_ACCESS_KEY_ID',			# return to using the codebuilds credentials
-					# 'unset AWS_SECRET_ACCESS_KEY',
-					# 'unset AWS_SESSION_TOKEN',
-					f'export AWS_DEFAULT_REGION={region}',
-					f'cd {stack["StackName"]}',
-					'npm install',
-					'aws sts get-caller-identity',
-					f'npx cdk deploy --require-approval never',
-					'cd ..'
-				]
-			)
-
-	deploy_bootstrap_stacks.append('echo "Finished Deploying Boostrap Stacks"')
-	print('deploy_stacks_cmds:', deploy_bootstrap_stacks)
-	
 	buildspec = {
 		'version': '0.2',
 		'phases': {
@@ -113,7 +90,7 @@ def on_event(event, context):
 				]
 			},
 			'build': {
-				'commands': build_commands + cdk_bootstrap_env + deploy_bootstrap_stacks
+				'commands': build_commands + cdk_bootstrap_env
 			},
 			'post_build': {
 				'commands': [
@@ -131,12 +108,6 @@ def on_event(event, context):
 			]
 		}
 	}
-
-	# ssm.put_parameter(
-	# 	Name=f'/cdk-bootstrap/{CDK_BOOTSTRAP_QUALIFER}/version',
-	# 	Value='13',
-	# 	Type='String',
-	# )
 	
 	codebuild.start_build(
 		projectName = CODEBUILD_PROJECT_NAME,
