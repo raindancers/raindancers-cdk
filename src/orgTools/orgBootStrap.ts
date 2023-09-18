@@ -10,6 +10,7 @@ import {
   aws_sqs as sqs,
 }
   from 'aws-cdk-lib';
+
 import * as constructs from 'constructs';
 
 
@@ -31,7 +32,7 @@ export class CdkOrgBootstrapper extends constructs.Construct {
 
     // Create an asset for the Codebuild Job
     const codebuildAsset = new s3assets.Asset(this, 'codebuildAssets', {
-      path: './bootstraptemplates',
+      path: path.join(__dirname, '../../bootstraptemplates')
     });
 
     // create the codebuild project that uses the asset
