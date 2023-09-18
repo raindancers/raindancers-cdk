@@ -1633,6 +1633,9 @@ const cdkOrgBootstrapperProps: orgTools.CdkOrgBootstrapperProps = { ... }
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.cdkBootstrapRootQualifier">cdkBootstrapRootQualifier</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.cdkBootstrapRootRegions">cdkBootstrapRootRegions</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.localBootStrapStacks">localBootStrapStacks</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.localStacksPath">localStacksPath</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.templateBootStrapStacks">templateBootStrapStacks</a></code> | <code>raindancers-cdk.orgTools.TemplateBootstrapStack[]</code> | *No description.* |
 
 ---
 
@@ -1653,6 +1656,36 @@ public readonly cdkBootstrapRootRegions: string[];
 ```
 
 - *Type:* string[]
+
+---
+
+##### `localBootStrapStacks`<sup>Optional</sup> <a name="localBootStrapStacks" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.localBootStrapStacks"></a>
+
+```typescript
+public readonly localBootStrapStacks: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `localStacksPath`<sup>Optional</sup> <a name="localStacksPath" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.localStacksPath"></a>
+
+```typescript
+public readonly localStacksPath: string;
+```
+
+- *Type:* string
+
+---
+
+##### `templateBootStrapStacks`<sup>Optional</sup> <a name="templateBootStrapStacks" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.templateBootStrapStacks"></a>
+
+```typescript
+public readonly templateBootStrapStacks: TemplateBootstrapStack[];
+```
+
+- *Type:* raindancers-cdk.orgTools.TemplateBootstrapStack[]
 
 ---
 
@@ -3024,6 +3057,21 @@ public readonly id: string;
 
 
 ##### `TAG_POLICY` <a name="TAG_POLICY" id="raindancers-cdk.serviceControlPolicy.PolicyType.TAG_POLICY"></a>
+
+---
+
+
+### TemplateBootstrapStack <a name="TemplateBootstrapStack" id="raindancers-cdk.orgTools.TemplateBootstrapStack"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.TemplateBootstrapStack.IAM_ALIAS">IAM_ALIAS</a></code> | *No description.* |
+
+---
+
+##### `IAM_ALIAS` <a name="IAM_ALIAS" id="raindancers-cdk.orgTools.TemplateBootstrapStack.IAM_ALIAS"></a>
 
 ---
 

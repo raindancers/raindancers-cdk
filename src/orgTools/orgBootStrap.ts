@@ -13,16 +13,21 @@ import {
 
 import * as constructs from 'constructs';
 
-
-export interface BootstrapStacks {
-  readonly stackName: string;
-  readonly regions: string[];
+export enum TemplateStack {
+  IAM_ALIAS = 'iamAlias'
 }
 
+export interface Template {
+  readonly stackName: string | TemplateStack;
+  readonly regions: string[];
+}
 
 export interface CdkOrgBootstrapperProps {
   readonly cdkBootstrapRootQualifier: string;// what to qualify the cdkbootstrap with
   readonly cdkBootstrapRootRegions: string[];// what regions to boostrap
+  readonly templateStacks?: Template[] | undefined;
+  readonly localStacksPath?: string | undefined;
+  readonly localTemplateStacks?: Template[] | undefined;
 }
 
 export class CdkOrgBootstrapper extends constructs.Construct {
@@ -30,9 +35,13 @@ export class CdkOrgBootstrapper extends constructs.Construct {
   constructor(scope: constructs.Construct, id: string, props: CdkOrgBootstrapperProps ) {
     super(scope, id);
 
+    if (props.localStacksPath || props.localTemplateStacks) {
+      throw new Error("Both localStacksPath and LocalTemplateStacks must been specified if local stacks are used");     
+    }
+
     // Create an asset for the Codebuild Job
     const codebuildAsset = new s3assets.Asset(this, 'codebuildAssets', {
-      path: path.join(__dirname, '../../bootstraptemplates')
+      path: path.join(__dirname, '../../bootstraptemplates'),
     });
 
     // create the codebuild project that uses the asset
@@ -47,6 +56,23 @@ export class CdkOrgBootstrapper extends constructs.Construct {
       }),
     });
 
+    let localStacks: string[] = []
+    if (props.localTemplateStacks && props.localStacksPath) {
+
+      const secondaryCodebuildAsset = new s3assets.Asset(this, 'codebuildAssets', {
+        path: path.join(__dirname, props.localStacksPath),
+      });
+
+      bootStrapperCodeBuild.addSecondarySource(
+        codebuild.Source.s3({
+          bucket: secondaryCodebuildAsset.bucket,
+          path: codebuildAsset.s3ObjectKey,
+          identifier: 'localstacks'
+        })
+      );
+      localStacks = props.localTemplateStacks
+    }
+
     // This allows the code build job permission to use the ControlTowerExecutionRole
     bootStrapperCodeBuild.addToRolePolicy(
       new iam.PolicyStatement({
@@ -55,6 +81,13 @@ export class CdkOrgBootstrapper extends constructs.Construct {
         effect: iam.Effect.ALLOW,
       }),
     );
+
+    // can't pass undefined to environment
+    let templateStacks: Template[] = []
+    if (props.templateStacks) {
+      templateStacks = props.templateStacks
+    }
+    
 
     // this is the lambda that processes the data and starts the codebuild project
     const bootStrapperLambda = new lambda.SingletonFunction(this, 'BootstrapLambda', {
@@ -73,10 +106,12 @@ export class CdkOrgBootstrapper extends constructs.Construct {
         CDK_BOOTSTRAP_REGIONS: JSON.stringify(props.cdkBootstrapRootRegions),
         ROOT_ACCOUNT_ID: core.Aws.ACCOUNT_ID,
         CODEBUILD_PROJECT_NAME: bootStrapperCodeBuild.projectName,
+        TEMPLATE_BOOTSTRAP_STACKS: JSON.stringify(templateStacks),
+        LOCAL_BOOTSTRAP_STACKS: JSON.stringify(localStacks)
       },
       handler: 'bootstrapper.on_event',
       timeout: core.Duration.seconds(300),
-      runtime: lambda.Runtime.PYTHON_3_9,
+      runtime: lambda.Runtime.PYTHON_3_11,
     });
 
     // allow it to find the AccountId
