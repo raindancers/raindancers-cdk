@@ -36,7 +36,7 @@ export class CdkOrgBootstrapper extends constructs.Construct {
     super(scope, id);
 
     if (props.localStacksPath || props.localTemplateStacks) {
-      throw new Error("Both localStacksPath and LocalTemplateStacks must been specified if local stacks are used");     
+      throw new Error('Both localStacksPath and LocalTemplateStacks must been specified if local stacks are used');
     }
 
     // Create an asset for the Codebuild Job
@@ -56,7 +56,7 @@ export class CdkOrgBootstrapper extends constructs.Construct {
       }),
     });
 
-    let localStacks: string[] = []
+    let localStacks: string[] = [];
     if (props.localTemplateStacks && props.localStacksPath) {
 
       const secondaryCodebuildAsset = new s3assets.Asset(this, 'codebuildAssets', {
@@ -67,10 +67,10 @@ export class CdkOrgBootstrapper extends constructs.Construct {
         codebuild.Source.s3({
           bucket: secondaryCodebuildAsset.bucket,
           path: codebuildAsset.s3ObjectKey,
-          identifier: 'localstacks'
-        })
+          identifier: 'localstacks',
+        }),
       );
-      localStacks = props.localTemplateStacks
+      localStacks = props.localTemplateStacks;
     }
 
     // This allows the code build job permission to use the ControlTowerExecutionRole
@@ -83,11 +83,11 @@ export class CdkOrgBootstrapper extends constructs.Construct {
     );
 
     // can't pass undefined to environment
-    let templateStacks: Template[] = []
+    let templateStacks: Template[] = [];
     if (props.templateStacks) {
-      templateStacks = props.templateStacks
+      templateStacks = props.templateStacks;
     }
-    
+
 
     // this is the lambda that processes the data and starts the codebuild project
     const bootStrapperLambda = new lambda.SingletonFunction(this, 'BootstrapLambda', {
@@ -107,7 +107,7 @@ export class CdkOrgBootstrapper extends constructs.Construct {
         ROOT_ACCOUNT_ID: core.Aws.ACCOUNT_ID,
         CODEBUILD_PROJECT_NAME: bootStrapperCodeBuild.projectName,
         TEMPLATE_BOOTSTRAP_STACKS: JSON.stringify(templateStacks),
-        LOCAL_BOOTSTRAP_STACKS: JSON.stringify(localStacks)
+        LOCAL_BOOTSTRAP_STACKS: JSON.stringify(localStacks),
       },
       handler: 'bootstrapper.on_event',
       timeout: core.Duration.seconds(300),

@@ -1578,45 +1578,6 @@ ServiceControlPolicys To Be applied when an account is created.
 
 ---
 
-### BootstrapStacks <a name="BootstrapStacks" id="raindancers-cdk.orgTools.BootstrapStacks"></a>
-
-#### Initializer <a name="Initializer" id="raindancers-cdk.orgTools.BootstrapStacks.Initializer"></a>
-
-```typescript
-import { orgTools } from 'raindancers-cdk'
-
-const bootstrapStacks: orgTools.BootstrapStacks = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#raindancers-cdk.orgTools.BootstrapStacks.property.regions">regions</a></code> | <code>string[]</code> | *No description.* |
-| <code><a href="#raindancers-cdk.orgTools.BootstrapStacks.property.stackName">stackName</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `regions`<sup>Required</sup> <a name="regions" id="raindancers-cdk.orgTools.BootstrapStacks.property.regions"></a>
-
-```typescript
-public readonly regions: string[];
-```
-
-- *Type:* string[]
-
----
-
-##### `stackName`<sup>Required</sup> <a name="stackName" id="raindancers-cdk.orgTools.BootstrapStacks.property.stackName"></a>
-
-```typescript
-public readonly stackName: string;
-```
-
-- *Type:* string
-
----
-
 ### CdkOrgBootstrapperProps <a name="CdkOrgBootstrapperProps" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps.Initializer"></a>
@@ -1633,9 +1594,9 @@ const cdkOrgBootstrapperProps: orgTools.CdkOrgBootstrapperProps = { ... }
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.cdkBootstrapRootQualifier">cdkBootstrapRootQualifier</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.cdkBootstrapRootRegions">cdkBootstrapRootRegions</a></code> | <code>string[]</code> | *No description.* |
-| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.localBootStrapStacks">localBootStrapStacks</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.localStacksPath">localStacksPath</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.templateBootStrapStacks">templateBootStrapStacks</a></code> | <code>raindancers-cdk.orgTools.TemplateBootstrapStack[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.localTemplateStacks">localTemplateStacks</a></code> | <code>raindancers-cdk.orgTools.Template[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.templateStacks">templateStacks</a></code> | <code>raindancers-cdk.orgTools.Template[]</code> | *No description.* |
 
 ---
 
@@ -1659,16 +1620,6 @@ public readonly cdkBootstrapRootRegions: string[];
 
 ---
 
-##### `localBootStrapStacks`<sup>Optional</sup> <a name="localBootStrapStacks" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.localBootStrapStacks"></a>
-
-```typescript
-public readonly localBootStrapStacks: string[];
-```
-
-- *Type:* string[]
-
----
-
 ##### `localStacksPath`<sup>Optional</sup> <a name="localStacksPath" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.localStacksPath"></a>
 
 ```typescript
@@ -1679,13 +1630,23 @@ public readonly localStacksPath: string;
 
 ---
 
-##### `templateBootStrapStacks`<sup>Optional</sup> <a name="templateBootStrapStacks" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.templateBootStrapStacks"></a>
+##### `localTemplateStacks`<sup>Optional</sup> <a name="localTemplateStacks" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.localTemplateStacks"></a>
 
 ```typescript
-public readonly templateBootStrapStacks: TemplateBootstrapStack[];
+public readonly localTemplateStacks: Template[];
 ```
 
-- *Type:* raindancers-cdk.orgTools.TemplateBootstrapStack[]
+- *Type:* raindancers-cdk.orgTools.Template[]
+
+---
+
+##### `templateStacks`<sup>Optional</sup> <a name="templateStacks" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.templateStacks"></a>
+
+```typescript
+public readonly templateStacks: Template[];
+```
+
+- *Type:* raindancers-cdk.orgTools.Template[]
 
 ---
 
@@ -2494,6 +2455,45 @@ public readonly topics: Topic[];
 
 ---
 
+### Template <a name="Template" id="raindancers-cdk.orgTools.Template"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.orgTools.Template.Initializer"></a>
+
+```typescript
+import { orgTools } from 'raindancers-cdk'
+
+const template: orgTools.Template = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.Template.property.regions">regions</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.Template.property.stackName">stackName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `regions`<sup>Required</sup> <a name="regions" id="raindancers-cdk.orgTools.Template.property.regions"></a>
+
+```typescript
+public readonly regions: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `stackName`<sup>Required</sup> <a name="stackName" id="raindancers-cdk.orgTools.Template.property.stackName"></a>
+
+```typescript
+public readonly stackName: string;
+```
+
+- *Type:* string
+
+---
+
 ## Classes <a name="Classes" id="Classes"></a>
 
 ### MonitoringRule <a name="MonitoringRule" id="raindancers-cdk.eventalerts.MonitoringRule"></a>
@@ -3061,17 +3061,17 @@ public readonly id: string;
 ---
 
 
-### TemplateBootstrapStack <a name="TemplateBootstrapStack" id="raindancers-cdk.orgTools.TemplateBootstrapStack"></a>
+### TemplateStack <a name="TemplateStack" id="raindancers-cdk.orgTools.TemplateStack"></a>
 
 #### Members <a name="Members" id="Members"></a>
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#raindancers-cdk.orgTools.TemplateBootstrapStack.IAM_ALIAS">IAM_ALIAS</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.TemplateStack.IAM_ALIAS">IAM_ALIAS</a></code> | *No description.* |
 
 ---
 
-##### `IAM_ALIAS` <a name="IAM_ALIAS" id="raindancers-cdk.orgTools.TemplateBootstrapStack.IAM_ALIAS"></a>
+##### `IAM_ALIAS` <a name="IAM_ALIAS" id="raindancers-cdk.orgTools.TemplateStack.IAM_ALIAS"></a>
 
 ---
 
