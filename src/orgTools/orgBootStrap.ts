@@ -92,7 +92,7 @@ export class CdkOrgBootstrapper extends constructs.Construct {
     // this is the lambda that processes the data and starts the codebuild project
     const bootStrapperLambda = new lambda.SingletonFunction(this, 'BootstrapLambda', {
       uuid: 'a7e4f740-4ff1-11e8-4c3d-fd7ae01bbebc',
-      code: lambda.Code.fromAsset(path.join(__dirname,'../../lambda/bootstrapper'), {
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/bootstrapper'), {
         bundling: {
           image: lambda.Runtime.PYTHON_3_11.bundlingImage,
           command: [
