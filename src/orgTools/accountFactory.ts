@@ -14,36 +14,41 @@ export interface AccountProvisioningParameters {
   /**
    * SSO user Email
    */
-  readonly SSOUserEmail: string;
+  readonly sSOUserEmail: string;
   /**
    * SSO user First Name
    */
-  readonly SSOUserFirstName: string;
+  readonly sSOUserFirstName: string;
   /**
    * SSO User Last Name
    */
-  readonly SSOUserLastName: string;
+  readonly sSOUserLastName: string;
   /**
    * OU where to place this account
    */
-  readonly ManagedOrganizationalUnit: string;
+  readonly managedOrganizationalUnit: string;
   /**
    *  What to call the account
    */
-  readonly AccountName: string;
+  readonly accountName: string;
   /**
    * What Email address to use for the root user
    */
-  readonly AccountEmail: string;
+  readonly accountEmail: string;
 }
 
 /**
  * Propertys for AccountFactory
  */
 export interface AccountFactoryProps extends core.ResourceProps {
-  // arn of the AccountFactory Service Catalog
-  accountFactoryProductArn: string;
-  awsAccount: AccountProvisioningParameters;
+  /**
+   * arn of the AccountFactory Service Catalog
+  */
+  readonly accountFactoryProductArn: string;
+  /**
+   * Parameters to create a new account with
+   */
+  readonly awsAccount: AccountProvisioningParameters;
 }
 
 /**
@@ -78,8 +83,8 @@ export class AccountFactory extends core.Resource {
         parameters: {
           ProductId: accountFactoryProduct.productId,
           ProvisioningArtifactId: artifactId.getResponseField('ProvisioningArtifacts.[-1].Id'),
-          ProvisionedProductName: `awsAccount-${props.awsAccount.AccountName}`,
-          ProvisioningParameters: [props.awsAccount],
+          ProvisionedProductName: `awsAccount-${props.awsAccount.accountName}`,
+          ProvisioningParameters: [upperCaseKeys(props.awsAccount)],
         },
         physicalResourceId: cr.PhysicalResourceId.of('NewAccount'),
       },
@@ -89,4 +94,21 @@ export class AccountFactory extends core.Resource {
     });
 
   }
+}
+
+function upperCaseKeys(obj: any): any {
+  if (typeof obj !== 'object') {
+    return obj;
+  }
+  if (Array.isArray(obj)) {
+    return obj.map(upperCaseKeys);
+  }
+  if (obj === null) {
+    return null;
+  }
+  const entries = Object.entries(obj);
+  const mappedEntries = entries.map(
+    ([k, v]) => [`${k.substr(0, 1).toUpperCase()}${k.substr(1)}`, upperCaseKeys(v)] as const,
+  );
+  return Object.fromEntries(mappedEntries);
 }

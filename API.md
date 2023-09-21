@@ -5,6 +5,199 @@ raindancers-cdk
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### AccountFactory <a name="AccountFactory" id="raindancers-cdk.orgTools.AccountFactory"></a>
+
+Creates a remailing service for an entire Domain.
+
+Typical use case is to collate al
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.orgTools.AccountFactory.Initializer"></a>
+
+```typescript
+import { orgTools } from 'raindancers-cdk'
+
+new orgTools.AccountFactory(scope: Construct, id: string, props: AccountFactoryProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactory.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactory.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactory.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.orgTools.AccountFactoryProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.orgTools.AccountFactory.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.orgTools.AccountFactory.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.orgTools.AccountFactory.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.orgTools.AccountFactoryProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactory.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactory.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.orgTools.AccountFactory.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="raindancers-cdk.orgTools.AccountFactory.applyRemovalPolicy"></a>
+
+```typescript
+public applyRemovalPolicy(policy: RemovalPolicy): void
+```
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+###### `policy`<sup>Required</sup> <a name="policy" id="raindancers-cdk.orgTools.AccountFactory.applyRemovalPolicy.parameter.policy"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactory.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactory.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactory.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.orgTools.AccountFactory.isConstruct"></a>
+
+```typescript
+import { orgTools } from 'raindancers-cdk'
+
+orgTools.AccountFactory.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.orgTools.AccountFactory.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isOwnedResource` <a name="isOwnedResource" id="raindancers-cdk.orgTools.AccountFactory.isOwnedResource"></a>
+
+```typescript
+import { orgTools } from 'raindancers-cdk'
+
+orgTools.AccountFactory.isOwnedResource(construct: IConstruct)
+```
+
+Returns true if the construct was created by CDK, and false otherwise.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="raindancers-cdk.orgTools.AccountFactory.isOwnedResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `isResource` <a name="isResource" id="raindancers-cdk.orgTools.AccountFactory.isResource"></a>
+
+```typescript
+import { orgTools } from 'raindancers-cdk'
+
+orgTools.AccountFactory.isResource(construct: IConstruct)
+```
+
+Check whether the given construct is a Resource.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="raindancers-cdk.orgTools.AccountFactory.isResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactory.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactory.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactory.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.orgTools.AccountFactory.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="raindancers-cdk.orgTools.AccountFactory.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="raindancers-cdk.orgTools.AccountFactory.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this resource is defined.
+
+---
+
+
 ### ApplySCPOnAccountCreation <a name="ApplySCPOnAccountCreation" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation"></a>
 
 Applys SCP to account when it is created.
@@ -1480,6 +1673,215 @@ The stack in which this resource is defined.
 
 
 ## Structs <a name="Structs" id="Structs"></a>
+
+### AccountFactoryProps <a name="AccountFactoryProps" id="raindancers-cdk.orgTools.AccountFactoryProps"></a>
+
+Propertys for AccountFactory.
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.orgTools.AccountFactoryProps.Initializer"></a>
+
+```typescript
+import { orgTools } from 'raindancers-cdk'
+
+const accountFactoryProps: orgTools.AccountFactoryProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactoryProps.property.account">account</a></code> | <code>string</code> | The AWS account ID this resource belongs to. |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactoryProps.property.environmentFromArn">environmentFromArn</a></code> | <code>string</code> | ARN to deduce region and account from. |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactoryProps.property.physicalName">physicalName</a></code> | <code>string</code> | The value passed in by users to the physical name prop of the resource. |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactoryProps.property.region">region</a></code> | <code>string</code> | The AWS region this resource belongs to. |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactoryProps.property.accountFactoryProductArn">accountFactoryProductArn</a></code> | <code>string</code> | arn of the AccountFactory Service Catalog. |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactoryProps.property.awsAccount">awsAccount</a></code> | <code>raindancers-cdk.orgTools.AccountProvisioningParameters</code> | Parameters to create a new account with. |
+
+---
+
+##### `account`<sup>Optional</sup> <a name="account" id="raindancers-cdk.orgTools.AccountFactoryProps.property.account"></a>
+
+```typescript
+public readonly account: string;
+```
+
+- *Type:* string
+- *Default:* the resource is in the same account as the stack it belongs to
+
+The AWS account ID this resource belongs to.
+
+---
+
+##### `environmentFromArn`<sup>Optional</sup> <a name="environmentFromArn" id="raindancers-cdk.orgTools.AccountFactoryProps.property.environmentFromArn"></a>
+
+```typescript
+public readonly environmentFromArn: string;
+```
+
+- *Type:* string
+- *Default:* take environment from `account`, `region` parameters, or use Stack environment.
+
+ARN to deduce region and account from.
+
+The ARN is parsed and the account and region are taken from the ARN.
+This should be used for imported resources.
+
+Cannot be supplied together with either `account` or `region`.
+
+---
+
+##### `physicalName`<sup>Optional</sup> <a name="physicalName" id="raindancers-cdk.orgTools.AccountFactoryProps.property.physicalName"></a>
+
+```typescript
+public readonly physicalName: string;
+```
+
+- *Type:* string
+- *Default:* The physical name will be allocated by CloudFormation at deployment time
+
+The value passed in by users to the physical name prop of the resource.
+
+`undefined` implies that a physical name will be allocated by
+  CloudFormation during deployment.
+- a concrete value implies a specific physical name
+- `PhysicalName.GENERATE_IF_NEEDED` is a marker that indicates that a physical will only be generated
+  by the CDK if it is needed for cross-environment references. Otherwise, it will be allocated by CloudFormation.
+
+---
+
+##### `region`<sup>Optional</sup> <a name="region" id="raindancers-cdk.orgTools.AccountFactoryProps.property.region"></a>
+
+```typescript
+public readonly region: string;
+```
+
+- *Type:* string
+- *Default:* the resource is in the same region as the stack it belongs to
+
+The AWS region this resource belongs to.
+
+---
+
+##### `accountFactoryProductArn`<sup>Required</sup> <a name="accountFactoryProductArn" id="raindancers-cdk.orgTools.AccountFactoryProps.property.accountFactoryProductArn"></a>
+
+```typescript
+public readonly accountFactoryProductArn: string;
+```
+
+- *Type:* string
+
+arn of the AccountFactory Service Catalog.
+
+---
+
+##### `awsAccount`<sup>Required</sup> <a name="awsAccount" id="raindancers-cdk.orgTools.AccountFactoryProps.property.awsAccount"></a>
+
+```typescript
+public readonly awsAccount: AccountProvisioningParameters;
+```
+
+- *Type:* raindancers-cdk.orgTools.AccountProvisioningParameters
+
+Parameters to create a new account with.
+
+---
+
+### AccountProvisioningParameters <a name="AccountProvisioningParameters" id="raindancers-cdk.orgTools.AccountProvisioningParameters"></a>
+
+Provisioning Parameters for creating an AWS Account.
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.orgTools.AccountProvisioningParameters.Initializer"></a>
+
+```typescript
+import { orgTools } from 'raindancers-cdk'
+
+const accountProvisioningParameters: orgTools.AccountProvisioningParameters = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.orgTools.AccountProvisioningParameters.property.accountEmail">accountEmail</a></code> | <code>string</code> | What Email address to use for the root user. |
+| <code><a href="#raindancers-cdk.orgTools.AccountProvisioningParameters.property.accountName">accountName</a></code> | <code>string</code> | What to call the account. |
+| <code><a href="#raindancers-cdk.orgTools.AccountProvisioningParameters.property.managedOrganizationalUnit">managedOrganizationalUnit</a></code> | <code>string</code> | OU where to place this account. |
+| <code><a href="#raindancers-cdk.orgTools.AccountProvisioningParameters.property.sSOUserEmail">sSOUserEmail</a></code> | <code>string</code> | SSO user Email. |
+| <code><a href="#raindancers-cdk.orgTools.AccountProvisioningParameters.property.sSOUserFirstName">sSOUserFirstName</a></code> | <code>string</code> | SSO user First Name. |
+| <code><a href="#raindancers-cdk.orgTools.AccountProvisioningParameters.property.sSOUserLastName">sSOUserLastName</a></code> | <code>string</code> | SSO User Last Name. |
+
+---
+
+##### `accountEmail`<sup>Required</sup> <a name="accountEmail" id="raindancers-cdk.orgTools.AccountProvisioningParameters.property.accountEmail"></a>
+
+```typescript
+public readonly accountEmail: string;
+```
+
+- *Type:* string
+
+What Email address to use for the root user.
+
+---
+
+##### `accountName`<sup>Required</sup> <a name="accountName" id="raindancers-cdk.orgTools.AccountProvisioningParameters.property.accountName"></a>
+
+```typescript
+public readonly accountName: string;
+```
+
+- *Type:* string
+
+What to call the account.
+
+---
+
+##### `managedOrganizationalUnit`<sup>Required</sup> <a name="managedOrganizationalUnit" id="raindancers-cdk.orgTools.AccountProvisioningParameters.property.managedOrganizationalUnit"></a>
+
+```typescript
+public readonly managedOrganizationalUnit: string;
+```
+
+- *Type:* string
+
+OU where to place this account.
+
+---
+
+##### `sSOUserEmail`<sup>Required</sup> <a name="sSOUserEmail" id="raindancers-cdk.orgTools.AccountProvisioningParameters.property.sSOUserEmail"></a>
+
+```typescript
+public readonly sSOUserEmail: string;
+```
+
+- *Type:* string
+
+SSO user Email.
+
+---
+
+##### `sSOUserFirstName`<sup>Required</sup> <a name="sSOUserFirstName" id="raindancers-cdk.orgTools.AccountProvisioningParameters.property.sSOUserFirstName"></a>
+
+```typescript
+public readonly sSOUserFirstName: string;
+```
+
+- *Type:* string
+
+SSO user First Name.
+
+---
+
+##### `sSOUserLastName`<sup>Required</sup> <a name="sSOUserLastName" id="raindancers-cdk.orgTools.AccountProvisioningParameters.property.sSOUserLastName"></a>
+
+```typescript
+public readonly sSOUserLastName: string;
+```
+
+- *Type:* string
+
+SSO User Last Name.
+
+---
 
 ### ApplySCPOnAccountCreationProps <a name="ApplySCPOnAccountCreationProps" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreationProps"></a>
 
