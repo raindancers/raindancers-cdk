@@ -59,7 +59,7 @@ export class AccountFactory extends core.Resource {
   constructor(scope: constructs.Construct, id: string, props: AccountFactoryProps) {
     super(scope, id, props);
 
-    const accountFactoryProduct = servicecatalog.Product.fromProductArn(this, 'MyProduct', 'productArn');
+    const accountFactoryProduct = servicecatalog.Product.fromProductArn(this, 'MyProduct', props.accountFactoryProductArn);
 
     const artifactId = new cr.AwsCustomResource(this, 'GetProvisioningArtificactId', {
       onCreate: {
