@@ -32,6 +32,16 @@ def on_event(event, context):
 		'npm update -g npm@latest',
 		'npm install',
 	]
+
+	# this will set the default creds to the role in the remote account. 
+	build_commands.extend([
+		f'export $(printf "AWS_ACCESS_KEY_ID=%s AWS_SECRET_ACCESS_KEY=%s AWS_SESSION_TOKEN=%s" \
+		$(aws sts assume-role \
+		--role-arn arn:aws:iam::{account_id}:role/AWSControlTowerExecution \
+		--role-session-name MySessionName \
+		--query "Credentials.[AccessKeyId,SecretAccessKey,SessionToken]" \
+		--output text))'
+	])
 	
 	trust_string = ''
 	for account in TRUSTS:
@@ -41,7 +51,7 @@ def on_event(event, context):
 	for region in CDK_BOOTSTRAP_REGIONS:
 		build_commands.extend(
 			[
-				f'npx cdk boostrap aws://{account_id}/{region} --qualifer {CDK_BOOTSTRAP_QUALIFER} --trust {truststring}
+				f'npx cdk bootstrap aws://{account_id}/{region} --qualifer {CDK_BOOTSTRAP_QUALIFER} --trust {truststring}
 			]
 		)
 	
