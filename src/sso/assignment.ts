@@ -5,7 +5,7 @@ import {
 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { IPermissionSet } from './permissionset';
-import { PrincipalProperty } from './principal';
+import { ISSOPrincipal } from './principal';
 import { validatePermissionSetArn } from './private/permissionset-common';
 import { validatePrincipal } from './private/principal-common';
 
@@ -41,7 +41,7 @@ export interface AssignmentOptions {
   /**
   * The principal to assign the permission set to
   */
-  readonly principal: PrincipalProperty;
+  readonly principal: ISSOPrincipal;
 
   /**
   * The target id the permission set will be assigned to

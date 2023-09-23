@@ -2517,7 +2517,7 @@ const assignmentOptions: sso.AssignmentOptions = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#raindancers-cdk.sso.AssignmentOptions.property.principal">principal</a></code> | <code>raindancers-cdk.sso.PrincipalProperty</code> | The principal to assign the permission set to. |
+| <code><a href="#raindancers-cdk.sso.AssignmentOptions.property.principal">principal</a></code> | <code>raindancers-cdk.sso.ISSOPrincipal</code> | The principal to assign the permission set to. |
 | <code><a href="#raindancers-cdk.sso.AssignmentOptions.property.targetId">targetId</a></code> | <code>string</code> | The target id the permission set will be assigned to. |
 | <code><a href="#raindancers-cdk.sso.AssignmentOptions.property.targetType">targetType</a></code> | <code>raindancers-cdk.sso.TargetTypes</code> | The entity type for which the assignment will be created. |
 
@@ -2526,10 +2526,10 @@ const assignmentOptions: sso.AssignmentOptions = { ... }
 ##### `principal`<sup>Required</sup> <a name="principal" id="raindancers-cdk.sso.AssignmentOptions.property.principal"></a>
 
 ```typescript
-public readonly principal: PrincipalProperty;
+public readonly principal: ISSOPrincipal;
 ```
 
-- *Type:* raindancers-cdk.sso.PrincipalProperty
+- *Type:* raindancers-cdk.sso.ISSOPrincipal
 
 The principal to assign the permission set to.
 
@@ -2576,7 +2576,7 @@ const assignmentProps: sso.AssignmentProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#raindancers-cdk.sso.AssignmentProps.property.principal">principal</a></code> | <code>raindancers-cdk.sso.PrincipalProperty</code> | The principal to assign the permission set to. |
+| <code><a href="#raindancers-cdk.sso.AssignmentProps.property.principal">principal</a></code> | <code>raindancers-cdk.sso.ISSOPrincipal</code> | The principal to assign the permission set to. |
 | <code><a href="#raindancers-cdk.sso.AssignmentProps.property.targetId">targetId</a></code> | <code>string</code> | The target id the permission set will be assigned to. |
 | <code><a href="#raindancers-cdk.sso.AssignmentProps.property.targetType">targetType</a></code> | <code>raindancers-cdk.sso.TargetTypes</code> | The entity type for which the assignment will be created. |
 | <code><a href="#raindancers-cdk.sso.AssignmentProps.property.permissionSet">permissionSet</a></code> | <code>raindancers-cdk.sso.IPermissionSet</code> | The permission set to assign to the principal. |
@@ -2586,10 +2586,10 @@ const assignmentProps: sso.AssignmentProps = { ... }
 ##### `principal`<sup>Required</sup> <a name="principal" id="raindancers-cdk.sso.AssignmentProps.property.principal"></a>
 
 ```typescript
-public readonly principal: PrincipalProperty;
+public readonly principal: ISSOPrincipal;
 ```
 
-- *Type:* raindancers-cdk.sso.PrincipalProperty
+- *Type:* raindancers-cdk.sso.ISSOPrincipal
 
 The principal to assign the permission set to.
 
@@ -3672,49 +3672,6 @@ The length of time that the application user sessions are valid for.
 
 ---
 
-### PrincipalProperty <a name="PrincipalProperty" id="raindancers-cdk.sso.PrincipalProperty"></a>
-
-#### Initializer <a name="Initializer" id="raindancers-cdk.sso.PrincipalProperty.Initializer"></a>
-
-```typescript
-import { sso } from 'raindancers-cdk'
-
-const principalProperty: sso.PrincipalProperty = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#raindancers-cdk.sso.PrincipalProperty.property.principalId">principalId</a></code> | <code>string</code> | The id of the principal. |
-| <code><a href="#raindancers-cdk.sso.PrincipalProperty.property.principalType">principalType</a></code> | <code>raindancers-cdk.sso.PrincipalTypes</code> | The type of the principal. |
-
----
-
-##### `principalId`<sup>Required</sup> <a name="principalId" id="raindancers-cdk.sso.PrincipalProperty.property.principalId"></a>
-
-```typescript
-public readonly principalId: string;
-```
-
-- *Type:* string
-
-The id of the principal.
-
----
-
-##### `principalType`<sup>Required</sup> <a name="principalType" id="raindancers-cdk.sso.PrincipalProperty.property.principalType"></a>
-
-```typescript
-public readonly principalType: PrincipalTypes;
-```
-
-- *Type:* raindancers-cdk.sso.PrincipalTypes
-
-The type of the principal.
-
----
-
 ### RemailerProps <a name="RemailerProps" id="raindancers-cdk.remailer.RemailerProps"></a>
 
 Propertys for Remailer.
@@ -4241,6 +4198,205 @@ This should ideally be applyed at the account leel
 
 
 
+### SSOGroup <a name="SSOGroup" id="raindancers-cdk.sso.SSOGroup"></a>
+
+- *Implements:* raindancers-cdk.sso.ISSOPrincipal
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.sso.SSOGroup.Initializer"></a>
+
+```typescript
+import { sso } from 'raindancers-cdk'
+
+new sso.SSOGroup()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.sso.SSOGroup.fromGroupName">fromGroupName</a></code> | *No description.* |
+
+---
+
+##### `fromGroupName` <a name="fromGroupName" id="raindancers-cdk.sso.SSOGroup.fromGroupName"></a>
+
+```typescript
+import { sso } from 'raindancers-cdk'
+
+sso.SSOGroup.fromGroupName(scope: Construct, identityStoreId: string, groupName: string)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.sso.SSOGroup.fromGroupName.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `identityStoreId`<sup>Required</sup> <a name="identityStoreId" id="raindancers-cdk.sso.SSOGroup.fromGroupName.parameter.identityStoreId"></a>
+
+- *Type:* string
+
+---
+
+###### `groupName`<sup>Required</sup> <a name="groupName" id="raindancers-cdk.sso.SSOGroup.fromGroupName.parameter.groupName"></a>
+
+- *Type:* string
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.sso.SSOGroup.property.principalId">principalId</a></code> | <code>string</code> | The principalId. |
+| <code><a href="#raindancers-cdk.sso.SSOGroup.property.principalType">principalType</a></code> | <code>raindancers-cdk.sso.SSOPrincipalType</code> | The type of the principalType. |
+
+---
+
+##### `principalId`<sup>Required</sup> <a name="principalId" id="raindancers-cdk.sso.SSOGroup.property.principalId"></a>
+
+```typescript
+public readonly principalId: string;
+```
+
+- *Type:* string
+
+The principalId.
+
+---
+
+##### `principalType`<sup>Required</sup> <a name="principalType" id="raindancers-cdk.sso.SSOGroup.property.principalType"></a>
+
+```typescript
+public readonly principalType: SSOPrincipalType;
+```
+
+- *Type:* raindancers-cdk.sso.SSOPrincipalType
+
+The type of the principalType.
+
+---
+
+
+### SSOUser <a name="SSOUser" id="raindancers-cdk.sso.SSOUser"></a>
+
+- *Implements:* raindancers-cdk.sso.ISSOPrincipal
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.sso.SSOUser.Initializer"></a>
+
+```typescript
+import { sso } from 'raindancers-cdk'
+
+new sso.SSOUser()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.sso.SSOUser.fromEmailAdddress">fromEmailAdddress</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.sso.SSOUser.fromUserName">fromUserName</a></code> | *No description.* |
+
+---
+
+##### `fromEmailAdddress` <a name="fromEmailAdddress" id="raindancers-cdk.sso.SSOUser.fromEmailAdddress"></a>
+
+```typescript
+import { sso } from 'raindancers-cdk'
+
+sso.SSOUser.fromEmailAdddress(scope: Construct, identityStoreId: string, email: string)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.sso.SSOUser.fromEmailAdddress.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `identityStoreId`<sup>Required</sup> <a name="identityStoreId" id="raindancers-cdk.sso.SSOUser.fromEmailAdddress.parameter.identityStoreId"></a>
+
+- *Type:* string
+
+---
+
+###### `email`<sup>Required</sup> <a name="email" id="raindancers-cdk.sso.SSOUser.fromEmailAdddress.parameter.email"></a>
+
+- *Type:* string
+
+---
+
+##### `fromUserName` <a name="fromUserName" id="raindancers-cdk.sso.SSOUser.fromUserName"></a>
+
+```typescript
+import { sso } from 'raindancers-cdk'
+
+sso.SSOUser.fromUserName(scope: Construct, identityStoreId: string, userName: string)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.sso.SSOUser.fromUserName.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `identityStoreId`<sup>Required</sup> <a name="identityStoreId" id="raindancers-cdk.sso.SSOUser.fromUserName.parameter.identityStoreId"></a>
+
+- *Type:* string
+
+---
+
+###### `userName`<sup>Required</sup> <a name="userName" id="raindancers-cdk.sso.SSOUser.fromUserName.parameter.userName"></a>
+
+- *Type:* string
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.sso.SSOUser.property.principalId">principalId</a></code> | <code>string</code> | The principalId. |
+| <code><a href="#raindancers-cdk.sso.SSOUser.property.principalType">principalType</a></code> | <code>raindancers-cdk.sso.SSOPrincipalType</code> | The type of the principalType. |
+
+---
+
+##### `principalId`<sup>Required</sup> <a name="principalId" id="raindancers-cdk.sso.SSOUser.property.principalId"></a>
+
+```typescript
+public readonly principalId: string;
+```
+
+- *Type:* string
+
+The principalId.
+
+---
+
+##### `principalType`<sup>Required</sup> <a name="principalType" id="raindancers-cdk.sso.SSOUser.property.principalType"></a>
+
+```typescript
+public readonly principalType: SSOPrincipalType;
+```
+
+- *Type:* raindancers-cdk.sso.SSOPrincipalType
+
+The type of the principalType.
+
+---
+
+
 ## Protocols <a name="Protocols" id="Protocols"></a>
 
 ### IAssignment <a name="IAssignment" id="raindancers-cdk.sso.IAssignment"></a>
@@ -4538,6 +4694,44 @@ public readonly id: string;
 
 ---
 
+### ISSOPrincipal <a name="ISSOPrincipal" id="raindancers-cdk.sso.ISSOPrincipal"></a>
+
+- *Implemented By:* raindancers-cdk.sso.SSOGroup, raindancers-cdk.sso.SSOUser, raindancers-cdk.sso.ISSOPrincipal
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.sso.ISSOPrincipal.property.principalId">principalId</a></code> | <code>string</code> | The id of the principal. |
+| <code><a href="#raindancers-cdk.sso.ISSOPrincipal.property.principalType">principalType</a></code> | <code>raindancers-cdk.sso.SSOPrincipalType</code> | The type of the principal. |
+
+---
+
+##### `principalId`<sup>Required</sup> <a name="principalId" id="raindancers-cdk.sso.ISSOPrincipal.property.principalId"></a>
+
+```typescript
+public readonly principalId: string;
+```
+
+- *Type:* string
+
+The id of the principal.
+
+---
+
+##### `principalType`<sup>Required</sup> <a name="principalType" id="raindancers-cdk.sso.ISSOPrincipal.property.principalType"></a>
+
+```typescript
+public readonly principalType: SSOPrincipalType;
+```
+
+- *Type:* raindancers-cdk.sso.SSOPrincipalType
+
+The type of the principal.
+
+---
+
 ## Enums <a name="Enums" id="Enums"></a>
 
 ### OrgAlarms <a name="OrgAlarms" id="raindancers-cdk.orgTools.OrgAlarms"></a>
@@ -4678,23 +4872,23 @@ public readonly id: string;
 ---
 
 
-### PrincipalTypes <a name="PrincipalTypes" id="raindancers-cdk.sso.PrincipalTypes"></a>
+### SSOPrincipalType <a name="SSOPrincipalType" id="raindancers-cdk.sso.SSOPrincipalType"></a>
 
 #### Members <a name="Members" id="Members"></a>
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#raindancers-cdk.sso.PrincipalTypes.USER">USER</a></code> | *No description.* |
-| <code><a href="#raindancers-cdk.sso.PrincipalTypes.GROUP">GROUP</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.sso.SSOPrincipalType.USER">USER</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.sso.SSOPrincipalType.GROUP">GROUP</a></code> | *No description.* |
 
 ---
 
-##### `USER` <a name="USER" id="raindancers-cdk.sso.PrincipalTypes.USER"></a>
+##### `USER` <a name="USER" id="raindancers-cdk.sso.SSOPrincipalType.USER"></a>
 
 ---
 
 
-##### `GROUP` <a name="GROUP" id="raindancers-cdk.sso.PrincipalTypes.GROUP"></a>
+##### `GROUP` <a name="GROUP" id="raindancers-cdk.sso.SSOPrincipalType.GROUP"></a>
 
 ---
 
