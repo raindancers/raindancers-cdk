@@ -8,6 +8,8 @@ import {
   aws_events as events,
   aws_events_targets as targets,
   aws_sqs as sqs,
+  custom_resources as cr,
+  aws_logs as logs,
 }
   from 'aws-cdk-lib';
 
@@ -32,6 +34,7 @@ export interface CdkOrgBootstrapperProps {
    * @default Just trust this account
    */
   readonly trustAccounts?: string[] | undefined; // if this is set, do not use this account as
+  readonly account?: string | undefined;
 }
 
 export class CdkOrgBootstrapper extends constructs.Construct {
@@ -116,6 +119,7 @@ export class CdkOrgBootstrapper extends constructs.Construct {
       handler: 'bootstrapper.on_event',
       timeout: core.Duration.seconds(300),
       runtime: lambda.Runtime.PYTHON_3_11,
+      logRetention: logs.RetentionDays.ONE_MONTH,
     });
 
     // allow it to find the AccountId
@@ -142,22 +146,46 @@ export class CdkOrgBootstrapper extends constructs.Construct {
       }),
     );
 
-    //create a rule to trigger on new account creation
-    const cTNewAccountRule = new events.Rule(this, 'ControlTowerEventRule', {
-      eventPattern: {
-        source: ['aws.controltower'],
-        detail: {
-          eventName: ['CreateManagedAccount'],
+    // if there is an account to bootstrap, then this is will be a applicaiton bootstrap
+    // and we should start the lambda with a custom resource.
+    if (props.account) {
+
+      const myProvider = new cr.Provider(this, 'MyProvider', {
+        onEventHandler: bootStrapperLambda,
+        logRetention: logs.RetentionDays.ONE_DAY, // default is INFINITE
+        totalTimeout: core.Duration.minutes(20),
+      });
+
+      // start the codebuild via the lambda.
+      new core.CustomResource(this, 'startCodebuildViaLambda', {
+        serviceToken: myProvider.serviceToken,
+        resourceType: 'Custom::StartCodeBuildviaLambda',
+        properties: {
+          accountId: props.account,
         },
-      },
-    });
+      });
 
-    const eventDLQ = new sqs.Queue(this, 'eventDLQ');
+    } else {
 
-    cTNewAccountRule.addTarget(new targets.LambdaFunction(bootStrapperLambda, {
-      deadLetterQueue: eventDLQ,
-      maxEventAge: core.Duration.hours(2),
-      retryAttempts: 2,
-    }));
+      //create a rule to trigger on new account creation
+      const cTNewAccountRule = new events.Rule(this, 'ControlTowerEventRule', {
+        eventPattern: {
+          source: ['aws.controltower'],
+          detail: {
+            eventName: ['CreateManagedAccount'],
+          },
+        },
+      });
+
+      const eventDLQ = new sqs.Queue(this, 'eventDLQ');
+
+      cTNewAccountRule.addTarget(new targets.LambdaFunction(bootStrapperLambda, {
+        deadLetterQueue: eventDLQ,
+        maxEventAge: core.Duration.hours(2),
+        retryAttempts: 2,
+      }));
+
+    }
+
   }
 }

@@ -2028,6 +2028,7 @@ const cdkOrgBootstrapperProps: orgTools.CdkOrgBootstrapperProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.cdkBootstrapRootRegions">cdkBootstrapRootRegions</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.account">account</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.cdkBootstrapRootQualifier">cdkBootstrapRootQualifier</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.localStacksPath">localStacksPath</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.localTemplateStacks">localTemplateStacks</a></code> | <code>raindancers-cdk.orgTools.Template[]</code> | *No description.* |
@@ -2043,6 +2044,16 @@ public readonly cdkBootstrapRootRegions: string[];
 ```
 
 - *Type:* string[]
+
+---
+
+##### `account`<sup>Optional</sup> <a name="account" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.account"></a>
+
+```typescript
+public readonly account: string;
+```
+
+- *Type:* string
 
 ---
 

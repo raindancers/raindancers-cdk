@@ -18,15 +18,13 @@ def on_event(event, context):
 	if 'source' in event.keys():
 		if event['source'] == 'aws.controltower' and event['detail']['serviceEventDetails']['createManagedAccountStatus']['message'] == 'AWS Control Tower successfully created an enrolled account.':
 			 # this was invoked by eventbridge
-			account_name = event['detail']['serviceEventDetails']['createManagedAccountStatus']['account']['accountName']
 			account_id = event['detail']['serviceEventDetails']['createManagedAccountStatus']['account']['accountId']
 		else:
 			return		# do nothing this was not an event we care about.
 
 	else: # this was invoked by a test event.
 		account_id = event['accountId']
-		account_name = event['account_name']
-	
+		
 	# update the packages
 	build_commands = [
 		'npm update -g npm@latest',
