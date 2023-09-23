@@ -8,7 +8,7 @@ ssm = boto3.client('ssm')
 
 CDK_BOOTSTRAP_QUALIFER = os.environ['CDK_BOOTSTRAP_QUALIFER']
 CDK_BOOTSTRAP_REGIONS = json.loads(os.environ['CDK_BOOTSTRAP_REGIONS'])
-ROOT_ACCOUNT_ID = json.loads(os.environ['ROOT_ACCOUNT_ID'])
+TRUSTS = json.loads(os.environ['TRUSTS'])
 CODEBUILD_PROJECT_NAME = os.environ['CODEBUILD_PROJECT_NAME']
 TEMPLATE_BOOTSTRAP_STACKS = json.loads(os.environ['TEMPLATE_BOOTSTRAP_STACKS'])
 LOCAL_BOOTSTRAP_STACKS = json.loads(os.environ['LOCAL_BOOTSTRAP_STACKS'])
@@ -33,11 +33,15 @@ def on_event(event, context):
 		'npm install',
 	]
 	
+	trust_string = ''
+	for account in TRUSTS:
+		trust_string = trust_string + ','
+
 	# boostrap the account in regions as required.
 	for region in CDK_BOOTSTRAP_REGIONS:
 		build_commands.extend(
 			[
-				f'npx cdk boostrap aws://{account_id}/{region} --qualifer {CDK_BOOTSTRAP_QUALIFER} --trust {ROOT_ACCOUNT_ID}
+				f'npx cdk boostrap aws://{account_id}/{region} --qualifer {CDK_BOOTSTRAP_QUALIFER} --trust {truststring}
 			]
 		)
 	

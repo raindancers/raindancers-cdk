@@ -23,11 +23,15 @@ export interface Template {
 }
 
 export interface CdkOrgBootstrapperProps {
-  readonly cdkBootstrapRootQualifier: string;// what to qualify the cdkbootstrap with
+  readonly cdkBootstrapRootQualifier?: string | undefined;// what to qualify the cdkbootstrap with
   readonly cdkBootstrapRootRegions: string[];// what regions to boostrap
   readonly templateStacks?: Template[] | undefined;
   readonly localStacksPath?: string | undefined;
   readonly localTemplateStacks?: Template[] | undefined;
+  /**
+   * @default Just trust this account
+   */
+  readonly trustAccounts?: string[] | undefined; // if this is set, do not use this account as
 }
 
 export class CdkOrgBootstrapper extends constructs.Construct {
@@ -102,9 +106,9 @@ export class CdkOrgBootstrapper extends constructs.Construct {
         },
       }),
       environment: {
-        CDK_BOOTSTRAP_QUALIFER: props.cdkBootstrapRootQualifier,
+        CDK_BOOTSTRAP_QUALIFER: props.cdkBootstrapRootQualifier ?? 'hnb659fds',
         CDK_BOOTSTRAP_REGIONS: JSON.stringify(props.cdkBootstrapRootRegions),
-        ROOT_ACCOUNT_ID: core.Aws.ACCOUNT_ID,
+        TRUSTS: JSON.stringify(props.trustAccounts ?? [core.Aws.ACCOUNT_ID] ),
         CODEBUILD_PROJECT_NAME: bootStrapperCodeBuild.projectName,
         TEMPLATE_BOOTSTRAP_STACKS: JSON.stringify(templateStacks),
         LOCAL_BOOTSTRAP_STACKS: JSON.stringify(localStacks),

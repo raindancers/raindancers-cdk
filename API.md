@@ -2027,21 +2027,12 @@ const cdkOrgBootstrapperProps: orgTools.CdkOrgBootstrapperProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.cdkBootstrapRootQualifier">cdkBootstrapRootQualifier</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.cdkBootstrapRootRegions">cdkBootstrapRootRegions</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.cdkBootstrapRootQualifier">cdkBootstrapRootQualifier</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.localStacksPath">localStacksPath</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.localTemplateStacks">localTemplateStacks</a></code> | <code>raindancers-cdk.orgTools.Template[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.templateStacks">templateStacks</a></code> | <code>raindancers-cdk.orgTools.Template[]</code> | *No description.* |
-
----
-
-##### `cdkBootstrapRootQualifier`<sup>Required</sup> <a name="cdkBootstrapRootQualifier" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.cdkBootstrapRootQualifier"></a>
-
-```typescript
-public readonly cdkBootstrapRootQualifier: string;
-```
-
-- *Type:* string
+| <code><a href="#raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.trustAccounts">trustAccounts</a></code> | <code>string[]</code> | *No description.* |
 
 ---
 
@@ -2052,6 +2043,16 @@ public readonly cdkBootstrapRootRegions: string[];
 ```
 
 - *Type:* string[]
+
+---
+
+##### `cdkBootstrapRootQualifier`<sup>Optional</sup> <a name="cdkBootstrapRootQualifier" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.cdkBootstrapRootQualifier"></a>
+
+```typescript
+public readonly cdkBootstrapRootQualifier: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -2082,6 +2083,17 @@ public readonly templateStacks: Template[];
 ```
 
 - *Type:* raindancers-cdk.orgTools.Template[]
+
+---
+
+##### `trustAccounts`<sup>Optional</sup> <a name="trustAccounts" id="raindancers-cdk.orgTools.CdkOrgBootstrapperProps.property.trustAccounts"></a>
+
+```typescript
+public readonly trustAccounts: string[];
+```
+
+- *Type:* string[]
+- *Default:* Just trust this account
 
 ---
 
