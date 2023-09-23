@@ -151,6 +151,9 @@ Check whether the given construct is a Resource.
 | <code><a href="#raindancers-cdk.orgTools.AccountFactory.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#raindancers-cdk.orgTools.AccountFactory.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#raindancers-cdk.orgTools.AccountFactory.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactory.property.accountId">accountId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactory.property.arn">arn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactory.property.name">name</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -194,6 +197,36 @@ public readonly stack: Stack;
 - *Type:* aws-cdk-lib.Stack
 
 The stack in which this resource is defined.
+
+---
+
+##### `accountId`<sup>Required</sup> <a name="accountId" id="raindancers-cdk.orgTools.AccountFactory.property.accountId"></a>
+
+```typescript
+public readonly accountId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `arn`<sup>Required</sup> <a name="arn" id="raindancers-cdk.orgTools.AccountFactory.property.arn"></a>
+
+```typescript
+public readonly arn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.orgTools.AccountFactory.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
 
 ---
 

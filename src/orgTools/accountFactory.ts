@@ -1,10 +1,16 @@
+import * as path from 'path';
 import * as core from 'aws-cdk-lib';
 
 import {
   aws_servicecatalog as servicecatalog,
   custom_resources as cr,
+  aws_logs as logs,
+  CustomResource,
+  aws_lambda as lambda,
+  aws_iam as iam,
 }
   from 'aws-cdk-lib';
+
 import * as constructs from 'constructs';
 
 /**
@@ -56,11 +62,17 @@ export interface AccountFactoryProps extends core.ResourceProps {
  */
 export class AccountFactory extends core.Resource {
 
+  accountId: string;
+  arn: string;
+  name: string;
+
   constructor(scope: constructs.Construct, id: string, props: AccountFactoryProps) {
     super(scope, id, props);
 
+    // import the Account Factory Service Catalog Product
     const accountFactoryProduct = servicecatalog.Product.fromProductArn(this, 'MyProduct', props.accountFactoryProductArn);
 
+    // find the latest provisioningArtifact Id ( version of product )
     const artifactId = new cr.AwsCustomResource(this, 'GetProvisioningArtificactId', {
       onCreate: {
         service: 'ServiceCatalog',
@@ -75,8 +87,8 @@ export class AccountFactory extends core.Resource {
       }),
     });
 
-
-    new cr.AwsCustomResource(this, 'CreateNewAccount', {
+    // create a new account  using the parameters provided.
+    const createAccount = new cr.AwsCustomResource(this, 'CreateNewAccount', {
       onCreate: {
         service: 'ServiceCatalog',
         action: 'provisionProduct',
@@ -93,10 +105,56 @@ export class AccountFactory extends core.Resource {
       }),
     });
 
+    // scan provisioned products to see if the account is finished building.  Waiter will be co
+    const onEvent = new lambda.Function(this, 'onEvent', {
+      runtime: lambda.Runtime.PYTHON_3_11,
+      handler: 'accountFactory.on_event',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/accountFactory')),
+      timeout: core.Duration.seconds(3),
+    });
+
+    const isComplete = new lambda.Function(this, 'isComplete', {
+      runtime: lambda.Runtime.PYTHON_3_11,
+      handler: 'accountFactory.is_complete',
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/accountFactory')),
+      timeout: core.Duration.seconds(30),
+    });
+
+    isComplete.addToRolePolicy(new iam.PolicyStatement({
+      actions: [
+        'serviceCatalog:SearchProvisionedProducts',
+        'organizations:ListAccountsForParent',
+      ],
+      effect: iam.Effect.ALLOW,
+      resources: ['*'],
+    }));
+
+    const myProvider = new cr.Provider(this, 'MyProvider', {
+      onEventHandler: onEvent,
+      isCompleteHandler: isComplete, // optional async "waiter"
+      queryInterval: core.Duration.seconds(30),
+      logRetention: logs.RetentionDays.ONE_DAY, // default is INFINITE
+      totalTimeout: core.Duration.minutes(20),
+    });
+
+    const waiter = new CustomResource(this, 'WaitUntillAccountisComplete', {
+      serviceToken: myProvider.serviceToken,
+      resourceType: 'Custom::AccountCreateWaiter',
+      properties: {
+        ProvisionedProductId: createAccount.getResponseField('RecordDetail.ProvisionedProductId'),
+        ParentOU: props.awsAccount.managedOrganizationalUnit,
+        AccountEmail: props.awsAccount.accountEmail,
+      },
+    });
+
+    this.accountId = waiter.getAttString('AccountId');
+    this.arn = waiter.getAttString('Arn');
+    this.name = waiter.getAttString('Name');
+
   }
 }
 
-function upperCaseKeys(obj: any): any {
+export function upperCaseKeys(obj: any): any {
   if (typeof obj !== 'object') {
     return obj;
   }
