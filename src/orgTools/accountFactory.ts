@@ -12,6 +12,11 @@ import {
   from 'aws-cdk-lib';
 
 import * as constructs from 'constructs';
+import {
+  helpers,
+}
+  from '../index';
+
 
 /**
  * Provisioning Parameters for creating an AWS Account
@@ -96,7 +101,7 @@ export class AccountFactory extends core.Resource {
           ProductId: accountFactoryProduct.productId,
           ProvisioningArtifactId: artifactId.getResponseField('ProvisioningArtifacts.[-1].Id'),
           ProvisionedProductName: `awsAccount-${props.awsAccount.accountName}`,
-          ProvisioningParameters: [upperCaseKeys(props.awsAccount)],
+          ProvisioningParameters: [helpers.upperCaseKeys(props.awsAccount)],
         },
         physicalResourceId: cr.PhysicalResourceId.of('NewAccount'),
       },
@@ -152,21 +157,4 @@ export class AccountFactory extends core.Resource {
     this.name = waiter.getAttString('Name');
 
   }
-}
-
-export function upperCaseKeys(obj: any): any {
-  if (typeof obj !== 'object') {
-    return obj;
-  }
-  if (Array.isArray(obj)) {
-    return obj.map(upperCaseKeys);
-  }
-  if (obj === null) {
-    return null;
-  }
-  const entries = Object.entries(obj);
-  const mappedEntries = entries.map(
-    ([k, v]) => [`${k.substr(0, 1).toUpperCase()}${k.substr(1)}`, upperCaseKeys(v)] as const,
-  );
-  return Object.fromEntries(mappedEntries);
 }
