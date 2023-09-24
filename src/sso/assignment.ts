@@ -7,7 +7,6 @@ import { Construct } from 'constructs';
 import { IPermissionSet } from './permissionset';
 import { ISSOPrincipal } from './principal';
 import { validatePermissionSetArn } from './private/permissionset-common';
-import { validatePrincipal } from './private/principal-common';
 
 export enum TargetTypes {
   AWS_ACCOUNT = 'AWS_ACCOUNT',
@@ -84,7 +83,6 @@ export class Assignment extends AssignmentBase {
     if (props.targetType === TargetTypes.AWS_ACCOUNT) {
       Assignment.validateAwsAccountTargetId(props.targetId);
     }
-    validatePrincipal(props.principal);
     validatePermissionSetArn(props.permissionSet.permissionSetArn);
 
     const targetType = props.targetType ?? TargetTypes.AWS_ACCOUNT;
