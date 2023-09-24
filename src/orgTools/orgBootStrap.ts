@@ -153,7 +153,6 @@ export class CdkOrgBootstrapper extends constructs.Construct {
       const myProvider = new cr.Provider(this, 'MyProvider', {
         onEventHandler: bootStrapperLambda,
         logRetention: logs.RetentionDays.ONE_DAY, // default is INFINITE
-        totalTimeout: core.Duration.minutes(20),
       });
 
       // start the codebuild via the lambda.
