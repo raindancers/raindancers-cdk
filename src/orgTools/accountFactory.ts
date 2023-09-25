@@ -133,7 +133,7 @@ export class AccountFactory extends core.Resource {
       properties: {
         ProductId: accountFactoryProduct.productId,
         ProvisionedProductName: `awsAccount-${props.awsAccount.accountName}`,
-        ProvisioningParameters: JSON.stringify([helpers.upperCaseKeys(props.awsAccount)]),
+        ProvisioningParameters: JSON.stringify(helpers.upperCaseKeys(props.awsAccount)),
       },
     });
 
