@@ -37,7 +37,7 @@ def is_complete(event, context):
 	# find the provisioned product
 	state = servicecatalog.search_provisioned_products(
 		Filters={
-			'SearchQuery': [f"Id:{event['PhysicalResourceId']}"]
+			'SearchQuery': [f"id:{event['PhysicalResourceId']}"]
 		},
 	)
 
