@@ -20,7 +20,7 @@ def on_event(event, context):
 	
 
 	record_id = servicecatalog.provision_product(
-		productId=props['ProductId'],
+		ProductId=props['ProductId'],
 		ProvisioningArtifactId=provisioning_artifact_id['ProvisioningArtifacts'][-1]['Id'],
 		ProvisionedProductName=f"awsAccount-{props['ProvisionedProductName']}",
 		ProvisioningParameters=provisioning_parameters
