@@ -15,6 +15,9 @@ def on_event(event, context):
 	)
 
 	provisioning_parameters = json.loads(props["ProvisioningParameters"])
+	# convert provisioning_parameters to a list of dicts
+	provisioning_parameters = [{'Key': k, 'Value': v} for k, v in provisioning_parameters.items()]
+	
 
 	record_id = servicecatalog.provision_product(
 		productId=props['ProductId'],
