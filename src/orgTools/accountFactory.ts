@@ -79,6 +79,7 @@ export class AccountFactory extends core.Resource {
 
     // find the latest provisioningArtifact Id ( version of product )
     const artifactId = new cr.AwsCustomResource(this, 'GetProvisioningArtificactId', {
+      installLatestAwsSdk: true,
       onCreate: {
         service: 'ServiceCatalog',
         action: 'describeProduct',
@@ -94,6 +95,7 @@ export class AccountFactory extends core.Resource {
 
     // create a new account  using the parameters provided.
     const createAccount = new cr.AwsCustomResource(this, 'CreateNewAccount', {
+      installLatestAwsSdk: true,
       onCreate: {
         service: 'ServiceCatalog',
         action: 'provisionProduct',
