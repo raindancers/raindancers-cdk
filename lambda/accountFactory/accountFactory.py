@@ -16,7 +16,7 @@ def on_event(event, context):
 
 	record_id = servicecatalog.provision_product(
 		productId=props['ProductId'],
-		ProvisioningArtifactId=provisioning_artifact_id[-1]["Id"],
+		ProvisioningArtifactId=provisioning_artifact_id['ProvisioningArtifacts'][-1]['Id'],
 		ProvisionedProductName=f"awsAccount-{props['awsAccount']['accountName']}",
 		ProvisioningParameters=json.loads([props["ProvisioningParameters"]])
 	)['RecordId']
