@@ -27,7 +27,7 @@ def on_event(event, context):
 	)['RecordDetail']['RecordId']
 	
 	return { 
-		'PhysicalResourceId': record_id,
+		'PhysicalResourceId': ProvisionedProductId,
 	}
 
 def is_complete(event, context):
