@@ -14,11 +14,13 @@ def on_event(event, context):
 		Id=props['ProductId']
 	)
 
+	provisioning_parameters = json.loads([props["ProvisioningParameters"]])
+
 	record_id = servicecatalog.provision_product(
 		productId=props['ProductId'],
 		ProvisioningArtifactId=provisioning_artifact_id['ProvisioningArtifacts'][-1]['Id'],
-		ProvisionedProductName=f"awsAccount-{props['awsAccount']['accountName']}",
-		ProvisioningParameters=json.loads([props["ProvisioningParameters"]])
+		ProvisionedProductName=f"awsAccount-{props['ProvisionedProductName']}",
+		ProvisioningParameters=provisioning_parameters
 	)['RecordId']
 	
 	return { 
