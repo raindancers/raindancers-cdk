@@ -17,7 +17,7 @@ def on_event(event, context):
 	record_id = servicecatalog.provision_product(
 		productId=props['ProductId'],
 		ProvisioningArtifactId=provisioning_artifact_id[-1]["Id"],
-		ProvisionedProductName=f"awsAccount-${props['awsAccount']['accountName']}",
+		ProvisionedProductName=f"awsAccount-{props['awsAccount']['accountName']}",
 		ProvisioningParameters=json.loads([props["ProvisioningParameters"]])
 	)['RecordId']
 	
@@ -32,7 +32,7 @@ def is_complete(event, context):
 	# find the provisioned product
 	state = servicecatalog.search_provisioned_products(
 		Filters={
-			'SearchQuery': [f'Id:{event['PhysicalResourceId']}']
+			'SearchQuery': [f"Id:{event['PhysicalResourceId']}"]
 		},
 	)
 
