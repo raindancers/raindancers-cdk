@@ -94,7 +94,7 @@ export abstract class SSOUser implements ISSOPrincipal {
 
 export abstract class SSOGroup implements ISSOPrincipal {
 
-  public static fromGroupName(scope: constructs.Construct, identityStoreId: string, groupName: string): ISSOPrincipal {
+  public static fromDisplayName(scope: constructs.Construct, identityStoreId: string, displayName: string): ISSOPrincipal {
 
     const getUserId = new cr.AwsCustomResource(scope, 'GetGroupByName', {
       onCreate: {
@@ -104,8 +104,8 @@ export abstract class SSOGroup implements ISSOPrincipal {
           IdentityStoreId: identityStoreId,
           Filters: [
             {
-              AttributePath: 'GroupName',
-              AttributeValue: groupName,
+              AttributePath: 'DisplayName',
+              AttributeValue: displayName,
             },
           ],
         },

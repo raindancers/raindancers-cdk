@@ -4223,31 +4223,31 @@ new sso.SSOGroup()
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#raindancers-cdk.sso.SSOGroup.fromGroupName">fromGroupName</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.sso.SSOGroup.fromDisplayName">fromDisplayName</a></code> | *No description.* |
 
 ---
 
-##### `fromGroupName` <a name="fromGroupName" id="raindancers-cdk.sso.SSOGroup.fromGroupName"></a>
+##### `fromDisplayName` <a name="fromDisplayName" id="raindancers-cdk.sso.SSOGroup.fromDisplayName"></a>
 
 ```typescript
 import { sso } from 'raindancers-cdk'
 
-sso.SSOGroup.fromGroupName(scope: Construct, identityStoreId: string, groupName: string)
+sso.SSOGroup.fromDisplayName(scope: Construct, identityStoreId: string, displayName: string)
 ```
 
-###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.sso.SSOGroup.fromGroupName.parameter.scope"></a>
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.sso.SSOGroup.fromDisplayName.parameter.scope"></a>
 
 - *Type:* constructs.Construct
 
 ---
 
-###### `identityStoreId`<sup>Required</sup> <a name="identityStoreId" id="raindancers-cdk.sso.SSOGroup.fromGroupName.parameter.identityStoreId"></a>
+###### `identityStoreId`<sup>Required</sup> <a name="identityStoreId" id="raindancers-cdk.sso.SSOGroup.fromDisplayName.parameter.identityStoreId"></a>
 
 - *Type:* string
 
 ---
 
-###### `groupName`<sup>Required</sup> <a name="groupName" id="raindancers-cdk.sso.SSOGroup.fromGroupName.parameter.groupName"></a>
+###### `displayName`<sup>Required</sup> <a name="displayName" id="raindancers-cdk.sso.SSOGroup.fromDisplayName.parameter.displayName"></a>
 
 - *Type:* string
 
