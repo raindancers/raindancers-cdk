@@ -79,7 +79,8 @@ export class AccountFactory extends core.Resource {
     const servicePortfolio = servicecatalog.Portfolio.fromPortfolioArn(this, 'Portfolio', 'arn:aws:catalog:ap-southeast-2:783214964527:portfolio/port-5bngtygfwmma6');
 
     // scan provisioned products to see if the account is finished building.  Waiter will be co
-    const onEvent = new lambda.Function(this, 'onEvent', {
+    const onEvent = new lambda.SingletonFunction(this, 'onEvent', {
+      uuid: 'ffaaee11001',
       runtime: lambda.Runtime.PYTHON_3_11,
       handler: 'accountFactory.on_event',
       code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/accountFactory')),
@@ -98,7 +99,8 @@ export class AccountFactory extends core.Resource {
       resources: ['*'],
     }));
 
-    const isComplete = new lambda.Function(this, 'isComplete', {
+    const isComplete = new lambda.SingletonFunction(this, 'isComplete', {
+      uuid: 'ffaaee11002',
       runtime: lambda.Runtime.PYTHON_3_11,
       handler: 'accountFactory.is_complete',
       code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/accountFactory')),
