@@ -14,7 +14,7 @@ def on_event(event, context):
 		Id=props['ProductId']
 	)
 
-	provisioning_parameters = json.loads([props["ProvisioningParameters"]])
+	provisioning_parameters = json.loads(props["ProvisioningParameters"])
 
 	record_id = servicecatalog.provision_product(
 		productId=props['ProductId'],
