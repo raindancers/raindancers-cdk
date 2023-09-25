@@ -1,12 +1,28 @@
 import boto3
+import json
 
 servicecatalog = boto3.client('servicecatalog')
 orgs = boto3.client('organizations')
 
 # do nothing but return
 def on_event(event, context):
+
+	props = event["ResourceProperties"]
+
+
+	provisioning_artifact_id = servicecatalog.describe_product(
+		Id=props['ProductId']
+	)
+
+	record_id = servicecatalog.provision_product(
+		productId=props['ProductId'],
+		ProvisioningArtifactId=provisioning_artifact_id[-1]["Id"],
+		ProvisionedProductName=f"awsAccount-${props['awsAccount']['accountName']}",
+		ProvisioningParameters=json.loads([props["ProvisioningParameters"]])
+	)['RecordId']
+	
 	return { 
-		'PhysicalResourceId': 'oneventHandler',
+		'PhysicalResourceId': record_id['ProvisionedProductId'],
 	}
 
 def is_complete(event, context):
@@ -16,7 +32,7 @@ def is_complete(event, context):
 	# find the provisioned product
 	state = servicecatalog.search_provisioned_products(
 		Filters={
-			'string': [f'provisioningArtifactId:{props["ProvisionedProductId"]}']
+			'SearchQuery': [f'Id:{event['PhysicalResourceId']}']
 		},
 	)
 
@@ -24,10 +40,10 @@ def is_complete(event, context):
 	if state['ProvisionedProducts'][0]['Status'] == 'AVAILABLE':
 
 		getAccountId = orgs.list_accounts_for_parent(
-			ParentId = props["ParentOU"]
+			ParentId = props["ProvisioningParameters"]["ParentOU"]
 		)
 
-		account = next(account for account in getAccountId["Accounts"] if account["Email"] == props["AccountEmail"])
+		account = next(account for account in getAccountId["Accounts"] if account["Email"] == props["ProvisioningParameters"]["AccountEmail"])
 
 		
 		return { 

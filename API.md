@@ -10,9 +10,7 @@ This is the raindancer cdk collection of constructs that supplment the aws-cdk-l
 
 ### AccountFactory <a name="AccountFactory" id="raindancers-cdk.orgTools.AccountFactory"></a>
 
-Creates a remailing service for an entire Domain.
-
-Typical use case is to collate al
+Invoke the Service Catalog Account Factory.
 
 #### Initializers <a name="Initializers" id="raindancers-cdk.orgTools.AccountFactory.Initializer"></a>
 

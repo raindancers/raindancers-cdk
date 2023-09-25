@@ -63,7 +63,7 @@ export interface AccountFactoryProps extends core.ResourceProps {
 }
 
 /**
- * Creates a remailing service for an entire Domain. Typical use case is to collate al
+ *  Invoke the Service Catalog Account Factory.
  */
 export class AccountFactory extends core.Resource {
 
@@ -76,41 +76,7 @@ export class AccountFactory extends core.Resource {
 
     // import the Account Factory Service Catalog Product
     const accountFactoryProduct = servicecatalog.Product.fromProductArn(this, 'MyProduct', props.accountFactoryProductArn);
-
-    // find the latest provisioningArtifact Id ( version of product )
-    const artifactId = new cr.AwsCustomResource(this, 'GetProvisioningArtificactId', {
-      installLatestAwsSdk: true,
-      onCreate: {
-        service: 'ServiceCatalog',
-        action: 'describeProduct',
-        parameters: {
-          Id: accountFactoryProduct.productId,
-        },
-        physicalResourceId: cr.PhysicalResourceId.of('artifactId'),
-      },
-      policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
-        resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
-      }),
-    });
-
-    // create a new account  using the parameters provided.
-    const createAccount = new cr.AwsCustomResource(this, 'CreateNewAccount', {
-      installLatestAwsSdk: true,
-      onCreate: {
-        service: 'ServiceCatalog',
-        action: 'provisionProduct',
-        parameters: {
-          ProductId: accountFactoryProduct.productId,
-          ProvisioningArtifactId: artifactId.getResponseField('ProvisioningArtifacts.[-1].Id'),
-          ProvisionedProductName: `awsAccount-${props.awsAccount.accountName}`,
-          ProvisioningParameters: [helpers.upperCaseKeys(props.awsAccount)],
-        },
-        physicalResourceId: cr.PhysicalResourceId.of('NewAccount'),
-      },
-      policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
-        resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
-      }),
-    });
+    const servicePortfolio = servicecatalog.Portfolio.fromPortfolioArn(this, 'Portfolio', 'arn:aws:catalog:ap-southeast-2:783214964527:portfolio/port-5bngtygfwmma6');
 
     // scan provisioned products to see if the account is finished building.  Waiter will be co
     const onEvent = new lambda.Function(this, 'onEvent', {
@@ -120,12 +86,27 @@ export class AccountFactory extends core.Resource {
       timeout: core.Duration.seconds(3),
     });
 
+    // permit this role to access the service catalog
+    servicePortfolio.giveAccessToRole(onEvent.role as iam.Role);
+
+    onEvent.addToRolePolicy(new iam.PolicyStatement({
+      actions: [
+        'servicecatalog:DescribeProduct',
+        'servicecatalog:ProvisionProduct',
+      ],
+      effect: iam.Effect.ALLOW,
+      resources: ['*'],
+    }));
+
     const isComplete = new lambda.Function(this, 'isComplete', {
       runtime: lambda.Runtime.PYTHON_3_11,
       handler: 'accountFactory.is_complete',
       code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/accountFactory')),
       timeout: core.Duration.seconds(30),
     });
+
+    // permit this lambdas role to access the service catalog
+    servicePortfolio.giveAccessToRole(isComplete.role as iam.Role);
 
     isComplete.addToRolePolicy(new iam.PolicyStatement({
       actions: [
@@ -148,9 +129,9 @@ export class AccountFactory extends core.Resource {
       serviceToken: myProvider.serviceToken,
       resourceType: 'Custom::AccountCreateWaiter',
       properties: {
-        ProvisionedProductId: createAccount.getResponseField('RecordDetail.ProvisionedProductId'),
-        ParentOU: props.awsAccount.managedOrganizationalUnit,
-        AccountEmail: props.awsAccount.accountEmail,
+        ProductId: accountFactoryProduct.productId,
+        ProvisionedProductName: `awsAccount-${props.awsAccount.accountName}`,
+        ProvisioningParameters: JSON.stringify([helpers.upperCaseKeys(props.awsAccount)]),
       },
     });
 
