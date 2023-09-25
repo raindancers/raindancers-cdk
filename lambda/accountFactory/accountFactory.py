@@ -24,10 +24,10 @@ def on_event(event, context):
 		ProvisioningArtifactId=provisioning_artifact_id['ProvisioningArtifacts'][-1]['Id'],
 		ProvisionedProductName=f"awsAccount-{props['ProvisionedProductName']}",
 		ProvisioningParameters=provisioning_parameters
-	)['RecordId']
+	)['RecordDetail']['RecordId']
 	
 	return { 
-		'PhysicalResourceId': record_id['ProvisionedProductId'],
+		'PhysicalResourceId': record_id,
 	}
 
 def is_complete(event, context):

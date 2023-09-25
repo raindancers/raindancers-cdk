@@ -94,6 +94,8 @@ export class AccountFactory extends core.Resource {
       actions: [
         'servicecatalog:DescribeProduct',
         'servicecatalog:ProvisionProduct',
+        'controltower:CreateManagedAccount',
+        'controltower:DescribeManagedAccount',
       ],
       effect: iam.Effect.ALLOW,
       resources: ['*'],
@@ -124,7 +126,7 @@ export class AccountFactory extends core.Resource {
       isCompleteHandler: isComplete, // optional async "waiter"
       queryInterval: core.Duration.seconds(30),
       logRetention: logs.RetentionDays.ONE_DAY, // default is INFINITE
-      totalTimeout: core.Duration.minutes(20),
+      totalTimeout: core.Duration.minutes(90),
     });
 
     const waiter = new CustomResource(this, 'WaitUntillAccountisComplete', {

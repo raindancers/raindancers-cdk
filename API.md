@@ -3963,6 +3963,7 @@ new serviceControlPolicy.PreBuiltServiceControlPolicy()
 | <code><a href="#raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventNewIamUser">preventNewIamUser</a></code> | Prevent creating new IAM user Accounts. |
 | <code><a href="#raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventVPCSettingsChange">preventVPCSettingsChange</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventVPCWithInternetAccess">preventVPCWithInternetAccess</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.restrictEverything">restrictEverything</a></code> | RestrictRootUser in Account. |
 | <code><a href="#raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.restrictRootUser">restrictRootUser</a></code> | RestrictRootUser in Account. |
 
 ---
@@ -4170,6 +4171,30 @@ serviceControlPolicy.PreBuiltServiceControlPolicy.preventVPCWithInternetAccess(s
 ###### `excludedRoleArns`<sup>Optional</sup> <a name="excludedRoleArns" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.preventVPCWithInternetAccess.parameter.excludedRoleArns"></a>
 
 - *Type:* string[]
+
+---
+
+##### `restrictEverything` <a name="restrictEverything" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.restrictEverything"></a>
+
+```typescript
+import { serviceControlPolicy } from 'raindancers-cdk'
+
+serviceControlPolicy.PreBuiltServiceControlPolicy.restrictEverything(scope: Construct, id: string)
+```
+
+RestrictRootUser in Account.
+
+This should ideally be applyed at the account leel
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.restrictEverything.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.serviceControlPolicy.PreBuiltServiceControlPolicy.restrictEverything.parameter.id"></a>
+
+- *Type:* string
 
 ---
 

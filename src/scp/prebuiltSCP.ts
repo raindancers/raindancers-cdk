@@ -89,6 +89,7 @@ export abstract class PreBuiltServiceControlPolicy {
     };
   }
 
+
   /**
    * RestrictRootUser in Account. This should ideally be applyed at the account leel
    * @param scope
@@ -116,6 +117,36 @@ export abstract class PreBuiltServiceControlPolicy {
       name: id,
       type: PolicyType.SERVICE_CONTROL_POLICY,
       description: 'Deny Root Activity',
+    });
+
+    return {
+      id: cfnPolicy.attrId,
+      arn: cfnPolicy.attrArn,
+    };
+  }
+
+  /**
+   * RestrictRootUser in Account. This should ideally be applyed at the account leel
+   * @param scope
+   * @param id
+   * @returns
+   */
+  public static restrictEverything(scope: constructs.Construct, id: string): IServiceControlPolicy {
+
+    const policy = new iam.PolicyDocument();
+    policy.addStatements(
+      new iam.PolicyStatement({
+        actions: ['*'],
+        resources: ['*'],
+        effect: iam.Effect.DENY,
+      }),
+    );
+
+    const cfnPolicy = new organizations.CfnPolicy(scope, id, {
+      content: policy.toJSON(),
+      name: id,
+      type: PolicyType.SERVICE_CONTROL_POLICY,
+      description: 'RestrictEverything',
     });
 
     return {
