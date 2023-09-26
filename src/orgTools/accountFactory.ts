@@ -115,7 +115,7 @@ export class AccountFactory extends core.Resource {
     isComplete.addToRolePolicy(new iam.PolicyStatement({
       actions: [
         'serviceCatalog:SearchProvisionedProducts',
-        'organizations:ListAccountsForParent',
+        'organizations:ListAccounts',
       ],
       effect: iam.Effect.ALLOW,
       resources: ['*'],

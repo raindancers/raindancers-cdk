@@ -42,27 +42,26 @@ def is_complete(event, context):
 	)
 
 	if state['ProvisionedProducts'][0]['Status'] == 'ERROR':
-		raise Exception(f"ProvisionedProduct {event['PhysicalResourceId']} has failed to provision")
+		raise Exception(f"ProvisionedProduct pp-ln3v5nlr3cigk has failed to provision")
 
 
 	# if its AVAIALABLE, its complete.
-	if state['ProvisionedProducts'][0]['Status'] == 'AVAILABLE':
+	if state['ProvisionedProducts'][0]['Status'] in ['AVAILABLE', 'TAINTED']:
 
-		getAccountId = orgs.list_accounts_for_parent(
-			ParentId = props["ProvisioningParameters"]["ParentOU"]
-		)
+		allaccounts = []
+		paginator = orgs.get_paginator('list_accounts')
+		getAccounts = paginator.paginate()
+		for page in getAccounts:
+			for account in page['Accounts']:
+				if account["Email"] == props["ProvisioningParameters"]["AccountEmail"]:
+					return { 
+						'Data': { 
+							'AccountId': account['Id'],
+							'Arn': account['Arn'],
+							'Name': account['Name'] 
+						},
+						'IsComplete': True 
+					}
 
-		account = next(account for account in getAccountId["Accounts"] if account["Email"] == props["ProvisioningParameters"]["AccountEmail"])
-
-		
-		return { 
-			'Data': { 
-				'AccountId': account['Email'],
-				'Arn': account['Arn'],
-				'Name': account['Name'] 
-			},
-			'IsComplete': True 
-		}
-	
-	return { 'IsComplete': False }
-
+	else:
+		return { 'IsComplete': False }
