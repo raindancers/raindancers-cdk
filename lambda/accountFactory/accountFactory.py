@@ -41,6 +41,8 @@ def is_complete(event, context):
 		},
 	)
 
+	print(state['ProvisionedProducts'][0]['Status'])
+
 	if state['ProvisionedProducts'][0]['Status'] == 'ERROR':
 		raise Exception(f"ProvisionedProduct has failed to provision")
 

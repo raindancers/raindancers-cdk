@@ -75,7 +75,7 @@ export abstract class SSOUser implements ISSOPrincipal {
     });
 
     return {
-      principalId: getUserId.getResponseField('Users.0.UsersId'),
+      principalId: getUserId.getResponseField('Users.0.UserId'),
       principalType: SSOPrincipalType.USER,
     };
   }
@@ -117,7 +117,7 @@ export abstract class SSOGroup implements ISSOPrincipal {
     });
 
     return {
-      principalId: getUserId.getResponseField('Groups.0.UsersId'),
+      principalId: getUserId.getResponseField('Groups.0.GroupId'),
       principalType: SSOPrincipalType.USER,
     };
   }
