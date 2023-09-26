@@ -4,21 +4,16 @@ import json
 servicecatalog = boto3.client('servicecatalog')
 orgs = boto3.client('organizations')
 
-# do nothing but return
 def on_event(event, context):
 
 	props = event["ResourceProperties"]
-
-
 	provisioning_artifact_id = servicecatalog.describe_product(
 		Id=props['ProductId']
 	)
 
 	provisioning_parameters = json.loads(props["ProvisioningParameters"])
-	# convert provisioning_parameters to a list of dicts
 	provisioning_parameters = [{'Key': k, 'Value': v} for k, v in provisioning_parameters.items()]
 	
-
 	provisioned_product = servicecatalog.provision_product(
 		ProductId=props['ProductId'],
 		ProvisioningArtifactId=provisioning_artifact_id['ProvisioningArtifacts'][-1]['Id'],
@@ -51,9 +46,12 @@ def is_complete(event, context):
 		allaccounts = []
 		paginator = orgs.get_paginator('list_accounts')
 		getAccounts = paginator.paginate()
+		
+		
 		for page in getAccounts:
 			for account in page['Accounts']:
 				if account["Email"] == props["ProvisioningParameters"]["AccountEmail"]:
+					print(account["Email"])
 					return { 
 						'Data': { 
 							'AccountId': account['Id'],
@@ -62,6 +60,8 @@ def is_complete(event, context):
 						},
 						'IsComplete': True 
 					}
+
+		raise Exception(f"Account {props['ProvisioningParameters']['AccountEmail']} not found")
 
 	else:
 		return { 'IsComplete': False }
