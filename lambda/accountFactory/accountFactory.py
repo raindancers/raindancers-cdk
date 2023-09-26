@@ -30,9 +30,9 @@ def on_event(event, context):
 def is_complete(event, context):
 
 	props = event["ResourceProperties"]
-	print(props)
-	print(props["ProvisioningParameters"]["AccountEmail"])
-
+	provisioning_parameters = json.loads(props["ProvisioningParameters"])
+	print(provisioning_parameters)
+	
 
 	# find the provisioned product
 	state = servicecatalog.search_provisioned_products(
@@ -55,7 +55,7 @@ def is_complete(event, context):
 		
 		for page in getAccounts:
 			for account in page['Accounts']:
-				if account["Email"] == props["ProvisioningParameters"]["AccountEmail"]:
+				if account["Email"] == provisioning_parameters["AccountEmail"]:
 					print(account["Email"])
 					return { 
 						'Data': { 
