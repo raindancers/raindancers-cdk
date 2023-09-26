@@ -19,15 +19,15 @@ def on_event(event, context):
 	provisioning_parameters = [{'Key': k, 'Value': v} for k, v in provisioning_parameters.items()]
 	
 
-	record_id = servicecatalog.provision_product(
+	provisioned_product = servicecatalog.provision_product(
 		ProductId=props['ProductId'],
 		ProvisioningArtifactId=provisioning_artifact_id['ProvisioningArtifacts'][-1]['Id'],
 		ProvisionedProductName=f"awsAccount-{props['ProvisionedProductName']}",
 		ProvisioningParameters=provisioning_parameters
-	)['RecordDetail']['RecordId']
+	)['RecordDetail']['ProvisionedProductId']
 	
 	return { 
-		'PhysicalResourceId': ProvisionedProductId,
+		'PhysicalResourceId': provisioned_product,
 	}
 
 def is_complete(event, context):
