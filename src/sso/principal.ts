@@ -118,7 +118,7 @@ export abstract class SSOGroup implements ISSOPrincipal {
 
     return {
       principalId: getUserId.getResponseField('Groups.0.GroupId'),
-      principalType: SSOPrincipalType.USER,
+      principalType: SSOPrincipalType.GROUP,
     };
   }
 
