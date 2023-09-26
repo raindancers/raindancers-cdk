@@ -21,6 +21,8 @@ def on_event(event, context):
 		ProvisioningParameters=provisioning_parameters
 	)['RecordDetail']['ProvisionedProductId']
 	
+	print(f"ProvisioningParameters:\n {provisioning_parameters}")
+
 	return { 
 		'PhysicalResourceId': provisioned_product,
 	}
@@ -28,6 +30,9 @@ def on_event(event, context):
 def is_complete(event, context):
 
 	props = event["ResourceProperties"]
+	print(props)
+	print(props["ProvisioningParameters"]["AccountEmail"])
+
 
 	# find the provisioned product
 	state = servicecatalog.search_provisioned_products(
@@ -37,7 +42,7 @@ def is_complete(event, context):
 	)
 
 	if state['ProvisionedProducts'][0]['Status'] == 'ERROR':
-		raise Exception(f"ProvisionedProduct pp-ln3v5nlr3cigk has failed to provision")
+		raise Exception(f"ProvisionedProduct has failed to provision")
 
 
 	# if its AVAIALABLE, its complete.
