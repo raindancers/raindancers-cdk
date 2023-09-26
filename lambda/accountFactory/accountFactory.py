@@ -41,6 +41,10 @@ def is_complete(event, context):
 		},
 	)
 
+	if state['ProvisionedProducts'][0]['Status'] == 'ERROR':
+		raise Exception(f"ProvisionedProduct {event['PhysicalResourceId']} has failed to provision")
+
+
 	# if its AVAIALABLE, its complete.
 	if state['ProvisionedProducts'][0]['Status'] == 'AVAILABLE':
 
