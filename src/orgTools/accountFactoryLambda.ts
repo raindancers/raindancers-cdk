@@ -42,7 +42,7 @@ export class AccountFactoryLambda extends core.Resource {
       runtime: lambda.Runtime.PYTHON_3_11,
       handler: 'accountFactory.on_event',
       code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/accountFactory')),
-      timeout: core.Duration.seconds(3),
+      timeout: core.Duration.seconds(300),
     });
 
     // permit this role to access the service catalog
@@ -64,7 +64,7 @@ export class AccountFactoryLambda extends core.Resource {
       runtime: lambda.Runtime.PYTHON_3_11,
       handler: 'accountFactory.is_complete',
       code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/accountFactory')),
-      timeout: core.Duration.seconds(30),
+      timeout: core.Duration.seconds(300),
     });
 
     // permit this lambdas role to access the service catalog
