@@ -1,13 +1,9 @@
-import * as path from 'path';
 import * as core from 'aws-cdk-lib';
 
 import {
   aws_servicecatalog as servicecatalog,
   custom_resources as cr,
-  aws_logs as logs,
   CustomResource,
-  aws_lambda as lambda,
-  aws_iam as iam,
 }
   from 'aws-cdk-lib';
 
@@ -60,6 +56,10 @@ export interface AccountFactoryProps extends core.ResourceProps {
    * Parameters to create a new account with
    */
   readonly awsAccount: AccountProvisioningParameters;
+  /**
+   * Provider
+   */
+  readonly provider: cr.Provider;
 }
 
 /**
@@ -76,61 +76,9 @@ export class AccountFactory extends core.Resource {
 
     // import the Account Factory Service Catalog Product
     const accountFactoryProduct = servicecatalog.Product.fromProductArn(this, 'MyProduct', props.accountFactoryProductArn);
-    const servicePortfolio = servicecatalog.Portfolio.fromPortfolioArn(this, 'Portfolio', 'arn:aws:catalog:ap-southeast-2:783214964527:portfolio/port-5bngtygfwmma6');
-
-    // scan provisioned products to see if the account is finished building.  Waiter will be co
-    const onEvent = new lambda.SingletonFunction(this, 'onEvent', {
-      uuid: 'ffaaee11001',
-      runtime: lambda.Runtime.PYTHON_3_11,
-      handler: 'accountFactory.on_event',
-      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/accountFactory')),
-      timeout: core.Duration.seconds(3),
-    });
-
-    // permit this role to access the service catalog
-    servicePortfolio.giveAccessToRole(onEvent.role as iam.Role);
-
-    onEvent.addToRolePolicy(new iam.PolicyStatement({
-      actions: [
-        'servicecatalog:DescribeProduct',
-        'servicecatalog:ProvisionProduct',
-        'controltower:CreateManagedAccount',
-        'controltower:DescribeManagedAccount',
-      ],
-      effect: iam.Effect.ALLOW,
-      resources: ['*'],
-    }));
-
-    const isComplete = new lambda.SingletonFunction(this, 'isComplete', {
-      uuid: 'ffaaee11002',
-      runtime: lambda.Runtime.PYTHON_3_11,
-      handler: 'accountFactory.is_complete',
-      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/accountFactory')),
-      timeout: core.Duration.seconds(30),
-    });
-
-    // permit this lambdas role to access the service catalog
-    servicePortfolio.giveAccessToRole(isComplete.role as iam.Role);
-
-    isComplete.addToRolePolicy(new iam.PolicyStatement({
-      actions: [
-        'serviceCatalog:SearchProvisionedProducts',
-        'organizations:ListAccounts',
-      ],
-      effect: iam.Effect.ALLOW,
-      resources: ['*'],
-    }));
-
-    const myProvider = new cr.Provider(this, 'MyProvider', {
-      onEventHandler: onEvent,
-      isCompleteHandler: isComplete, // optional async "waiter"
-      queryInterval: core.Duration.seconds(30),
-      logRetention: logs.RetentionDays.ONE_DAY, // default is INFINITE
-      totalTimeout: core.Duration.minutes(90),
-    });
 
     const waiter = new CustomResource(this, 'WaitUntillAccountisComplete', {
-      serviceToken: myProvider.serviceToken,
+      serviceToken: props.provider.serviceToken,
       resourceType: 'Custom::AccountCreateWaiter',
       properties: {
         ProductId: accountFactoryProduct.productId,

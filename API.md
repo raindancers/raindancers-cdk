@@ -2205,6 +2205,7 @@ const accountFactoryProps: orgTools.AccountFactoryProps = { ... }
 | <code><a href="#raindancers-cdk.orgTools.AccountFactoryProps.property.region">region</a></code> | <code>string</code> | The AWS region this resource belongs to. |
 | <code><a href="#raindancers-cdk.orgTools.AccountFactoryProps.property.accountFactoryProductArn">accountFactoryProductArn</a></code> | <code>string</code> | arn of the AccountFactory Service Catalog. |
 | <code><a href="#raindancers-cdk.orgTools.AccountFactoryProps.property.awsAccount">awsAccount</a></code> | <code>raindancers-cdk.orgTools.AccountProvisioningParameters</code> | Parameters to create a new account with. |
+| <code><a href="#raindancers-cdk.orgTools.AccountFactoryProps.property.provider">provider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | Provider. |
 
 ---
 
@@ -2292,6 +2293,18 @@ public readonly awsAccount: AccountProvisioningParameters;
 - *Type:* raindancers-cdk.orgTools.AccountProvisioningParameters
 
 Parameters to create a new account with.
+
+---
+
+##### `provider`<sup>Required</sup> <a name="provider" id="raindancers-cdk.orgTools.AccountFactoryProps.property.provider"></a>
+
+```typescript
+public readonly provider: Provider;
+```
+
+- *Type:* aws-cdk-lib.custom_resources.Provider
+
+Provider.
 
 ---
 
