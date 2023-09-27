@@ -23,6 +23,8 @@ def on_delete(event):
 		ProvisionedProductId=event['PhysicalResourceId'],
 		IgnoreErrors=True
 	)
+	print('Response from deleting Product:')
+	print(response)
 
 
 def on_create(event):
@@ -49,7 +51,7 @@ def on_create(event):
 	}
 
 def is_complete(event, context):
-	print(event)
+	print('iscompleteevent:',event)
 	request_type = event['RequestType']
 	
 
@@ -93,8 +95,12 @@ def is_complete(event, context):
 							},
 							'IsComplete': True 
 						}
+		
 
 			raise Exception(f"Account {props['ProvisioningParameters']['AccountEmail']} not  found")
+
+		else:
+			return { 'IsComplete': False }
 
 	if request_type == 'Update': 
 		return { 'IsComplete': True }
