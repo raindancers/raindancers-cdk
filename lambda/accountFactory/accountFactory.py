@@ -94,10 +94,7 @@ def is_complete(event, context):
 							'IsComplete': True 
 						}
 
-			raise Exception(f"Account {props['ProvisioningParameters']['AccountEmail']} not found")
-
-		else:
-			
+			raise Exception(f"Account {props['ProvisioningParameters']['AccountEmail']} not  found")
 
 	if request_type == 'Update': 
 		return { 'IsComplete': True }
