@@ -17,6 +17,7 @@ def on_update(event):
 
 def on_delete(event):
 
+	props = event["ResourceProperties"]
 	print('deleting resource')
 	response = servicecatalog.terminate_provisioned_product(
 		ProvisionedProductName=f"awsAccount-{props['ProvisionedProductName']}",
