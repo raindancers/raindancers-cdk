@@ -2105,6 +2105,7 @@ Reference an existing permission set by ARN.
 | <code><a href="#raindancers-cdk.sso.PermissionSet.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#raindancers-cdk.sso.PermissionSet.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#raindancers-cdk.sso.PermissionSet.property.cfnPermissionSet">cfnPermissionSet</a></code> | <code>aws-cdk-lib.aws_sso.CfnPermissionSet</code> | The underlying CfnPermissionSet resource. |
+| <code><a href="#raindancers-cdk.sso.PermissionSet.property.name">name</a></code> | <code>string</code> | Name of the Permission Set. |
 | <code><a href="#raindancers-cdk.sso.PermissionSet.property.permissionSetArn">permissionSetArn</a></code> | <code>string</code> | The permission set ARN of the permission set. |
 | <code><a href="#raindancers-cdk.sso.PermissionSet.property.ssoInstanceArn">ssoInstanceArn</a></code> | <code>string</code> | The SSO instance the permission set belongs to. |
 
@@ -2162,6 +2163,18 @@ public readonly cfnPermissionSet: CfnPermissionSet;
 - *Type:* aws-cdk-lib.aws_sso.CfnPermissionSet
 
 The underlying CfnPermissionSet resource.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.sso.PermissionSet.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+Name of the Permission Set.
 
 ---
 
@@ -4925,6 +4938,7 @@ Grant this permission set to a given principal for a given targetId (AWS account
 | <code><a href="#raindancers-cdk.sso.IPermissionSet.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#raindancers-cdk.sso.IPermissionSet.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#raindancers-cdk.sso.IPermissionSet.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+| <code><a href="#raindancers-cdk.sso.IPermissionSet.property.name">name</a></code> | <code>string</code> | THe Name of the permission Set. |
 | <code><a href="#raindancers-cdk.sso.IPermissionSet.property.permissionSetArn">permissionSetArn</a></code> | <code>string</code> | The permission set ARN of the permission set. |
 | <code><a href="#raindancers-cdk.sso.IPermissionSet.property.ssoInstanceArn">ssoInstanceArn</a></code> | <code>string</code> | The SSO instance ARN of the permission set. |
 
@@ -4970,6 +4984,18 @@ public readonly stack: Stack;
 - *Type:* aws-cdk-lib.Stack
 
 The stack in which this resource is defined.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.sso.IPermissionSet.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+THe Name of the permission Set.
 
 ---
 
