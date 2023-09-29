@@ -3,7 +3,8 @@ raindancers-cdk
 
 This is the raindancer cdk collection of constructs that supplment the aws-cdk-lib.
 .
-
+.
+.
 # API Reference <a name="API Reference" id="api-reference"></a>
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
@@ -4582,12 +4583,18 @@ new sso.SSOGroup()
 ```typescript
 import { sso } from 'raindancers-cdk'
 
-sso.SSOGroup.fromDisplayName(scope: Construct, identityStoreId: string, displayName: string)
+sso.SSOGroup.fromDisplayName(scope: Construct, id: string, identityStoreId: string, displayName: string)
 ```
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.sso.SSOGroup.fromDisplayName.parameter.scope"></a>
 
 - *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.sso.SSOGroup.fromDisplayName.parameter.id"></a>
+
+- *Type:* string
 
 ---
 
