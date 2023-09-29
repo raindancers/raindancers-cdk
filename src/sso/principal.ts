@@ -54,7 +54,7 @@ export abstract class SSOUser implements ISSOPrincipal {
 
   public static fromUserName(scope: constructs.Construct, identityStoreId: string, userName: string): ISSOPrincipal {
 
-    const getUserId = new cr.AwsCustomResource(scope, 'GetUserByName', {
+    const getUserId = new cr.AwsCustomResource(scope, `GetUserByName${userName}`, {
       onCreate: {
         service: 'IdentityStore',
         action: 'listUsers',
@@ -96,7 +96,7 @@ export abstract class SSOGroup implements ISSOPrincipal {
 
   public static fromDisplayName(scope: constructs.Construct, identityStoreId: string, displayName: string): ISSOPrincipal {
 
-    const getUserId = new cr.AwsCustomResource(scope, 'GetGroupByName', {
+    const getUserId = new cr.AwsCustomResource(scope, `GetGroupByName${displayName}`, {
       onCreate: {
         service: 'IdentityStore',
         action: 'listGroups',
