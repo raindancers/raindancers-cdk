@@ -54,6 +54,7 @@ export class AccountFactoryLambda extends core.Resource {
         'servicecatalog:ProvisionProduct',
         'controltower:CreateManagedAccount',
         'controltower:DescribeManagedAccount',
+        'servicecatalog:TerminateProvisionedProduct',
       ],
       effect: iam.Effect.ALLOW,
       resources: ['*'],
@@ -86,7 +87,5 @@ export class AccountFactoryLambda extends core.Resource {
       logRetention: logs.RetentionDays.ONE_DAY, // default is INFINITE
       totalTimeout: core.Duration.minutes(90),
     });
-
-
   }
 }
