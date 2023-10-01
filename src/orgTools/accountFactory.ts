@@ -10,6 +10,7 @@ import {
 import * as constructs from 'constructs';
 import {
   helpers,
+  organizations,
 }
   from '../index';
 
@@ -33,7 +34,7 @@ export interface AccountProvisioningParameters {
   /**
    * OU where to place this account
    */
-  readonly managedOrganizationalUnit: string;
+  readonly managedOrganizationalUnit: organizations.IOrganizationalUnit;
   /**
    *  What to call the account
    */
@@ -77,13 +78,20 @@ export class AccountFactory extends core.Resource {
     // import the Account Factory Service Catalog Product
     const accountFactoryProduct = servicecatalog.Product.fromProductArn(this, 'MyProduct', props.accountFactoryProductArn);
 
+    // Account Factory requires the format of the managed OU to be 'name (ou-id)' so, this needs to managle it into shape.
+    const provisioningParameters: any = props.awsAccount;
+
+    const ou = `${provisioningParameters.managedOrganizationalUnit.name} (${provisioningParameters.managedOrganizationalUnit.id})`;
+    provisioningParameters.managedOrganizationalUnit = ou;
+
+
     const waiter = new CustomResource(this, 'WaitUntillAccountisComplete', {
       serviceToken: props.provider.serviceToken,
       resourceType: 'Custom::AccountCreateWaiter',
       properties: {
         ProductId: accountFactoryProduct.productId,
         ProvisionedProductName: `awsAccount-${props.awsAccount.accountName}`,
-        ProvisioningParameters: JSON.stringify(helpers.upperCaseKeys(props.awsAccount)),
+        ProvisioningParameters: JSON.stringify(helpers.upperCaseKeys(provisioningParameters)),
       },
     });
 

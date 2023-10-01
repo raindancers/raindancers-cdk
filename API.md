@@ -2801,7 +2801,7 @@ const accountProvisioningParameters: orgTools.AccountProvisioningParameters = { 
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.orgTools.AccountProvisioningParameters.property.accountEmail">accountEmail</a></code> | <code>string</code> | What Email address to use for the root user. |
 | <code><a href="#raindancers-cdk.orgTools.AccountProvisioningParameters.property.accountName">accountName</a></code> | <code>string</code> | What to call the account. |
-| <code><a href="#raindancers-cdk.orgTools.AccountProvisioningParameters.property.managedOrganizationalUnit">managedOrganizationalUnit</a></code> | <code>string</code> | OU where to place this account. |
+| <code><a href="#raindancers-cdk.orgTools.AccountProvisioningParameters.property.managedOrganizationalUnit">managedOrganizationalUnit</a></code> | <code>raindancers-cdk.organizations.IOrganizationalUnit</code> | OU where to place this account. |
 | <code><a href="#raindancers-cdk.orgTools.AccountProvisioningParameters.property.sSOUserEmail">sSOUserEmail</a></code> | <code>string</code> | SSO user Email. |
 | <code><a href="#raindancers-cdk.orgTools.AccountProvisioningParameters.property.sSOUserFirstName">sSOUserFirstName</a></code> | <code>string</code> | SSO user First Name. |
 | <code><a href="#raindancers-cdk.orgTools.AccountProvisioningParameters.property.sSOUserLastName">sSOUserLastName</a></code> | <code>string</code> | SSO User Last Name. |
@@ -2835,10 +2835,10 @@ What to call the account.
 ##### `managedOrganizationalUnit`<sup>Required</sup> <a name="managedOrganizationalUnit" id="raindancers-cdk.orgTools.AccountProvisioningParameters.property.managedOrganizationalUnit"></a>
 
 ```typescript
-public readonly managedOrganizationalUnit: string;
+public readonly managedOrganizationalUnit: IOrganizationalUnit;
 ```
 
-- *Type:* string
+- *Type:* raindancers-cdk.organizations.IOrganizationalUnit
 
 OU where to place this account.
 
