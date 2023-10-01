@@ -18,12 +18,15 @@ def on_update(event):
 def on_delete(event):
 
 	props = event["ResourceProperties"]
+	print('resourceId': event['PhysicalResourceId'])
 	print('deleting resource')
-	response = servicecatalog.terminate_provisioned_product(
-		ProvisionedProductName=f"awsAccount-{props['ProvisionedProductName']}",
-		ProvisionedProductId=event['PhysicalResourceId'],
-		IgnoreErrors=True
-	)
+
+	# TODO: fix this actual deletion.
+	# response = servicecatalog.terminate_provisioned_product(
+	# 	ProvisionedProductName=f"awsAccount-{props['ProvisionedProductName']}",
+	# 	ProvisionedProductId=event['PhysicalResourceId'],
+	# 	IgnoreErrors=True
+	# )
 	print('Response from deleting Product:')
 	print(response)
 

@@ -49,7 +49,7 @@ def on_event(event, context):
 	for region in CDK_BOOTSTRAP_REGIONS:
 		build_commands.extend(
 			[
-				f'npx cdk bootstrap aws://{account_id}/{region} --qualifer {CDK_BOOTSTRAP_QUALIFER} --trust {truststring}
+				f'npx cdk bootstrap aws://{account_id}/{region} --qualifer {CDK_BOOTSTRAP_QUALIFER} --trust {truststring}'
 			]
 		)
 	
@@ -58,16 +58,7 @@ def on_event(event, context):
 			'echo Finished CDK Bootstrapping'
 		]
 	)
-		
-	# TEMPLATE_BOOTSTRAP_STACKS and LOCAL_BOOTSTRAP_STACK 
-	# [ 
-	# 	{ 
-	# 		"stackName" : 'name',
-	# 		"regions": [
-	# 			'region'
-	# 		]	
-	# 	}
-	# ]
+	
 	
 	for stack in TEMPLATE_BOOTSTRAP_STACKS:
 		for region in stack['Regions']:
