@@ -1911,6 +1911,166 @@ public readonly function: Function;
 ---
 
 
+### OrganizationalUnit <a name="OrganizationalUnit" id="raindancers-cdk.organizations.OrganizationalUnit"></a>
+
+- *Implements:* raindancers-cdk.organizations.IOrganizationalUnit
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.organizations.OrganizationalUnit.Initializer"></a>
+
+```typescript
+import { organizations } from 'raindancers-cdk'
+
+new organizations.OrganizationalUnit(scope: Construct, id: string, props: OrganizationalUnitProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnit.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnit.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnit.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.organizations.OrganizationalUnitProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.organizations.OrganizationalUnit.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.organizations.OrganizationalUnit.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.organizations.OrganizationalUnit.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.organizations.OrganizationalUnitProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnit.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.organizations.OrganizationalUnit.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnit.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnit.fromAttributes">fromAttributes</a></code> | *No description.* |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.organizations.OrganizationalUnit.isConstruct"></a>
+
+```typescript
+import { organizations } from 'raindancers-cdk'
+
+organizations.OrganizationalUnit.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.organizations.OrganizationalUnit.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="raindancers-cdk.organizations.OrganizationalUnit.fromAttributes"></a>
+
+```typescript
+import { organizations } from 'raindancers-cdk'
+
+organizations.OrganizationalUnit.fromAttributes(props: OrganizationalUnitAttributes)
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.organizations.OrganizationalUnit.fromAttributes.parameter.props"></a>
+
+- *Type:* raindancers-cdk.organizations.OrganizationalUnitAttributes
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnit.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnit.property.arn">arn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnit.property.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnit.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnit.property.parentId">parentId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.organizations.OrganizationalUnit.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `arn`<sup>Required</sup> <a name="arn" id="raindancers-cdk.organizations.OrganizationalUnit.property.arn"></a>
+
+```typescript
+public readonly arn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.organizations.OrganizationalUnit.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.organizations.OrganizationalUnit.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `parentId`<sup>Required</sup> <a name="parentId" id="raindancers-cdk.organizations.OrganizationalUnit.property.parentId"></a>
+
+```typescript
+public readonly parentId: string;
+```
+
+- *Type:* string
+
+---
+
+
 ### PermissionSet <a name="PermissionSet" id="raindancers-cdk.sso.PermissionSet"></a>
 
 - *Implements:* raindancers-cdk.sso.IPermissionSet
@@ -3735,6 +3895,162 @@ a regex expression forthe address of the incoming mail to match on.
 
 ---
 
+### OrganizationalUnitAttributes <a name="OrganizationalUnitAttributes" id="raindancers-cdk.organizations.OrganizationalUnitAttributes"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.organizations.OrganizationalUnitAttributes.Initializer"></a>
+
+```typescript
+import { organizations } from 'raindancers-cdk'
+
+const organizationalUnitAttributes: organizations.OrganizationalUnitAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnitAttributes.property.arn">arn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnitAttributes.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnitAttributes.property.parentId">parentId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `arn`<sup>Required</sup> <a name="arn" id="raindancers-cdk.organizations.OrganizationalUnitAttributes.property.arn"></a>
+
+```typescript
+public readonly arn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.organizations.OrganizationalUnitAttributes.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `parentId`<sup>Required</sup> <a name="parentId" id="raindancers-cdk.organizations.OrganizationalUnitAttributes.property.parentId"></a>
+
+```typescript
+public readonly parentId: string;
+```
+
+- *Type:* string
+
+---
+
+### OrganizationalUnitProps <a name="OrganizationalUnitProps" id="raindancers-cdk.organizations.OrganizationalUnitProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.organizations.OrganizationalUnitProps.Initializer"></a>
+
+```typescript
+import { organizations } from 'raindancers-cdk'
+
+const organizationalUnitProps: organizations.OrganizationalUnitProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnitProps.property.account">account</a></code> | <code>string</code> | The AWS account ID this resource belongs to. |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnitProps.property.environmentFromArn">environmentFromArn</a></code> | <code>string</code> | ARN to deduce region and account from. |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnitProps.property.physicalName">physicalName</a></code> | <code>string</code> | The value passed in by users to the physical name prop of the resource. |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnitProps.property.region">region</a></code> | <code>string</code> | The AWS region this resource belongs to. |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnitProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.organizations.OrganizationalUnitProps.property.parentId">parentId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `account`<sup>Optional</sup> <a name="account" id="raindancers-cdk.organizations.OrganizationalUnitProps.property.account"></a>
+
+```typescript
+public readonly account: string;
+```
+
+- *Type:* string
+- *Default:* the resource is in the same account as the stack it belongs to
+
+The AWS account ID this resource belongs to.
+
+---
+
+##### `environmentFromArn`<sup>Optional</sup> <a name="environmentFromArn" id="raindancers-cdk.organizations.OrganizationalUnitProps.property.environmentFromArn"></a>
+
+```typescript
+public readonly environmentFromArn: string;
+```
+
+- *Type:* string
+- *Default:* take environment from `account`, `region` parameters, or use Stack environment.
+
+ARN to deduce region and account from.
+
+The ARN is parsed and the account and region are taken from the ARN.
+This should be used for imported resources.
+
+Cannot be supplied together with either `account` or `region`.
+
+---
+
+##### `physicalName`<sup>Optional</sup> <a name="physicalName" id="raindancers-cdk.organizations.OrganizationalUnitProps.property.physicalName"></a>
+
+```typescript
+public readonly physicalName: string;
+```
+
+- *Type:* string
+- *Default:* The physical name will be allocated by CloudFormation at deployment time
+
+The value passed in by users to the physical name prop of the resource.
+
+`undefined` implies that a physical name will be allocated by
+  CloudFormation during deployment.
+- a concrete value implies a specific physical name
+- `PhysicalName.GENERATE_IF_NEEDED` is a marker that indicates that a physical will only be generated
+  by the CDK if it is needed for cross-environment references. Otherwise, it will be allocated by CloudFormation.
+
+---
+
+##### `region`<sup>Optional</sup> <a name="region" id="raindancers-cdk.organizations.OrganizationalUnitProps.property.region"></a>
+
+```typescript
+public readonly region: string;
+```
+
+- *Type:* string
+- *Default:* the resource is in the same region as the stack it belongs to
+
+The AWS region this resource belongs to.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.organizations.OrganizationalUnitProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `parentId`<sup>Required</sup> <a name="parentId" id="raindancers-cdk.organizations.OrganizationalUnitProps.property.parentId"></a>
+
+```typescript
+public readonly parentId: string;
+```
+
+- *Type:* string
+
+---
+
 ### PermissionBoundary <a name="PermissionBoundary" id="raindancers-cdk.sso.PermissionBoundary"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.sso.PermissionBoundary.Initializer"></a>
@@ -4896,6 +5212,62 @@ public readonly nameSpace: string;
 
 ```typescript
 public readonly arn: string;
+```
+
+- *Type:* string
+
+---
+
+### IOrganizationalUnit <a name="IOrganizationalUnit" id="raindancers-cdk.organizations.IOrganizationalUnit"></a>
+
+- *Implemented By:* raindancers-cdk.organizations.OrganizationalUnit, raindancers-cdk.organizations.IOrganizationalUnit
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.organizations.IOrganizationalUnit.property.arn">arn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.organizations.IOrganizationalUnit.property.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.organizations.IOrganizationalUnit.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.organizations.IOrganizationalUnit.property.parentId">parentId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `arn`<sup>Required</sup> <a name="arn" id="raindancers-cdk.organizations.IOrganizationalUnit.property.arn"></a>
+
+```typescript
+public readonly arn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.organizations.IOrganizationalUnit.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.organizations.IOrganizationalUnit.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `parentId`<sup>Required</sup> <a name="parentId" id="raindancers-cdk.organizations.IOrganizationalUnit.property.parentId"></a>
+
+```typescript
+public readonly parentId: string;
 ```
 
 - *Type:* string

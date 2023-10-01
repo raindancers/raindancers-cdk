@@ -5,3 +5,4 @@ export * as remailer from './remailer/index';
 export * as enterpriseSupport from './enterprisesupport/index';
 export * as sso from './sso/index';
 export * as helpers from './helpers/index';
+export * as organizations from './aws_organizations/index';
