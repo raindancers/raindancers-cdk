@@ -18,7 +18,7 @@ def on_update(event):
 def on_delete(event):
 
 	props = event["ResourceProperties"]
-	print('resourceId': event['PhysicalResourceId'])
+	print('resourceId', event['PhysicalResourceId'])
 	print('deleting resource')
 
 	# TODO: fix this actual deletion.
