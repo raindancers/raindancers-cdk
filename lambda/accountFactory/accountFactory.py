@@ -107,7 +107,50 @@ def is_complete(event, context):
 			return { 'IsComplete': False }
 
 	if request_type == 'Update': 
-		return { 'IsComplete': True }
+
+		props = event["ResourceProperties"]
+		provisioning_parameters = json.loads(props["ProvisioningParameters"])
+		print(provisioning_parameters)
+		
+
+		# find the provisioned product
+		state = servicecatalog.search_provisioned_products(
+			Filters={
+				'SearchQuery': [f"id:{event['PhysicalResourceId']}"]
+			},
+		)
+
+		print(state['ProvisionedProducts'][0]['Status'])
+
+		if state['ProvisionedProducts'][0]['Status'] == 'ERROR':
+			raise Exception(f"ProvisionedProduct has failed to provision")
+
+
+		# if its AVAIALABLE, its complete.
+		if state['ProvisionedProducts'][0]['Status'] in ['AVAILABLE', 'TAINTED']:
+
+			allaccounts = []
+			paginator = orgs.get_paginator('list_accounts')
+			getAccounts = paginator.paginate()
+			
+			
+			for page in getAccounts:
+				for account in page['Accounts']:
+					if account["Email"] == provisioning_parameters["AccountEmail"]:
+						print(account["Email"])
+						return { 
+							'Data': { 
+								'AccountId': account['Id'],
+								'Arn': account['Arn'],
+								'Name': account['Name'] 
+							},
+							'IsComplete': True 
+						}
+		
+
+			raise Exception(f"Account {props['ProvisioningParameters']['AccountEmail']} not  found")
+
+		return { 'IsComplete': False }
 
 	if request_type == 'Delete': 
 		return { 'IsComplete': True }
