@@ -15,6 +15,9 @@ LOCAL_BOOTSTRAP_STACKS = json.loads(os.environ['LOCAL_BOOTSTRAP_STACKS'])
 
 def on_event(event, context):
 
+
+
+
 	if 'source' in event.keys():
 		if event['source'] == 'aws.controltower' and event['detail']['serviceEventDetails']['createManagedAccountStatus']['message'] == 'AWS Control Tower successfully created an enrolled account.':
 			 # this was invoked by eventbridge
@@ -22,8 +25,14 @@ def on_event(event, context):
 		else:
 			return		# do nothing this was not an event we care about.
 
+
 	elif 'ResourceProperties' in event.keys():
 		account_id = event['ResourceProperties']['AccountId']
+		request_type = event['RequestType']
+	
+
+		if request_type != 'Create':
+			return
 		
 
 	else:
