@@ -70,7 +70,6 @@ def on_event(event, context):
 			build_commands.extend(
 				[
 					f'cd {stack["StackName"]}',
-					'npm install',
 					f'npx cdk deploy --require-approval never --region {region}',
 					'cd ..'
 				]
@@ -97,7 +96,9 @@ def on_event(event, context):
 					'nodejs': 'latest'
 				},
 				'commands': [
-					'n 16'
+					'node -v',
+					'n lts',
+					'node -v'
 				]
 			},
 			'build': {
