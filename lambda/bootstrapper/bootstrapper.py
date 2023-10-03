@@ -60,7 +60,7 @@ def on_event(event, context):
 	for region in CDK_BOOTSTRAP_REGIONS:
 		build_commands.extend(
 			[
-				f'npx cdk bootstrap aws://{account_id}/{region} --qualifer {CDK_BOOTSTRAP_QUALIFER} --trust {trust_string}'
+				f'npx cdk bootstrap aws://{account_id}/{region} --qualifer {CDK_BOOTSTRAP_QUALIFER} --trust {trust_string} --cloudformation-execution-policies \"arn:aws:iam::aws:policy/AdministratorAccess\"'
 			]
 		)
 	
