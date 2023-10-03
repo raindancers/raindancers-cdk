@@ -40,10 +40,7 @@ def on_event(event, context):
 	
 		
 	# update the packages
-	build_commands = [
-		'npm update -g npm@latest',
-		'npm install',
-	]
+	build_commands = []
 
 	# this will set the default creds to the role in the remote account. 
 	build_commands.extend([
