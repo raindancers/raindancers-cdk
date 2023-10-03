@@ -22,7 +22,7 @@ def on_event(event, context):
 		else:
 			return		# do nothing this was not an event we care about.
 
-	else if 'ResourceProperties' in event.keys():
+	elif 'ResourceProperties' in event.keys():
 		account_id = event['ResourceProperties']['AccountId']
 		
 
