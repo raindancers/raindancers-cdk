@@ -22,8 +22,13 @@ def on_event(event, context):
 		else:
 			return		# do nothing this was not an event we care about.
 
-	else: # this was invoked by a test event.
+	else if 'ResourceProperties' in event.keys():
+		account_id = event['ResourceProperties']['AccountId']
+		
+
+	else:
 		account_id = event['accountId']
+	
 		
 	# update the packages
 	build_commands = [
