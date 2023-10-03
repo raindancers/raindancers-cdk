@@ -160,7 +160,7 @@ export class CdkOrgBootstrapper extends constructs.Construct {
         serviceToken: myProvider.serviceToken,
         resourceType: 'Custom::StartCodeBuildviaLambda',
         properties: {
-          accountId: props.account,
+          AccountId: props.account,
         },
       });
 
