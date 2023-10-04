@@ -55,6 +55,7 @@ export class AccountFactoryLambda extends core.Resource {
         'controltower:CreateManagedAccount',
         'controltower:DescribeManagedAccount',
         'servicecatalog:TerminateProvisionedProduct',
+        'sso:DescribeRegisteredRegions',
       ],
       effect: iam.Effect.ALLOW,
       resources: ['*'],

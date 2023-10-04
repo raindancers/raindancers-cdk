@@ -27,6 +27,8 @@ def on_event(event, context):
 		account_id = event['ResourceProperties']['AccountId']
 		request_type = event['RequestType']
 		trusts = json.loads(event['ResourceProperties']['Trusts'])
+
+		print('Trusts:', trusts)
 	
 
 		if request_type != 'Create':
