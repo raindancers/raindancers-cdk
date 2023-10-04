@@ -161,6 +161,7 @@ export class CdkOrgBootstrapper extends constructs.Construct {
         resourceType: 'Custom::StartCodeBuildviaLambda',
         properties: {
           AccountId: props.account,
+          Trusts: JSON.stringify(props.trustAccounts ?? [core.Aws.ACCOUNT_ID]),
         },
       });
 

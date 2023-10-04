@@ -15,9 +15,6 @@ LOCAL_BOOTSTRAP_STACKS = json.loads(os.environ['LOCAL_BOOTSTRAP_STACKS'])
 
 def on_event(event, context):
 
-
-
-
 	if 'source' in event.keys():
 		if event['source'] == 'aws.controltower' and event['detail']['serviceEventDetails']['createManagedAccountStatus']['message'] == 'AWS Control Tower successfully created an enrolled account.':
 			 # this was invoked by eventbridge
@@ -29,6 +26,7 @@ def on_event(event, context):
 	elif 'ResourceProperties' in event.keys():
 		account_id = event['ResourceProperties']['AccountId']
 		request_type = event['RequestType']
+		trusts = json.loads(event['ResourceProperties']['Trusts'])
 	
 
 		if request_type != 'Create':
@@ -53,16 +51,29 @@ def on_event(event, context):
 	])
 	
 	trust_string = ''
-	for account in TRUSTS:
+	for account in trusts:
 		trust_string = trust_string + ','
+
+	trust_string = trust_string[:-1]
 
 	# boostrap the account in regions as required.
 	for region in CDK_BOOTSTRAP_REGIONS:
-		build_commands.extend(
-			[
-				f'npx cdk bootstrap aws://{account_id}/{region} --qualifer {CDK_BOOTSTRAP_QUALIFER} --trust {trust_string} --cloudformation-execution-policies \"arn:aws:iam::aws:policy/AdministratorAccess\"'
-			]
-		)
+
+		if trust_string == '':
+
+			build_commands.extend(
+				[
+					f'npx cdk bootstrap aws://{account_id}/{region} --qualifer {CDK_BOOTSTRAP_QUALIFER} --cloudformation-execution-policies \"arn:aws:iam::aws:policy/AdministratorAccess\"'
+				]
+			)
+		
+		else: 
+			build_commands.extend(
+				[
+					f'npx cdk bootstrap aws://{account_id}/{region} --qualifer {CDK_BOOTSTRAP_QUALIFER} --trust {trust_string} --cloudformation-execution-policies \"arn:aws:iam::aws:policy/AdministratorAccess\"'
+				]
+			)
+
 	
 	build_commands.extend(
 		[
