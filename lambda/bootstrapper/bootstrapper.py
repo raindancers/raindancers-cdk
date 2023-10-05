@@ -54,9 +54,10 @@ def on_event(event, context):
 	
 	trust_string = ''
 	for account in trusts:
-		trust_string = trust_string + ','
+		trust_string = trust_string + f'{account},'
 
 	trust_string = trust_string[:-1]
+	print('truststring:', trust_string)
 
 	# boostrap the account in regions as required.
 	for region in CDK_BOOTSTRAP_REGIONS:
