@@ -76,6 +76,7 @@ export class AccountFactoryLambda extends core.Resource {
       actions: [
         'serviceCatalog:SearchProvisionedProducts',
         'organizations:ListAccounts',
+        'servicecatalog:DescribeProvisionedProduct',
       ],
       effect: iam.Effect.ALLOW,
       resources: ['*'],
