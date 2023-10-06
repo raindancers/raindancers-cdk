@@ -22,7 +22,7 @@ export class TransferTest extends core.Stack {
     // this will create a home directory that is is
     // 'hosted' in a S3 bucket
     // the sftp user will have permissions as supplied.
-    // authentication is by keys  
+    // authentication is by keys
     const user1 = sftpServer.adduser({
       userName: 'abc',
       publicKeys: ['key1', 'key2'],
