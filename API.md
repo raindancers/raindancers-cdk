@@ -2604,6 +2604,7 @@ The ID of the transfer server.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#raindancers-cdk.transfer.TransferServer.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#raindancers-cdk.transfer.TransferServer.adduser">adduser</a></code> | *No description.* |
 
 ---
 
@@ -2614,6 +2615,18 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `adduser` <a name="adduser" id="raindancers-cdk.transfer.TransferServer.adduser"></a>
+
+```typescript
+public adduser(props: AddUserProps): ITransferUser
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.transfer.TransferServer.adduser.parameter.props"></a>
+
+- *Type:* raindancers-cdk.transfer.AddUserProps
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -2780,6 +2793,7 @@ Any object.
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.transfer.TransferUser.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#raindancers-cdk.transfer.TransferUser.property.arn">arn</a></code> | <code>string</code> | The arn of the transfer user. |
+| <code><a href="#raindancers-cdk.transfer.TransferUser.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
 | <code><a href="#raindancers-cdk.transfer.TransferUser.property.id">id</a></code> | <code>string</code> | The id of the transfer User. |
 
 ---
@@ -2805,6 +2819,16 @@ public readonly arn: string;
 - *Type:* string
 
 The arn of the transfer user.
+
+---
+
+##### `bucket`<sup>Required</sup> <a name="bucket" id="raindancers-cdk.transfer.TransferUser.property.bucket"></a>
+
+```typescript
+public readonly bucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
 
 ---
 
@@ -3141,6 +3165,92 @@ public readonly sSOUserLastName: string;
 - *Type:* string
 
 SSO User Last Name.
+
+---
+
+### AddUserProps <a name="AddUserProps" id="raindancers-cdk.transfer.AddUserProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.transfer.AddUserProps.Initializer"></a>
+
+```typescript
+import { transfer } from 'raindancers-cdk'
+
+const addUserProps: transfer.AddUserProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.publicKeys">publicKeys</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.userName">userName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.permissions">permissions</a></code> | <code>raindancers-cdk.transfer.Permission</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.policy">policy</a></code> | <code>aws-cdk-lib.aws_iam.PolicyDocument</code> | Policy. |
+| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
+
+---
+
+##### `publicKeys`<sup>Required</sup> <a name="publicKeys" id="raindancers-cdk.transfer.AddUserProps.property.publicKeys"></a>
+
+```typescript
+public readonly publicKeys: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `userName`<sup>Required</sup> <a name="userName" id="raindancers-cdk.transfer.AddUserProps.property.userName"></a>
+
+```typescript
+public readonly userName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `bucket`<sup>Optional</sup> <a name="bucket" id="raindancers-cdk.transfer.AddUserProps.property.bucket"></a>
+
+```typescript
+public readonly bucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+---
+
+##### `permissions`<sup>Optional</sup> <a name="permissions" id="raindancers-cdk.transfer.AddUserProps.property.permissions"></a>
+
+```typescript
+public readonly permissions: Permission;
+```
+
+- *Type:* raindancers-cdk.transfer.Permission
+
+---
+
+##### `policy`<sup>Optional</sup> <a name="policy" id="raindancers-cdk.transfer.AddUserProps.property.policy"></a>
+
+```typescript
+public readonly policy: PolicyDocument;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.PolicyDocument
+- *Default:* Default Policy statement.
+
+Policy.
+
+---
+
+##### `role`<sup>Optional</sup> <a name="role" id="raindancers-cdk.transfer.AddUserProps.property.role"></a>
+
+```typescript
+public readonly role: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
 
 ---
 
@@ -4812,6 +4922,7 @@ const transferServerProps: transfer.TransferServerProps = { ... }
 | <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.domain">domain</a></code> | <code>string</code> | Specifies the domain of the storage system that is used for file transfers. |
 | <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.protocols">protocols</a></code> | <code>raindancers-cdk.transfer.Protocol[]</code> | Protocols The protocol settings that are configured for your server. |
 | <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.certificate">certificate</a></code> | <code>aws-cdk-lib.aws_certificatemanager.ICertificate</code> | The Amazon Resource Name (ARN) of the AWS Certificate Manager (ACM) certificate A certificate is required if the protocol is set to FTP. |
+| <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.disableLogging">disableLogging</a></code> | <code>boolean</code> | disable logging. |
 | <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.endpointType">endpointType</a></code> | <code>raindancers-cdk.transfer.EndpointType</code> | The endpoint type that you want your transfer server to be. |
 | <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.identityProviderType">identityProviderType</a></code> | <code>raindancers-cdk.transfer.IdentityProviderType</code> | identity Provider Type. |
 | <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.logDestinations">logDestinations</a></code> | <code>aws-cdk-lib.aws_logs.ILogGroup[]</code> | log destination. |
@@ -4857,6 +4968,21 @@ public readonly certificate: ICertificate;
 - *Type:* aws-cdk-lib.aws_certificatemanager.ICertificate
 
 The Amazon Resource Name (ARN) of the AWS Certificate Manager (ACM) certificate A certificate is required if the protocol is set to FTP.
+
+---
+
+##### `disableLogging`<sup>Optional</sup> <a name="disableLogging" id="raindancers-cdk.transfer.TransferServerProps.property.disableLogging"></a>
+
+```typescript
+public readonly disableLogging: boolean;
+```
+
+- *Type:* boolean
+- *Default:* : false
+
+disable logging.
+
+We have to explicity opt out of logging.
 
 ---
 
@@ -6032,6 +6158,7 @@ The ID of the transfer server.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.transfer.ITransferUser.property.arn">arn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.ITransferUser.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
 | <code><a href="#raindancers-cdk.transfer.ITransferUser.property.id">id</a></code> | <code>string</code> | The ID of the transfer user. |
 
 ---
@@ -6043,6 +6170,16 @@ public readonly arn: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `bucket`<sup>Required</sup> <a name="bucket" id="raindancers-cdk.transfer.ITransferUser.property.bucket"></a>
+
+```typescript
+public readonly bucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
 
 ---
 
@@ -6191,6 +6328,33 @@ The ID of the transfer user.
 
 
 ##### `VPC_CHANGE` <a name="VPC_CHANGE" id="raindancers-cdk.orgTools.OrgAlarms.VPC_CHANGE"></a>
+
+---
+
+
+### Permission <a name="Permission" id="raindancers-cdk.transfer.Permission"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.transfer.Permission.READ">READ</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.Permission.WRITE">WRITE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.Permission.READ_WRITE">READ_WRITE</a></code> | *No description.* |
+
+---
+
+##### `READ` <a name="READ" id="raindancers-cdk.transfer.Permission.READ"></a>
+
+---
+
+
+##### `WRITE` <a name="WRITE" id="raindancers-cdk.transfer.Permission.WRITE"></a>
+
+---
+
+
+##### `READ_WRITE` <a name="READ_WRITE" id="raindancers-cdk.transfer.Permission.READ_WRITE"></a>
 
 ---
 

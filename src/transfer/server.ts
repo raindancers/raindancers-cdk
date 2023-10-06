@@ -4,10 +4,15 @@ import {
   aws_certificatemanager as certificatemanager,
   aws_iam as iam,
   aws_logs as logs,
+  aws_s3 as s3,
+  aws_transfer,
 }
   from 'aws-cdk-lib';
 
 import * as constructs from 'constructs';
+import {
+  ITransferUser,
+} from './index';
 
 
 export enum SecurityPolicy {
@@ -73,6 +78,26 @@ export interface ITransferServer {
   readonly arn: string;
 }
 
+export enum Permission {
+  READ = 'READ',
+  WRITE = 'WRITE',
+  READ_WRITE = 'READ_WRITE'
+}
+
+export interface AddUserProps {
+
+  readonly userName: string;
+  readonly publicKeys: string[];
+  readonly permissions?: Permission;
+  readonly role?: iam.IRole | undefined;
+  readonly bucket?: s3.IBucket | undefined;
+  /**
+   * Policy
+   * @default Default Policy statement.
+   */
+  readonly policy?: iam.PolicyDocument | undefined;
+}
+
 export interface TransferServerProps {
 
   /**
@@ -90,6 +115,11 @@ export interface TransferServerProps {
    * @default  EndpointType.PUBLIC
    */
   readonly endpointType?: EndpointType | undefined;
+  /**
+   * disable logging. We have to explicity opt out of logging.
+   * @default: false
+   */
+  readonly disableLogging?: boolean | undefined;
   /**
    * The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that allows a server to turn on Amazon CloudWatch logging
    *  for Amazon S3 or Amazon EFSevents.
@@ -152,28 +182,123 @@ export class TransferServer extends constructs.Construct implements ITransferSer
       throw new Error('domain name is not valid');
     };
 
-    let logDestinations: string[] = [];
-    if (props.logDestinations) {
-      props.logDestinations.forEach((logGroup) => {
-        logDestinations.push(logGroup.logGroupArn);
-      });
+    var loggingRole: iam.IRole | undefined;
+    var logGroupArns: string[] =[];
+
+    if (!props.disableLogging ?? false) {
+
+      if (props.loggingRole) {
+        loggingRole = props.loggingRole;
+      } else {
+        loggingRole = new iam.Role(this, 'loggingRole', {
+          assumedBy: new iam.ServicePrincipal('transfer.amazonaws.com'),
+          description: 'logging role for SFTP server',
+        });
+      }
+
+      if (props.logDestinations) {
+        props.logDestinations.forEach((logGroup) => {
+          logGroupArns.push(logGroup.logGroupArn);
+        });
+      } else {
+        logGroupArns = [
+          new logs.LogGroup(this, 'transferLogs', {
+            logGroupName: `/aws/transfer/${id}`,
+            retention: logs.RetentionDays.TWO_YEARS,
+          }).logGroupArn,
+        ];
+      }
     }
+
 
     const server = new transfer.CfnServer(this, 'Resource', {
       certificate: props.certificate?.certificateArn,
       domain: props.domain,
       endpointType: props.endpointType ?? EndpointType.PUBLIC,
       identityProviderType: props.identityProviderType ?? IdentityProviderType.SERVICE_MANAGED,
-      loggingRole: props.loggingRole?.roleArn,
+      loggingRole: loggingRole?.roleArn,
       postAuthenticationLoginBanner: props.postAuthenticationLoginBanner ?? 'This server is subject to Acceptable Use Policy. All actions are logged',
       preAuthenticationLoginBanner: props.preAuthenticationLoginBanner ?? 'This system is for authorized purposes only',
       protocols: props.protocols,
       securityPolicyName: props.securityPolicy ?? SecurityPolicy.TRANSFER_SECURITY_POLICY_2023_05,
-      structuredLogDestinations: logDestinations,
+      structuredLogDestinations: logGroupArns,
     });
 
     this.id = server.attrServerId;
     this.arn = server.attrArn;
 
+  }
+
+  public adduser(props: AddUserProps): ITransferUser {
+
+    const defaultPolicy = new iam.PolicyDocument({});
+    defaultPolicy.addStatements(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: ['s3:ListBucket'],
+      resources: ['arn:aws:s3:::${transfer:HomeBucket}'],
+      conditions: {
+        StringLike: {
+          's3:prefix': [
+            'home/${transfer:UserName}/*',
+            'home/${transfer:UserName}',
+          ],
+        },
+      },
+    }));
+
+    if (props.permissions) {
+      if (props.permissions in [Permission.READ, Permission.READ_WRITE] ) {
+        defaultPolicy.addStatements(new iam.PolicyStatement({
+          effect: iam.Effect.ALLOW,
+          actions: [
+            's3:GetObject',
+            's3:GetObjectVersion',
+          ],
+          resources: ['arn:aws:s3:::${transfer:HomeDirectory}*'],
+        }));
+      };
+
+      if (props.permissions in [Permission.WRITE, Permission.READ_WRITE]) {
+        defaultPolicy.addStatements(new iam.PolicyStatement({
+          effect: iam.Effect.ALLOW,
+          actions: [
+            's3:PutObject',
+            's3:GetObject',
+            's3:GetObjectVersion',
+          ],
+          resources: ['arn:aws:s3:::${transfer:HomeDirectory}*'],
+        }));
+      }
+    }
+
+    const policy = props.policy ?? defaultPolicy;
+
+    const userRole = props.role ?? new iam.Role(this, 'userRole', {
+      assumedBy: new iam.ServicePrincipal('transfer.amazonaws.com'),
+      description: 'SFTP standard user role',
+    });
+
+    const sftpBucket = props.bucket ?? new s3.Bucket(this, 'sftpBucket', {
+      enforceSSL: true,
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+    });
+
+    sftpBucket.grantReadWrite(userRole);
+
+    const user = new aws_transfer.CfnUser(this, 'user', {
+      role: userRole.roleArn,
+      serverId: this.id,
+      userName: props.userName,
+      sshPublicKeys: props.publicKeys,
+      homeDirectory: `/${sftpBucket.bucketArn}`,
+      policy: policy.toJSON(),
+    });
+
+    return {
+      id: user.attrId,
+      arn: user.attrArn,
+      bucket: sftpBucket,
+
+    };
   }
 }

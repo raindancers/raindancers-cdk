@@ -21,6 +21,10 @@ export interface ITransferUser {
    *
    */
   readonly arn: string;
+  /**
+   *
+   */
+  readonly bucket: s3.IBucket;
 }
 
 export interface TransferUserProps {
@@ -59,6 +63,8 @@ export class TransferUser extends constructs.Construct implements ITransferUser 
    * The arn of the transfer user
    */
   public readonly arn: string;
+
+  public readonly bucket: s3.IBucket;
 
   constructor(scope: constructs.Construct, id: string, props: TransferUserProps) {
     super(scope, id);
@@ -101,6 +107,7 @@ export class TransferUser extends constructs.Construct implements ITransferUser 
 
     this.id = user.attrId;
     this.arn = user.attrArn;
+    this.bucket = props.bucket;
 
   }
 }
