@@ -2659,7 +2659,7 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.transfer.TransferServer.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#raindancers-cdk.transfer.TransferServer.property.arn">arn</a></code> | <code>string</code> | The Private ASN of the TransitGateway. |
+| <code><a href="#raindancers-cdk.transfer.TransferServer.property.arn">arn</a></code> | <code>string</code> | The Arn of the Transfer Server. |
 | <code><a href="#raindancers-cdk.transfer.TransferServer.property.id">id</a></code> | <code>string</code> | The id of the transitGateway. |
 
 ---
@@ -2684,7 +2684,7 @@ public readonly arn: string;
 
 - *Type:* string
 
-The Private ASN of the TransitGateway.
+The Arn of the Transfer Server.
 
 ---
 

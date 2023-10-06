@@ -169,18 +169,12 @@ export class TransferServer extends constructs.Construct implements ITransferSer
   public readonly id: string;
 
   /**
-   * The Private ASN of the TransitGateway
+   * The Arn of the Transfer Server
    */
   public readonly arn: string;
 
   constructor(scope: constructs.Construct, id: string, props: TransferServerProps) {
     super(scope, id);
-
-    // create a regex expression to check that a string is a valid domainname
-    const domainRegex = /^(?=.{1,253}$)[a-zA-Z0-9][a-zA-Z0-9-]{0,62}[a-zA-Z0-9]$/;
-    if (!domainRegex.test(props.domain)) {
-      throw new Error('domain name is not valid');
-    };
 
     var loggingRole: iam.IRole | undefined;
     var logGroupArns: string[] =[];
@@ -223,6 +217,7 @@ export class TransferServer extends constructs.Construct implements ITransferSer
       securityPolicyName: props.securityPolicy ?? SecurityPolicy.TRANSFER_SECURITY_POLICY_2023_05,
       structuredLogDestinations: logGroupArns,
     });
+
 
     this.id = server.attrServerId;
     this.arn = server.attrArn;
