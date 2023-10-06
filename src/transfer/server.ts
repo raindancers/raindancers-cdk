@@ -286,7 +286,7 @@ export class TransferServer extends constructs.Construct implements ITransferSer
       userName: props.userName,
       sshPublicKeys: props.publicKeys,
       homeDirectory: `/${sftpBucket.bucketArn}`,
-      policy: policy.toJSON(),
+      policy: JSON.stringify(policy),
     });
 
     return {
