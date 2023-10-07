@@ -4919,7 +4919,7 @@ const transferServerProps: transfer.TransferServerProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.domain">domain</a></code> | <code>string</code> | Specifies the domain of the storage system that is used for file transfers. |
+| <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.domain">domain</a></code> | <code>raindancers-cdk.transfer.StorageType</code> | Specifies the domain of the storage system that is used for file transfers. |
 | <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.protocols">protocols</a></code> | <code>raindancers-cdk.transfer.Protocol[]</code> | Protocols The protocol settings that are configured for your server. |
 | <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.certificate">certificate</a></code> | <code>aws-cdk-lib.aws_certificatemanager.ICertificate</code> | The Amazon Resource Name (ARN) of the AWS Certificate Manager (ACM) certificate A certificate is required if the protocol is set to FTP. |
 | <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.disableLogging">disableLogging</a></code> | <code>boolean</code> | disable logging. |
@@ -4936,10 +4936,10 @@ const transferServerProps: transfer.TransferServerProps = { ... }
 ##### `domain`<sup>Required</sup> <a name="domain" id="raindancers-cdk.transfer.TransferServerProps.property.domain"></a>
 
 ```typescript
-public readonly domain: string;
+public readonly domain: StorageType;
 ```
 
-- *Type:* string
+- *Type:* raindancers-cdk.transfer.StorageType
 
 Specifies the domain of the storage system that is used for file transfers.
 
@@ -6473,6 +6473,21 @@ https://docs.aws.amazon.com/transfer/latest/userguide/security-policies.html#pq-
 
 
 ##### `GROUP` <a name="GROUP" id="raindancers-cdk.sso.SSOPrincipalType.GROUP"></a>
+
+---
+
+
+### StorageType <a name="StorageType" id="raindancers-cdk.transfer.StorageType"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.transfer.StorageType.S3">S3</a></code> | *No description.* |
+
+---
+
+##### `S3` <a name="S3" id="raindancers-cdk.transfer.StorageType.S3"></a>
 
 ---
 

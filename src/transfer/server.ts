@@ -14,6 +14,10 @@ import {
   ITransferUser,
 } from './index';
 
+export enum StorageType {
+  S3 = 'S3',
+  //EFS = 'EFS',  not yet implemented
+}
 
 export enum SecurityPolicy {
   /**
@@ -46,7 +50,7 @@ export enum Protocol {
   /**
    * SFTP (Secure Shell (SSH) File Transfer Protocol): File transfer over SSH
    */
-  SFTP = 'STFP',
+  SFTP = 'SFTP',
   /**
    * FTP (File Transfer Protocol): Unencrypted file transfer
    * DO Not use this, its likely that you will not be compliant with security requiremtns
@@ -109,7 +113,7 @@ export interface TransferServerProps {
    * Specifies the domain of the storage system that is used for file transfers.
    * See also: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-server.html#cfn-transfer-server-domain
    */
-  readonly domain: string;
+  readonly domain: StorageType;
   /**
    * The endpoint type that you want your transfer server to be.
    * @default  EndpointType.PUBLIC
