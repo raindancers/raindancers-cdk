@@ -2661,6 +2661,7 @@ Any object.
 | <code><a href="#raindancers-cdk.transfer.TransferServer.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#raindancers-cdk.transfer.TransferServer.property.arn">arn</a></code> | <code>string</code> | The Arn of the Transfer Server. |
 | <code><a href="#raindancers-cdk.transfer.TransferServer.property.id">id</a></code> | <code>string</code> | The id of the transitGateway. |
+| <code><a href="#raindancers-cdk.transfer.TransferServer.property.hostname">hostname</a></code> | <code>string</code> | Internet Hostname. |
 
 ---
 
@@ -2697,6 +2698,18 @@ public readonly id: string;
 - *Type:* string
 
 The id of the transitGateway.
+
+---
+
+##### `hostname`<sup>Optional</sup> <a name="hostname" id="raindancers-cdk.transfer.TransferServer.property.hostname"></a>
+
+```typescript
+public readonly hostname: string;
+```
+
+- *Type:* string
+
+Internet Hostname.
 
 ---
 

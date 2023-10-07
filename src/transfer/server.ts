@@ -1,4 +1,4 @@
-
+import * as core from 'aws-cdk-lib';
 import {
   aws_transfer as transfer,
   aws_certificatemanager as certificatemanager,
@@ -177,6 +177,12 @@ export class TransferServer extends constructs.Construct implements ITransferSer
    */
   public readonly arn: string;
 
+  /**
+   * Internet Hostname
+   *
+   */
+  public readonly hostname: string | undefined;
+
   constructor(scope: constructs.Construct, id: string, props: TransferServerProps) {
     super(scope, id);
 
@@ -225,6 +231,7 @@ export class TransferServer extends constructs.Construct implements ITransferSer
 
     this.id = server.attrServerId;
     this.arn = server.attrArn;
+    this.hostname = `${this.id}.server.transfer.${core.Aws.REGION}.amazonaws.com}`;
 
   }
 
