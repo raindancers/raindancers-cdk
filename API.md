@@ -3201,6 +3201,7 @@ const addUserProps: transfer.AddUserProps = { ... }
 | <code><a href="#raindancers-cdk.transfer.AddUserProps.property.permissions">permissions</a></code> | <code>raindancers-cdk.transfer.Permission</code> | *No description.* |
 | <code><a href="#raindancers-cdk.transfer.AddUserProps.property.policy">policy</a></code> | <code>aws-cdk-lib.aws_iam.PolicyDocument</code> | Policy. |
 | <code><a href="#raindancers-cdk.transfer.AddUserProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.s3LambdaNotifications">s3LambdaNotifications</a></code> | <code>raindancers-cdk.transfer.S3LambdaNotification[]</code> | *No description.* |
 
 ---
 
@@ -3264,6 +3265,16 @@ public readonly role: IRole;
 ```
 
 - *Type:* aws-cdk-lib.aws_iam.IRole
+
+---
+
+##### `s3LambdaNotifications`<sup>Optional</sup> <a name="s3LambdaNotifications" id="raindancers-cdk.transfer.AddUserProps.property.s3LambdaNotifications"></a>
+
+```typescript
+public readonly s3LambdaNotifications: S3LambdaNotification[];
+```
+
+- *Type:* raindancers-cdk.transfer.S3LambdaNotification[]
 
 ---
 
@@ -4826,6 +4837,45 @@ public readonly zone: IPublicHostedZone;
 - *Type:* aws-cdk-lib.aws_route53.IPublicHostedZone
 
 the Zone where the Remailer's DNS records are.
+
+---
+
+### S3LambdaNotification <a name="S3LambdaNotification" id="raindancers-cdk.transfer.S3LambdaNotification"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.transfer.S3LambdaNotification.Initializer"></a>
+
+```typescript
+import { transfer } from 'raindancers-cdk'
+
+const s3LambdaNotification: transfer.S3LambdaNotification = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.transfer.S3LambdaNotification.property.eventType">eventType</a></code> | <code>aws-cdk-lib.aws_s3.EventType</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.S3LambdaNotification.property.lambdaArn">lambdaArn</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `eventType`<sup>Required</sup> <a name="eventType" id="raindancers-cdk.transfer.S3LambdaNotification.property.eventType"></a>
+
+```typescript
+public readonly eventType: EventType;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.EventType
+
+---
+
+##### `lambdaArn`<sup>Required</sup> <a name="lambdaArn" id="raindancers-cdk.transfer.S3LambdaNotification.property.lambdaArn"></a>
+
+```typescript
+public readonly lambdaArn: string;
+```
+
+- *Type:* string
 
 ---
 

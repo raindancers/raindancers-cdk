@@ -5,6 +5,8 @@ import {
   aws_iam as iam,
   aws_logs as logs,
   aws_s3 as s3,
+  aws_s3_notifications as s3n,
+  aws_lambda as lambda,
   aws_transfer,
 }
   from 'aws-cdk-lib';
@@ -17,6 +19,11 @@ import {
 export enum StorageType {
   S3 = 'S3',
   //EFS = 'EFS',  not yet implemented
+}
+
+export interface S3LambdaNotification {
+  readonly eventType: s3.EventType;
+  readonly lambdaArn: string;
 }
 
 export enum SecurityPolicy {
@@ -100,6 +107,7 @@ export interface AddUserProps {
    * @default Default Policy statement.
    */
   readonly policy?: iam.PolicyDocument | undefined;
+  readonly s3LambdaNotifications?: S3LambdaNotification[];
 }
 
 export interface TransferServerProps {
@@ -299,6 +307,19 @@ export class TransferServer extends constructs.Construct implements ITransferSer
       homeDirectory: `/${sftpBucket.bucketArn}`,
       policy: JSON.stringify(policy),
     });
+
+    if (props.s3LambdaNotifications) {
+      props.s3LambdaNotifications.forEach((notification, index) => {
+        sftpBucket.addEventNotification(
+          notification.eventType,
+          new s3n.LambdaDestination(
+            lambda.Function.fromFunctionArn(this, `${props.userName}S3Notification-${index}`,
+              notification.lambdaArn,
+            ),
+          ),
+        );
+      });
+    }
 
     return {
       id: user.attrId,
