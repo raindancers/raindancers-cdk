@@ -300,7 +300,6 @@ export class TransferServer extends constructs.Construct implements ITransferSer
       encryption: s3.BucketEncryption.S3_MANAGED,
     });
 
-    
 
     sftpBucket.grantReadWrite(userRole);
 
