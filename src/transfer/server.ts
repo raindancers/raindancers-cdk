@@ -24,6 +24,8 @@ export enum StorageType {
 export interface S3LambdaNotification {
   readonly eventType: s3.EventType;
   readonly lambdaArn: string;
+  readonly lambdaRoleArn?: string | undefined;
+  readonly permission?: Permission | undefined;
 }
 
 export enum SecurityPolicy {
@@ -295,7 +297,10 @@ export class TransferServer extends constructs.Construct implements ITransferSer
     const sftpBucket = props.bucket ?? new s3.Bucket(this, 'sftpBucket', {
       enforceSSL: true,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+      encryption: s3.BucketEncryption.S3_MANAGED,
     });
+
+    
 
     sftpBucket.grantReadWrite(userRole);
 
@@ -309,6 +314,7 @@ export class TransferServer extends constructs.Construct implements ITransferSer
     });
 
     if (props.s3LambdaNotifications) {
+
       props.s3LambdaNotifications.forEach((notification, index) => {
         sftpBucket.addEventNotification(
           notification.eventType,
@@ -318,14 +324,66 @@ export class TransferServer extends constructs.Construct implements ITransferSer
             ),
           ),
         );
+
+
+        if (notification.lambdaRoleArn && notification.permission) {
+          switch (notification.permission) {
+            case Permission.READ: {
+              sftpBucket.addToResourcePolicy(new iam.PolicyStatement({
+                effect: iam.Effect.ALLOW,
+                principals: [new iam.ArnPrincipal(notification.lambdaRoleArn)],
+                actions: [
+                  's3:GetObject',
+                  's3:GetObjectVersion',
+                ],
+                resources: [
+                  sftpBucket.bucketArn,
+                  `${sftpBucket.bucketArn}/*`,
+                ],
+              }));
+              break;
+            };
+            case Permission.WRITE: {
+              sftpBucket.addToResourcePolicy(new iam.PolicyStatement({
+                effect: iam.Effect.ALLOW,
+                principals: [new iam.ArnPrincipal(notification.lambdaRoleArn)],
+                actions: [
+                  's3:PutObject',
+                ],
+                resources: [
+                  sftpBucket.bucketArn,
+                  `${sftpBucket.bucketArn}/*`,
+                ],
+              }));
+              break;
+            };
+            case Permission.READ_WRITE: {
+              sftpBucket.addToResourcePolicy(new iam.PolicyStatement({
+                effect: iam.Effect.ALLOW,
+                principals: [new iam.ArnPrincipal(notification.lambdaRoleArn)],
+                actions: [
+                  's3:GetObject',
+                  's3:GetObjectVersion',
+                  's3:PutObject',
+                ],
+                resources: [
+                  sftpBucket.bucketArn,
+                  `${sftpBucket.bucketArn}/*`,
+                ],
+              }));
+              break;
+            };
+            default:
+              throw new Error('Invalid permission');
+          };
+        };
       });
-    }
+    };
 
     return {
       id: user.attrId,
       arn: user.attrArn,
       bucket: sftpBucket,
-
     };
-  }
-}
+  };
+};

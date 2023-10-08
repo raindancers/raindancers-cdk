@@ -4856,6 +4856,8 @@ const s3LambdaNotification: transfer.S3LambdaNotification = { ... }
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.transfer.S3LambdaNotification.property.eventType">eventType</a></code> | <code>aws-cdk-lib.aws_s3.EventType</code> | *No description.* |
 | <code><a href="#raindancers-cdk.transfer.S3LambdaNotification.property.lambdaArn">lambdaArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.S3LambdaNotification.property.lambdaRoleArn">lambdaRoleArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.S3LambdaNotification.property.permission">permission</a></code> | <code>raindancers-cdk.transfer.Permission</code> | *No description.* |
 
 ---
 
@@ -4876,6 +4878,26 @@ public readonly lambdaArn: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `lambdaRoleArn`<sup>Optional</sup> <a name="lambdaRoleArn" id="raindancers-cdk.transfer.S3LambdaNotification.property.lambdaRoleArn"></a>
+
+```typescript
+public readonly lambdaRoleArn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `permission`<sup>Optional</sup> <a name="permission" id="raindancers-cdk.transfer.S3LambdaNotification.property.permission"></a>
+
+```typescript
+public readonly permission: Permission;
+```
+
+- *Type:* raindancers-cdk.transfer.Permission
 
 ---
 
