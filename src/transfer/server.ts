@@ -21,11 +21,11 @@ export enum StorageType {
   //EFS = 'EFS',  not yet implemented
 }
 
-export interface S3LambdaNotification {
-  readonly eventType: s3.EventType;
+export interface S3LambdaIntegration {
+  readonly eventTypes: s3.EventType[];
   readonly lambdaArn: string;
   readonly lambdaRoleArn?: string | undefined;
-  readonly permission?: Permission | undefined;
+  readonly s3Permission?: Permission | undefined;
 }
 
 export enum SecurityPolicy {
@@ -99,6 +99,7 @@ export enum Permission {
 
 export interface AddUserProps {
 
+  // a username for
   readonly userName: string;
   readonly publicKeys: string[];
   readonly permissions?: Permission;
@@ -109,7 +110,7 @@ export interface AddUserProps {
    * @default Default Policy statement.
    */
   readonly policy?: iam.PolicyDocument | undefined;
-  readonly s3LambdaNotifications?: S3LambdaNotification[];
+  readonly s3LambdaIntegrations?: S3LambdaIntegration[];
 }
 
 export interface TransferServerProps {
@@ -312,25 +313,27 @@ export class TransferServer extends constructs.Construct implements ITransferSer
       policy: JSON.stringify(policy),
     });
 
-    if (props.s3LambdaNotifications) {
+    if (props.s3LambdaIntegrations) {
 
-      props.s3LambdaNotifications.forEach((notification, index) => {
-        sftpBucket.addEventNotification(
-          notification.eventType,
-          new s3n.LambdaDestination(
-            lambda.Function.fromFunctionArn(this, `${props.userName}S3Notification-${index}`,
-              notification.lambdaArn,
+      props.s3LambdaIntegrations.forEach((integration, index) => {
+        integration.eventTypes.forEach((eventType) => {
+          sftpBucket.addEventNotification(
+            eventType,
+            new s3n.LambdaDestination(
+              lambda.Function.fromFunctionArn(this, `${props.userName}S3Notification-${index}`,
+                integration.lambdaArn,
+              ),
             ),
-          ),
-        );
+            { prefix: '/*' },
+          );
+        });
 
-
-        if (notification.lambdaRoleArn && notification.permission) {
-          switch (notification.permission) {
+        if (integration.lambdaRoleArn && integration.s3Permission) {
+          switch (integration.s3Permission) {
             case Permission.READ: {
               sftpBucket.addToResourcePolicy(new iam.PolicyStatement({
                 effect: iam.Effect.ALLOW,
-                principals: [new iam.ArnPrincipal(notification.lambdaRoleArn)],
+                principals: [new iam.ArnPrincipal(integration.lambdaRoleArn)],
                 actions: [
                   's3:GetObject',
                   's3:GetObjectVersion',
@@ -345,7 +348,7 @@ export class TransferServer extends constructs.Construct implements ITransferSer
             case Permission.WRITE: {
               sftpBucket.addToResourcePolicy(new iam.PolicyStatement({
                 effect: iam.Effect.ALLOW,
-                principals: [new iam.ArnPrincipal(notification.lambdaRoleArn)],
+                principals: [new iam.ArnPrincipal(integration.lambdaRoleArn)],
                 actions: [
                   's3:PutObject',
                 ],
@@ -359,7 +362,7 @@ export class TransferServer extends constructs.Construct implements ITransferSer
             case Permission.READ_WRITE: {
               sftpBucket.addToResourcePolicy(new iam.PolicyStatement({
                 effect: iam.Effect.ALLOW,
-                principals: [new iam.ArnPrincipal(notification.lambdaRoleArn)],
+                principals: [new iam.ArnPrincipal(integration.lambdaRoleArn)],
                 actions: [
                   's3:GetObject',
                   's3:GetObjectVersion',

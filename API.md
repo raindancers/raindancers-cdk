@@ -3201,7 +3201,7 @@ const addUserProps: transfer.AddUserProps = { ... }
 | <code><a href="#raindancers-cdk.transfer.AddUserProps.property.permissions">permissions</a></code> | <code>raindancers-cdk.transfer.Permission</code> | *No description.* |
 | <code><a href="#raindancers-cdk.transfer.AddUserProps.property.policy">policy</a></code> | <code>aws-cdk-lib.aws_iam.PolicyDocument</code> | Policy. |
 | <code><a href="#raindancers-cdk.transfer.AddUserProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.s3LambdaNotifications">s3LambdaNotifications</a></code> | <code>raindancers-cdk.transfer.S3LambdaNotification[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.s3LambdaIntegrations">s3LambdaIntegrations</a></code> | <code>raindancers-cdk.transfer.S3LambdaIntegration[]</code> | *No description.* |
 
 ---
 
@@ -3268,13 +3268,13 @@ public readonly role: IRole;
 
 ---
 
-##### `s3LambdaNotifications`<sup>Optional</sup> <a name="s3LambdaNotifications" id="raindancers-cdk.transfer.AddUserProps.property.s3LambdaNotifications"></a>
+##### `s3LambdaIntegrations`<sup>Optional</sup> <a name="s3LambdaIntegrations" id="raindancers-cdk.transfer.AddUserProps.property.s3LambdaIntegrations"></a>
 
 ```typescript
-public readonly s3LambdaNotifications: S3LambdaNotification[];
+public readonly s3LambdaIntegrations: S3LambdaIntegration[];
 ```
 
-- *Type:* raindancers-cdk.transfer.S3LambdaNotification[]
+- *Type:* raindancers-cdk.transfer.S3LambdaIntegration[]
 
 ---
 
@@ -4840,38 +4840,38 @@ the Zone where the Remailer's DNS records are.
 
 ---
 
-### S3LambdaNotification <a name="S3LambdaNotification" id="raindancers-cdk.transfer.S3LambdaNotification"></a>
+### S3LambdaIntegration <a name="S3LambdaIntegration" id="raindancers-cdk.transfer.S3LambdaIntegration"></a>
 
-#### Initializer <a name="Initializer" id="raindancers-cdk.transfer.S3LambdaNotification.Initializer"></a>
+#### Initializer <a name="Initializer" id="raindancers-cdk.transfer.S3LambdaIntegration.Initializer"></a>
 
 ```typescript
 import { transfer } from 'raindancers-cdk'
 
-const s3LambdaNotification: transfer.S3LambdaNotification = { ... }
+const s3LambdaIntegration: transfer.S3LambdaIntegration = { ... }
 ```
 
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#raindancers-cdk.transfer.S3LambdaNotification.property.eventType">eventType</a></code> | <code>aws-cdk-lib.aws_s3.EventType</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.S3LambdaNotification.property.lambdaArn">lambdaArn</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.S3LambdaNotification.property.lambdaRoleArn">lambdaRoleArn</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.S3LambdaNotification.property.permission">permission</a></code> | <code>raindancers-cdk.transfer.Permission</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.eventTypes">eventTypes</a></code> | <code>aws-cdk-lib.aws_s3.EventType[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.lambdaArn">lambdaArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.lambdaRoleArn">lambdaRoleArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.s3Permission">s3Permission</a></code> | <code>raindancers-cdk.transfer.Permission</code> | *No description.* |
 
 ---
 
-##### `eventType`<sup>Required</sup> <a name="eventType" id="raindancers-cdk.transfer.S3LambdaNotification.property.eventType"></a>
+##### `eventTypes`<sup>Required</sup> <a name="eventTypes" id="raindancers-cdk.transfer.S3LambdaIntegration.property.eventTypes"></a>
 
 ```typescript
-public readonly eventType: EventType;
+public readonly eventTypes: EventType[];
 ```
 
-- *Type:* aws-cdk-lib.aws_s3.EventType
+- *Type:* aws-cdk-lib.aws_s3.EventType[]
 
 ---
 
-##### `lambdaArn`<sup>Required</sup> <a name="lambdaArn" id="raindancers-cdk.transfer.S3LambdaNotification.property.lambdaArn"></a>
+##### `lambdaArn`<sup>Required</sup> <a name="lambdaArn" id="raindancers-cdk.transfer.S3LambdaIntegration.property.lambdaArn"></a>
 
 ```typescript
 public readonly lambdaArn: string;
@@ -4881,7 +4881,7 @@ public readonly lambdaArn: string;
 
 ---
 
-##### `lambdaRoleArn`<sup>Optional</sup> <a name="lambdaRoleArn" id="raindancers-cdk.transfer.S3LambdaNotification.property.lambdaRoleArn"></a>
+##### `lambdaRoleArn`<sup>Optional</sup> <a name="lambdaRoleArn" id="raindancers-cdk.transfer.S3LambdaIntegration.property.lambdaRoleArn"></a>
 
 ```typescript
 public readonly lambdaRoleArn: string;
@@ -4891,10 +4891,10 @@ public readonly lambdaRoleArn: string;
 
 ---
 
-##### `permission`<sup>Optional</sup> <a name="permission" id="raindancers-cdk.transfer.S3LambdaNotification.property.permission"></a>
+##### `s3Permission`<sup>Optional</sup> <a name="s3Permission" id="raindancers-cdk.transfer.S3LambdaIntegration.property.s3Permission"></a>
 
 ```typescript
-public readonly permission: Permission;
+public readonly s3Permission: Permission;
 ```
 
 - *Type:* raindancers-cdk.transfer.Permission
