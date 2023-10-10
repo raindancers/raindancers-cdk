@@ -3895,6 +3895,45 @@ public readonly alarmSNSTopicName: string;
 
 ---
 
+### CustomDomain <a name="CustomDomain" id="raindancers-cdk.transfer.CustomDomain"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.transfer.CustomDomain.Initializer"></a>
+
+```typescript
+import { transfer } from 'raindancers-cdk'
+
+const customDomain: transfer.CustomDomain = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.transfer.CustomDomain.property.customHostName">customHostName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.CustomDomain.property.zone">zone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | *No description.* |
+
+---
+
+##### `customHostName`<sup>Required</sup> <a name="customHostName" id="raindancers-cdk.transfer.CustomDomain.property.customHostName"></a>
+
+```typescript
+public readonly customHostName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `zone`<sup>Required</sup> <a name="zone" id="raindancers-cdk.transfer.CustomDomain.property.zone"></a>
+
+```typescript
+public readonly zone: IHostedZone;
+```
+
+- *Type:* aws-cdk-lib.aws_route53.IHostedZone
+
+---
+
 ### CustomerManagedPolicyReference <a name="CustomerManagedPolicyReference" id="raindancers-cdk.sso.CustomerManagedPolicyReference"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.sso.CustomerManagedPolicyReference.Initializer"></a>
@@ -4857,7 +4896,9 @@ const s3LambdaIntegration: transfer.S3LambdaIntegration = { ... }
 | <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.eventTypes">eventTypes</a></code> | <code>aws-cdk-lib.aws_s3.EventType[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.lambdaArn">lambdaArn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.lambdaRoleArn">lambdaRoleArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.prefix">prefix</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.s3Permission">s3Permission</a></code> | <code>raindancers-cdk.transfer.Permission</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.suffix">suffix</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -4891,6 +4932,17 @@ public readonly lambdaRoleArn: string;
 
 ---
 
+##### `prefix`<sup>Optional</sup> <a name="prefix" id="raindancers-cdk.transfer.S3LambdaIntegration.property.prefix"></a>
+
+```typescript
+public readonly prefix: string;
+```
+
+- *Type:* string
+- *Default:* /*
+
+---
+
 ##### `s3Permission`<sup>Optional</sup> <a name="s3Permission" id="raindancers-cdk.transfer.S3LambdaIntegration.property.s3Permission"></a>
 
 ```typescript
@@ -4898,6 +4950,16 @@ public readonly s3Permission: Permission;
 ```
 
 - *Type:* raindancers-cdk.transfer.Permission
+
+---
+
+##### `suffix`<sup>Optional</sup> <a name="suffix" id="raindancers-cdk.transfer.S3LambdaIntegration.property.suffix"></a>
+
+```typescript
+public readonly suffix: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -5007,6 +5069,7 @@ const transferServerProps: transfer.TransferServerProps = { ... }
 | <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.domain">domain</a></code> | <code>raindancers-cdk.transfer.StorageType</code> | Specifies the domain of the storage system that is used for file transfers. |
 | <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.protocols">protocols</a></code> | <code>raindancers-cdk.transfer.Protocol[]</code> | Protocols The protocol settings that are configured for your server. |
 | <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.certificate">certificate</a></code> | <code>aws-cdk-lib.aws_certificatemanager.ICertificate</code> | The Amazon Resource Name (ARN) of the AWS Certificate Manager (ACM) certificate A certificate is required if the protocol is set to FTP. |
+| <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.customDomain">customDomain</a></code> | <code>raindancers-cdk.transfer.CustomDomain</code> | Custom Domain. |
 | <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.disableLogging">disableLogging</a></code> | <code>boolean</code> | disable logging. |
 | <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.endpointType">endpointType</a></code> | <code>raindancers-cdk.transfer.EndpointType</code> | The endpoint type that you want your transfer server to be. |
 | <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.identityProviderType">identityProviderType</a></code> | <code>raindancers-cdk.transfer.IdentityProviderType</code> | identity Provider Type. |
@@ -5053,6 +5116,18 @@ public readonly certificate: ICertificate;
 - *Type:* aws-cdk-lib.aws_certificatemanager.ICertificate
 
 The Amazon Resource Name (ARN) of the AWS Certificate Manager (ACM) certificate A certificate is required if the protocol is set to FTP.
+
+---
+
+##### `customDomain`<sup>Optional</sup> <a name="customDomain" id="raindancers-cdk.transfer.TransferServerProps.property.customDomain"></a>
+
+```typescript
+public readonly customDomain: CustomDomain;
+```
+
+- *Type:* raindancers-cdk.transfer.CustomDomain
+
+Custom Domain.
 
 ---
 

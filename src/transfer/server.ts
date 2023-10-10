@@ -8,6 +8,7 @@ import {
   aws_s3_notifications as s3n,
   aws_lambda as lambda,
   aws_transfer,
+  aws_route53 as r53,
 }
   from 'aws-cdk-lib';
 
@@ -26,6 +27,11 @@ export interface S3LambdaIntegration {
   readonly lambdaArn: string;
   readonly lambdaRoleArn?: string | undefined;
   readonly s3Permission?: Permission | undefined;
+  /**
+   * @default /*
+   */
+  readonly prefix?: string | undefined;
+  readonly suffix?: string | undefined;
 }
 
 export enum SecurityPolicy {
@@ -97,6 +103,7 @@ export enum Permission {
   READ_WRITE = 'READ_WRITE'
 }
 
+
 export interface AddUserProps {
 
   // a username for
@@ -111,6 +118,11 @@ export interface AddUserProps {
    */
   readonly policy?: iam.PolicyDocument | undefined;
   readonly s3LambdaIntegrations?: S3LambdaIntegration[];
+}
+
+export interface CustomDomain {
+  readonly customHostName: string;
+  readonly zone: r53.IHostedZone;
 }
 
 export interface TransferServerProps {
@@ -166,6 +178,10 @@ export interface TransferServerProps {
    * @default SERVICE_MANAGED
    */
   readonly identityProviderType?: IdentityProviderType | undefined;
+  /**
+   * Custom Domain
+   */
+  readonly customDomain?: CustomDomain | undefined;
 }
 
 
@@ -225,6 +241,25 @@ export class TransferServer extends constructs.Construct implements ITransferSer
       }
     }
 
+    // https://repost.aws/questions/QU1xsm4q9DRKa5zHcmmcsQpQ/cloudformation-sftp-transfer-service-with-custom-hostname
+    // https://docs.aws.amazon.com/transfer/latest/userguide/requirements-dns.html#tag-custom-hostname-cdk
+
+    var tags: core.CfnTag[] = [];
+    if (props.customDomain) {
+      tags.push(
+        new core.Tag(
+          'aws:transfer:customHostname',
+          props.customDomain.customHostName,
+        ),
+      );
+      tags.push(
+        new core.Tag(
+          'aws:transfer:route53HostedZoneId',
+          props.customDomain.zone.hostedZoneId,
+        ),
+      );
+    }
+
 
     const server = new transfer.CfnServer(this, 'Resource', {
       certificate: props.certificate?.certificateArn,
@@ -237,6 +272,7 @@ export class TransferServer extends constructs.Construct implements ITransferSer
       protocols: props.protocols,
       securityPolicyName: props.securityPolicy ?? SecurityPolicy.TRANSFER_SECURITY_POLICY_2023_05,
       structuredLogDestinations: logGroupArns,
+      tags: tags,
     });
 
 
@@ -299,8 +335,20 @@ export class TransferServer extends constructs.Construct implements ITransferSer
       enforceSSL: true,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       encryption: s3.BucketEncryption.S3_MANAGED,
+      lifecycleRules: [
+        {
+          enabled: true,
+          abortIncompleteMultipartUploadAfter: core.Duration.days(1),
+          expiration: core.Duration.days(90),
+          transitions: [
+            {
+              storageClass: s3.StorageClass.INFREQUENT_ACCESS,
+              transitionAfter: core.Duration.days(30),
+            },
+          ],
+        },
+      ],
     });
-
 
     sftpBucket.grantReadWrite(userRole);
 
