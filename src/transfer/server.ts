@@ -352,7 +352,7 @@ export class TransferServer extends constructs.Construct implements ITransferSer
 
     sftpBucket.grantReadWrite(userRole);
 
-    const user = new aws_transfer.CfnUser(this, 'user', {
+    const user = new aws_transfer.CfnUser(this, `user${userRole.roleName}`, {
       role: userRole.roleArn,
       serverId: this.id,
       userName: props.userName,
