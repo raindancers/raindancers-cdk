@@ -326,12 +326,12 @@ export class TransferServer extends constructs.Construct implements ITransferSer
 
     const policy = props.policy ?? defaultPolicy;
 
-    const userRole = props.role ?? new iam.Role(this, 'userRole', {
+    const userRole = props.role ?? new iam.Role(this, `userRole${props.userName}`, {
       assumedBy: new iam.ServicePrincipal('transfer.amazonaws.com'),
       description: 'SFTP standard user role',
     });
 
-    const sftpBucket = props.bucket ?? new s3.Bucket(this, 'sftpBucket', {
+    const sftpBucket = props.bucket ?? new s3.Bucket(this, `sftpBucket${props.userName}`, {
       enforceSSL: true,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       encryption: s3.BucketEncryption.S3_MANAGED,
