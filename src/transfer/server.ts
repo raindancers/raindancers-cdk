@@ -372,7 +372,6 @@ export class TransferServer extends constructs.Construct implements ITransferSer
                 integration.lambdaArn,
               ),
             ),
-            { prefix: '/*' },
           );
         });
 
