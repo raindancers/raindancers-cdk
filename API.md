@@ -1909,6 +1909,171 @@ public readonly function: Function;
 ---
 
 
+### GwLBTunnel <a name="GwLBTunnel" id="raindancers-cdk.geneve.GwLBTunnel"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.geneve.GwLBTunnel.Initializer"></a>
+
+```typescript
+import { geneve } from 'raindancers-cdk'
+
+new geneve.GwLBTunnel(scope: Construct, id: string, props: GwLBTunnelProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.geneve.GwLBTunnel.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.geneve.GwLBTunnel.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.geneve.GwLBTunnel.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.geneve.GwLBTunnelProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.geneve.GwLBTunnel.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.geneve.GwLBTunnel.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.geneve.GwLBTunnel.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.geneve.GwLBTunnelProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.geneve.GwLBTunnel.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.geneve.GwLBTunnel.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.geneve.GwLBTunnel.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.geneve.GwLBTunnel.isConstruct"></a>
+
+```typescript
+import { geneve } from 'raindancers-cdk'
+
+geneve.GwLBTunnel.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.geneve.GwLBTunnel.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.geneve.GwLBTunnel.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.geneve.GwLBTunnel.property.instanceAvailabilityZone">instanceAvailabilityZone</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.geneve.GwLBTunnel.property.instanceId">instanceId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.geneve.GwLBTunnel.property.instancePrivateDnsName">instancePrivateDnsName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.geneve.GwLBTunnel.property.instancePrivateIp">instancePrivateIp</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.geneve.GwLBTunnel.property.instancePublicDnsName">instancePublicDnsName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.geneve.GwLBTunnel.property.instancePublicIp">instancePublicIp</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.geneve.GwLBTunnel.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `instanceAvailabilityZone`<sup>Required</sup> <a name="instanceAvailabilityZone" id="raindancers-cdk.geneve.GwLBTunnel.property.instanceAvailabilityZone"></a>
+
+```typescript
+public readonly instanceAvailabilityZone: string;
+```
+
+- *Type:* string
+
+---
+
+##### `instanceId`<sup>Required</sup> <a name="instanceId" id="raindancers-cdk.geneve.GwLBTunnel.property.instanceId"></a>
+
+```typescript
+public readonly instanceId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `instancePrivateDnsName`<sup>Required</sup> <a name="instancePrivateDnsName" id="raindancers-cdk.geneve.GwLBTunnel.property.instancePrivateDnsName"></a>
+
+```typescript
+public readonly instancePrivateDnsName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `instancePrivateIp`<sup>Required</sup> <a name="instancePrivateIp" id="raindancers-cdk.geneve.GwLBTunnel.property.instancePrivateIp"></a>
+
+```typescript
+public readonly instancePrivateIp: string;
+```
+
+- *Type:* string
+
+---
+
+##### `instancePublicDnsName`<sup>Required</sup> <a name="instancePublicDnsName" id="raindancers-cdk.geneve.GwLBTunnel.property.instancePublicDnsName"></a>
+
+```typescript
+public readonly instancePublicDnsName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `instancePublicIp`<sup>Required</sup> <a name="instancePublicIp" id="raindancers-cdk.geneve.GwLBTunnel.property.instancePublicIp"></a>
+
+```typescript
+public readonly instancePublicIp: string;
+```
+
+- *Type:* string
+
+---
+
+
 ### OrganizationalUnit <a name="OrganizationalUnit" id="raindancers-cdk.organizations.OrganizationalUnit"></a>
 
 - *Implements:* raindancers-cdk.organizations.IOrganizationalUnit
@@ -4329,6 +4494,56 @@ public readonly sentTo: string;
 - *Type:* string
 
 a regex expression forthe address of the incoming mail to match on.
+
+---
+
+### GwLBTunnelProps <a name="GwLBTunnelProps" id="raindancers-cdk.geneve.GwLBTunnelProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.geneve.GwLBTunnelProps.Initializer"></a>
+
+```typescript
+import { geneve } from 'raindancers-cdk'
+
+const gwLBTunnelProps: geneve.GwLBTunnelProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.geneve.GwLBTunnelProps.property.instanceType">instanceType</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceType</code> | *No description.* |
+| <code><a href="#raindancers-cdk.geneve.GwLBTunnelProps.property.subnets">subnets</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | *No description.* |
+| <code><a href="#raindancers-cdk.geneve.GwLBTunnelProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+
+---
+
+##### `instanceType`<sup>Required</sup> <a name="instanceType" id="raindancers-cdk.geneve.GwLBTunnelProps.property.instanceType"></a>
+
+```typescript
+public readonly instanceType: InstanceType;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.InstanceType
+
+---
+
+##### `subnets`<sup>Required</sup> <a name="subnets" id="raindancers-cdk.geneve.GwLBTunnelProps.property.subnets"></a>
+
+```typescript
+public readonly subnets: SubnetSelection;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.SubnetSelection
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.geneve.GwLBTunnelProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
 
 ---
 

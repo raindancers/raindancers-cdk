@@ -7,3 +7,4 @@ export * as sso from './sso/index';
 export * as helpers from './helpers/index';
 export * as organizations from './aws_organizations/index';
 export * as transfer from './transfer/index';
+export * as geneve from './geneve/index';
