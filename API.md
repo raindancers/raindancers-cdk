@@ -4512,6 +4512,7 @@ const gwLBTunnelProps: geneve.GwLBTunnelProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.geneve.GwLBTunnelProps.property.instanceType">instanceType</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceType</code> | *No description.* |
+| <code><a href="#raindancers-cdk.geneve.GwLBTunnelProps.property.src">src</a></code> | <code>aws-cdk-lib.aws_s3_assets.Asset</code> | *No description.* |
 | <code><a href="#raindancers-cdk.geneve.GwLBTunnelProps.property.subnets">subnets</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | *No description.* |
 | <code><a href="#raindancers-cdk.geneve.GwLBTunnelProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
 
@@ -4524,6 +4525,16 @@ public readonly instanceType: InstanceType;
 ```
 
 - *Type:* aws-cdk-lib.aws_ec2.InstanceType
+
+---
+
+##### `src`<sup>Required</sup> <a name="src" id="raindancers-cdk.geneve.GwLBTunnelProps.property.src"></a>
+
+```typescript
+public readonly src: Asset;
+```
+
+- *Type:* aws-cdk-lib.aws_s3_assets.Asset
 
 ---
 

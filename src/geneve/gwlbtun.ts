@@ -1,5 +1,4 @@
 import { readFileSync } from 'fs';
-import * as path from 'path';
 import {
   aws_ec2 as ec2,
   aws_iam as iam,
@@ -12,6 +11,7 @@ export interface GwLBTunnelProps {
   readonly vpc: ec2.IVpc;
   readonly instanceType: ec2.InstanceType; // ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.MICRO),
   readonly subnets: ec2.SubnetSelection;
+  readonly src: s3Assets.Asset;
 }
 
 export class GwLBTunnel extends constructs.Construct {
@@ -36,12 +36,6 @@ export class GwLBTunnel extends constructs.Construct {
 
     instanceSg.addIngressRule(ec2.Peer.ipv4(props.vpc.vpcCidrBlock), ec2.Port.udp(6081), 'permit tunnels from gwlb');
 
-
-    // prepare the file as an s3 asset
-    const src = new s3Assets.Asset(this, 'Gwlbtun', {
-      path: path.join(__dirname, '../../node_modules/raindancers-cdk/appCode/aws-gateway-load-balancer-tunnel-handler/'),
-    });
-
     const instance = new ec2.Instance(this, 'Resource', {
       vpc: props.vpc,
       machineImage: ec2.MachineImage.latestAmazonLinux2023(),
@@ -57,7 +51,7 @@ export class GwLBTunnel extends constructs.Construct {
       ssmSessionPermissions: true,
       securityGroup: instanceSg,
       init: ec2.CloudFormationInit.fromElements(
-        ec2.InitFile.fromExistingAsset('/geneve', src, {}),
+        ec2.InitFile.fromExistingAsset('/geneve', props.src, {}),
       ),
     });
 
