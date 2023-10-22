@@ -12,6 +12,7 @@ export interface GwLBTunnelProps {
   readonly instanceType: ec2.InstanceType; // ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.MICRO),
   readonly subnets: ec2.SubnetSelection;
   readonly src: s3Assets.Asset;
+  readonly userData: string;
 }
 
 export class GwLBTunnel extends constructs.Construct {
@@ -57,7 +58,7 @@ export class GwLBTunnel extends constructs.Construct {
 
 
     // add the user data
-    instance.addUserData(readFileSync('./userdata.sh', 'utf8'));
+    instance.addUserData(readFileSync(props.userData, 'utf8'));
 
     ///
     instance.role.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMPatchAssociation'));
