@@ -20,4 +20,5 @@ project.deps.addDependency('@aws-cdk/integ-tests-alpha@latest', DependencyType.D
 
 project.addGitIgnore('!lambda/**');
 project.addGitIgnore('!bootstraptemplates/**');
+project.addGitIgnore('!appCode/**');
 project.synth();
