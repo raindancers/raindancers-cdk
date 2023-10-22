@@ -39,7 +39,7 @@ export class GwLBTunnel extends constructs.Construct {
 
     // prepare the file as an s3 asset
     const src = new s3Assets.Asset(this, 'Gwlbtun', {
-      path: path.join(__dirname, '../../appCode/aws-gateway-loadbalancer-tunnel-handler'),
+      path: path.join(__dirname, '../../node_modules/raindancers-cdk/appCode/aws-gateway-load-balancer-tunnel-handler/'),
     });
 
     const instance = new ec2.Instance(this, 'Resource', {
