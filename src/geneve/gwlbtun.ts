@@ -39,12 +39,12 @@ export class GwLBTunnel extends constructs.Construct {
 
     // create the appcode as an S3 asset
     const appCode = new s3Assets.Asset(this, 'appcode', {
-      path: path.join(__dirname, './appCode/aws-gateway-load-balancer-tunnel-handler/'),
+      path: path.join(__dirname, '../../system/geneve/appCode/aws-gateway-load-balancer-tunnel-handler/'),
     });
 
     // create the scripts as an S3 bucket
     const scripts = new s3Assets.Asset(this, 'scripts', {
-      path: path.join(__dirname, './scripts/'),
+      path: path.join(__dirname, '../../system/geneve/scripts/'),
     });
 
     const instance = new ec2.Instance(this, 'Resource', {
@@ -69,7 +69,7 @@ export class GwLBTunnel extends constructs.Construct {
 
 
     // add the user data
-    instance.addUserData(readFileSync(path.join(__dirname, './userdata/userdata.sh'), 'utf8'));
+    instance.addUserData(readFileSync(path.join(__dirname, '../../system/geneve/userdata/userdata.sh'), 'utf8'));
 
 
     ///
