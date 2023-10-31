@@ -1,6 +1,8 @@
 #!/bin/bash -ex
 yum -y groupinstall "Development Tools"
 yum -y install cmake3
+unzip /tmp/geneve.zip -d /install/geneve
+unzip /tmp/scripts.zip -d /install/scripts
 cd /geneve
 cmake3 .
 make

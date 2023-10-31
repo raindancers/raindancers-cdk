@@ -30,8 +30,7 @@ export interface S3LambdaIntegration {
   /**
    * @default /*
    */
-  readonly prefix?: string | undefined;
-  readonly suffix?: string | undefined;
+  readonly filter?: s3.NotificationKeyFilter | undefined;
 }
 
 export enum SecurityPolicy {
@@ -363,7 +362,9 @@ export class TransferServer extends constructs.Construct implements ITransferSer
 
     if (props.s3LambdaIntegrations) {
 
+
       props.s3LambdaIntegrations.forEach((integration, index) => {
+
         integration.eventTypes.forEach((eventType) => {
           sftpBucket.addEventNotification(
             eventType,
@@ -372,6 +373,7 @@ export class TransferServer extends constructs.Construct implements ITransferSer
                 integration.lambdaArn,
               ),
             ),
+            integration.filter ?? {},
           );
         });
 

@@ -5110,10 +5110,9 @@ const s3LambdaIntegration: transfer.S3LambdaIntegration = { ... }
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.eventTypes">eventTypes</a></code> | <code>aws-cdk-lib.aws_s3.EventType[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.lambdaArn">lambdaArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.filter">filter</a></code> | <code>aws-cdk-lib.aws_s3.NotificationKeyFilter</code> | *No description.* |
 | <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.lambdaRoleArn">lambdaRoleArn</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.prefix">prefix</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.s3Permission">s3Permission</a></code> | <code>raindancers-cdk.transfer.Permission</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.suffix">suffix</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -5137,6 +5136,17 @@ public readonly lambdaArn: string;
 
 ---
 
+##### `filter`<sup>Optional</sup> <a name="filter" id="raindancers-cdk.transfer.S3LambdaIntegration.property.filter"></a>
+
+```typescript
+public readonly filter: NotificationKeyFilter;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.NotificationKeyFilter
+- *Default:* /*
+
+---
+
 ##### `lambdaRoleArn`<sup>Optional</sup> <a name="lambdaRoleArn" id="raindancers-cdk.transfer.S3LambdaIntegration.property.lambdaRoleArn"></a>
 
 ```typescript
@@ -5147,17 +5157,6 @@ public readonly lambdaRoleArn: string;
 
 ---
 
-##### `prefix`<sup>Optional</sup> <a name="prefix" id="raindancers-cdk.transfer.S3LambdaIntegration.property.prefix"></a>
-
-```typescript
-public readonly prefix: string;
-```
-
-- *Type:* string
-- *Default:* /*
-
----
-
 ##### `s3Permission`<sup>Optional</sup> <a name="s3Permission" id="raindancers-cdk.transfer.S3LambdaIntegration.property.s3Permission"></a>
 
 ```typescript
@@ -5165,16 +5164,6 @@ public readonly s3Permission: Permission;
 ```
 
 - *Type:* raindancers-cdk.transfer.Permission
-
----
-
-##### `suffix`<sup>Optional</sup> <a name="suffix" id="raindancers-cdk.transfer.S3LambdaIntegration.property.suffix"></a>
-
-```typescript
-public readonly suffix: string;
-```
-
-- *Type:* string
 
 ---
 
