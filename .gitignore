@@ -53,7 +53,5 @@ tsconfig.json
 !/API.md
 !lambda/**
 !bootstraptemplates/**
-!src/geneve/appcode**
-!src/geneve/userdata**
-!src/geneve/scripts**
+!system/**
 !bootstrap/**

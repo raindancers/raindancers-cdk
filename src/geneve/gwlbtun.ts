@@ -47,6 +47,12 @@ export class GwLBTunnel extends constructs.Construct {
       path: path.join(__dirname, '../../system/geneve/scripts/'),
     });
 
+    // create the systemd definition
+    const systemd = new s3Assets.Asset(this, 'scripts', {
+      path: path.join(__dirname, '../../system/geneve/appCode/gwlbtun.service'),
+    });
+
+
     const instance = new ec2.Instance(this, 'Resource', {
       vpc: props.vpc,
       machineImage: ec2.MachineImage.latestAmazonLinux2023(),
@@ -64,6 +70,7 @@ export class GwLBTunnel extends constructs.Construct {
       init: ec2.CloudFormationInit.fromElements(
         ec2.InitFile.fromExistingAsset('/geneve', appCode, {}),
         ec2.InitFile.fromExistingAsset('/scripts', scripts, {}),
+        ec2.InitFile.fromExistingAsset('/usr/lib/systemd/system/gwlbtun.service', systemd),
       ),
     });
 
