@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs';
+import * as path from 'path';
 import {
   aws_ec2 as ec2,
   aws_iam as iam,
@@ -7,12 +8,11 @@ import {
   from 'aws-cdk-lib';
 import * as constructs from 'constructs';
 
+
 export interface GwLBTunnelProps {
   readonly vpc: ec2.IVpc;
   readonly instanceType: ec2.InstanceType; // ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.MICRO),
   readonly subnets: ec2.SubnetSelection;
-  readonly src: s3Assets.Asset;
-  readonly userData: string;
 }
 
 export class GwLBTunnel extends constructs.Construct {
@@ -37,6 +37,16 @@ export class GwLBTunnel extends constructs.Construct {
 
     instanceSg.addIngressRule(ec2.Peer.ipv4(props.vpc.vpcCidrBlock), ec2.Port.udp(6081), 'permit tunnels from gwlb');
 
+    // create the appcode as an S3 asset
+    const appCode = new s3Assets.Asset(this, 'appcode', {
+      path: path.join(__dirname, './appCode/aws-gateway-load-balancer-tunnel-handler/'),
+    });
+
+    // create the scripts as an S3 bucket
+    const scripts = new s3Assets.Asset(this, 'scripts', {
+      path: path.join(__dirname, './scripts/'),
+    });
+
     const instance = new ec2.Instance(this, 'Resource', {
       vpc: props.vpc,
       machineImage: ec2.MachineImage.latestAmazonLinux2023(),
@@ -52,13 +62,15 @@ export class GwLBTunnel extends constructs.Construct {
       ssmSessionPermissions: true,
       securityGroup: instanceSg,
       init: ec2.CloudFormationInit.fromElements(
-        ec2.InitFile.fromExistingAsset('/geneve', props.src, {}),
+        ec2.InitFile.fromExistingAsset('/geneve', appCode, {}),
+        ec2.InitFile.fromExistingAsset('/scripts', scripts, {}),
       ),
     });
 
 
     // add the user data
-    instance.addUserData(readFileSync(props.userData, 'utf8'));
+    instance.addUserData(readFileSync(path.join(__dirname, './userdata/userdata.sh'), 'utf8'));
+
 
     ///
     instance.role.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMPatchAssociation'));

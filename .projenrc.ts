@@ -20,7 +20,10 @@ project.deps.addDependency('@aws-cdk/integ-tests-alpha@latest', DependencyType.D
 
 project.addGitIgnore('!lambda/**');
 project.addGitIgnore('!bootstraptemplates/**');
-project.addGitIgnore('!appCode/**');
+project.addGitIgnore('!src/geneve/appcode**');
+project.addGitIgnore('!src/geneve/userdata**');
+project.addGitIgnore('!src/geneve/scripts**');
+
 project.addGitIgnore('!bootstrap/**');
-project.addGitIgnore('!userdata/**');
+
 project.synth();
