@@ -17,6 +17,7 @@ import {
   ITransferUser,
 } from './index';
 
+
 export enum StorageType {
   S3 = 'S3',
   //EFS = 'EFS',  not yet implemented
@@ -365,6 +366,14 @@ export class TransferServer extends constructs.Construct implements ITransferSer
 
       props.s3LambdaIntegrations.forEach((integration, index) => {
 
+        var filter: s3.NotificationKeyFilter = {
+          suffix: '*',
+        };
+
+        if (integration.filter) {
+          filter = integration.filter;
+        }
+
         integration.eventTypes.forEach((eventType) => {
           sftpBucket.addEventNotification(
             eventType,
@@ -373,7 +382,7 @@ export class TransferServer extends constructs.Construct implements ITransferSer
                 integration.lambdaArn,
               ),
             ),
-            integration.filter ?? {},
+            filter,
           );
         });
 
