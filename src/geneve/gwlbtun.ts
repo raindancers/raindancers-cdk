@@ -48,7 +48,7 @@ export class GwLBTunnel extends constructs.Construct {
     });
 
     // create the systemd definition
-    const systemd = new s3Assets.Asset(this, 'scripts', {
+    const systemd = new s3Assets.Asset(this, 'systemd', {
       path: path.join(__dirname, '../../system/geneve/appCode/gwlbtun.service'),
     });
 
