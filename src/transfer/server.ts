@@ -366,24 +366,29 @@ export class TransferServer extends constructs.Construct implements ITransferSer
 
       props.s3LambdaIntegrations.forEach((integration, index) => {
 
-        var filter: s3.NotificationKeyFilter = {
-          suffix: '*',
-        };
-
-        if (integration.filter) {
-          filter = integration.filter;
-        }
 
         integration.eventTypes.forEach((eventType) => {
-          sftpBucket.addEventNotification(
-            eventType,
-            new s3n.LambdaDestination(
-              lambda.Function.fromFunctionArn(this, `${props.userName}S3Notification-${index}`,
-                integration.lambdaArn,
+
+          if (integration.filter) {
+            sftpBucket.addEventNotification(
+              eventType,
+              new s3n.LambdaDestination(
+                lambda.Function.fromFunctionArn(this, `${props.userName}S3Notification-${index}`,
+                  integration.lambdaArn,
+                ),
               ),
-            ),
-            filter,
-          );
+              integration.filter,
+            );
+          } else {
+            sftpBucket.addEventNotification(
+              eventType,
+              new s3n.LambdaDestination(
+                lambda.Function.fromFunctionArn(this, `${props.userName}S3Notification-${index}`,
+                  integration.lambdaArn,
+                ),
+              ),
+            );
+          }
         });
 
         if (integration.lambdaRoleArn && integration.s3Permission) {
