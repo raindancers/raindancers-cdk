@@ -68,9 +68,9 @@ export class GwLBTunnel extends constructs.Construct {
       ssmSessionPermissions: true,
       securityGroup: instanceSg,
       init: ec2.CloudFormationInit.fromElements(
-        ec2.InitFile.fromExistingAsset('/geneve', appCode, {}),
-        ec2.InitFile.fromExistingAsset('/scripts', scripts, {}),
-        ec2.InitFile.fromExistingAsset('/usr/lib/systemd/system/gwlbtun.service', systemd),
+        ec2.InitFile.fromExistingAsset('/tmp/geneve.zip', appCode, {}),
+        ec2.InitFile.fromExistingAsset('/tmp/scripts.zip', scripts, {}),
+        ec2.InitFile.fromExistingAsset('/usr/lib/systemd/system/gwlbtun.service', systemd, {}),
       ),
     });
 

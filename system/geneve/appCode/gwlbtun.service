@@ -2,7 +2,7 @@
 Description=AWS GWLB Tunnel Handler
 
 [Service]
-ExecStart=/root/aws-gateway-load-balancer-tunnel-handler/gwlbtun -c /root/aws-gateway-load-balancer-tunnel-handler/example-scripts/create-nat.sh -p 80
+ExecStart=/install/geneve/gwlbtun -c /install/scripts/create-nat.sh -p 80
 Restart=always
 RestartSec=5s
 
