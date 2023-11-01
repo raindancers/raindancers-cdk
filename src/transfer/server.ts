@@ -289,14 +289,6 @@ export class TransferServer extends constructs.Construct implements ITransferSer
       effect: iam.Effect.ALLOW,
       actions: ['s3:ListBucket'],
       resources: ['arn:aws:s3:::${transfer:HomeBucket}'],
-      conditions: {
-        StringLike: {
-          's3:prefix': [
-            'home/${transfer:UserName}/*',
-            'home/${transfer:UserName}',
-          ],
-        },
-      },
     }));
 
     if (props.permissions) {
@@ -307,7 +299,7 @@ export class TransferServer extends constructs.Construct implements ITransferSer
             's3:GetObject',
             's3:GetObjectVersion',
           ],
-          resources: ['arn:aws:s3:::${transfer:HomeDirectory}*'],
+          resources: ['arn:aws:s3:::${transfer:HomeBucket}/*'],
         }));
       };
 
@@ -316,10 +308,8 @@ export class TransferServer extends constructs.Construct implements ITransferSer
           effect: iam.Effect.ALLOW,
           actions: [
             's3:PutObject',
-            's3:GetObject',
-            's3:GetObjectVersion',
           ],
-          resources: ['arn:aws:s3:::${transfer:HomeDirectory}*'],
+          resources: ['arn:aws:s3:::${transfer:HomeBucket}/*'],
         }));
       }
     }
@@ -357,7 +347,8 @@ export class TransferServer extends constructs.Construct implements ITransferSer
       serverId: this.id,
       userName: props.userName,
       sshPublicKeys: props.publicKeys,
-      homeDirectory: `/${sftpBucket.bucketArn}`,
+      homeDirectory: `/${sftpBucket.bucketName}`,
+      homeDirectoryType: 'PATH',
       policy: JSON.stringify(policy),
     });
 
