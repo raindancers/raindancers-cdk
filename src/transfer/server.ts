@@ -300,7 +300,7 @@ export class TransferServer extends constructs.Construct implements ITransferSer
     }));
 
     if (props.permissions) {
-      if (props.permissions in [Permission.READ, Permission.READ_WRITE] ) {
+      if ([Permission.READ, Permission.READ_WRITE].includes(props.permissions)) {
         defaultPolicy.addStatements(new iam.PolicyStatement({
           effect: iam.Effect.ALLOW,
           actions: [
@@ -311,7 +311,7 @@ export class TransferServer extends constructs.Construct implements ITransferSer
         }));
       };
 
-      if (props.permissions in [Permission.WRITE, Permission.READ_WRITE]) {
+      if ([Permission.WRITE, Permission.READ_WRITE].includes(props.permissions)) {
         defaultPolicy.addStatements(new iam.PolicyStatement({
           effect: iam.Effect.ALLOW,
           actions: [
