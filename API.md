@@ -3366,7 +3366,8 @@ const addUserProps: transfer.AddUserProps = { ... }
 | <code><a href="#raindancers-cdk.transfer.AddUserProps.property.permissions">permissions</a></code> | <code>raindancers-cdk.transfer.Permission</code> | *No description.* |
 | <code><a href="#raindancers-cdk.transfer.AddUserProps.property.policy">policy</a></code> | <code>aws-cdk-lib.aws_iam.PolicyDocument</code> | Policy. |
 | <code><a href="#raindancers-cdk.transfer.AddUserProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.s3LambdaIntegrations">s3LambdaIntegrations</a></code> | <code>raindancers-cdk.transfer.S3LambdaIntegration[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.s3LambdaIntegrations">s3LambdaIntegrations</a></code> | <code>raindancers-cdk.transfer.S3LambdaIntegration</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.scanWithClam">scanWithClam</a></code> | <code>boolean</code> | *No description.* |
 
 ---
 
@@ -3436,10 +3437,20 @@ public readonly role: IRole;
 ##### `s3LambdaIntegrations`<sup>Optional</sup> <a name="s3LambdaIntegrations" id="raindancers-cdk.transfer.AddUserProps.property.s3LambdaIntegrations"></a>
 
 ```typescript
-public readonly s3LambdaIntegrations: S3LambdaIntegration[];
+public readonly s3LambdaIntegrations: S3LambdaIntegration;
 ```
 
-- *Type:* raindancers-cdk.transfer.S3LambdaIntegration[]
+- *Type:* raindancers-cdk.transfer.S3LambdaIntegration
+
+---
+
+##### `scanWithClam`<sup>Optional</sup> <a name="scanWithClam" id="raindancers-cdk.transfer.AddUserProps.property.scanWithClam"></a>
+
+```typescript
+public readonly scanWithClam: boolean;
+```
+
+- *Type:* boolean
 
 ---
 

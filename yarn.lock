@@ -1636,6 +1636,11 @@ case@1.6.3, case@^1.6.3:
   resolved "https://registry.yarnpkg.com/case/-/case-1.6.3.tgz#0a4386e3e9825351ca2e6216c60467ff5f1ea1c9"
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
+cdk-serverless-clamscan@^2.6.11:
+  version "2.6.11"
+  resolved "https://registry.yarnpkg.com/cdk-serverless-clamscan/-/cdk-serverless-clamscan-2.6.11.tgz#91a9e93414425fa1f1433a741dc8a0b2f580d7d2"
+  integrity sha512-3/Vx+RpcfhRqexFIMaISjM6U6/+l2JTSV0Xl59QujjUrYfjqWgGd483OmEJ2t/vN8cRUJDN6XVFgNdDLC4/E2A==
+
 chalk@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"

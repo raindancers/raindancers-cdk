@@ -5,13 +5,14 @@ import {
   aws_iam as iam,
   aws_logs as logs,
   aws_s3 as s3,
-  aws_s3_notifications as s3n,
+  aws_lambda_destinations as lambda_destinations,
   aws_lambda as lambda,
   aws_transfer,
   aws_route53 as r53,
 }
   from 'aws-cdk-lib';
 
+import * as clamScan from 'cdk-serverless-clamscan';
 import * as constructs from 'constructs';
 import {
   ITransferUser,
@@ -26,8 +27,8 @@ export enum StorageType {
 export interface S3LambdaIntegration {
   readonly eventTypes: s3.EventType[];
   readonly lambdaArn: string;
-  readonly lambdaRoleArn?: string | undefined;
-  readonly s3Permission?: Permission | undefined;
+  readonly lambdaRoleArn: string | undefined;
+  readonly s3Permission: Permission | undefined;
   /**
    * @default /*
    */
@@ -112,12 +113,13 @@ export interface AddUserProps {
   readonly permissions?: Permission;
   readonly role?: iam.IRole | undefined;
   readonly bucket?: s3.IBucket | undefined;
+  readonly scanWithClam?: boolean | undefined;
   /**
    * Policy
    * @default Default Policy statement.
    */
   readonly policy?: iam.PolicyDocument | undefined;
-  readonly s3LambdaIntegrations?: S3LambdaIntegration[];
+  readonly s3LambdaIntegrations?: S3LambdaIntegration;
 }
 
 export interface CustomDomain {
@@ -241,9 +243,6 @@ export class TransferServer extends constructs.Construct implements ITransferSer
       }
     }
 
-    // https://repost.aws/questions/QU1xsm4q9DRKa5zHcmmcsQpQ/cloudformation-sftp-transfer-service-with-custom-hostname
-    // https://docs.aws.amazon.com/transfer/latest/userguide/requirements-dns.html#tag-custom-hostname-cdk
-
     var tags: core.CfnTag[] = [];
     if (props.customDomain) {
       tags.push(
@@ -342,6 +341,26 @@ export class TransferServer extends constructs.Construct implements ITransferSer
 
     sftpBucket.grantReadWrite(userRole);
 
+    var onResult: lambda.IDestination | undefined;
+    if (props.s3LambdaIntegrations) {
+      onResult = new lambda_destinations.LambdaDestination(
+        lambda.Function.fromFunctionAttributes(this, 'targetlambda', {
+          skipPermissions: true,
+          functionArn: props.s3LambdaIntegrations.lambdaArn,
+        }),
+      );
+    }
+
+    if (props.scanWithClam) {
+      new clamScan.ServerlessClamscan(this, `clamscanner${props.userName}`, {
+        buckets: [
+          sftpBucket,
+        ],
+        onResult: onResult,
+      });
+
+    }
+
     const user = new aws_transfer.CfnUser(this, `user${props.userName}`, {
       role: userRole.roleArn,
       serverId: this.id,
@@ -354,86 +373,55 @@ export class TransferServer extends constructs.Construct implements ITransferSer
 
     if (props.s3LambdaIntegrations) {
 
-
-      props.s3LambdaIntegrations.forEach((integration, index) => {
-
-
-        integration.eventTypes.forEach((eventType) => {
-
-          if (integration.filter) {
-            sftpBucket.addEventNotification(
-              eventType,
-              new s3n.LambdaDestination(
-                lambda.Function.fromFunctionArn(this, `${props.userName}S3Notification-${index}`,
-                  integration.lambdaArn,
-                ),
-              ),
-              integration.filter,
-            );
-          } else {
-            sftpBucket.addEventNotification(
-              eventType,
-              new s3n.LambdaDestination(
-                lambda.Function.fromFunctionArn(this, `${props.userName}S3Notification-${index}`,
-                  integration.lambdaArn,
-                ),
-              ),
-            );
-          }
-        });
-
-        if (integration.lambdaRoleArn && integration.s3Permission) {
-          switch (integration.s3Permission) {
-            case Permission.READ: {
-              sftpBucket.addToResourcePolicy(new iam.PolicyStatement({
-                effect: iam.Effect.ALLOW,
-                principals: [new iam.ArnPrincipal(integration.lambdaRoleArn)],
-                actions: [
-                  's3:GetObject',
-                  's3:GetObjectVersion',
-                ],
-                resources: [
-                  sftpBucket.bucketArn,
-                  `${sftpBucket.bucketArn}/*`,
-                ],
-              }));
-              break;
-            };
-            case Permission.WRITE: {
-              sftpBucket.addToResourcePolicy(new iam.PolicyStatement({
-                effect: iam.Effect.ALLOW,
-                principals: [new iam.ArnPrincipal(integration.lambdaRoleArn)],
-                actions: [
-                  's3:PutObject',
-                ],
-                resources: [
-                  sftpBucket.bucketArn,
-                  `${sftpBucket.bucketArn}/*`,
-                ],
-              }));
-              break;
-            };
-            case Permission.READ_WRITE: {
-              sftpBucket.addToResourcePolicy(new iam.PolicyStatement({
-                effect: iam.Effect.ALLOW,
-                principals: [new iam.ArnPrincipal(integration.lambdaRoleArn)],
-                actions: [
-                  's3:GetObject',
-                  's3:GetObjectVersion',
-                  's3:PutObject',
-                ],
-                resources: [
-                  sftpBucket.bucketArn,
-                  `${sftpBucket.bucketArn}/*`,
-                ],
-              }));
-              break;
-            };
-            default:
-              throw new Error('Invalid permission');
-          };
+      switch (props.s3LambdaIntegrations.s3Permission) {
+        case Permission.READ: {
+          sftpBucket.addToResourcePolicy(new iam.PolicyStatement({
+            effect: iam.Effect.ALLOW,
+            principals: [new iam.ArnPrincipal(props.s3LambdaIntegrations.lambdaRoleArn as string)],
+            actions: [
+              's3:GetObject',
+              's3:GetObjectVersion',
+            ],
+            resources: [
+              sftpBucket.bucketArn,
+              `${sftpBucket.bucketArn}/*`,
+            ],
+          }));
+          break;
         };
-      });
+        case Permission.WRITE: {
+          sftpBucket.addToResourcePolicy(new iam.PolicyStatement({
+            effect: iam.Effect.ALLOW,
+            principals: [new iam.ArnPrincipal(props.s3LambdaIntegrations.lambdaRoleArn as string)],
+            actions: [
+              's3:PutObject',
+            ],
+            resources: [
+              sftpBucket.bucketArn,
+              `${sftpBucket.bucketArn}/*`,
+            ],
+          }));
+          break;
+        };
+        case Permission.READ_WRITE: {
+          sftpBucket.addToResourcePolicy(new iam.PolicyStatement({
+            effect: iam.Effect.ALLOW,
+            principals: [new iam.ArnPrincipal(props.s3LambdaIntegrations.lambdaRoleArn as string)],
+            actions: [
+              's3:GetObject',
+              's3:GetObjectVersion',
+              's3:PutObject',
+            ],
+            resources: [
+              sftpBucket.bucketArn,
+              `${sftpBucket.bucketArn}/*`,
+            ],
+          }));
+          break;
+        };
+        default:
+          throw new Error('Invalid permission');
+      };
     };
 
     return {
