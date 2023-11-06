@@ -344,7 +344,7 @@ export class TransferServer extends constructs.Construct implements ITransferSer
     var onResult: lambda.IDestination | undefined;
     if (props.s3LambdaIntegrations) {
       onResult = new lambda_destinations.LambdaDestination(
-        lambda.Function.fromFunctionAttributes(this, 'targetlambda', {
+        lambda.Function.fromFunctionAttributes(this, `targetlambda-${props.userName}`, {
           skipPermissions: true,
           functionArn: props.s3LambdaIntegrations.lambdaArn,
         }),
