@@ -5,6 +5,7 @@ import {
   aws_iam as iam,
   aws_logs as logs,
   aws_s3 as s3,
+  aws_s3_notifications as s3n,
   aws_lambda_destinations as lambda_destinations,
   aws_lambda as lambda,
   aws_transfer,
@@ -341,24 +342,51 @@ export class TransferServer extends constructs.Construct implements ITransferSer
 
     sftpBucket.grantReadWrite(userRole);
 
-    var onResult: lambda.IDestination | undefined;
-    if (props.s3LambdaIntegrations) {
-      onResult = new lambda_destinations.LambdaDestination(
-        lambda.Function.fromFunctionAttributes(this, `targetlambda-${props.userName}`, {
-          skipPermissions: true,
-          functionArn: props.s3LambdaIntegrations.lambdaArn,
-        }),
-      );
-    }
 
     if (props.scanWithClam) {
+
+      var onResult: lambda.IDestination | undefined;
+      if (props.s3LambdaIntegrations) {
+        onResult = new lambda_destinations.LambdaDestination(
+          lambda.Function.fromFunctionAttributes(this, `targetlambda-${props.userName}`, {
+            skipPermissions: true,
+            functionArn: props.s3LambdaIntegrations.lambdaArn,
+          }),
+        );
+      }
       new clamScan.ServerlessClamscan(this, `clamscanner${props.userName}`, {
         buckets: [
           sftpBucket,
         ],
         onResult: onResult,
       });
+    } else {
 
+      if (props.s3LambdaIntegrations) {
+        props.s3LambdaIntegrations.eventTypes.forEach((eventType) => {
+          if ( props.s3LambdaIntegrations?.filter) {
+            sftpBucket.addEventNotification(
+              eventType,
+              new s3n.LambdaDestination(
+                lambda.Function.fromFunctionAttributes(this, `targetlambda-${props.userName}`, {
+                  skipPermissions: true,
+                  functionArn: props.s3LambdaIntegrations.lambdaArn,
+                }),
+              ), props.s3LambdaIntegrations?.filter,
+            );
+          } else {
+            sftpBucket.addEventNotification(
+              eventType,
+              new s3n.LambdaDestination(
+                lambda.Function.fromFunctionAttributes(this, `targetlambda-${props.userName}`, {
+                  skipPermissions: true,
+                  functionArn: props.s3LambdaIntegrations?.lambdaArn as string,
+                }),
+              ),
+            );
+          };
+        });
+      };
     }
 
     const user = new aws_transfer.CfnUser(this, `user${props.userName}`, {
