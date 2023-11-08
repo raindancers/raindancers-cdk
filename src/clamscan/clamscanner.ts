@@ -466,7 +466,7 @@ export class ServerlessClamscan extends constructs.Construct {
     const init_defs_cr = new lambda.Function(this, 'InitDefs', {
       runtime: lambda.Runtime.PYTHON_3_9,
       code: lambda.Code.fromAsset(
-        path.join(__dirname, '../assets/clamscan/initialize_defs_cr'),
+        path.join(__dirname, '../../assets/clamscan/initialize_defs_cr'),
       ),
       handler: 'lambda.lambda_handler',
       timeout: core.Duration.minutes(5),
