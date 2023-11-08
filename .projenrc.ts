@@ -23,5 +23,7 @@ project.addGitIgnore('!lambda/**');
 project.addGitIgnore('!bootstraptemplates/**');
 project.addGitIgnore('!system/**');
 project.addGitIgnore('!bootstrap/**');
+project.addGitIgnore('!assets/**');
+
 
 project.synth();

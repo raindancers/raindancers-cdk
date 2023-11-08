@@ -13,11 +13,11 @@ import {
 }
   from 'aws-cdk-lib';
 
-import * as clamScan from 'cdk-serverless-clamscan';
 import * as constructs from 'constructs';
 import {
   ITransferUser,
 } from './index';
+import * as clamscan from '../index';
 
 
 export enum StorageType {
@@ -354,11 +354,14 @@ export class TransferServer extends constructs.Construct implements ITransferSer
           }),
         );
       }
-      new clamScan.ServerlessClamscan(this, `clamscanner${props.userName}`, {
+
+
+      new clamscan.clamscan.ServerlessClamscan(this, `clamscanner${props.userName}`, {
         buckets: [
           sftpBucket,
         ],
         onResult: onResult,
+        raiseSecurityHubAlerts: true,
       });
     } else {
 
