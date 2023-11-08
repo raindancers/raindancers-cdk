@@ -382,7 +382,7 @@ export class ServerlessClamscan extends constructs.Construct {
 
     this._scanFunction = new lambda.DockerImageFunction(this, 'ServerlessClamscan', {
       code: lambda. DockerImageCode.fromImageAsset(
-        path.join(__dirname, '../../assets/calmscan/scan'),
+        path.join(__dirname, '../../assets/clamscan/scan'),
         {
           buildArgs: {
             // Only force update the docker layer cache once a day
