@@ -1,18 +1,63 @@
+import * as core from 'aws-cdk-lib';
 import {
   aws_ec2 as ec2,
+  aws_ram as ram,
+  custom_resources as cr,
 }
   from 'aws-cdk-lib';
+
 import * as constructs from 'constructs';
+
+export enum AutoAcceptSharedAttachments {
+  DISABLE = 'disable',
+  ENABLE = 'enable'
+}
+
+export enum DefaultRouteTableAssociation {
+  DISABLE = 'disable',
+  ENABLE = 'enable'
+}
+
+export enum DefaultRouteTablePropagation {
+  DISABLE = 'disable',
+  ENABLE = 'enable'
+}
+
+export enum DnsSupport {
+  DISABLE = 'disable',
+  ENABLE = 'enable'
+}
+
+export enum MulticastSupport {
+  DISABLE = 'disable',
+  ENABLE = 'enable'
+}
+
+export enum VpnEcmpSupport {
+  DISABLE = 'disable',
+  ENABLE = 'enable'
+}
+
+export enum ApplianceModeSupport {
+  ENABLE = 'enable',
+  DISABLE = 'disable'
+}
+
+export enum Ipv6Support {
+  ENABLE = 'enable',
+  DISABLE = 'disable'
+}
+
+export interface TransitGatewayAttachmentOptions {
+  applianceModeSupport?: ApplianceModeSupport | undefined;
+  dnsSupport?: DnsSupport | undefined;
+  ipv6Support?: Ipv6Support | undefined;
+}
 
 
 /**
  * Implmented by `TransitGateway`
  * Obtainable by `TransitGateway.fromTransitGatewayId`
- *
- * TO DO: Add all the possible attributes of a TransitGateway here.   Think carefully about if they will *always*
- * exist, or if they may only exisit sometimes
- * https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_ec2.CfnTransitGateway.html#properties
- * Create proper doc strings
  */
 export interface ITransitGateway {
   /**
@@ -23,6 +68,10 @@ export interface ITransitGateway {
    * A private Autonomous System Number (ASN) for the Amazon side of a BGP session.
    */
   amazonSideAsn: number;
+  /**
+   * Arn
+   */
+  arn: string;
 }
 
 /**
@@ -39,6 +88,53 @@ export interface TransitGatewayProps {
    * @default 64512
    */
   amazonSideAsn?: number | undefined;
+
+  /**
+   * @default disabled
+   */
+  autoAcceptSharedAttachments?: AutoAcceptSharedAttachments | undefined;
+
+  /**
+   * @default enabled
+   */
+  defaultRouteTableAssociation?: DefaultRouteTableAssociation | undefined;
+
+  /**
+   * @default enabled
+   */
+  defaultRouteTablePropagation?: DefaultRouteTablePropagation | undefined;
+
+  description?: string | undefined;
+
+  /**
+   * @default enabled
+   */
+  dnsSupport?: DnsSupport | undefined;
+
+  /**
+   * @default enabled
+   */
+  multicastSupport?: MulticastSupport | undefined;
+
+
+  propagationDefaultRouteTableId: string | undefined;
+
+  tags?: core.CfnTag[];
+
+
+  transitGatewayCidrBlocks?: string[] | undefined;
+
+  /**
+   * @default enabled
+   */
+  vpnEcmpSupport?: VpnEcmpSupport | undefined;
+
+  /**
+   * name
+   */
+  name: string;
+
+
 }
 
 
@@ -47,6 +143,14 @@ export interface TransitGatewayProps {
  * Implements ITransitGateway
  */
 export class TransitGateway extends constructs.Construct implements ITransitGateway {
+
+  public static fromAttributes(id: string, amazonSideAsn: number): ITransitGateway {
+    return {
+      id: id,
+      amazonSideAsn: amazonSideAsn,
+      arn: `arn:aws:ec2:${core.Aws.REGION}:${core.Aws.ACCOUNT_ID}:transit-gateway/${id}`,
+    };
+  }
 
   // these are the attributes for the construct. The attributes here, must include *ALL* of the attributes in ITransitGateway
   // as we are implmenting ITransitGateway
@@ -61,6 +165,22 @@ export class TransitGateway extends constructs.Construct implements ITransitGate
    */
   public readonly amazonSideAsn: number;
 
+  /**
+   * The arn of the transitGateway
+   */
+  public readonly arn: string;
+
+  /**
+   * A Name for the TransitGateway
+   */
+  public readonly name: string;
+
+  /**
+   *
+   * Default Routing Table.
+   */
+  public readonly defaultRoutingTableId: string;
+
   constructor(scope: constructs.Construct, id: string, props: TransitGatewayProps ) {
     super(scope, id);
 
@@ -73,17 +193,127 @@ export class TransitGateway extends constructs.Construct implements ITransitGate
       }
     }
 
-
-    // Expand this out so, it will take all the props you want to give it.
-    // Note that this resources is Resource. This is CDK convention, to name the main resource 'Resource'
-    // this makes it possible to use Escape Hatches, when you need to. You can only have one thing called Resource in a construct
-
     const transitGateway = new ec2.CfnTransitGateway(scope, 'Resource', {
       amazonSideAsn: props.amazonSideAsn,
+      autoAcceptSharedAttachments: props.autoAcceptSharedAttachments ?? AutoAcceptSharedAttachments.ENABLE,
+      defaultRouteTableAssociation: props.defaultRouteTableAssociation ?? DefaultRouteTableAssociation.ENABLE,
+      defaultRouteTablePropagation: props.defaultRouteTablePropagation ?? DefaultRouteTablePropagation.ENABLE,
+      description: props.description,
+      dnsSupport: props.dnsSupport ?? DnsSupport.ENABLE,
+      multicastSupport: props.multicastSupport ?? MulticastSupport.ENABLE,
+      tags: props.tags,
+      vpnEcmpSupport: props.vpnEcmpSupport ?? VpnEcmpSupport.ENABLE,
+      transitGatewayCidrBlocks: props.transitGatewayCidrBlocks,
     });
 
-    // set the values for the attributes of the class.    Line 87 has an error. ( on purpose ). Resolve it.
+
+    this.defaultRoutingTableId = new cr.AwsCustomResource(this, 'GetTransitGatewayDefaultRoutingTableId', {
+      onCreate: {
+        service: 'EC2',
+        action: 'describeTransitGatewayDefaultRouteTables',
+        parameters: {
+          TransitGatewayIds: [transitGateway.attrId],
+        },
+        physicalResourceId: cr.PhysicalResourceId.of('TransitGatewayDefaultRoutingTableId'),
+      },
+      policy: cr.AwsCustomResourcePolicy.fromSdkCalls({ resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE }),
+    }).getResponseField('TransitGatewayDefaultRouteTables[0].RouteTableId');
+
+
     this.amazonSideAsn = props.amazonSideAsn ?? 64512;
     this.id = transitGateway.attrId;
+    this.arn = `arn:aws:ec2:${core.Aws.REGION}:${core.Aws.ACCOUNT_ID}:transit-gateway/${transitGateway.attrId}`;
+    this.name = props.name;
   }
+
+  public shareTransitGateway(accounts: string[]): void {
+    new ram.CfnResourceShare(this, `ShareTG-${this.name}`, {
+      name: `${this.name}-Share`,
+      principals: accounts,
+      resourceArns: [this.arn],
+      allowExternalPrincipals: false,
+      tags: [{
+        key: 'r53rshare',
+        value: 'cloudsink.net',
+      }],
+    });
+  }
+
+  public attachVpc(vpc: ec2.IVpc, subnets: ec2.SubnetSelection, options?: TransitGatewayAttachmentOptions ): void {
+
+    var subnetIds: string[] = [];
+    subnets.subnets?.forEach((subnet) => {
+      subnetIds.push(subnet.subnetId);
+    });
+
+    new ec2.CfnTransitGatewayAttachment(this, 'MyCfnTransitGatewayAttachment', {
+      subnetIds: subnetIds,
+      transitGatewayId: this.id,
+      vpcId: vpc.vpcId,
+      options: options,
+    });
+  };
+
+  public addRouteToRoutingTable(route: TransitGatewayRoute): void {
+
+    if (route.blackhole && route.transitGatewayAttachmentId) {
+      throw new Error('A route can not be both blackholed and have a destination');
+    }
+
+    if (!(route.blackhole && route.transitGatewayAttachmentId)) {
+      throw new Error('A route must be blackholed or have a destination');
+    }
+
+    new ec2.CfnTransitGatewayRoute(this, `tgroute-${route.destinationCidrBlock}`, {
+      transitGatewayRouteTableId: route.transitGatewayRouteTableId ?? this.defaultRoutingTableId,
+      blackhole: route.blackhole,
+      destinationCidrBlock: route.destinationCidrBlock,
+      transitGatewayAttachmentId: route.transitGatewayAttachmentId,
+    });
+  };
+
+  public createDirectConnectGatewayAssociation(dxGatewayId: string, allowedPrefixes: Cidr[]): void {
+
+    new cr.AwsCustomResource(this, 'AssociateDXGateway', {
+      onCreate: {
+        service: 'DirectConnect',
+        action: 'createDirectConnectAssociation',
+        parameters: {
+          DirectConnectGatewayId: dxGatewayId,
+          GatewayId: this.id,
+          AddAllowedPrefixesToDirectConnectGateway: allowedPrefixes,
+        },
+        physicalResourceId: cr.PhysicalResourceId.fromResponse('directConnectGatewayAssociation.associationId'),
+      },
+      onDelete: {
+        service: 'DirectConnect',
+        action: 'deleteDirectConnectAssociation',
+        parameters: {
+          associationId: new cr.PhysicalResourceIdReference(),
+          addAllowedPrefixesToDirectConnectGateway: allowedPrefixes,
+        },
+      },
+      onUpdate: {
+        service: 'DirectConnect',
+        action: 'updateDirectConnectGatewayAssociation',
+        parameters: {
+          associationId: new cr.PhysicalResourceIdReference(),
+        },
+      },
+      policy: cr.AwsCustomResourcePolicy.fromSdkCalls({ resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE }),
+    });
+  }
+
+}
+
+export interface TransitGatewayRoute {
+  transitGatewayRouteTableId?: string | undefined;
+  destinationCidrBlock: string;
+  blackhole?: boolean;
+  transitGatewayAttachmentId?: string | undefined;
+}
+
+
+export interface Cidr {
+  cidr: string;
 }
