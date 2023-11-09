@@ -49,9 +49,9 @@ export enum Ipv6Support {
 }
 
 export interface TransitGatewayAttachmentOptions {
-  applianceModeSupport?: ApplianceModeSupport | undefined;
-  dnsSupport?: DnsSupport | undefined;
-  ipv6Support?: Ipv6Support | undefined;
+  readonly applianceModeSupport?: ApplianceModeSupport | undefined;
+  readonly dnsSupport?: DnsSupport | undefined;
+  readonly ipv6Support?: Ipv6Support | undefined;
 }
 
 
@@ -87,52 +87,52 @@ export interface TransitGatewayProps {
    *
    * @default 64512
    */
-  amazonSideAsn?: number | undefined;
+  readonly amazonSideAsn?: number | undefined;
 
   /**
    * @default disabled
    */
-  autoAcceptSharedAttachments?: AutoAcceptSharedAttachments | undefined;
+  readonly autoAcceptSharedAttachments?: AutoAcceptSharedAttachments | undefined;
 
   /**
    * @default enabled
    */
-  defaultRouteTableAssociation?: DefaultRouteTableAssociation | undefined;
+  readonly defaultRouteTableAssociation?: DefaultRouteTableAssociation | undefined;
 
   /**
    * @default enabled
    */
-  defaultRouteTablePropagation?: DefaultRouteTablePropagation | undefined;
+  readonly defaultRouteTablePropagation?: DefaultRouteTablePropagation | undefined;
 
-  description?: string | undefined;
-
-  /**
-   * @default enabled
-   */
-  dnsSupport?: DnsSupport | undefined;
+  readonly description?: string | undefined;
 
   /**
    * @default enabled
    */
-  multicastSupport?: MulticastSupport | undefined;
-
-
-  propagationDefaultRouteTableId: string | undefined;
-
-  tags?: core.CfnTag[];
-
-
-  transitGatewayCidrBlocks?: string[] | undefined;
+  readonly dnsSupport?: DnsSupport | undefined;
 
   /**
    * @default enabled
    */
-  vpnEcmpSupport?: VpnEcmpSupport | undefined;
+  readonly multicastSupport?: MulticastSupport | undefined;
+
+
+  readonly propagationDefaultRouteTableId: string | undefined;
+
+  readonly tags?: core.CfnTag[];
+
+
+  readonly transitGatewayCidrBlocks?: string[] | undefined;
+
+  /**
+   * @default enabled
+   */
+  readonly vpnEcmpSupport?: VpnEcmpSupport | undefined;
 
   /**
    * name
    */
-  name: string;
+  readonly name: string;
 
 
 }
@@ -158,22 +158,22 @@ export class TransitGateway extends constructs.Construct implements ITransitGate
   /**
    * The id of the transitGateway
    */
-  public readonly id: string;
+  public id: string;
 
   /**
    * The Private ASN of the TransitGateway
    */
-  public readonly amazonSideAsn: number;
+  public amazonSideAsn: number;
 
   /**
    * The arn of the transitGateway
    */
-  public readonly arn: string;
+  public arn: string;
 
   /**
    * A Name for the TransitGateway
    */
-  public readonly name: string;
+  public name: string;
 
   /**
    *
@@ -272,7 +272,7 @@ export class TransitGateway extends constructs.Construct implements ITransitGate
     });
   };
 
-  public createDirectConnectGatewayAssociation(dxGatewayId: string, allowedPrefixes: Cidr[]): void {
+  public createDirectConnectGatewayAssociation(dxGatewayId: string, allowedPrefixes: AllowedPrefixes[]): void {
 
     new cr.AwsCustomResource(this, 'AssociateDXGateway', {
       onCreate: {
@@ -307,13 +307,12 @@ export class TransitGateway extends constructs.Construct implements ITransitGate
 }
 
 export interface TransitGatewayRoute {
-  transitGatewayRouteTableId?: string | undefined;
-  destinationCidrBlock: string;
-  blackhole?: boolean;
-  transitGatewayAttachmentId?: string | undefined;
+  readonly transitGatewayRouteTableId?: string | undefined;
+  readonly destinationCidrBlock: string;
+  readonly blackhole?: boolean;
+  readonly transitGatewayAttachmentId?: string | undefined;
 }
 
-
-export interface Cidr {
-  cidr: string;
+export interface AllowedPrefixes {
+  readonly cidr: string;
 }

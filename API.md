@@ -3324,6 +3324,269 @@ The id of the transfer User.
 ---
 
 
+### TransitGateway <a name="TransitGateway" id="raindancers-cdk.network.TransitGateway"></a>
+
+- *Implements:* raindancers-cdk.network.ITransitGateway
+
+Define a TransitGateway.
+
+Implements ITransitGateway
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.network.TransitGateway.Initializer"></a>
+
+```typescript
+import { network } from 'raindancers-cdk'
+
+new network.TransitGateway(scope: Construct, id: string, props: TransitGatewayProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.network.TransitGateway.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGateway.Initializer.parameter.id">id</a></code> | <code>string</code> | The ID of the transit gateway. |
+| <code><a href="#raindancers-cdk.network.TransitGateway.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.network.TransitGatewayProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.network.TransitGateway.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.network.TransitGateway.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+The ID of the transit gateway.
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.network.TransitGateway.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.network.TransitGatewayProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.network.TransitGateway.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#raindancers-cdk.network.TransitGateway.addRouteToRoutingTable">addRouteToRoutingTable</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGateway.attachVpc">attachVpc</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGateway.createDirectConnectGatewayAssociation">createDirectConnectGatewayAssociation</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGateway.shareTransitGateway">shareTransitGateway</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.network.TransitGateway.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addRouteToRoutingTable` <a name="addRouteToRoutingTable" id="raindancers-cdk.network.TransitGateway.addRouteToRoutingTable"></a>
+
+```typescript
+public addRouteToRoutingTable(route: TransitGatewayRoute): void
+```
+
+###### `route`<sup>Required</sup> <a name="route" id="raindancers-cdk.network.TransitGateway.addRouteToRoutingTable.parameter.route"></a>
+
+- *Type:* raindancers-cdk.network.TransitGatewayRoute
+
+---
+
+##### `attachVpc` <a name="attachVpc" id="raindancers-cdk.network.TransitGateway.attachVpc"></a>
+
+```typescript
+public attachVpc(vpc: IVpc, subnets: SubnetSelection, options?: TransitGatewayAttachmentOptions): void
+```
+
+###### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.network.TransitGateway.attachVpc.parameter.vpc"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+###### `subnets`<sup>Required</sup> <a name="subnets" id="raindancers-cdk.network.TransitGateway.attachVpc.parameter.subnets"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.SubnetSelection
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="raindancers-cdk.network.TransitGateway.attachVpc.parameter.options"></a>
+
+- *Type:* raindancers-cdk.network.TransitGatewayAttachmentOptions
+
+---
+
+##### `createDirectConnectGatewayAssociation` <a name="createDirectConnectGatewayAssociation" id="raindancers-cdk.network.TransitGateway.createDirectConnectGatewayAssociation"></a>
+
+```typescript
+public createDirectConnectGatewayAssociation(dxGatewayId: string, allowedPrefixes: AllowedPrefixes[]): void
+```
+
+###### `dxGatewayId`<sup>Required</sup> <a name="dxGatewayId" id="raindancers-cdk.network.TransitGateway.createDirectConnectGatewayAssociation.parameter.dxGatewayId"></a>
+
+- *Type:* string
+
+---
+
+###### `allowedPrefixes`<sup>Required</sup> <a name="allowedPrefixes" id="raindancers-cdk.network.TransitGateway.createDirectConnectGatewayAssociation.parameter.allowedPrefixes"></a>
+
+- *Type:* raindancers-cdk.network.AllowedPrefixes[]
+
+---
+
+##### `shareTransitGateway` <a name="shareTransitGateway" id="raindancers-cdk.network.TransitGateway.shareTransitGateway"></a>
+
+```typescript
+public shareTransitGateway(accounts: string[]): void
+```
+
+###### `accounts`<sup>Required</sup> <a name="accounts" id="raindancers-cdk.network.TransitGateway.shareTransitGateway.parameter.accounts"></a>
+
+- *Type:* string[]
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.network.TransitGateway.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#raindancers-cdk.network.TransitGateway.fromAttributes">fromAttributes</a></code> | *No description.* |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.network.TransitGateway.isConstruct"></a>
+
+```typescript
+import { network } from 'raindancers-cdk'
+
+network.TransitGateway.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.network.TransitGateway.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromAttributes` <a name="fromAttributes" id="raindancers-cdk.network.TransitGateway.fromAttributes"></a>
+
+```typescript
+import { network } from 'raindancers-cdk'
+
+network.TransitGateway.fromAttributes(id: string, amazonSideAsn: number)
+```
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.network.TransitGateway.fromAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `amazonSideAsn`<sup>Required</sup> <a name="amazonSideAsn" id="raindancers-cdk.network.TransitGateway.fromAttributes.parameter.amazonSideAsn"></a>
+
+- *Type:* number
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.network.TransitGateway.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.network.TransitGateway.property.defaultRoutingTableId">defaultRoutingTableId</a></code> | <code>string</code> | Default Routing Table. |
+| <code><a href="#raindancers-cdk.network.TransitGateway.property.amazonSideAsn">amazonSideAsn</a></code> | <code>number</code> | The Private ASN of the TransitGateway. |
+| <code><a href="#raindancers-cdk.network.TransitGateway.property.arn">arn</a></code> | <code>string</code> | The arn of the transitGateway. |
+| <code><a href="#raindancers-cdk.network.TransitGateway.property.id">id</a></code> | <code>string</code> | The id of the transitGateway. |
+| <code><a href="#raindancers-cdk.network.TransitGateway.property.name">name</a></code> | <code>string</code> | A Name for the TransitGateway. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.network.TransitGateway.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `defaultRoutingTableId`<sup>Required</sup> <a name="defaultRoutingTableId" id="raindancers-cdk.network.TransitGateway.property.defaultRoutingTableId"></a>
+
+```typescript
+public readonly defaultRoutingTableId: string;
+```
+
+- *Type:* string
+
+Default Routing Table.
+
+---
+
+##### `amazonSideAsn`<sup>Required</sup> <a name="amazonSideAsn" id="raindancers-cdk.network.TransitGateway.property.amazonSideAsn"></a>
+
+```typescript
+public readonly amazonSideAsn: number;
+```
+
+- *Type:* number
+
+The Private ASN of the TransitGateway.
+
+---
+
+##### `arn`<sup>Required</sup> <a name="arn" id="raindancers-cdk.network.TransitGateway.property.arn"></a>
+
+```typescript
+public readonly arn: string;
+```
+
+- *Type:* string
+
+The arn of the transitGateway.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.network.TransitGateway.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
+
+The id of the transitGateway.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.network.TransitGateway.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+A Name for the TransitGateway.
+
+---
+
+
 ## Structs <a name="Structs" id="Structs"></a>
 
 ### AccountFactoryLambdaProps <a name="AccountFactoryLambdaProps" id="raindancers-cdk.orgTools.AccountFactoryLambdaProps"></a>
@@ -3752,6 +4015,34 @@ public readonly scanWithClam: boolean;
 ```
 
 - *Type:* boolean
+
+---
+
+### AllowedPrefixes <a name="AllowedPrefixes" id="raindancers-cdk.network.AllowedPrefixes"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.network.AllowedPrefixes.Initializer"></a>
+
+```typescript
+import { network } from 'raindancers-cdk'
+
+const allowedPrefixes: network.AllowedPrefixes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.network.AllowedPrefixes.property.cidr">cidr</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `cidr`<sup>Required</sup> <a name="cidr" id="raindancers-cdk.network.AllowedPrefixes.property.cidr"></a>
+
+```typescript
+public readonly cidr: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -6040,6 +6331,281 @@ Policy.
 
 ---
 
+### TransitGatewayAttachmentOptions <a name="TransitGatewayAttachmentOptions" id="raindancers-cdk.network.TransitGatewayAttachmentOptions"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.network.TransitGatewayAttachmentOptions.Initializer"></a>
+
+```typescript
+import { network } from 'raindancers-cdk'
+
+const transitGatewayAttachmentOptions: network.TransitGatewayAttachmentOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.network.TransitGatewayAttachmentOptions.property.applianceModeSupport">applianceModeSupport</a></code> | <code>raindancers-cdk.network.ApplianceModeSupport</code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGatewayAttachmentOptions.property.dnsSupport">dnsSupport</a></code> | <code>raindancers-cdk.network.DnsSupport</code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGatewayAttachmentOptions.property.ipv6Support">ipv6Support</a></code> | <code>raindancers-cdk.network.Ipv6Support</code> | *No description.* |
+
+---
+
+##### `applianceModeSupport`<sup>Optional</sup> <a name="applianceModeSupport" id="raindancers-cdk.network.TransitGatewayAttachmentOptions.property.applianceModeSupport"></a>
+
+```typescript
+public readonly applianceModeSupport: ApplianceModeSupport;
+```
+
+- *Type:* raindancers-cdk.network.ApplianceModeSupport
+
+---
+
+##### `dnsSupport`<sup>Optional</sup> <a name="dnsSupport" id="raindancers-cdk.network.TransitGatewayAttachmentOptions.property.dnsSupport"></a>
+
+```typescript
+public readonly dnsSupport: DnsSupport;
+```
+
+- *Type:* raindancers-cdk.network.DnsSupport
+
+---
+
+##### `ipv6Support`<sup>Optional</sup> <a name="ipv6Support" id="raindancers-cdk.network.TransitGatewayAttachmentOptions.property.ipv6Support"></a>
+
+```typescript
+public readonly ipv6Support: Ipv6Support;
+```
+
+- *Type:* raindancers-cdk.network.Ipv6Support
+
+---
+
+### TransitGatewayProps <a name="TransitGatewayProps" id="raindancers-cdk.network.TransitGatewayProps"></a>
+
+Transit Gateway Properties TODO: Add all the properties, you think you need.. Document it properly, with defaults  What properties do you need if you are going to CREATE a new TG?  What is optional? what is required? https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_ec2.CfnTransitGateway.html#construct-props.
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.network.TransitGatewayProps.Initializer"></a>
+
+```typescript
+import { network } from 'raindancers-cdk'
+
+const transitGatewayProps: network.TransitGatewayProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.network.TransitGatewayProps.property.name">name</a></code> | <code>string</code> | name. |
+| <code><a href="#raindancers-cdk.network.TransitGatewayProps.property.amazonSideAsn">amazonSideAsn</a></code> | <code>number</code> | A private Autonomous System Number (ASN) for the Amazon side of a BGP session. |
+| <code><a href="#raindancers-cdk.network.TransitGatewayProps.property.autoAcceptSharedAttachments">autoAcceptSharedAttachments</a></code> | <code>raindancers-cdk.network.AutoAcceptSharedAttachments</code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGatewayProps.property.defaultRouteTableAssociation">defaultRouteTableAssociation</a></code> | <code>raindancers-cdk.network.DefaultRouteTableAssociation</code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGatewayProps.property.defaultRouteTablePropagation">defaultRouteTablePropagation</a></code> | <code>raindancers-cdk.network.DefaultRouteTablePropagation</code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGatewayProps.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGatewayProps.property.dnsSupport">dnsSupport</a></code> | <code>raindancers-cdk.network.DnsSupport</code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGatewayProps.property.multicastSupport">multicastSupport</a></code> | <code>raindancers-cdk.network.MulticastSupport</code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGatewayProps.property.propagationDefaultRouteTableId">propagationDefaultRouteTableId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGatewayProps.property.tags">tags</a></code> | <code>aws-cdk-lib.CfnTag[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGatewayProps.property.transitGatewayCidrBlocks">transitGatewayCidrBlocks</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGatewayProps.property.vpnEcmpSupport">vpnEcmpSupport</a></code> | <code>raindancers-cdk.network.VpnEcmpSupport</code> | *No description.* |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.network.TransitGatewayProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+name.
+
+---
+
+##### `amazonSideAsn`<sup>Optional</sup> <a name="amazonSideAsn" id="raindancers-cdk.network.TransitGatewayProps.property.amazonSideAsn"></a>
+
+```typescript
+public readonly amazonSideAsn: number;
+```
+
+- *Type:* number
+- *Default:* 64512
+
+A private Autonomous System Number (ASN) for the Amazon side of a BGP session.
+
+The range is 64512 to 65534
+
+---
+
+##### `autoAcceptSharedAttachments`<sup>Optional</sup> <a name="autoAcceptSharedAttachments" id="raindancers-cdk.network.TransitGatewayProps.property.autoAcceptSharedAttachments"></a>
+
+```typescript
+public readonly autoAcceptSharedAttachments: AutoAcceptSharedAttachments;
+```
+
+- *Type:* raindancers-cdk.network.AutoAcceptSharedAttachments
+- *Default:* disabled
+
+---
+
+##### `defaultRouteTableAssociation`<sup>Optional</sup> <a name="defaultRouteTableAssociation" id="raindancers-cdk.network.TransitGatewayProps.property.defaultRouteTableAssociation"></a>
+
+```typescript
+public readonly defaultRouteTableAssociation: DefaultRouteTableAssociation;
+```
+
+- *Type:* raindancers-cdk.network.DefaultRouteTableAssociation
+- *Default:* enabled
+
+---
+
+##### `defaultRouteTablePropagation`<sup>Optional</sup> <a name="defaultRouteTablePropagation" id="raindancers-cdk.network.TransitGatewayProps.property.defaultRouteTablePropagation"></a>
+
+```typescript
+public readonly defaultRouteTablePropagation: DefaultRouteTablePropagation;
+```
+
+- *Type:* raindancers-cdk.network.DefaultRouteTablePropagation
+- *Default:* enabled
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="raindancers-cdk.network.TransitGatewayProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `dnsSupport`<sup>Optional</sup> <a name="dnsSupport" id="raindancers-cdk.network.TransitGatewayProps.property.dnsSupport"></a>
+
+```typescript
+public readonly dnsSupport: DnsSupport;
+```
+
+- *Type:* raindancers-cdk.network.DnsSupport
+- *Default:* enabled
+
+---
+
+##### `multicastSupport`<sup>Optional</sup> <a name="multicastSupport" id="raindancers-cdk.network.TransitGatewayProps.property.multicastSupport"></a>
+
+```typescript
+public readonly multicastSupport: MulticastSupport;
+```
+
+- *Type:* raindancers-cdk.network.MulticastSupport
+- *Default:* enabled
+
+---
+
+##### `propagationDefaultRouteTableId`<sup>Optional</sup> <a name="propagationDefaultRouteTableId" id="raindancers-cdk.network.TransitGatewayProps.property.propagationDefaultRouteTableId"></a>
+
+```typescript
+public readonly propagationDefaultRouteTableId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `tags`<sup>Optional</sup> <a name="tags" id="raindancers-cdk.network.TransitGatewayProps.property.tags"></a>
+
+```typescript
+public readonly tags: CfnTag[];
+```
+
+- *Type:* aws-cdk-lib.CfnTag[]
+
+---
+
+##### `transitGatewayCidrBlocks`<sup>Optional</sup> <a name="transitGatewayCidrBlocks" id="raindancers-cdk.network.TransitGatewayProps.property.transitGatewayCidrBlocks"></a>
+
+```typescript
+public readonly transitGatewayCidrBlocks: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `vpnEcmpSupport`<sup>Optional</sup> <a name="vpnEcmpSupport" id="raindancers-cdk.network.TransitGatewayProps.property.vpnEcmpSupport"></a>
+
+```typescript
+public readonly vpnEcmpSupport: VpnEcmpSupport;
+```
+
+- *Type:* raindancers-cdk.network.VpnEcmpSupport
+- *Default:* enabled
+
+---
+
+### TransitGatewayRoute <a name="TransitGatewayRoute" id="raindancers-cdk.network.TransitGatewayRoute"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.network.TransitGatewayRoute.Initializer"></a>
+
+```typescript
+import { network } from 'raindancers-cdk'
+
+const transitGatewayRoute: network.TransitGatewayRoute = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.network.TransitGatewayRoute.property.destinationCidrBlock">destinationCidrBlock</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGatewayRoute.property.blackhole">blackhole</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGatewayRoute.property.transitGatewayAttachmentId">transitGatewayAttachmentId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.TransitGatewayRoute.property.transitGatewayRouteTableId">transitGatewayRouteTableId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `destinationCidrBlock`<sup>Required</sup> <a name="destinationCidrBlock" id="raindancers-cdk.network.TransitGatewayRoute.property.destinationCidrBlock"></a>
+
+```typescript
+public readonly destinationCidrBlock: string;
+```
+
+- *Type:* string
+
+---
+
+##### `blackhole`<sup>Optional</sup> <a name="blackhole" id="raindancers-cdk.network.TransitGatewayRoute.property.blackhole"></a>
+
+```typescript
+public readonly blackhole: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `transitGatewayAttachmentId`<sup>Optional</sup> <a name="transitGatewayAttachmentId" id="raindancers-cdk.network.TransitGatewayRoute.property.transitGatewayAttachmentId"></a>
+
+```typescript
+public readonly transitGatewayAttachmentId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `transitGatewayRouteTableId`<sup>Optional</sup> <a name="transitGatewayRouteTableId" id="raindancers-cdk.network.TransitGatewayRoute.property.transitGatewayRouteTableId"></a>
+
+```typescript
+public readonly transitGatewayRouteTableId: string;
+```
+
+- *Type:* string
+
+---
+
 ## Classes <a name="Classes" id="Classes"></a>
 
 ### MonitoringRule <a name="MonitoringRule" id="raindancers-cdk.eventalerts.MonitoringRule"></a>
@@ -7075,7 +7641,165 @@ The ID of the transfer user.
 
 ---
 
+### ITransitGateway <a name="ITransitGateway" id="raindancers-cdk.network.ITransitGateway"></a>
+
+- *Implemented By:* raindancers-cdk.network.TransitGateway, raindancers-cdk.network.ITransitGateway
+
+Implmented by `TransitGateway` Obtainable by `TransitGateway.fromTransitGatewayId`.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.network.ITransitGateway.property.amazonSideAsn">amazonSideAsn</a></code> | <code>number</code> | A private Autonomous System Number (ASN) for the Amazon side of a BGP session. |
+| <code><a href="#raindancers-cdk.network.ITransitGateway.property.arn">arn</a></code> | <code>string</code> | Arn. |
+| <code><a href="#raindancers-cdk.network.ITransitGateway.property.id">id</a></code> | <code>string</code> | The ID of the transit gateway. |
+
+---
+
+##### `amazonSideAsn`<sup>Required</sup> <a name="amazonSideAsn" id="raindancers-cdk.network.ITransitGateway.property.amazonSideAsn"></a>
+
+```typescript
+public readonly amazonSideAsn: number;
+```
+
+- *Type:* number
+
+A private Autonomous System Number (ASN) for the Amazon side of a BGP session.
+
+---
+
+##### `arn`<sup>Required</sup> <a name="arn" id="raindancers-cdk.network.ITransitGateway.property.arn"></a>
+
+```typescript
+public readonly arn: string;
+```
+
+- *Type:* string
+
+Arn.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.network.ITransitGateway.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
+
+The ID of the transit gateway.
+
+---
+
 ## Enums <a name="Enums" id="Enums"></a>
+
+### ApplianceModeSupport <a name="ApplianceModeSupport" id="raindancers-cdk.network.ApplianceModeSupport"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.network.ApplianceModeSupport.ENABLE">ENABLE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.ApplianceModeSupport.DISABLE">DISABLE</a></code> | *No description.* |
+
+---
+
+##### `ENABLE` <a name="ENABLE" id="raindancers-cdk.network.ApplianceModeSupport.ENABLE"></a>
+
+---
+
+
+##### `DISABLE` <a name="DISABLE" id="raindancers-cdk.network.ApplianceModeSupport.DISABLE"></a>
+
+---
+
+
+### AutoAcceptSharedAttachments <a name="AutoAcceptSharedAttachments" id="raindancers-cdk.network.AutoAcceptSharedAttachments"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.network.AutoAcceptSharedAttachments.DISABLE">DISABLE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.AutoAcceptSharedAttachments.ENABLE">ENABLE</a></code> | *No description.* |
+
+---
+
+##### `DISABLE` <a name="DISABLE" id="raindancers-cdk.network.AutoAcceptSharedAttachments.DISABLE"></a>
+
+---
+
+
+##### `ENABLE` <a name="ENABLE" id="raindancers-cdk.network.AutoAcceptSharedAttachments.ENABLE"></a>
+
+---
+
+
+### DefaultRouteTableAssociation <a name="DefaultRouteTableAssociation" id="raindancers-cdk.network.DefaultRouteTableAssociation"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.network.DefaultRouteTableAssociation.DISABLE">DISABLE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.DefaultRouteTableAssociation.ENABLE">ENABLE</a></code> | *No description.* |
+
+---
+
+##### `DISABLE` <a name="DISABLE" id="raindancers-cdk.network.DefaultRouteTableAssociation.DISABLE"></a>
+
+---
+
+
+##### `ENABLE` <a name="ENABLE" id="raindancers-cdk.network.DefaultRouteTableAssociation.ENABLE"></a>
+
+---
+
+
+### DefaultRouteTablePropagation <a name="DefaultRouteTablePropagation" id="raindancers-cdk.network.DefaultRouteTablePropagation"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.network.DefaultRouteTablePropagation.DISABLE">DISABLE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.DefaultRouteTablePropagation.ENABLE">ENABLE</a></code> | *No description.* |
+
+---
+
+##### `DISABLE` <a name="DISABLE" id="raindancers-cdk.network.DefaultRouteTablePropagation.DISABLE"></a>
+
+---
+
+
+##### `ENABLE` <a name="ENABLE" id="raindancers-cdk.network.DefaultRouteTablePropagation.ENABLE"></a>
+
+---
+
+
+### DnsSupport <a name="DnsSupport" id="raindancers-cdk.network.DnsSupport"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.network.DnsSupport.DISABLE">DISABLE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.DnsSupport.ENABLE">ENABLE</a></code> | *No description.* |
+
+---
+
+##### `DISABLE` <a name="DISABLE" id="raindancers-cdk.network.DnsSupport.DISABLE"></a>
+
+---
+
+
+##### `ENABLE` <a name="ENABLE" id="raindancers-cdk.network.DnsSupport.ENABLE"></a>
+
+---
+
 
 ### EndpointType <a name="EndpointType" id="raindancers-cdk.transfer.EndpointType"></a>
 
@@ -7103,6 +7827,48 @@ The ID of the transfer user.
 ---
 
 ##### `SERVICE_MANAGED` <a name="SERVICE_MANAGED" id="raindancers-cdk.transfer.IdentityProviderType.SERVICE_MANAGED"></a>
+
+---
+
+
+### Ipv6Support <a name="Ipv6Support" id="raindancers-cdk.network.Ipv6Support"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.network.Ipv6Support.ENABLE">ENABLE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.Ipv6Support.DISABLE">DISABLE</a></code> | *No description.* |
+
+---
+
+##### `ENABLE` <a name="ENABLE" id="raindancers-cdk.network.Ipv6Support.ENABLE"></a>
+
+---
+
+
+##### `DISABLE` <a name="DISABLE" id="raindancers-cdk.network.Ipv6Support.DISABLE"></a>
+
+---
+
+
+### MulticastSupport <a name="MulticastSupport" id="raindancers-cdk.network.MulticastSupport"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.network.MulticastSupport.DISABLE">DISABLE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.MulticastSupport.ENABLE">ENABLE</a></code> | *No description.* |
+
+---
+
+##### `DISABLE` <a name="DISABLE" id="raindancers-cdk.network.MulticastSupport.DISABLE"></a>
+
+---
+
+
+##### `ENABLE` <a name="ENABLE" id="raindancers-cdk.network.MulticastSupport.ENABLE"></a>
 
 ---
 
@@ -7398,6 +8164,27 @@ https://docs.aws.amazon.com/transfer/latest/userguide/security-policies.html#pq-
 ---
 
 ##### `IAM_ALIAS` <a name="IAM_ALIAS" id="raindancers-cdk.orgTools.TemplateStack.IAM_ALIAS"></a>
+
+---
+
+
+### VpnEcmpSupport <a name="VpnEcmpSupport" id="raindancers-cdk.network.VpnEcmpSupport"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.network.VpnEcmpSupport.DISABLE">DISABLE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.network.VpnEcmpSupport.ENABLE">ENABLE</a></code> | *No description.* |
+
+---
+
+##### `DISABLE` <a name="DISABLE" id="raindancers-cdk.network.VpnEcmpSupport.DISABLE"></a>
+
+---
+
+
+##### `ENABLE` <a name="ENABLE" id="raindancers-cdk.network.VpnEcmpSupport.ENABLE"></a>
 
 ---
 

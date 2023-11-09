@@ -9,3 +9,4 @@ export * as organizations from './aws_organizations/index';
 export * as transfer from './transfer/index';
 export * as geneve from './geneve/index';
 export * as clamscan from './clamscan/index';
+export * as network from './network/index';
