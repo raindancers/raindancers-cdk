@@ -117,7 +117,7 @@ export interface TransitGatewayProps {
   readonly multicastSupport?: MulticastSupport | undefined;
 
 
-  readonly propagationDefaultRouteTableId: string | undefined;
+  readonly propagationDefaultRouteTableId?: string | undefined;
 
   readonly tags?: core.CfnTag[];
 
