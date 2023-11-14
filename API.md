@@ -7204,7 +7204,7 @@ const attachToTransitGatewayProps: enterprisevpc.AttachToTransitGatewayProps = {
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#raindancers-cdk.enterprisevpc.AttachToTransitGatewayProps.property.transitGateway">transitGateway</a></code> | <code>aws-cdk-lib.aws_ec2.CfnTransitGateway</code> | the TransitGateway to connect to. |
+| <code><a href="#raindancers-cdk.enterprisevpc.AttachToTransitGatewayProps.property.transitGateway">transitGateway</a></code> | <code>raindancers-cdk.transitGateway.TransitGateway</code> | the TransitGateway to connect to. |
 | <code><a href="#raindancers-cdk.enterprisevpc.AttachToTransitGatewayProps.property.applicanceMode">applicanceMode</a></code> | <code>raindancers-cdk.enterprisevpc.ApplianceMode</code> | Will this be connected in appliance mode ( used if you have Network Firewalls ). |
 | <code><a href="#raindancers-cdk.enterprisevpc.AttachToTransitGatewayProps.property.attachmentSubnetGroup">attachmentSubnetGroup</a></code> | <code>string</code> | *No description.* |
 
@@ -7213,10 +7213,10 @@ const attachToTransitGatewayProps: enterprisevpc.AttachToTransitGatewayProps = {
 ##### `transitGateway`<sup>Required</sup> <a name="transitGateway" id="raindancers-cdk.enterprisevpc.AttachToTransitGatewayProps.property.transitGateway"></a>
 
 ```typescript
-public readonly transitGateway: CfnTransitGateway;
+public readonly transitGateway: TransitGateway;
 ```
 
-- *Type:* aws-cdk-lib.aws_ec2.CfnTransitGateway
+- *Type:* raindancers-cdk.transitGateway.TransitGateway
 
 the TransitGateway to connect to.
 

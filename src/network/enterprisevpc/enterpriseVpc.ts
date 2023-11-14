@@ -26,6 +26,7 @@ import {
   dns,
   endpoints,
   nwFirewall,
+  transitGateway,
 } from '../../index';
 
 
@@ -136,7 +137,7 @@ export enum ApplianceMode {
  */
 export interface AttachToTransitGatewayProps {
   /** the TransitGateway to connect to */
-	 readonly transitGateway: ec2. CfnTransitGateway;
+	 readonly transitGateway: transitGateway.TransitGateway;
 	 /** Will this be connected in appliance mode ( used if you have Network Firewalls ) */
 	 readonly applicanceMode?: ApplianceMode | undefined;
 	 //** Which Subnet Groups will the attachments be made ( defaults to 'linknet') */
@@ -801,7 +802,7 @@ export class EnterpriseVpc extends constructs.Construct {
 			  action: 'createTransitGatewayVpcAttachment',
 			  parameters: {
           SubnetIds: this.vpc.selectSubnets({ subnetGroupName: attachmentSubnetGroup }).subnetIds, // this needs to be the subnet
-          TransitGatewayId: props.transitGateway.attrId,
+          TransitGatewayId: props.transitGateway.id,
           VpcId: this.vpc.vpcId,
           Options: {
 				    ApplianceModeSupport: props.applicanceMode,
@@ -830,7 +831,7 @@ export class EnterpriseVpc extends constructs.Construct {
       ),
     });
 
-    this.transitGWID = props.transitGateway.attrId;
+    this.transitGWID = props.transitGateway.id,
     this.transitGWAttachmentID = transitGatewaypeering.getResponseField('TransitGatewayVpcAttachment.TransitGatewayAttachmentId');
     return transitGatewaypeering.getResponseField('TransitGatewayVpcAttachment.TransitGatewayAttachmentId');
 
