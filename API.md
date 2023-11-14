@@ -10607,6 +10607,7 @@ const statefulRuleProps: nwFirewall.StatefulRuleProps = { ... }
 | <code><a href="#raindancers-cdk.nwFirewall.StatefulRuleProps.property.priority">priority</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#raindancers-cdk.nwFirewall.StatefulRuleProps.property.capacity">capacity</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#raindancers-cdk.nwFirewall.StatefulRuleProps.property.rulesSourceList">rulesSourceList</a></code> | <code>aws-cdk-lib.aws_networkfirewall.CfnRuleGroup.RulesSourceListProperty</code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.StatefulRuleProps.property.ruleVariables">ruleVariables</a></code> | <code>aws-cdk-lib.aws_networkfirewall.CfnRuleGroup.RuleVariablesProperty</code> | *No description.* |
 | <code><a href="#raindancers-cdk.nwFirewall.StatefulRuleProps.property.statefuleRules">statefuleRules</a></code> | <code>aws-cdk-lib.aws_networkfirewall.CfnRuleGroup.StatefulRuleProperty[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.nwFirewall.StatefulRuleProps.property.suricataRule">suricataRule</a></code> | <code>string</code> | *No description.* |
 
@@ -10659,6 +10660,16 @@ public readonly rulesSourceList: RulesSourceListProperty;
 ```
 
 - *Type:* aws-cdk-lib.aws_networkfirewall.CfnRuleGroup.RulesSourceListProperty
+
+---
+
+##### `ruleVariables`<sup>Optional</sup> <a name="ruleVariables" id="raindancers-cdk.nwFirewall.StatefulRuleProps.property.ruleVariables"></a>
+
+```typescript
+public readonly ruleVariables: RuleVariablesProperty;
+```
+
+- *Type:* aws-cdk-lib.aws_networkfirewall.CfnRuleGroup.RuleVariablesProperty
 
 ---
 

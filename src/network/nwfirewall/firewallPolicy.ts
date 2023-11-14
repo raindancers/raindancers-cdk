@@ -54,6 +54,7 @@ export interface AddStatefulRulesProps {
   readonly awsManagedRules: ManagedAwsFirewallRules[];
 }
 
+
 export interface IFirewallPolicyProperty {
   statefulDefaultActions?: string[];
   statefulEngineOptions?: firewall.CfnFirewallPolicy.StatefulEngineOptionsProperty | cdk.IResolvable;
@@ -205,6 +206,7 @@ export class FirewallPolicy extends constructs.Construct {
       type: RuleGroupType.STATEFUL,
       description: props.description,
       ruleGroup: {
+        ruleVariables: props.ruleVariables,
         rulesSource: {
           rulesString: props.suricataRule,
           statefulRules: props.statefuleRules,
@@ -251,6 +253,7 @@ export interface StatefulRuleProps {
   readonly groupName: string;
   readonly description: string;
   // https://docs.aws.amazon.com/network-firewall/latest/developerguide/suricata-examples.html
+  readonly ruleVariables?: cdk.aws_networkfirewall.CfnRuleGroup.RuleVariablesProperty;
   readonly suricataRule? : string | undefined;
   readonly statefuleRules?: firewall.CfnRuleGroup.StatefulRuleProperty[];
   readonly rulesSourceList?: firewall.CfnRuleGroup.RulesSourceListProperty;
