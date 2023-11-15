@@ -71,7 +71,7 @@ export class EnterpriseVpcLambda extends constructs.Construct {
       uuid: 'FEAD99771134',
       runtime: aws_lambda.Runtime.PYTHON_3_9,
       handler: 'vpcattachment.is_complete',
-      code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpiseVpc'), {
+      code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpriseVpc'), {
         bundling: {
           image: aws_lambda.Runtime.PYTHON_3_9.bundlingImage,
           command: [
