@@ -210,14 +210,22 @@ export class TransitGateway extends constructs.Construct implements ITransitGate
     this.defaultRoutingTableId = new cr.AwsCustomResource(this, 'GetTransitGatewayDefaultRoutingTableId', {
       onCreate: {
         service: 'EC2',
-        action: 'describeTransitGatewayDefaultRouteTables',
+        action: 'describeTransitGatewayRouteTables',
         parameters: {
+          Filters: [
+            {
+              Name: 'default-association-route-table',
+              Values: [
+                'true',
+              ],
+            },
+          ],
           TransitGatewayIds: [transitGateway.attrId],
         },
         physicalResourceId: cr.PhysicalResourceId.of('TransitGatewayDefaultRoutingTableId'),
       },
       policy: cr.AwsCustomResourcePolicy.fromSdkCalls({ resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE }),
-    }).getResponseField('TransitGatewayDefaultRouteTables[0].RouteTableId');
+    }).getResponseField('TransitGatewayRouteTables[0].TransitGatewayRouteTableId');
 
 
     this.amazonSideAsn = props.amazonSideAsn ?? 64512;
