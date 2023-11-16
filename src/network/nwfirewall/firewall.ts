@@ -62,7 +62,7 @@ export class NetworkFirewall extends constructs.Construct {
       	({ subnetId: subnet.subnetId }),
     	);
 
-    const fw = new firewall.CfnFirewall(this, 'KatieFW', {
+    const fw = new firewall.CfnFirewall(this, 'Resource', {
       firewallName: props.firewallName,
       firewallPolicyArn: props.firewallPolicy.attrFirewallPolicyArn,
       subnetMappings: firewallSubnetList,
