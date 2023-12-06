@@ -18,7 +18,7 @@ def on_create(event):
 def is_complete(event, context):
 
 	props = event['ResourceProperties']
-
+	print(props)
 
 	tg_state = ec2.describe_transit_gateways(
 		TransitGatewayIds=[
