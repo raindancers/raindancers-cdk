@@ -1083,7 +1083,7 @@ export class EnterpriseVpc extends constructs.Construct {
 
           this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet, index) => {
 
-            new ec2.CfnRoute(this, 'hostRoute-'+ index + subnetGroup + props.ec2Instance?.instanceId, {
+            new ec2.CfnRoute(this, 'hostRoute-'+ index + subnetGroup, {
               destinationCidrBlock: destinationCidr,
               routeTableId: subnet.routeTable.routeTableId,
               instanceId: props.ec2Instance?.instanceId,
