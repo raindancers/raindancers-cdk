@@ -268,10 +268,6 @@ export class TransitGateway extends constructs.Construct implements ITransitGate
       throw new Error('A route can not be both blackholed and have a destination');
     }
 
-    if (!(route.blackhole && route.transitGatewayAttachmentId)) {
-      throw new Error('A route must be blackholed or have a destination');
-    }
-
     new ec2.CfnTransitGatewayRoute(this, `tgroute-${route.destinationCidrBlock}`, {
       transitGatewayRouteTableId: route.transitGatewayRouteTableId ?? this.defaultRoutingTableId,
       blackhole: route.blackhole,
