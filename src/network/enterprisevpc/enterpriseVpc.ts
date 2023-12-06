@@ -171,6 +171,8 @@ export interface AddRoutesProps {
   readonly networkFirewallArn?: string | undefined;
   // cloudwanName
   readonly cloudwanName?: string | undefined;
+  // ec2instance
+  readonly ec2Instance?: ec2.IInstance;
 
 }// end of addRoutetoCloudWan
 
@@ -190,7 +192,9 @@ export enum Destination{
   /** route to the transitGateway that the vpc is attached to */
   TRANSITGATEWAY = 'TransitGateway',
   //** route to a gateway loadbalancer end point */
-  NWFIREWALL = 'NetworkFirewall'
+  NWFIREWALL = 'NetworkFirewall',
+  // endpoint
+  EC2_INSTANCE = 'EC2',
 }
 
 export interface PrefixCidr {
@@ -1067,6 +1071,26 @@ export class EnterpriseVpc extends constructs.Construct {
         });
       });
 
+    } else if (props.destination === Destination.EC2_INSTANCE ) {
+
+      if (!(props.ec2Instance)) {
+        throw new Error('if destination is an EC2_Instance then the instance must be supplied. ');
+      }
+
+      props.subnetGroups.forEach((subnetGroup) => {
+        props.cidr.forEach((destinationCidr) => {
+
+
+          this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet, index) => {
+
+            new ec2.CfnRoute(this, 'FirewallRoute-' + hashProps(props) + subnet.node.path.split('/').pop() + index, {
+              destinationCidrBlock: destinationCidr,
+              routeTableId: subnet.routeTable.routeTableId,
+              instanceId: props.ec2Instance?.instanceId,
+            });
+          });
+        });
+      });
 
     } else {
       throw new Error('Unsupported Destination for Route');

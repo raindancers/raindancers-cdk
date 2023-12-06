@@ -6539,6 +6539,7 @@ const addRoutesProps: enterprisevpc.AddRoutesProps = { ... }
 | <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesProps.property.destination">destination</a></code> | <code>raindancers-cdk.enterprisevpc.Destination</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesProps.property.subnetGroups">subnetGroups</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesProps.property.cloudwanName">cloudwanName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesProps.property.ec2Instance">ec2Instance</a></code> | <code>aws-cdk-lib.aws_ec2.IInstance</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesProps.property.networkFirewallArn">networkFirewallArn</a></code> | <code>string</code> | *No description.* |
 
 ---
@@ -6590,6 +6591,16 @@ public readonly cloudwanName: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `ec2Instance`<sup>Optional</sup> <a name="ec2Instance" id="raindancers-cdk.enterprisevpc.AddRoutesProps.property.ec2Instance"></a>
+
+```typescript
+public readonly ec2Instance: IInstance;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IInstance
 
 ---
 
@@ -12805,6 +12816,7 @@ The Destinations for Adding Routes.
 | <code><a href="#raindancers-cdk.enterprisevpc.Destination.CLOUDWAN">CLOUDWAN</a></code> | route to the cloudwan that the vpc is attached to. |
 | <code><a href="#raindancers-cdk.enterprisevpc.Destination.TRANSITGATEWAY">TRANSITGATEWAY</a></code> | route to the transitGateway that the vpc is attached to. |
 | <code><a href="#raindancers-cdk.enterprisevpc.Destination.NWFIREWALL">NWFIREWALL</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Destination.EC2_INSTANCE">EC2_INSTANCE</a></code> | *No description.* |
 
 ---
 
@@ -12823,6 +12835,11 @@ route to the transitGateway that the vpc is attached to.
 
 
 ##### `NWFIREWALL` <a name="NWFIREWALL" id="raindancers-cdk.enterprisevpc.Destination.NWFIREWALL"></a>
+
+---
+
+
+##### `EC2_INSTANCE` <a name="EC2_INSTANCE" id="raindancers-cdk.enterprisevpc.Destination.EC2_INSTANCE"></a>
 
 ---
 
