@@ -11,7 +11,9 @@ export enum DocumentType {
 }
 
 export enum DocumentFormat {
-  YAML = 'YAML'
+  YAML = 'YAML',
+  JSON = 'JSON',
+  TEXT = 'TEXT'
 }
 
 export interface DocumentProps {
@@ -45,7 +47,7 @@ export class Document extends constructs.Construct {
 
     new ssm.CfnDocument(this, 'SSMDocument', {
       documentType: props.documentType ?? DocumentType.AUTOMATION,
-      documentFormat: props.documentFormat ?? DocumentFormat.YAML,
+      documentFormat: props.documentFormat ?? DocumentFormat.JSON,
       name: props.name,
       content: document,
     });
