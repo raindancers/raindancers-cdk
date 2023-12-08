@@ -31,7 +31,7 @@ export class JoinActiveDirectory extends constructs.Construct {
 
     props.instances.forEach((instance) => {
 
-      const join = new cr.AwsCustomResource(this, `JoinDomain${instance.instanceId}`, {
+      const join = new cr.AwsCustomResource(this, `JoinDomain${instance.node.id}`, {
         onCreate: {
           service: 'SSM',
           action: 'startAutomationExecution',
