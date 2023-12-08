@@ -1,0 +1,1 @@
+export * as automation from './automation/index';
