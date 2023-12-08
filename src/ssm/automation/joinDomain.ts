@@ -29,9 +29,9 @@ export class JoinActiveDirectory extends constructs.Construct {
       path: path.join(__dirname, '../../../assets/ssmautomation/domainjoinunjoin.yaml'),
     });
 
-    props.instances.forEach((instance) => {
+    props.instances.forEach((instance, index) => {
 
-      const join = new cr.AwsCustomResource(this, `JoinDomain${instance.node.id}`, {
+      const join = new cr.AwsCustomResource(this, `JoinDomain${index}`, {
         onCreate: {
           service: 'SSM',
           action: 'startAutomationExecution',
