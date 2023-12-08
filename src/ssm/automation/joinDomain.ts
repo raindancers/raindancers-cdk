@@ -10,7 +10,6 @@ import { Document } from './document';
 
 export interface JoinActiveDirectoryAutomationProps {
   readonly name: string;
-  readonly documentPath: string;
   readonly domainName: string;
   readonly joinUsername: string;
   readonly joinUserPasswordSSMParameterName: string;
@@ -32,7 +31,7 @@ export class JoinActiveDirectory extends constructs.Construct {
 
     props.instances.forEach((instance) => {
 
-      const join = new cr.AwsCustomResource(this, `JoinDomain${instance}`, {
+      const join = new cr.AwsCustomResource(this, `JoinDomain${instance.instanceId}`, {
         onCreate: {
           service: 'SSM',
           action: 'startAutomationExecution',
