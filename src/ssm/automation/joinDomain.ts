@@ -26,7 +26,7 @@ export class JoinActiveDirectory extends constructs.Construct {
 
     const document = new Document(this, 'JoinActiveDirectorySSMDoc', {
       name: props.name,
-      path: path.join(__dirname, '../../../assets/ssmautomation/domainjoinunjoin.json'),
+      path: path.join(__dirname, '../../../assets/ssmautomation/domainjoin.json'),
     });
 
     props.instances.forEach((instance, index) => {
