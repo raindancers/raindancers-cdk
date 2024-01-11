@@ -137,7 +137,7 @@ export enum ApplianceMode {
  */
 export interface AttachToTransitGatewayProps {
   /** the TransitGateway to connect to */
-	 readonly transitGateway: transitGateway.TransitGateway;
+	 readonly transitGateway: transitGateway.ITransitGateway;
 	 /** Will this be connected in appliance mode ( used if you have Network Firewalls ) */
 	 readonly applicanceMode?: ApplianceMode | undefined;
 	 //** Which Subnet Groups will the attachments be made ( defaults to 'linknet') */
