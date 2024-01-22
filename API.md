@@ -5286,6 +5286,110 @@ Conditional: When true, the user accepted the responsibility for using imported 
 ---
 
 
+### StaticSite <a name="StaticSite" id="raindancers-cdk.cloudfront.StaticSite"></a>
+
+Static site infrastructure, which deploys site content to an S3 bucket.
+
+The site redirects from HTTP to HTTPS, using a CloudFront distribution,
+Route53 alias record, and ACM certificate.
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.cloudfront.StaticSite.Initializer"></a>
+
+```typescript
+import { cloudfront } from 'raindancers-cdk'
+
+new cloudfront.StaticSite(scope: Stack, id: string, props: StaticSiteProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudfront.StaticSite.Initializer.parameter.scope">scope</a></code> | <code>aws-cdk-lib.Stack</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudfront.StaticSite.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudfront.StaticSite.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.cloudfront.StaticSiteProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.cloudfront.StaticSite.Initializer.parameter.scope"></a>
+
+- *Type:* aws-cdk-lib.Stack
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudfront.StaticSite.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudfront.StaticSite.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudfront.StaticSiteProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudfront.StaticSite.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.cloudfront.StaticSite.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudfront.StaticSite.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.cloudfront.StaticSite.isConstruct"></a>
+
+```typescript
+import { cloudfront } from 'raindancers-cdk'
+
+cloudfront.StaticSite.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.cloudfront.StaticSite.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudfront.StaticSite.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.cloudfront.StaticSite.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
 ### SubnetGroup <a name="SubnetGroup" id="raindancers-cdk.enterprisevpc.SubnetGroup"></a>
 
 #### Initializers <a name="Initializers" id="raindancers-cdk.enterprisevpc.SubnetGroup.Initializer"></a>
@@ -10806,6 +10910,67 @@ public readonly tcpFlags: TCPFlagFieldProperty[];
 ```
 
 - *Type:* aws-cdk-lib.aws_networkfirewall.CfnRuleGroup.TCPFlagFieldProperty[]
+
+---
+
+### StaticSiteProps <a name="StaticSiteProps" id="raindancers-cdk.cloudfront.StaticSiteProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudfront.StaticSiteProps.Initializer"></a>
+
+```typescript
+import { cloudfront } from 'raindancers-cdk'
+
+const staticSiteProps: cloudfront.StaticSiteProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudfront.StaticSiteProps.property.delegationRole">delegationRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudfront.StaticSiteProps.property.domainName">domainName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudfront.StaticSiteProps.property.parentZone">parentZone</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudfront.StaticSiteProps.property.sitePath">sitePath</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `delegationRole`<sup>Required</sup> <a name="delegationRole" id="raindancers-cdk.cloudfront.StaticSiteProps.property.delegationRole"></a>
+
+```typescript
+public readonly delegationRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+---
+
+##### `domainName`<sup>Required</sup> <a name="domainName" id="raindancers-cdk.cloudfront.StaticSiteProps.property.domainName"></a>
+
+```typescript
+public readonly domainName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `parentZone`<sup>Required</sup> <a name="parentZone" id="raindancers-cdk.cloudfront.StaticSiteProps.property.parentZone"></a>
+
+```typescript
+public readonly parentZone: string;
+```
+
+- *Type:* string
+
+---
+
+##### `sitePath`<sup>Required</sup> <a name="sitePath" id="raindancers-cdk.cloudfront.StaticSiteProps.property.sitePath"></a>
+
+```typescript
+public readonly sitePath: string;
+```
+
+- *Type:* string
 
 ---
 

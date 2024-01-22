@@ -15,3 +15,4 @@ export * as dns from './network/dns/index';
 export * as endpoints from './network/endpoints/index';
 export * as enterprisevpc from './network/enterprisevpc/index';
 export * as ssm from './ssm/index';
+export * as cloudfront from './cloudfront/index';
