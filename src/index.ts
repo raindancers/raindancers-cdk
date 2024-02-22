@@ -16,3 +16,4 @@ export * as endpoints from './network/endpoints/index';
 export * as enterprisevpc from './network/enterprisevpc/index';
 export * as ssm from './ssm/index';
 export * as cloudfront from './cloudfront/index';
+export * as microsoft from './microsoft/index';

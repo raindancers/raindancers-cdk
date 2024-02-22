@@ -433,6 +433,230 @@ public readonly provider: Provider;
 ---
 
 
+### ADDomainJoinedWindowsNode <a name="ADDomainJoinedWindowsNode" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode"></a>
+
+An AD Domain Node represents one Windows EC2 instance configured with Active Directory.
+
+The DomainWindowsNode can be customized to different instance sizes and additional permissions set just like any other EC2 Instance.
+You can use this construct to run elevated domain tasks with domain permissions or run your application in a single instance setup.
+* The machine will be joined to the provided Active Directory domain using a custom CloudFormation bootstrap that will wait until the required reboot to join the domain. Then it will register the machine in SSM and pull tasks from the SSM State manager.
+* You can send tasks to that machine using the provided methods: runPsCommands() and runPSwithDomainAdmin()
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.Initializer"></a>
+
+```typescript
+import { microsoft } from 'raindancers-cdk'
+
+new microsoft.ADDomainJoinedWindowsNode(scope: Construct, id: string, props: IADJoinedNodeProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.microsoft.IADJoinedNodeProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.microsoft.IADJoinedNodeProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.runPsCommands">runPsCommands</a></code> | Running PowerShell scripts on the Node with SSM Document. |
+| <code><a href="#raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.runPSwithDomainAdmin">runPSwithDomainAdmin</a></code> | Running PowerShell scripts on the Node with SSM Document with Domain Admin (Using the Secret used to join the machine to the domain) i.e: runPsCommands(["Write-host 'Hello world'", "Write-host 'Second command'"], "myScript") The provided psCommands will be stored in C:\Scripts and will be run with scheduled task with Domain Admin rights. |
+| <code><a href="#raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.runShellCommands">runShellCommands</a></code> | Running bash scripts on the Node with SSM Document. |
+| <code><a href="#raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.startInstance">startInstance</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `runPsCommands` <a name="runPsCommands" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.runPsCommands"></a>
+
+```typescript
+public runPsCommands(psCommands: string[], id: string): void
+```
+
+Running PowerShell scripts on the Node with SSM Document.
+
+i.e: runPsCommands(["Write-host 'Hello world'", "Write-host 'Second command'"], "myScript")
+
+###### `psCommands`<sup>Required</sup> <a name="psCommands" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.runPsCommands.parameter.psCommands"></a>
+
+- *Type:* string[]
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.runPsCommands.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `runPSwithDomainAdmin` <a name="runPSwithDomainAdmin" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.runPSwithDomainAdmin"></a>
+
+```typescript
+public runPSwithDomainAdmin(psCommands: string[], id: string): void
+```
+
+Running PowerShell scripts on the Node with SSM Document with Domain Admin (Using the Secret used to join the machine to the domain) i.e: runPsCommands(["Write-host 'Hello world'", "Write-host 'Second command'"], "myScript") The provided psCommands will be stored in C:\Scripts and will be run with scheduled task with Domain Admin rights.
+
+###### `psCommands`<sup>Required</sup> <a name="psCommands" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.runPSwithDomainAdmin.parameter.psCommands"></a>
+
+- *Type:* string[]
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.runPSwithDomainAdmin.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `runShellCommands` <a name="runShellCommands" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.runShellCommands"></a>
+
+```typescript
+public runShellCommands(ShellCommands: string[], id: string): void
+```
+
+Running bash scripts on the Node with SSM Document.
+
+i.e: runPsCommands(["echo 'hello world'", "echo 'Second command'"], "myScript")
+
+###### `ShellCommands`<sup>Required</sup> <a name="ShellCommands" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.runShellCommands.parameter.ShellCommands"></a>
+
+- *Type:* string[]
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.runShellCommands.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `startInstance` <a name="startInstance" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.startInstance"></a>
+
+```typescript
+public startInstance(): void
+```
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.isConstruct"></a>
+
+```typescript
+import { microsoft } from 'raindancers-cdk'
+
+microsoft.ADDomainJoinedWindowsNode.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.property.instance">instance</a></code> | <code>aws-cdk-lib.aws_ec2.Instance</code> | *No description.* |
+| <code><a href="#raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.property.nodeRole">nodeRole</a></code> | <code>aws-cdk-lib.aws_iam.Role</code> | *No description.* |
+| <code><a href="#raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+| <code><a href="#raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.property.passwordObject">passwordObject</a></code> | <code>aws-cdk-lib.aws_secretsmanager.ISecret</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `instance`<sup>Required</sup> <a name="instance" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.property.instance"></a>
+
+```typescript
+public readonly instance: Instance;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.Instance
+
+---
+
+##### `nodeRole`<sup>Required</sup> <a name="nodeRole" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.property.nodeRole"></a>
+
+```typescript
+public readonly nodeRole: Role;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.Role
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+##### `passwordObject`<sup>Optional</sup> <a name="passwordObject" id="raindancers-cdk.microsoft.ADDomainJoinedWindowsNode.property.passwordObject"></a>
+
+```typescript
+public readonly passwordObject: ISecret;
+```
+
+- *Type:* aws-cdk-lib.aws_secretsmanager.ISecret
+
+---
+
+
 ### ApplySCPOnAccountCreation <a name="ApplySCPOnAccountCreation" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation"></a>
 
 Applys SCP to account when it is created.
@@ -12231,6 +12455,184 @@ public readonly statelessRuleProperty: StatelessRuleProperty;
 
 
 ## Protocols <a name="Protocols" id="Protocols"></a>
+
+### IADJoinedNodeProps <a name="IADJoinedNodeProps" id="raindancers-cdk.microsoft.IADJoinedNodeProps"></a>
+
+- *Implemented By:* raindancers-cdk.microsoft.IADJoinedNodeProps
+
+The properties of an DomainWindowsNodeProps, requires Active Directory parameter to read the Secret to join the domain Default setting: Domain joined, m5.2xlarge, latest windows, Managed by SSM.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.domainName">domainName</a></code> | <code>string</code> | the domain name. |
+| <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.hostname">hostname</a></code> | <code>string</code> | The hostname to use for the instance. |
+| <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.instanceType">instanceType</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceType</code> | The EC2 Instance type to use. |
+| <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.ouPath">ouPath</a></code> | <code>string</code> | Fully Distinguished Name of the OU. |
+| <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.passwordObject">passwordObject</a></code> | <code>aws-cdk-lib.aws_secretsmanager.ISecret</code> | the secrect that contains the credentials of a AD user than has permissions to join an instance to the domain. |
+| <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.subnets">subnets</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | Where the instance should be launched. |
+| <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | The VPC to use. |
+| <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.iamManagedPoliciesList">iamManagedPoliciesList</a></code> | <code>aws-cdk-lib.aws_iam.IManagedPolicy[]</code> | IAM Instance role permissions. |
+| <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.imdsv2">imdsv2</a></code> | <code>boolean</code> | Enforce the use of imdsv2. |
+| <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.machineImage">machineImage</a></code> | <code>aws-cdk-lib.aws_ec2.IMachineImage</code> | The name of the AMI to search in SSM (ec2.LookupNodeImage) supports Regex. |
+| <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.securityGroup">securityGroup</a></code> | <code>aws-cdk-lib.aws_ec2.SecurityGroup</code> | optionally add a securityGroup. |
+| <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.userData">userData</a></code> | <code>string</code> | Specific UserData to use. |
+
+---
+
+##### `domainName`<sup>Required</sup> <a name="domainName" id="raindancers-cdk.microsoft.IADJoinedNodeProps.property.domainName"></a>
+
+```typescript
+public readonly domainName: string;
+```
+
+- *Type:* string
+
+the domain name.
+
+---
+
+##### `hostname`<sup>Required</sup> <a name="hostname" id="raindancers-cdk.microsoft.IADJoinedNodeProps.property.hostname"></a>
+
+```typescript
+public readonly hostname: string;
+```
+
+- *Type:* string
+
+The hostname to use for the instance.
+
+---
+
+##### `instanceType`<sup>Required</sup> <a name="instanceType" id="raindancers-cdk.microsoft.IADJoinedNodeProps.property.instanceType"></a>
+
+```typescript
+public readonly instanceType: InstanceType;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.InstanceType
+
+The EC2 Instance type to use.
+
+---
+
+##### `ouPath`<sup>Required</sup> <a name="ouPath" id="raindancers-cdk.microsoft.IADJoinedNodeProps.property.ouPath"></a>
+
+```typescript
+public readonly ouPath: string;
+```
+
+- *Type:* string
+
+Fully Distinguished Name of the OU.
+
+---
+
+##### `passwordObject`<sup>Required</sup> <a name="passwordObject" id="raindancers-cdk.microsoft.IADJoinedNodeProps.property.passwordObject"></a>
+
+```typescript
+public readonly passwordObject: ISecret;
+```
+
+- *Type:* aws-cdk-lib.aws_secretsmanager.ISecret
+
+the secrect that contains the credentials of a AD user than has permissions to join an instance to the domain.
+
+---
+
+##### `subnets`<sup>Required</sup> <a name="subnets" id="raindancers-cdk.microsoft.IADJoinedNodeProps.property.subnets"></a>
+
+```typescript
+public readonly subnets: SubnetSelection;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.SubnetSelection
+- *Default:* Private.
+
+Where the instance should be launched.
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.microsoft.IADJoinedNodeProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+The VPC to use.
+
+---
+
+##### `iamManagedPoliciesList`<sup>Optional</sup> <a name="iamManagedPoliciesList" id="raindancers-cdk.microsoft.IADJoinedNodeProps.property.iamManagedPoliciesList"></a>
+
+```typescript
+public readonly iamManagedPoliciesList: IManagedPolicy[];
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IManagedPolicy[]
+- *Default:* 'AmazonSSMManagedInstanceCore, AmazonSSMDirectoryServiceAccess'.
+
+IAM Instance role permissions.
+
+---
+
+##### `imdsv2`<sup>Optional</sup> <a name="imdsv2" id="raindancers-cdk.microsoft.IADJoinedNodeProps.property.imdsv2"></a>
+
+```typescript
+public readonly imdsv2: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Enforce the use of imdsv2.
+
+---
+
+##### `machineImage`<sup>Optional</sup> <a name="machineImage" id="raindancers-cdk.microsoft.IADJoinedNodeProps.property.machineImage"></a>
+
+```typescript
+public readonly machineImage: IMachineImage;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IMachineImage
+- *Default:* 'Windows_Server-2022-English-Full'
+
+The name of the AMI to search in SSM (ec2.LookupNodeImage) supports Regex.
+
+---
+
+##### `securityGroup`<sup>Optional</sup> <a name="securityGroup" id="raindancers-cdk.microsoft.IADJoinedNodeProps.property.securityGroup"></a>
+
+```typescript
+public readonly securityGroup: SecurityGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.SecurityGroup
+- *Default:* a new group will be added.
+
+optionally add a securityGroup.
+
+---
+
+##### `userData`<sup>Optional</sup> <a name="userData" id="raindancers-cdk.microsoft.IADJoinedNodeProps.property.userData"></a>
+
+```typescript
+public readonly userData: string;
+```
+
+- *Type:* string
+- *Default:* 'undefined'
+
+Specific UserData to use.
+
+The UserData may still be mutated after creation.
+
+---
 
 ### IAssignment <a name="IAssignment" id="raindancers-cdk.sso.IAssignment"></a>
 
