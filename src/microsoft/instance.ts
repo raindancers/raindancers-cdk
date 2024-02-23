@@ -137,7 +137,7 @@ export class ADDomainJoinedWindowsNode extends Construct {
         domainJoin: new ec2.InitConfig([
           ec2.InitCommand.shellCommand(
             // Step1 : Domain Join using the Secret provided
-            `powershell.exe -command  "Invoke-Command -ScriptBlock {[string]$SecretAD  = '${this.passwordObject.secretName}' ;$SecretObj = Get-SECSecretValue -SecretId $SecretAD ;[PSCustomObject]$Secret = ($SecretObj.SecretString  | ConvertFrom-Json) ;$password   = $Secret.pass | ConvertTo-SecureString -asPlainText -Force ;$username   = $Secret.user ;$credential = New-Object System.Management.Automation.PSCredential($username,$password) ;Add-Computer -DomainName ${props.domainName} -OUPath "${props.ouPath}" -NewName ${props.hostname} -Credential $credential; Restart-Computer -Force}"`,
+            `powershell.exe -command  "Invoke-Command -ScriptBlock {[string]$SecretAD  = '${this.passwordObject.secretName}' ;$SecretObj = Get-SECSecretValue -SecretId $SecretAD ;[string]$OUPathString = "${props.ouPath}" ;[PSCustomObject]$Secret = ($SecretObj.SecretString  | ConvertFrom-Json) ;$password   = $Secret.pass | ConvertTo-SecureString -asPlainText -Force ;$username   = $Secret.user ;$credential = New-Object System.Management.Automation.PSCredential($username,$password) ;Add-Computer -DomainName ${props.domainName} -OUPath $OUPathString -NewName ${props.hostname} -Credential $credential; Restart-Computer -Force}"`,
             {
               waitAfterCompletion: ec2.InitCommandWaitDuration.forever(),
             },
