@@ -113,7 +113,7 @@ export class ADDomainJoinedWindowsNode extends Construct {
     props.userData = props.userData ?? '';
 
     // escape commas in props.OuPath with a ` for powershell insanity
-    props.ouPath = props.ouPath.replace(/,/g, '`');
+    props.ouPath = props.ouPath.replace(/,/g, '`,');
 
 
     this.nodeRole = new iam.Role(this, 'iam-Role', {
