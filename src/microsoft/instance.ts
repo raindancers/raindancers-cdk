@@ -168,7 +168,7 @@ export class ADDomainJoinedWindowsNode extends Construct {
       embedFingerprint: false,
     };
 
-    this.instance = new ec2.Instance(this, 'Domain-Instance', {
+    this.instance = new ec2.Instance(this, `adjoined-${props.hostname}`, {
       instanceType: props.instanceType,
       machineImage: props.machineImage ?? ec2.MachineImage.latestWindows(ec2.WindowsVersion.WINDOWS_SERVER_2022_ENGLISH_FULL_BASE),
       vpc: this.vpc,
