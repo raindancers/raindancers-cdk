@@ -1,12 +1,9 @@
+import * as core from 'aws-cdk-lib';
 import {
   aws_iam as iam,
   aws_ec2 as ec2,
   aws_ssm as ssm,
-  CfnOutput,
-  aws_ec2,
-  Stack,
-  Fn,
-  aws_secretsmanager,
+  aws_secretsmanager as sm,
 } from 'aws-cdk-lib';
 import { ISecret } from 'aws-cdk-lib/aws-secretsmanager';
 import {
@@ -59,7 +56,7 @@ export interface IADJoinedNodeProps {
   /**
      * the secrect that contains the credentials of a AD user than has permissions to join an instance to the domain
      */
-  passwordObject: aws_secretsmanager.ISecret;
+  passwordObject: sm.ISecret;
   /**
      * optionally add a securityGroup
      * @default a new group will be added.
@@ -150,8 +147,8 @@ export class ADDomainJoinedWindowsNode extends Construct {
           ec2.InitCommand.shellCommand(
             // Step 3: CloudFormation signal
             `cfn-signal.exe --success=true --resource=${workerName} --stack=${
-              Stack.of(this).stackName
-            } --region=${Stack.of(this).region}`,
+              core.Stack.of(this).stackName
+            } --region=${core.Stack.of(this).region}`,
             {
               waitAfterCompletion: ec2.InitCommandWaitDuration.none(),
             },
@@ -164,7 +161,7 @@ export class ADDomainJoinedWindowsNode extends Construct {
       platform: ec2.OperatingSystemType.WINDOWS,
       configSets: ['domainJoinRestart'],
       instanceRole: this.nodeRole,
-      userData: aws_ec2.UserData.custom(''),
+      userData: ec2.UserData.custom(''),
       embedFingerprint: false,
     };
 
@@ -186,11 +183,11 @@ export class ADDomainJoinedWindowsNode extends Construct {
     CfnInstance.overrideLogicalId(workerName);
 
     // Override the default UserData script to execute only the cfn-init (without cfn-signal) as we want cfn-signal to be executed after reboot. More details here: https://aws.amazon.com/premiumsupport/knowledge-center/create-complete-bootstrapping/
-    CfnInstance.userData = Fn.base64(
+    CfnInstance.userData = core.Fn.base64(
       `<powershell>cfn-init.exe -v -s ${
-        Stack.of(this).stackName
+        core.Stack.of(this).stackName
       } -r ${workerName} --configsets=domainJoinRestart --region ${
-        Stack.of(this).region
+        core.Stack.of(this).region
       }</powershell>`,
     );
 
@@ -208,7 +205,7 @@ export class ADDomainJoinedWindowsNode extends Construct {
       this.instance.addUserData(props.userData);
     }
 
-    new CfnOutput(this, 'InstanceId', {
+    new core.CfnOutput(this, 'InstanceId', {
       value: `InstanceId: ${this.instance.instanceId}; dnsName: ${this.instance.instancePublicDnsName}`,
     });
   }
@@ -260,8 +257,8 @@ export class ADDomainJoinedWindowsNode extends Construct {
       `[string]$SecretAD  = '${this.passwordObject!.secretName}'`,
       '$SecretObj = Get-SECSecretValue -SecretId $SecretAD',
       '[PSCustomObject]$Secret = ($SecretObj.SecretString  | ConvertFrom-Json)',
-      '$password   = $Secret.Password | ConvertTo-SecureString -asPlainText -Force',
-      "$username   = 'Admin'",
+      '$password   = $Secret.pass | ConvertTo-SecureString -asPlainText -Force',
+      '$username   = $Secret.user',
       '$domain_admin_credential = New-Object System.Management.Automation.PSCredential($username,$password)',
       'New-Item -ItemType Directory -Path c:\\Scripts',
       '$tempScriptPath = "C:\\Scripts\\$PID.ps1"',
@@ -270,7 +267,7 @@ export class ADDomainJoinedWindowsNode extends Construct {
       '$action = New-ScheduledTaskAction -Execute "Powershell.exe" -Argument $tempScriptPath',
       '$trigger =  New-ScheduledTaskTrigger -Once -At (get-date).AddSeconds(10); ',
       '$trigger.EndBoundary = (get-date).AddSeconds(60).ToString("s") ',
-      'Register-ScheduledTask -Force -Action $action -Trigger $trigger -TaskName "Task $PID to run with DomainAdmin" -Description "Workaround to run the code with domain admin" -RunLevel Highest -User $username -Password $Secret.Password',
+      'Register-ScheduledTask -Force -Action $action -Trigger $trigger -TaskName "Task $PID to run with DomainAdmin" -Description "Workaround to run the code with domain admin" -RunLevel Highest -User $username -Password $Secret.pass',
     );
 
     new ssm.CfnAssociation(this, id, {
