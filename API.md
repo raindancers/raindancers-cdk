@@ -3733,6 +3733,116 @@ public readonly function: Function;
 ---
 
 
+### ExtraSubnets <a name="ExtraSubnets" id="raindancers-cdk.enterprisevpc.ExtraSubnets"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.enterprisevpc.ExtraSubnets.Initializer"></a>
+
+```typescript
+import { enterprisevpc } from 'raindancers-cdk'
+
+new enterprisevpc.ExtraSubnets(scope: Construct, id: string, props: ExtraSubnetsProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.ExtraSubnets.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.ExtraSubnets.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.ExtraSubnets.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.enterprisevpc.ExtraSubnetsProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.enterprisevpc.ExtraSubnets.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.enterprisevpc.ExtraSubnets.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.enterprisevpc.ExtraSubnets.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.enterprisevpc.ExtraSubnetsProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.ExtraSubnets.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.enterprisevpc.ExtraSubnets.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.ExtraSubnets.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.enterprisevpc.ExtraSubnets.isConstruct"></a>
+
+```typescript
+import { enterprisevpc } from 'raindancers-cdk'
+
+enterprisevpc.ExtraSubnets.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.enterprisevpc.ExtraSubnets.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.ExtraSubnets.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.enterprisevpc.ExtraSubnets.property.subnets">subnets</a></code> | <code>aws-cdk-lib.aws_ec2.ISubnet[]</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.enterprisevpc.ExtraSubnets.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `subnets`<sup>Required</sup> <a name="subnets" id="raindancers-cdk.enterprisevpc.ExtraSubnets.property.subnets"></a>
+
+```typescript
+public readonly subnets: ISubnet[];
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISubnet[]
+
+---
+
+
 ### FirewallPolicy <a name="FirewallPolicy" id="raindancers-cdk.nwFirewall.FirewallPolicy"></a>
 
 #### Initializers <a name="Initializers" id="raindancers-cdk.nwFirewall.FirewallPolicy.Initializer"></a>
@@ -9308,6 +9418,111 @@ public readonly subnetGroups: SubnetGroup[];
 
 ---
 
+### ExtraSubnetsProps <a name="ExtraSubnetsProps" id="raindancers-cdk.enterprisevpc.ExtraSubnetsProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.enterprisevpc.ExtraSubnetsProps.Initializer"></a>
+
+```typescript
+import { enterprisevpc } from 'raindancers-cdk'
+
+const extraSubnetsProps: enterprisevpc.ExtraSubnetsProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.ExtraSubnetsProps.property.addToSubnetGroupName">addToSubnetGroupName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.ExtraSubnetsProps.property.ipamScopeId">ipamScopeId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.ExtraSubnetsProps.property.ipamSourcePoolId">ipamSourcePoolId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.ExtraSubnetsProps.property.subnetSize">subnetSize</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.ExtraSubnetsProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.ExtraSubnetsProps.property.shareToAccounts">shareToAccounts</a></code> | <code>aws-cdk-lib.aws_iam.AccountPrincipal[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.ExtraSubnetsProps.property.vpcAccount">vpcAccount</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.ExtraSubnetsProps.property.vpcRegion">vpcRegion</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `addToSubnetGroupName`<sup>Required</sup> <a name="addToSubnetGroupName" id="raindancers-cdk.enterprisevpc.ExtraSubnetsProps.property.addToSubnetGroupName"></a>
+
+```typescript
+public readonly addToSubnetGroupName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `ipamScopeId`<sup>Required</sup> <a name="ipamScopeId" id="raindancers-cdk.enterprisevpc.ExtraSubnetsProps.property.ipamScopeId"></a>
+
+```typescript
+public readonly ipamScopeId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `ipamSourcePoolId`<sup>Required</sup> <a name="ipamSourcePoolId" id="raindancers-cdk.enterprisevpc.ExtraSubnetsProps.property.ipamSourcePoolId"></a>
+
+```typescript
+public readonly ipamSourcePoolId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `subnetSize`<sup>Required</sup> <a name="subnetSize" id="raindancers-cdk.enterprisevpc.ExtraSubnetsProps.property.subnetSize"></a>
+
+```typescript
+public readonly subnetSize: number;
+```
+
+- *Type:* number
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.enterprisevpc.ExtraSubnetsProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+##### `shareToAccounts`<sup>Optional</sup> <a name="shareToAccounts" id="raindancers-cdk.enterprisevpc.ExtraSubnetsProps.property.shareToAccounts"></a>
+
+```typescript
+public readonly shareToAccounts: AccountPrincipal[];
+```
+
+- *Type:* aws-cdk-lib.aws_iam.AccountPrincipal[]
+
+---
+
+##### `vpcAccount`<sup>Optional</sup> <a name="vpcAccount" id="raindancers-cdk.enterprisevpc.ExtraSubnetsProps.property.vpcAccount"></a>
+
+```typescript
+public readonly vpcAccount: string;
+```
+
+- *Type:* string
+
+---
+
+##### `vpcRegion`<sup>Optional</sup> <a name="vpcRegion" id="raindancers-cdk.enterprisevpc.ExtraSubnetsProps.property.vpcRegion"></a>
+
+```typescript
+public readonly vpcRegion: string;
+```
+
+- *Type:* string
+
+---
+
 ### FilterProps <a name="FilterProps" id="raindancers-cdk.orgTools.FilterProps"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.orgTools.FilterProps.Initializer"></a>
@@ -10904,6 +11119,7 @@ const shareSubnetGroupProps: enterprisevpc.ShareSubnetGroupProps = { ... }
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.property.accounts">accounts</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.property.subnetGroup">subnetGroup</a></code> | <code>raindancers-cdk.enterprisevpc.SubnetGroup</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.property.subnetGroups">subnetGroups</a></code> | <code>raindancers-cdk.enterprisevpc.SubnetGroup[]</code> | *No description.* |
 
 ---
 
@@ -10917,13 +11133,23 @@ public readonly accounts: string[];
 
 ---
 
-##### `subnetGroup`<sup>Required</sup> <a name="subnetGroup" id="raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.property.subnetGroup"></a>
+##### `subnetGroup`<sup>Optional</sup> <a name="subnetGroup" id="raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.property.subnetGroup"></a>
 
 ```typescript
 public readonly subnetGroup: SubnetGroup;
 ```
 
 - *Type:* raindancers-cdk.enterprisevpc.SubnetGroup
+
+---
+
+##### `subnetGroups`<sup>Optional</sup> <a name="subnetGroups" id="raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.property.subnetGroups"></a>
+
+```typescript
+public readonly subnetGroups: SubnetGroup[];
+```
+
+- *Type:* raindancers-cdk.enterprisevpc.SubnetGroup[]
 
 ---
 

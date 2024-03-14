@@ -96,7 +96,8 @@ export interface RouterGroup {
 }
 
 export interface ShareSubnetGroupProps {
-  readonly subnetGroup: SubnetGroup;
+  readonly subnetGroup?: SubnetGroup;
+  readonly subnetGroups?: SubnetGroup[];
   readonly accounts: string[];
 }
 
@@ -847,25 +848,93 @@ export class EnterpriseVpc extends constructs.Construct {
    * Share a subnetGroup with another AWS Account.
    * @param props ShareSubnetGroup
    */
+  // public shareSubnetGroup (props: ShareSubnetGroupProps): void {
+
+  //   var subnetarns: string[] = [];
+
+  //   // add a little bit of error checking
+  //   if (props.subnetGroup || props.subnetGroups) {
+  //     throw new Error('Either subnetGroup or subnetGroups must be defined');
+  //   }
+
+  //   if (props.subnetGroup && props.subnetGroups) {
+  //     throw new Error('Only one of subnetGroup or subnetGroups can be defined');
+  //   }
+
+
+  //   if (props.subnetGroup) {
+
+  //     const selection = this.vpc.selectSubnets({
+  //       subnetGroupName: props.subnetGroup.subnet.name,
+  //     });
+
+  //     selection.subnets.forEach((subnet) => {
+  //       subnetarns.push(`arn:${cdk.Aws.PARTITION}:ec2:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:subnet/${subnet.subnetId}`);
+  //     });
+
+  //     new ram.CfnResourceShare(this, `ramshare${props.subnetGroup.subnet.name}$`, {
+  //       name: `shareSubnetGroup-${props.subnetGroup.subnet.name}`,
+  //       allowExternalPrincipals: false,
+  //       principals: props.accounts,
+  //       resourceArns: subnetarns,
+  //     });
+  //   }
+  // }
+
   public shareSubnetGroup (props: ShareSubnetGroupProps): void {
 
-    var subnetarns: string[] = [];
 
-    const selection = this.vpc.selectSubnets({
-      subnetGroupName: props.subnetGroup.subnet.name,
-    });
+    if (props.subnetGroup && props.subnetGroups) {
+      throw Error('Only one of subnetGroup or subnetGroups can be defined');
+    }
 
-    selection.subnets.forEach((subnet) => {
-      subnetarns.push(`arn:${cdk.Aws.PARTITION}:ec2:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:subnet/${subnet.subnetId}`);
-    });
+    if (!(props.subnetGroup || props.subnetGroups )) {
+      throw Error('Either subnetGroup or subnetGroups must be defined');
+    }
 
-    new ram.CfnResourceShare(this, `ramshare${props.subnetGroup.subnet.name}$`, {
-      name: `shareSubnetGroup-${props.subnetGroup.subnet.name}`,
-      allowExternalPrincipals: false,
-      principals: props.accounts,
-      resourceArns: subnetarns,
-    });
+    if (props.subnetGroup) {
+      var subnetarns: string[] = [];
+
+      const selection = this.vpc.selectSubnets({
+        subnetGroupName: props.subnetGroup!.subnet.name,
+      });
+
+      selection.subnets.forEach((subnet) => {
+        subnetarns.push(`arn:${cdk.Aws.PARTITION}:ec2:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:subnet/${subnet.subnetId}`);
+      });
+
+      new ram.CfnResourceShare(this, `ramshare${props.subnetGroup!.subnet.name}$`, {
+        name: `shareSubnetGroup-${props.subnetGroup!.subnet.name}`,
+        allowExternalPrincipals: false,
+        principals: props.accounts,
+        resourceArns: subnetarns,
+      });
+    }
+
+    if (props.subnetGroups) {
+
+      var subnetarns: string[] = [];
+
+      props.subnetGroups.forEach((group) => {
+        const selection = this.vpc.selectSubnets({
+          subnetGroupName: group.subnet.name,
+        });
+        selection.subnets.forEach((subnet) => {
+          subnetarns.push(`arn:${cdk.Aws.PARTITION}:ec2:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:subnet/${subnet.subnetId}`);
+        });
+      });
+
+      new ram.CfnResourceShare(this, `ramshare${props.subnetGroup!.subnet.name}$`, {
+        name: `shareSubnetGroup-${props.subnetGroup!.subnet.name}`,
+        allowExternalPrincipals: false,
+        principals: props.accounts,
+        resourceArns: subnetarns,
+      });
+
+    }
+
   }
+
 
   /**
 	 * Enable CloudWanRoutingProtocol
