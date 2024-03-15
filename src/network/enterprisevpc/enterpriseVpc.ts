@@ -99,6 +99,7 @@ export interface ShareSubnetGroupProps {
   readonly subnetGroup?: SubnetGroup;
   readonly subnetGroups?: SubnetGroup[];
   readonly accounts: string[];
+  readonly shareName?: string;
 }
 
 export interface AddR53ZoneProps {
@@ -903,8 +904,8 @@ export class EnterpriseVpc extends constructs.Construct {
         subnetarns.push(`arn:${cdk.Aws.PARTITION}:ec2:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:subnet/${subnet.subnetId}`);
       });
 
-      new ram.CfnResourceShare(this, `ramshare${props.subnetGroup!.subnet.name}$`, {
-        name: `shareSubnetGroup-${props.subnetGroup!.subnet.name}`,
+      new ram.CfnResourceShare(this, props.shareName ?? `ramshare${props.subnetGroup.subnet.name}`, {
+        name: props.shareName ?? `ramshare${props.subnetGroup.subnet.name}`,
         allowExternalPrincipals: false,
         principals: props.accounts,
         resourceArns: subnetarns,
@@ -912,6 +913,10 @@ export class EnterpriseVpc extends constructs.Construct {
     }
 
     if (props.subnetGroups) {
+
+      if (!(props.shareName)) {
+        throw Error('shareName must be defined, when sharing to multiple subnet Groups');
+      }
 
       var subnetarns: string[] = [];
 
@@ -924,8 +929,8 @@ export class EnterpriseVpc extends constructs.Construct {
         });
       });
 
-      new ram.CfnResourceShare(this, `ramshare${props.subnetGroup!.subnet.name}$`, {
-        name: `shareSubnetGroup-${props.subnetGroup!.subnet.name}`,
+      new ram.CfnResourceShare(this, `${props.shareName}`, {
+        name: `shareSubnetGroup-${props.shareName}`,
         allowExternalPrincipals: false,
         principals: props.accounts,
         resourceArns: subnetarns,

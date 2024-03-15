@@ -11118,6 +11118,7 @@ const shareSubnetGroupProps: enterprisevpc.ShareSubnetGroupProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.property.accounts">accounts</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.property.shareName">shareName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.property.subnetGroup">subnetGroup</a></code> | <code>raindancers-cdk.enterprisevpc.SubnetGroup</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.property.subnetGroups">subnetGroups</a></code> | <code>raindancers-cdk.enterprisevpc.SubnetGroup[]</code> | *No description.* |
 
@@ -11130,6 +11131,16 @@ public readonly accounts: string[];
 ```
 
 - *Type:* string[]
+
+---
+
+##### `shareName`<sup>Optional</sup> <a name="shareName" id="raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.property.shareName"></a>
+
+```typescript
+public readonly shareName: string;
+```
+
+- *Type:* string
 
 ---
 
