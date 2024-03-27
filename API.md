@@ -1862,6 +1862,116 @@ public readonly snsTopic: Topic;
 ---
 
 
+### ComponentLaunchTemplate <a name="ComponentLaunchTemplate" id="raindancers-cdk.zscaler.ComponentLaunchTemplate"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.zscaler.ComponentLaunchTemplate.Initializer"></a>
+
+```typescript
+import { zscaler } from 'raindancers-cdk'
+
+new zscaler.ComponentLaunchTemplate(scope: Construct, id: string, props: LaunchTemplateProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.zscaler.ComponentLaunchTemplate.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.zscaler.ComponentLaunchTemplate.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.zscaler.ComponentLaunchTemplate.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.zscaler.LaunchTemplateProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.zscaler.ComponentLaunchTemplate.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.zscaler.ComponentLaunchTemplate.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.zscaler.ComponentLaunchTemplate.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.zscaler.LaunchTemplateProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.zscaler.ComponentLaunchTemplate.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.zscaler.ComponentLaunchTemplate.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.zscaler.ComponentLaunchTemplate.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.zscaler.ComponentLaunchTemplate.isConstruct"></a>
+
+```typescript
+import { zscaler } from 'raindancers-cdk'
+
+zscaler.ComponentLaunchTemplate.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.zscaler.ComponentLaunchTemplate.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.zscaler.ComponentLaunchTemplate.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.zscaler.ComponentLaunchTemplate.property.launchTemplate">launchTemplate</a></code> | <code>aws-cdk-lib.aws_ec2.LaunchTemplate</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.zscaler.ComponentLaunchTemplate.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `launchTemplate`<sup>Required</sup> <a name="launchTemplate" id="raindancers-cdk.zscaler.ComponentLaunchTemplate.property.launchTemplate"></a>
+
+```typescript
+public readonly launchTemplate: LaunchTemplate;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.LaunchTemplate
+
+---
+
+
 ### ConditionalForwarder <a name="ConditionalForwarder" id="raindancers-cdk.dns.ConditionalForwarder"></a>
 
 #### Initializers <a name="Initializers" id="raindancers-cdk.dns.ConditionalForwarder.Initializer"></a>
@@ -6400,6 +6510,116 @@ A Name for the TransitGateway.
 ---
 
 
+### ZscalerAppSegment <a name="ZscalerAppSegment" id="raindancers-cdk.zscaler.ZscalerAppSegment"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.zscaler.ZscalerAppSegment.Initializer"></a>
+
+```typescript
+import { zscaler } from 'raindancers-cdk'
+
+new zscaler.ZscalerAppSegment(scope: Construct, id: string, props: ZscalerAppSegmentProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegment.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegment.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegment.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.zscaler.ZscalerAppSegmentProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.zscaler.ZscalerAppSegment.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.zscaler.ZscalerAppSegment.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.zscaler.ZscalerAppSegment.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.zscaler.ZscalerAppSegmentProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegment.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.zscaler.ZscalerAppSegment.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegment.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.zscaler.ZscalerAppSegment.isConstruct"></a>
+
+```typescript
+import { zscaler } from 'raindancers-cdk'
+
+zscaler.ZscalerAppSegment.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.zscaler.ZscalerAppSegment.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegment.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegment.property.appSegment">appSegment</a></code> | <code>aws-cdk-lib.CustomResource</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.zscaler.ZscalerAppSegment.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `appSegment`<sup>Required</sup> <a name="appSegment" id="raindancers-cdk.zscaler.ZscalerAppSegment.property.appSegment"></a>
+
+```typescript
+public readonly appSegment: CustomResource;
+```
+
+- *Type:* aws-cdk-lib.CustomResource
+
+---
+
+
 ## Structs <a name="Structs" id="Structs"></a>
 
 ### AccountFactoryLambdaProps <a name="AccountFactoryLambdaProps" id="raindancers-cdk.orgTools.AccountFactoryLambdaProps"></a>
@@ -9033,7 +9253,9 @@ const evpcProps: enterprisevpc.EvpcProps = { ... }
 | <code><a href="#raindancers-cdk.enterprisevpc.EvpcProps.property.enableDnsSupport">enableDnsSupport</a></code> | <code>boolean</code> | Indicates whether the DNS resolution is supported for the VPC. |
 | <code><a href="#raindancers-cdk.enterprisevpc.EvpcProps.property.flowLogs">flowLogs</a></code> | <code>{[ key: string ]: aws-cdk-lib.aws_ec2.FlowLogOptions}</code> | Flow logs to add to this VPC. |
 | <code><a href="#raindancers-cdk.enterprisevpc.EvpcProps.property.gatewayEndpoints">gatewayEndpoints</a></code> | <code>{[ key: string ]: aws-cdk-lib.aws_ec2.GatewayVpcEndpointOptions}</code> | Gateway endpoints to add to this VPC. |
-| <code><a href="#raindancers-cdk.enterprisevpc.EvpcProps.property.ipAddresses">ipAddresses</a></code> | <code>aws-cdk-lib.aws_ec2.IIpAddresses</code> | The Provider to use to allocate IP Space to your VPC. |
+| <code><a href="#raindancers-cdk.enterprisevpc.EvpcProps.property.ipAddresses">ipAddresses</a></code> | <code>aws-cdk-lib.aws_ec2.IIpAddresses</code> | The Provider to use to allocate IPv4 Space to your VPC. |
+| <code><a href="#raindancers-cdk.enterprisevpc.EvpcProps.property.ipProtocol">ipProtocol</a></code> | <code>aws-cdk-lib.aws_ec2.IpProtocol</code> | The protocol of the vpc. |
+| <code><a href="#raindancers-cdk.enterprisevpc.EvpcProps.property.ipv6Addresses">ipv6Addresses</a></code> | <code>aws-cdk-lib.aws_ec2.IIpv6Addresses</code> | The Provider to use to allocate IPv6 Space to your VPC. |
 | <code><a href="#raindancers-cdk.enterprisevpc.EvpcProps.property.maxAzs">maxAzs</a></code> | <code>number</code> | Define the maximum number of AZs to use in this region. |
 | <code><a href="#raindancers-cdk.enterprisevpc.EvpcProps.property.natGatewayProvider">natGatewayProvider</a></code> | <code>aws-cdk-lib.aws_ec2.NatProvider</code> | What type of NAT provider to use. |
 | <code><a href="#raindancers-cdk.enterprisevpc.EvpcProps.property.natGateways">natGateways</a></code> | <code>number</code> | The number of NAT Gateways/Instances to create. |
@@ -9184,9 +9406,43 @@ public readonly ipAddresses: IIpAddresses;
 - *Type:* aws-cdk-lib.aws_ec2.IIpAddresses
 - *Default:* ec2.IpAddresses.cidr
 
-The Provider to use to allocate IP Space to your VPC.
+The Provider to use to allocate IPv4 Space to your VPC.
 
 Options include static allocation or from a pool.
+
+Note this is specific to IPv4 addresses.
+
+---
+
+##### `ipProtocol`<sup>Optional</sup> <a name="ipProtocol" id="raindancers-cdk.enterprisevpc.EvpcProps.property.ipProtocol"></a>
+
+```typescript
+public readonly ipProtocol: IpProtocol;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IpProtocol
+- *Default:* IpProtocol.IPV4_ONLY
+
+The protocol of the vpc.
+
+Options are IPv4 only or dual stack.
+
+---
+
+##### `ipv6Addresses`<sup>Optional</sup> <a name="ipv6Addresses" id="raindancers-cdk.enterprisevpc.EvpcProps.property.ipv6Addresses"></a>
+
+```typescript
+public readonly ipv6Addresses: IIpv6Addresses;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IIpv6Addresses
+- *Default:* Ipv6Addresses.amazonProvided
+
+The Provider to use to allocate IPv6 Space to your VPC.
+
+Options include amazon provided CIDR block.
+
+Note this is specific to IPv6 addresses.
 
 ---
 
@@ -9913,6 +10169,78 @@ public readonly vpcSearchTag: Tag;
 ```
 
 - *Type:* aws-cdk-lib.Tag
+
+---
+
+### LaunchTemplateProps <a name="LaunchTemplateProps" id="raindancers-cdk.zscaler.LaunchTemplateProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.zscaler.LaunchTemplateProps.Initializer"></a>
+
+```typescript
+import { zscaler } from 'raindancers-cdk'
+
+const launchTemplateProps: zscaler.LaunchTemplateProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.zscaler.LaunchTemplateProps.property.componentAPIKeySecretName">componentAPIKeySecretName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.zscaler.LaunchTemplateProps.property.componentType">componentType</a></code> | <code>raindancers-cdk.zscaler.ComponentType</code> | *No description.* |
+| <code><a href="#raindancers-cdk.zscaler.LaunchTemplateProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.zscaler.LaunchTemplateProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+| <code><a href="#raindancers-cdk.zscaler.LaunchTemplateProps.property.instanceType">instanceType</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceType</code> | *No description.* |
+
+---
+
+##### `componentAPIKeySecretName`<sup>Required</sup> <a name="componentAPIKeySecretName" id="raindancers-cdk.zscaler.LaunchTemplateProps.property.componentAPIKeySecretName"></a>
+
+```typescript
+public readonly componentAPIKeySecretName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `componentType`<sup>Required</sup> <a name="componentType" id="raindancers-cdk.zscaler.LaunchTemplateProps.property.componentType"></a>
+
+```typescript
+public readonly componentType: ComponentType;
+```
+
+- *Type:* raindancers-cdk.zscaler.ComponentType
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.zscaler.LaunchTemplateProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.zscaler.LaunchTemplateProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+##### `instanceType`<sup>Optional</sup> <a name="instanceType" id="raindancers-cdk.zscaler.LaunchTemplateProps.property.instanceType"></a>
+
+```typescript
+public readonly instanceType: InstanceType;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.InstanceType
 
 ---
 
@@ -12106,6 +12434,111 @@ public readonly transitGatewayRouteTableId: string;
 
 ---
 
+### ZscalerAppSegmentProps <a name="ZscalerAppSegmentProps" id="raindancers-cdk.zscaler.ZscalerAppSegmentProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.zscaler.ZscalerAppSegmentProps.Initializer"></a>
+
+```typescript
+import { zscaler } from 'raindancers-cdk'
+
+const zscalerAppSegmentProps: zscaler.ZscalerAppSegmentProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.segmentGroupId">segmentGroupId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.segmentName">segmentName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.serverGroupId">serverGroupId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.zscalerAPIKeySecret">zscalerAPIKeySecret</a></code> | <code>aws-cdk-lib.aws_secretsmanager.ISecret</code> | *No description.* |
+| <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.domainNames">domainNames</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.tcpPorts">tcpPorts</a></code> | <code>string[][]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.udpPorts">udpPorts</a></code> | <code>string[][]</code> | *No description.* |
+
+---
+
+##### `description`<sup>Required</sup> <a name="description" id="raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `segmentGroupId`<sup>Required</sup> <a name="segmentGroupId" id="raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.segmentGroupId"></a>
+
+```typescript
+public readonly segmentGroupId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `segmentName`<sup>Required</sup> <a name="segmentName" id="raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.segmentName"></a>
+
+```typescript
+public readonly segmentName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `serverGroupId`<sup>Required</sup> <a name="serverGroupId" id="raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.serverGroupId"></a>
+
+```typescript
+public readonly serverGroupId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `zscalerAPIKeySecret`<sup>Required</sup> <a name="zscalerAPIKeySecret" id="raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.zscalerAPIKeySecret"></a>
+
+```typescript
+public readonly zscalerAPIKeySecret: ISecret;
+```
+
+- *Type:* aws-cdk-lib.aws_secretsmanager.ISecret
+
+---
+
+##### `domainNames`<sup>Optional</sup> <a name="domainNames" id="raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.domainNames"></a>
+
+```typescript
+public readonly domainNames: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `tcpPorts`<sup>Optional</sup> <a name="tcpPorts" id="raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.tcpPorts"></a>
+
+```typescript
+public readonly tcpPorts: string[][];
+```
+
+- *Type:* string[][]
+
+---
+
+##### `udpPorts`<sup>Optional</sup> <a name="udpPorts" id="raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.udpPorts"></a>
+
+```typescript
+public readonly udpPorts: string[][];
+```
+
+- *Type:* string[][]
+
+---
+
 ## Classes <a name="Classes" id="Classes"></a>
 
 ### MonitoringRule <a name="MonitoringRule" id="raindancers-cdk.eventalerts.MonitoringRule"></a>
@@ -13563,6 +13996,27 @@ enable Connecting VPC to TransitGateway in Appliance Mode.
 
 
 ##### `ENABLE` <a name="ENABLE" id="raindancers-cdk.transitGateway.AutoAcceptSharedAttachments.ENABLE"></a>
+
+---
+
+
+### ComponentType <a name="ComponentType" id="raindancers-cdk.zscaler.ComponentType"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.zscaler.ComponentType.APP_CONNECTOR">APP_CONNECTOR</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.zscaler.ComponentType.PRIVATE_SERVICE_EDGE">PRIVATE_SERVICE_EDGE</a></code> | *No description.* |
+
+---
+
+##### `APP_CONNECTOR` <a name="APP_CONNECTOR" id="raindancers-cdk.zscaler.ComponentType.APP_CONNECTOR"></a>
+
+---
+
+
+##### `PRIVATE_SERVICE_EDGE` <a name="PRIVATE_SERVICE_EDGE" id="raindancers-cdk.zscaler.ComponentType.PRIVATE_SERVICE_EDGE"></a>
 
 ---
 

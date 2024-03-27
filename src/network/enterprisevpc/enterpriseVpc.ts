@@ -921,12 +921,16 @@ export class EnterpriseVpc extends constructs.Construct {
       var subnetarns: string[] = [];
 
       props.subnetGroups.forEach((group) => {
+
+
         const selection = this.vpc.selectSubnets({
           subnetGroupName: group.subnet.name,
         });
+
         selection.subnets.forEach((subnet) => {
           subnetarns.push(`arn:${cdk.Aws.PARTITION}:ec2:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:subnet/${subnet.subnetId}`);
         });
+
       });
 
       new ram.CfnResourceShare(this, `${props.shareName}`, {
