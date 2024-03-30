@@ -6076,6 +6076,116 @@ public readonly subnet: ESubnetGroup;
 ---
 
 
+### TagVpcRole <a name="TagVpcRole" id="raindancers-cdk.enterprisevpc.TagVpcRole"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.enterprisevpc.TagVpcRole.Initializer"></a>
+
+```typescript
+import { enterprisevpc } from 'raindancers-cdk'
+
+new enterprisevpc.TagVpcRole(scope: Construct, id: string, props: TagVpcRoleProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.TagVpcRole.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.TagVpcRole.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.TagVpcRole.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.enterprisevpc.TagVpcRoleProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.enterprisevpc.TagVpcRole.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.enterprisevpc.TagVpcRole.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.enterprisevpc.TagVpcRole.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.enterprisevpc.TagVpcRoleProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.TagVpcRole.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.enterprisevpc.TagVpcRole.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.TagVpcRole.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.enterprisevpc.TagVpcRole.isConstruct"></a>
+
+```typescript
+import { enterprisevpc } from 'raindancers-cdk'
+
+enterprisevpc.TagVpcRole.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.enterprisevpc.TagVpcRole.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.TagVpcRole.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.enterprisevpc.TagVpcRole.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.enterprisevpc.TagVpcRole.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `role`<sup>Required</sup> <a name="role" id="raindancers-cdk.enterprisevpc.TagVpcRole.property.role"></a>
+
+```typescript
+public readonly role: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+---
+
+
 ### TransferServer <a name="TransferServer" id="raindancers-cdk.transfer.TransferServer"></a>
 
 - *Implements:* raindancers-cdk.transfer.ITransferServer
@@ -12293,6 +12403,48 @@ public readonly values: string[];
 ```
 
 - *Type:* string[]
+
+---
+
+### TagVpcRoleProps <a name="TagVpcRoleProps" id="raindancers-cdk.enterprisevpc.TagVpcRoleProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.enterprisevpc.TagVpcRoleProps.Initializer"></a>
+
+```typescript
+import { enterprisevpc } from 'raindancers-cdk'
+
+const tagVpcRoleProps: enterprisevpc.TagVpcRoleProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.TagVpcRoleProps.property.assumedby">assumedby</a></code> | <code>string</code> | Account which owns Resource. |
+| <code><a href="#raindancers-cdk.enterprisevpc.TagVpcRoleProps.property.roleName">roleName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `assumedby`<sup>Required</sup> <a name="assumedby" id="raindancers-cdk.enterprisevpc.TagVpcRoleProps.property.assumedby"></a>
+
+```typescript
+public readonly assumedby: string;
+```
+
+- *Type:* string
+
+Account which owns Resource.
+
+---
+
+##### `roleName`<sup>Optional</sup> <a name="roleName" id="raindancers-cdk.enterprisevpc.TagVpcRoleProps.property.roleName"></a>
+
+```typescript
+public readonly roleName: string;
+```
+
+- *Type:* string
+- *Default:* tagSharedResources
 
 ---
 
