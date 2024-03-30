@@ -32,7 +32,7 @@ export class TagVpcRole extends constructs.Construct {
     this.role.addToPrincipalPolicy(
       new iam.PolicyStatement({
         effect: iam.Effect.ALLOW,
-        actions: ['ec2.CreateTags'],
+        actions: ['ec2:CreateTags'],
         resources: ['*'],
       }),
     );
