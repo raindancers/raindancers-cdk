@@ -29,7 +29,6 @@ import {
   transitGateway,
 } from '../../index';
 
-
 interface RouteTableMeta {
   readonly routeTableId: string;
   readonly groupName: string;
@@ -100,6 +99,12 @@ export interface ShareSubnetGroupProps {
   readonly subnetGroups?: SubnetGroup[];
   readonly accounts: string[];
   readonly shareName?: string;
+  /**
+   * If Defined the method will attempt to use this role to Tag the shared resource in
+   * the remote account with cdkTags, so the normal ec2.Vpc methods can be used, such as
+   * subnetSelection
+   */
+  readonly cdkTagResourcesInSharedToAccountRoleName?: string | undefined;
 }
 
 export interface AddR53ZoneProps {
@@ -845,43 +850,6 @@ export class EnterpriseVpc extends constructs.Construct {
   }// end of attachToTransitGateway
 
 
-  /**
-   * Share a subnetGroup with another AWS Account.
-   * @param props ShareSubnetGroup
-   */
-  // public shareSubnetGroup (props: ShareSubnetGroupProps): void {
-
-  //   var subnetarns: string[] = [];
-
-  //   // add a little bit of error checking
-  //   if (props.subnetGroup || props.subnetGroups) {
-  //     throw new Error('Either subnetGroup or subnetGroups must be defined');
-  //   }
-
-  //   if (props.subnetGroup && props.subnetGroups) {
-  //     throw new Error('Only one of subnetGroup or subnetGroups can be defined');
-  //   }
-
-
-  //   if (props.subnetGroup) {
-
-  //     const selection = this.vpc.selectSubnets({
-  //       subnetGroupName: props.subnetGroup.subnet.name,
-  //     });
-
-  //     selection.subnets.forEach((subnet) => {
-  //       subnetarns.push(`arn:${cdk.Aws.PARTITION}:ec2:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:subnet/${subnet.subnetId}`);
-  //     });
-
-  //     new ram.CfnResourceShare(this, `ramshare${props.subnetGroup.subnet.name}$`, {
-  //       name: `shareSubnetGroup-${props.subnetGroup.subnet.name}`,
-  //       allowExternalPrincipals: false,
-  //       principals: props.accounts,
-  //       resourceArns: subnetarns,
-  //     });
-  //   }
-  // }
-
   public shareSubnetGroup (props: ShareSubnetGroupProps): void {
 
 
@@ -893,8 +861,12 @@ export class EnterpriseVpc extends constructs.Construct {
       throw Error('Either subnetGroup or subnetGroups must be defined');
     }
 
+    var subnetarns: string[] = [];
+    var subnetIds: string[] = [];
+    var share: ram.CfnResourceShare;
+
+
     if (props.subnetGroup) {
-      var subnetarns: string[] = [];
 
       const selection = this.vpc.selectSubnets({
         subnetGroupName: props.subnetGroup!.subnet.name,
@@ -904,7 +876,7 @@ export class EnterpriseVpc extends constructs.Construct {
         subnetarns.push(`arn:${cdk.Aws.PARTITION}:ec2:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:subnet/${subnet.subnetId}`);
       });
 
-      new ram.CfnResourceShare(this, props.shareName ?? `ramshare${props.subnetGroup.subnet.name}`, {
+      share = new ram.CfnResourceShare(this, props.shareName ?? `ramshare${props.subnetGroup.subnet.name}`, {
         name: props.shareName ?? `ramshare${props.subnetGroup.subnet.name}`,
         allowExternalPrincipals: false,
         principals: props.accounts,
@@ -918,7 +890,6 @@ export class EnterpriseVpc extends constructs.Construct {
         throw Error('shareName must be defined, when sharing to multiple subnet Groups');
       }
 
-      var subnetarns: string[] = [];
 
       props.subnetGroups.forEach((group) => {
 
@@ -929,11 +900,12 @@ export class EnterpriseVpc extends constructs.Construct {
 
         selection.subnets.forEach((subnet) => {
           subnetarns.push(`arn:${cdk.Aws.PARTITION}:ec2:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:subnet/${subnet.subnetId}`);
+          subnetIds.push(subnet.subnetId);
         });
 
       });
 
-      new ram.CfnResourceShare(this, `${props.shareName}`, {
+      share = new ram.CfnResourceShare(this, `${props.shareName}`, {
         name: `shareSubnetGroup-${props.shareName}`,
         allowExternalPrincipals: false,
         principals: props.accounts,
@@ -942,6 +914,33 @@ export class EnterpriseVpc extends constructs.Construct {
 
     }
 
+    if (props.cdkTagResourcesInSharedToAccountRoleName) {
+
+      const tagResources = new aws_lambda.SingletonFunction(this, 'tagRemoteResources', {
+        logRetention: logs.RetentionDays.FIVE_DAYS,
+        uuid: '37FEAC0011422A0',
+        code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpriseVpc')),
+        timeout: cdk.Duration.seconds(180),
+        runtime: aws_lambda.Runtime.PYTHON_3_12,
+        handler: 'tagResources.on_event',
+      });
+
+      const tagSharedResoruces = new cdk.CustomResource(this, 'tagRoutes', {
+        serviceToken: new cr.Provider(this, 'NetworkManagerProvider', {
+          onEventHandler: tagResources,
+        }).serviceToken,
+        properties: {
+          VpcId: this.vpc.vpcId,
+          SubnetIds: subnetIds,
+          RoleName: props.cdkTagResourcesInSharedToAccountRoleName,
+          Accounts: props.accounts,
+        },
+      });
+
+
+      tagSharedResoruces.node.addDependency(share!);
+
+    }
   }
 
 

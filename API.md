@@ -2459,7 +2459,7 @@ new enterprisevpc.EnterpriseVpc(scope: Construct, id: string, props: EnterpriseV
 | <code><a href="#raindancers-cdk.enterprisevpc.EnterpriseVpc.createAndShareSubnetPrefixList">createAndShareSubnetPrefixList</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.EnterpriseVpc.createFlowLog">createFlowLog</a></code> | Create Enterprise VPC Flow Logs (to central log account) and advanced diagnostics with Athena Querys. |
 | <code><a href="#raindancers-cdk.enterprisevpc.EnterpriseVpc.router">router</a></code> | This is a convience method to present the routing for the Vpc in a simpler format, than the addRoutes Method, which it calls. |
-| <code><a href="#raindancers-cdk.enterprisevpc.EnterpriseVpc.shareSubnetGroup">shareSubnetGroup</a></code> | Share a subnetGroup with another AWS Account. |
+| <code><a href="#raindancers-cdk.enterprisevpc.EnterpriseVpc.shareSubnetGroup">shareSubnetGroup</a></code> | *No description.* |
 
 ---
 
@@ -2755,13 +2755,9 @@ This is a convience method to present the routing for the Vpc in a simpler forma
 public shareSubnetGroup(props: ShareSubnetGroupProps): void
 ```
 
-Share a subnetGroup with another AWS Account.
-
 ###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.enterprisevpc.EnterpriseVpc.shareSubnetGroup.parameter.props"></a>
 
 - *Type:* raindancers-cdk.enterprisevpc.ShareSubnetGroupProps
-
-ShareSubnetGroup.
 
 ---
 
@@ -11931,6 +11927,7 @@ const shareSubnetGroupProps: enterprisevpc.ShareSubnetGroupProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.property.accounts">accounts</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.property.cdkTagResourcesInSharedToAccountRoleName">cdkTagResourcesInSharedToAccountRoleName</a></code> | <code>string</code> | If Defined the method will attempt to use this role to Tag the shared resource in the remote account with cdkTags, so the normal ec2.Vpc methods can be used, such as subnetSelection. |
 | <code><a href="#raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.property.shareName">shareName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.property.subnetGroup">subnetGroup</a></code> | <code>raindancers-cdk.enterprisevpc.SubnetGroup</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.property.subnetGroups">subnetGroups</a></code> | <code>raindancers-cdk.enterprisevpc.SubnetGroup[]</code> | *No description.* |
@@ -11944,6 +11941,18 @@ public readonly accounts: string[];
 ```
 
 - *Type:* string[]
+
+---
+
+##### `cdkTagResourcesInSharedToAccountRoleName`<sup>Optional</sup> <a name="cdkTagResourcesInSharedToAccountRoleName" id="raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.property.cdkTagResourcesInSharedToAccountRoleName"></a>
+
+```typescript
+public readonly cdkTagResourcesInSharedToAccountRoleName: string;
+```
+
+- *Type:* string
+
+If Defined the method will attempt to use this role to Tag the shared resource in the remote account with cdkTags, so the normal ec2.Vpc methods can be used, such as subnetSelection.
 
 ---
 
