@@ -925,6 +925,23 @@ export class EnterpriseVpc extends constructs.Construct {
         handler: 'tagResources.on_event',
       });
 
+      tagResources.addToRolePolicy(
+        new iam.PolicyStatement({
+          effect: iam.Effect.ALLOW,
+          actions: ['sts:AssumeRole'],
+          resources: [`arn:aws:iam::*:role/${props.cdkTagResourcesInSharedToAccountRoleName}`],
+        }),
+      );
+
+      tagResources.addToRolePolicy(
+        new iam.PolicyStatement({
+          effect: iam.Effect.ALLOW,
+          actions: ['ec2:DescribeTags'],
+          resources: ['*'],
+        }),
+      );
+
+
       const tagSharedResoruces = new cdk.CustomResource(this, 'tagRoutes', {
         serviceToken: new cr.Provider(this, 'NetworkManagerProvider', {
           onEventHandler: tagResources,
