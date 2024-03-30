@@ -2,7 +2,7 @@
   "name": "raindancers-cdk",
   "repository": {
     "type": "git",
-    "url": "https://git.us-west-2.github.source.3p.codecatalyst.aws/v1/aws-cdk-lib/raindancers-cdk/raindancers-cdk"
+    "url": "https://github.com/raindancers/raindancers-cdk"
   },
   "scripts": {
     "build": "npx projen build",

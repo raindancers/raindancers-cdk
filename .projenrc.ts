@@ -7,7 +7,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   jsiiVersion: '~5.3.0',
   name: 'raindancers-cdk',
   projenrcTs: true,
-  repositoryUrl: 'https://git.us-west-2.github.source.3p.codecatalyst.aws/v1/aws-cdk-lib/raindancers-cdk/raindancers-cdk',
+  repositoryUrl: 'https://github.com/raindancers/raindancers-cdk'
 
   /* Runtime dependencies of this module. */
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
