@@ -916,7 +916,7 @@ export class EnterpriseVpc extends constructs.Construct {
 
     if (props.cdkTagResourcesInSharedToAccountRoleName) {
 
-      const tagResources = new aws_lambda.SingletonFunction(this, 'tagRemoteResources', {
+      const tagResources = new aws_lambda.SingletonFunction(this, `tagRemoteResources${props.shareName}`, {
         logRetention: logs.RetentionDays.FIVE_DAYS,
         uuid: '37FEAC0011422A0',
         code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpriseVpc')),
@@ -942,8 +942,8 @@ export class EnterpriseVpc extends constructs.Construct {
       );
 
 
-      const tagSharedResoruces = new cdk.CustomResource(this, 'tagRoutes', {
-        serviceToken: new cr.Provider(this, 'NetworkManagerProvider', {
+      const tagSharedResoruces = new cdk.CustomResource(this, `tagRoutes${props.shareName}`, {
+        serviceToken: new cr.Provider(this, `Provider${props.shareName}`, {
           onEventHandler: tagResources,
         }).serviceToken,
         properties: {
