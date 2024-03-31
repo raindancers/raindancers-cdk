@@ -26,7 +26,7 @@ export class TagVpcRole extends constructs.Construct {
     this.role = new iam.Role(this, 'TaggingRole', {
       assumedBy: new iam.AccountPrincipal(props.assumedby),
       description: 'Assumed by lambda in network account to Tag Shared Resources',
-      roleName: props.assumedby ?? 'tagSharedResources',
+      roleName: props.roleName ?? 'tagSharedResources',
     });
 
     this.role.addToPrincipalPolicy(
