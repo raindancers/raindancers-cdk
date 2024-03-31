@@ -951,6 +951,7 @@ export class EnterpriseVpc extends constructs.Construct {
           SubnetIds: subnetIds,
           RoleName: props.cdkTagResourcesInSharedToAccountRoleName,
           Accounts: props.accounts,
+          Region: cdk.Aws.REGION,
         },
       });
 

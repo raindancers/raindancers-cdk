@@ -31,7 +31,7 @@ def on_create(event):
 	subnet_ids = props['SubnetIds']
 	role_name = props['RoleName']
 	accounts = props['Accounts']
-	region = props['region']
+	region = props['Region']
 
 	
 	ec2_local = boto3.client('ec2')
