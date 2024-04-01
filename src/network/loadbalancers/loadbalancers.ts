@@ -14,39 +14,39 @@ import * as zscaler from '../../zscaler';
 import * as enterprisevpc from '../enterprisevpc';
 
 export interface DelegatedZone {
-  delegationRole: iam.IRole;
-  parentZone: string;
-  zoneName: string;
+  readonly delegationRole: iam.IRole;
+  readonly parentZone: string;
+  readonly zoneName: string;
 }
 
 export interface LoadBalancersProps {
-  vpc: ec2.IVpc;
-  subnetGroupName: enterprisevpc.SubnetGroup;
-  ingressVpc: ec2.IVpc;
-  privateLoadbalancerDomain: string;
-  sslPolicy?: elbv2.SslPolicy;
-  delegatedZone?: DelegatedZone;
-  zone?: route53.HostedZone;
+  readonly vpc: ec2.IVpc;
+  readonly subnetGroupName: enterprisevpc.SubnetGroup;
+  readonly ingressVpc: ec2.IVpc;
+  readonly privateLoadbalancerDomain: string;
+  readonly sslPolicy?: elbv2.SslPolicy;
+  readonly delegatedZone?: DelegatedZone;
+  readonly zone?: route53.HostedZone;
 }
 
 
 export interface Actions {
-  id: string;
-  actions: elbv2.AddApplicationActionProps;
+  readonly id: string;
+  readonly loadbalancerActions: elbv2.AddApplicationActionProps;
 }
 
 export interface AddApplicationProps {
-  delegatedZone?: DelegatedZone;
-  zone?: route53.HostedZone;
-  domainName: string;
+  readonly delegatedZone?: DelegatedZone;
+  readonly zone?: route53.HostedZone;
+  readonly domainName: string;
   /**
    * @default elbv2.SslPolicy.RECOMMENDED_TLS
    * @description The security policy that defines which ciphers and protocols are supported. The default is the recommended policy. You must set a value.
   */
-  actions: Actions[];
+  readonly actions: Actions[];
 }
 
-export class RuruLoadBalancers extends constructs.Construct {
+export class EnterpriseLoadBalancer extends constructs.Construct {
 
   privateLoadbalancer: elbv2.ApplicationLoadBalancer;
   tlsListener: elbv2.ApplicationListener;
@@ -65,7 +65,7 @@ export class RuruLoadBalancers extends constructs.Construct {
     this.ingressVpc = props.ingressVpc;
 
     //
-    this.privateLoadbalancer = new elbv2.ApplicationLoadBalancer(this, 'Sharedprivteloadbalancer', {
+    this.privateLoadbalancer = new elbv2.ApplicationLoadBalancer(this, 'Sharedprivateloadbalancer', {
       vpc: props.vpc,
       vpcSubnets: { subnetGroupName: props.subnetGroupName.subnet.name },
       internetFacing: false,
@@ -158,7 +158,7 @@ export class RuruLoadBalancers extends constructs.Construct {
     ]);
 
     props.actions.forEach(action => {
-      this.tlsListener.addAction(action.id, action.actions);
+      this.tlsListener.addAction(action.id, action.loadbalancerActions);
     });
 
     // add a CNAME record for props.domainName pointing to this.endpointURL

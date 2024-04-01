@@ -2396,6 +2396,246 @@ The stack in which this resource is defined.
 ---
 
 
+### EnterpriseLoadBalancer <a name="EnterpriseLoadBalancer" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.Initializer"></a>
+
+```typescript
+import { loadbalancer } from 'raindancers-cdk'
+
+new loadbalancer.EnterpriseLoadBalancer(scope: Construct, id: string, props: LoadBalancersProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.loadbalancer.LoadBalancersProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.loadbalancer.LoadBalancersProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.addApplicationToPrivateLoadBalancer">addApplicationToPrivateLoadBalancer</a></code> | This method provides a way to add an application, to the Loadbalancer. |
+| <code><a href="#raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.addZscalerAppSegmentForLoadbalancer">addZscalerAppSegmentForLoadbalancer</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.createPrivateLinkService">createPrivateLinkService</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addApplicationToPrivateLoadBalancer` <a name="addApplicationToPrivateLoadBalancer" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.addApplicationToPrivateLoadBalancer"></a>
+
+```typescript
+public addApplicationToPrivateLoadBalancer(props: AddApplicationProps): void
+```
+
+This method provides a way to add an application, to the Loadbalancer.
+
+###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.addApplicationToPrivateLoadBalancer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.loadbalancer.AddApplicationProps
+
+---
+
+##### `addZscalerAppSegmentForLoadbalancer` <a name="addZscalerAppSegmentForLoadbalancer" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.addZscalerAppSegmentForLoadbalancer"></a>
+
+```typescript
+public addZscalerAppSegmentForLoadbalancer(props: ZscalerAppSegmentProps): void
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.addZscalerAppSegmentForLoadbalancer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.zscaler.ZscalerAppSegmentProps
+
+---
+
+##### `createPrivateLinkService` <a name="createPrivateLinkService" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.createPrivateLinkService"></a>
+
+```typescript
+public createPrivateLinkService(accounts: string[], vpc: IVpc, subnets: SubnetSelection): void
+```
+
+###### `accounts`<sup>Required</sup> <a name="accounts" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.createPrivateLinkService.parameter.accounts"></a>
+
+- *Type:* string[]
+
+---
+
+###### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.createPrivateLinkService.parameter.vpc"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+###### `subnets`<sup>Required</sup> <a name="subnets" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.createPrivateLinkService.parameter.subnets"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.SubnetSelection
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.isConstruct"></a>
+
+```typescript
+import { loadbalancer } from 'raindancers-cdk'
+
+loadbalancer.EnterpriseLoadBalancer.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.ingressVpc">ingressVpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.loadbalancerZone">loadbalancerZone</a></code> | <code>aws-cdk-lib.aws_route53.HostedZone</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.privateLoadbalancer">privateLoadbalancer</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationLoadBalancer</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.subnets">subnets</a></code> | <code>raindancers-cdk.enterprisevpc.SubnetGroup</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.tlsListener">tlsListener</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationListener</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.domains">domains</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.interfaceEndpoint">interfaceEndpoint</a></code> | <code>aws-cdk-lib.aws_ec2.InterfaceVpcEndpoint</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `ingressVpc`<sup>Required</sup> <a name="ingressVpc" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.ingressVpc"></a>
+
+```typescript
+public readonly ingressVpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+##### `loadbalancerZone`<sup>Required</sup> <a name="loadbalancerZone" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.loadbalancerZone"></a>
+
+```typescript
+public readonly loadbalancerZone: HostedZone;
+```
+
+- *Type:* aws-cdk-lib.aws_route53.HostedZone
+
+---
+
+##### `privateLoadbalancer`<sup>Required</sup> <a name="privateLoadbalancer" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.privateLoadbalancer"></a>
+
+```typescript
+public readonly privateLoadbalancer: ApplicationLoadBalancer;
+```
+
+- *Type:* aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationLoadBalancer
+
+---
+
+##### `subnets`<sup>Required</sup> <a name="subnets" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.subnets"></a>
+
+```typescript
+public readonly subnets: SubnetGroup;
+```
+
+- *Type:* raindancers-cdk.enterprisevpc.SubnetGroup
+
+---
+
+##### `tlsListener`<sup>Required</sup> <a name="tlsListener" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.tlsListener"></a>
+
+```typescript
+public readonly tlsListener: ApplicationListener;
+```
+
+- *Type:* aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationListener
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+##### `domains`<sup>Optional</sup> <a name="domains" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.domains"></a>
+
+```typescript
+public readonly domains: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `interfaceEndpoint`<sup>Optional</sup> <a name="interfaceEndpoint" id="raindancers-cdk.loadbalancer.EnterpriseLoadBalancer.property.interfaceEndpoint"></a>
+
+```typescript
+public readonly interfaceEndpoint: InterfaceVpcEndpoint;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.InterfaceVpcEndpoint
+
+---
+
+
 ### EnterpriseVpc <a name="EnterpriseVpc" id="raindancers-cdk.enterprisevpc.EnterpriseVpc"></a>
 
 Enteprise VPC's take the stock ec2.Vpc and provide numerous convience methods primarly related to connecting to internal networks.
@@ -7185,6 +7425,107 @@ SSO User Last Name.
 
 ---
 
+### Actions <a name="Actions" id="raindancers-cdk.loadbalancer.Actions"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.loadbalancer.Actions.Initializer"></a>
+
+```typescript
+import { loadbalancer } from 'raindancers-cdk'
+
+const actions: loadbalancer.Actions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.loadbalancer.Actions.property.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.Actions.property.loadbalancerActions">loadbalancerActions</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.AddApplicationActionProps</code> | *No description.* |
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.loadbalancer.Actions.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
+
+---
+
+##### `loadbalancerActions`<sup>Required</sup> <a name="loadbalancerActions" id="raindancers-cdk.loadbalancer.Actions.property.loadbalancerActions"></a>
+
+```typescript
+public readonly loadbalancerActions: AddApplicationActionProps;
+```
+
+- *Type:* aws-cdk-lib.aws_elasticloadbalancingv2.AddApplicationActionProps
+
+---
+
+### AddApplicationProps <a name="AddApplicationProps" id="raindancers-cdk.loadbalancer.AddApplicationProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.loadbalancer.AddApplicationProps.Initializer"></a>
+
+```typescript
+import { loadbalancer } from 'raindancers-cdk'
+
+const addApplicationProps: loadbalancer.AddApplicationProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.loadbalancer.AddApplicationProps.property.actions">actions</a></code> | <code>raindancers-cdk.loadbalancer.Actions[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.AddApplicationProps.property.domainName">domainName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.AddApplicationProps.property.delegatedZone">delegatedZone</a></code> | <code>raindancers-cdk.loadbalancer.DelegatedZone</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.AddApplicationProps.property.zone">zone</a></code> | <code>aws-cdk-lib.aws_route53.HostedZone</code> | *No description.* |
+
+---
+
+##### `actions`<sup>Required</sup> <a name="actions" id="raindancers-cdk.loadbalancer.AddApplicationProps.property.actions"></a>
+
+```typescript
+public readonly actions: Actions[];
+```
+
+- *Type:* raindancers-cdk.loadbalancer.Actions[]
+- *Default:* elbv2.SslPolicy.RECOMMENDED_TLS
+
+---
+
+##### `domainName`<sup>Required</sup> <a name="domainName" id="raindancers-cdk.loadbalancer.AddApplicationProps.property.domainName"></a>
+
+```typescript
+public readonly domainName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `delegatedZone`<sup>Optional</sup> <a name="delegatedZone" id="raindancers-cdk.loadbalancer.AddApplicationProps.property.delegatedZone"></a>
+
+```typescript
+public readonly delegatedZone: DelegatedZone;
+```
+
+- *Type:* raindancers-cdk.loadbalancer.DelegatedZone
+
+---
+
+##### `zone`<sup>Optional</sup> <a name="zone" id="raindancers-cdk.loadbalancer.AddApplicationProps.property.zone"></a>
+
+```typescript
+public readonly zone: HostedZone;
+```
+
+- *Type:* aws-cdk-lib.aws_route53.HostedZone
+
+---
+
 ### AddAwsServiceEndPointsProps <a name="AddAwsServiceEndPointsProps" id="raindancers-cdk.enterprisevpc.AddAwsServiceEndPointsProps"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.enterprisevpc.AddAwsServiceEndPointsProps.Initializer"></a>
@@ -9022,6 +9363,56 @@ The default is `/` . For more information, see [Friendly names and paths](https:
 
 ---
 
+### DelegatedZone <a name="DelegatedZone" id="raindancers-cdk.loadbalancer.DelegatedZone"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.loadbalancer.DelegatedZone.Initializer"></a>
+
+```typescript
+import { loadbalancer } from 'raindancers-cdk'
+
+const delegatedZone: loadbalancer.DelegatedZone = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.loadbalancer.DelegatedZone.property.delegationRole">delegationRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.DelegatedZone.property.parentZone">parentZone</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.DelegatedZone.property.zoneName">zoneName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `delegationRole`<sup>Required</sup> <a name="delegationRole" id="raindancers-cdk.loadbalancer.DelegatedZone.property.delegationRole"></a>
+
+```typescript
+public readonly delegationRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+---
+
+##### `parentZone`<sup>Required</sup> <a name="parentZone" id="raindancers-cdk.loadbalancer.DelegatedZone.property.parentZone"></a>
+
+```typescript
+public readonly parentZone: string;
+```
+
+- *Type:* string
+
+---
+
+##### `zoneName`<sup>Required</sup> <a name="zoneName" id="raindancers-cdk.loadbalancer.DelegatedZone.property.zoneName"></a>
+
+```typescript
+public readonly zoneName: string;
+```
+
+- *Type:* string
+
+---
+
 ### DynamicTagResourceGroupProps <a name="DynamicTagResourceGroupProps" id="raindancers-cdk.nwFirewall.DynamicTagResourceGroupProps"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.nwFirewall.DynamicTagResourceGroupProps.Initializer"></a>
@@ -10832,6 +11223,100 @@ public readonly instanceType: InstanceType;
 ```
 
 - *Type:* aws-cdk-lib.aws_ec2.InstanceType
+
+---
+
+### LoadBalancersProps <a name="LoadBalancersProps" id="raindancers-cdk.loadbalancer.LoadBalancersProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.loadbalancer.LoadBalancersProps.Initializer"></a>
+
+```typescript
+import { loadbalancer } from 'raindancers-cdk'
+
+const loadBalancersProps: loadbalancer.LoadBalancersProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.loadbalancer.LoadBalancersProps.property.ingressVpc">ingressVpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.LoadBalancersProps.property.privateLoadbalancerDomain">privateLoadbalancerDomain</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.LoadBalancersProps.property.subnetGroupName">subnetGroupName</a></code> | <code>raindancers-cdk.enterprisevpc.SubnetGroup</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.LoadBalancersProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.LoadBalancersProps.property.delegatedZone">delegatedZone</a></code> | <code>raindancers-cdk.loadbalancer.DelegatedZone</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.LoadBalancersProps.property.sslPolicy">sslPolicy</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.SslPolicy</code> | *No description.* |
+| <code><a href="#raindancers-cdk.loadbalancer.LoadBalancersProps.property.zone">zone</a></code> | <code>aws-cdk-lib.aws_route53.HostedZone</code> | *No description.* |
+
+---
+
+##### `ingressVpc`<sup>Required</sup> <a name="ingressVpc" id="raindancers-cdk.loadbalancer.LoadBalancersProps.property.ingressVpc"></a>
+
+```typescript
+public readonly ingressVpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+##### `privateLoadbalancerDomain`<sup>Required</sup> <a name="privateLoadbalancerDomain" id="raindancers-cdk.loadbalancer.LoadBalancersProps.property.privateLoadbalancerDomain"></a>
+
+```typescript
+public readonly privateLoadbalancerDomain: string;
+```
+
+- *Type:* string
+
+---
+
+##### `subnetGroupName`<sup>Required</sup> <a name="subnetGroupName" id="raindancers-cdk.loadbalancer.LoadBalancersProps.property.subnetGroupName"></a>
+
+```typescript
+public readonly subnetGroupName: SubnetGroup;
+```
+
+- *Type:* raindancers-cdk.enterprisevpc.SubnetGroup
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.loadbalancer.LoadBalancersProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+##### `delegatedZone`<sup>Optional</sup> <a name="delegatedZone" id="raindancers-cdk.loadbalancer.LoadBalancersProps.property.delegatedZone"></a>
+
+```typescript
+public readonly delegatedZone: DelegatedZone;
+```
+
+- *Type:* raindancers-cdk.loadbalancer.DelegatedZone
+
+---
+
+##### `sslPolicy`<sup>Optional</sup> <a name="sslPolicy" id="raindancers-cdk.loadbalancer.LoadBalancersProps.property.sslPolicy"></a>
+
+```typescript
+public readonly sslPolicy: SslPolicy;
+```
+
+- *Type:* aws-cdk-lib.aws_elasticloadbalancingv2.SslPolicy
+
+---
+
+##### `zone`<sup>Optional</sup> <a name="zone" id="raindancers-cdk.loadbalancer.LoadBalancersProps.property.zone"></a>
+
+```typescript
+public readonly zone: HostedZone;
+```
+
+- *Type:* aws-cdk-lib.aws_route53.HostedZone
 
 ---
 
