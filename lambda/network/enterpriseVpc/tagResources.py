@@ -35,9 +35,7 @@ def on_create(event):
 
 	
 	ec2_local = boto3.client('ec2')
-	paginator = ec2_local.get_paginator('describe_tags')
-
-	vpc_tags = paginator.paginate(
+	vpc_tags= ec2_local.describe_tags(
 		Filters=[
 			{
 				'Name': 'resource-id',
@@ -46,59 +44,63 @@ def on_create(event):
 				]
 			},
 		],
-	)["Tags"]
+	)['Tags']
 	
-	# remove the keys we dont' want
-	for tag in vpc_tags:
-		del tag["ResourceId"]
-		del tag["ResourceType"]
+	for tag in vpc_tags[:]:
+		# delete keys that start with aws:  tag   {"Key": "keyname", "Value": "value"}
 
+		if tag['Key'].startswith('aws:'):
+			vpc_tags.remove(tag)
+			
+		del tag['ResourceId']
+		del tag['ResourceType']
+	
+	
+	print('VpcTags', vpc_tags) #list of dicts
 
-	# 
 	subnets = []
 	for subnet in subnet_ids:
 
-		subnet_tags = paginator.paginate(
+		subnet_tags = ec2_local.describe_tags(
 			Filters=[
 				{
 					'Name': 'resource-id',
 					'Values': [
-						vpc,
+						subnet,
 					]
 				},
 			],
-		)["Tags"]
+		)['Tags']
 
-		for tag in subnet_tags:
+		for tag in subnet_tags[:]:
+			
+			if tag['Key'].startswith('aws:'):
+				subnet_tags.remove(tag)
+				
 			del tag["ResourceId"]
 			del tag["ResourceType"]
+		
 
-
-		subnets.push(
-			{
-				'SubnetId': subnet,
-				'Tags': subnet_tags
-			}
-		)
-
+		subnets.append({'SubnetId': subnet, "Tags": subnet_tags})
+		
+	print('Subnets', subnets)
 
 	for account in accounts: 
 
 		# get credentials
-		remote_credentials=sts_client.assume_role(
+		remote_credentials=sts.assume_role(
 			RoleArn=f"arn:aws:iam::{account}:role/{role_name}",
 			RoleSessionName="setTags"
-		)['Credentials']
+		)["Credentials"]
+		
 
-		# create a session
-		session = boto3.session.Session(
-			aws_access_key_id=remote_credentials['AccessKeyId'],
-			aws_secret_access_key=credentials['SecretAccessKey'],
-			aws_session_token=credentials['SessionToken'],
-			region_name=region,
-		),
+		ec2 = boto3.client(
+    		'ec2',
+    		aws_access_key_id=remote_credentials['AccessKeyId'],
+    		aws_secret_access_key=remote_credentials['SecretAccessKey'],
+    		aws_session_token=remote_credentials['SessionToken'],
+		)
 
-		ec2 = session.client("ec2")
 
 		# copy the vpc_tags from the source acount to the sharedtoAccount
 		ec2.create_tags(
