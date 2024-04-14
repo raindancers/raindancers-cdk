@@ -115,7 +115,7 @@ export interface AddStatelessRulesProps{
   readonly rules: firewall.CfnRuleGroup.StatelessRuleProperty[];
   readonly description: string;
   readonly priority: number;
-  readonly capacity?: number | undefined;
+  readonly capacity: number | undefined;
 }
 
 
@@ -219,15 +219,15 @@ export class FirewallPolicy extends constructs.Construct {
       this.policy.statefulRuleGroupReferences.push(
         {
           resourceArn: rule.attrRuleGroupArn,
-          priority: props.priority,
+
         },
       );
     } else {
+      // this is to catch the case if its undefined.
       this.policy.statefulRuleGroupReferences = [];
       this.policy.statefulRuleGroupReferences.push(
         {
           resourceArn: rule.attrRuleGroupArn,
-          priority: props.priority,
         },
       );
     }
@@ -257,7 +257,7 @@ export interface StatefulRuleProps {
   readonly suricataRule? : string | undefined;
   readonly statefuleRules?: firewall.CfnRuleGroup.StatefulRuleProperty[];
   readonly rulesSourceList?: firewall.CfnRuleGroup.RulesSourceListProperty;
-  readonly priority: number;
+  readonly priority?: number;
 }
 
 export class StatelessRule {

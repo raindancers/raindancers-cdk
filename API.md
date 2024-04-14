@@ -6426,6 +6426,105 @@ public readonly role: IRole;
 ---
 
 
+### TLSInspectionConfiguration <a name="TLSInspectionConfiguration" id="raindancers-cdk.nwFirewall.TLSInspectionConfiguration"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.nwFirewall.TLSInspectionConfiguration.Initializer"></a>
+
+```typescript
+import { nwFirewall } from 'raindancers-cdk'
+
+new nwFirewall.TLSInspectionConfiguration(scope: Construct, id: string, props: TLSInspectionConfigurationProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.TLSInspectionConfiguration.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.TLSInspectionConfiguration.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.TLSInspectionConfiguration.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.nwFirewall.TLSInspectionConfigurationProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.nwFirewall.TLSInspectionConfiguration.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.nwFirewall.TLSInspectionConfiguration.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.nwFirewall.TLSInspectionConfiguration.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.nwFirewall.TLSInspectionConfigurationProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.TLSInspectionConfiguration.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.nwFirewall.TLSInspectionConfiguration.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.TLSInspectionConfiguration.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.nwFirewall.TLSInspectionConfiguration.isConstruct"></a>
+
+```typescript
+import { nwFirewall } from 'raindancers-cdk'
+
+nwFirewall.TLSInspectionConfiguration.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.nwFirewall.TLSInspectionConfiguration.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.TLSInspectionConfiguration.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.nwFirewall.TLSInspectionConfiguration.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
 ### TransferServer <a name="TransferServer" id="raindancers-cdk.transfer.TransferServer"></a>
 
 - *Implements:* raindancers-cdk.transfer.ITransferServer
@@ -8785,6 +8884,45 @@ public readonly vpcSearchTag: Tag;
 ```
 
 - *Type:* aws-cdk-lib.Tag
+
+---
+
+### CheckCertificateActions <a name="CheckCertificateActions" id="raindancers-cdk.nwFirewall.CheckCertificateActions"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.nwFirewall.CheckCertificateActions.Initializer"></a>
+
+```typescript
+import { nwFirewall } from 'raindancers-cdk'
+
+const checkCertificateActions: nwFirewall.CheckCertificateActions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.CheckCertificateActions.property.revokedStatusAction">revokedStatusAction</a></code> | <code>raindancers-cdk.nwFirewall.RevokedAction</code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.CheckCertificateActions.property.unknownStatusAction">unknownStatusAction</a></code> | <code>raindancers-cdk.nwFirewall.RevokedAction</code> | *No description.* |
+
+---
+
+##### `revokedStatusAction`<sup>Optional</sup> <a name="revokedStatusAction" id="raindancers-cdk.nwFirewall.CheckCertificateActions.property.revokedStatusAction"></a>
+
+```typescript
+public readonly revokedStatusAction: RevokedAction;
+```
+
+- *Type:* raindancers-cdk.nwFirewall.RevokedAction
+
+---
+
+##### `unknownStatusAction`<sup>Optional</sup> <a name="unknownStatusAction" id="raindancers-cdk.nwFirewall.CheckCertificateActions.property.unknownStatusAction"></a>
+
+```typescript
+public readonly unknownStatusAction: RevokedAction;
+```
+
+- *Type:* raindancers-cdk.nwFirewall.RevokedAction
 
 ---
 
@@ -12303,6 +12441,163 @@ public readonly s3Permission: Permission;
 
 ---
 
+### Scope <a name="Scope" id="raindancers-cdk.nwFirewall.Scope"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.nwFirewall.Scope.Initializer"></a>
+
+```typescript
+import { nwFirewall } from 'raindancers-cdk'
+
+const scope: nwFirewall.Scope = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.Scope.property.destinationPorts">destinationPorts</a></code> | <code>aws-cdk-lib.aws_networkfirewall.CfnTLSInspectionConfiguration.PortRangeProperty[]</code> | needs to be a valid port, or a range of ports. |
+| <code><a href="#raindancers-cdk.nwFirewall.Scope.property.destinations">destinations</a></code> | <code>aws-cdk-lib.aws_networkfirewall.CfnTLSInspectionConfiguration.AddressProperty[]</code> | A list of cidrs. |
+| <code><a href="#raindancers-cdk.nwFirewall.Scope.property.protocols">protocols</a></code> | <code>raindancers-cdk.nwFirewall.Protocols[]</code> | Which protocols, if any, to decrypt for inspection. |
+| <code><a href="#raindancers-cdk.nwFirewall.Scope.property.sourcePorts">sourcePorts</a></code> | <code>aws-cdk-lib.aws_networkfirewall.CfnTLSInspectionConfiguration.PortRangeProperty[]</code> | needs to be a valid port, or a range of ports. |
+| <code><a href="#raindancers-cdk.nwFirewall.Scope.property.sources">sources</a></code> | <code>aws-cdk-lib.aws_networkfirewall.CfnTLSInspectionConfiguration.AddressProperty[]</code> | A list of Cidrs. |
+
+---
+
+##### `destinationPorts`<sup>Optional</sup> <a name="destinationPorts" id="raindancers-cdk.nwFirewall.Scope.property.destinationPorts"></a>
+
+```typescript
+public readonly destinationPorts: PortRangeProperty[];
+```
+
+- *Type:* aws-cdk-lib.aws_networkfirewall.CfnTLSInspectionConfiguration.PortRangeProperty[]
+
+needs to be a valid port, or a range of ports.
+
+eg ['443', '8000:8080']
+
+---
+
+##### `destinations`<sup>Optional</sup> <a name="destinations" id="raindancers-cdk.nwFirewall.Scope.property.destinations"></a>
+
+```typescript
+public readonly destinations: AddressProperty[];
+```
+
+- *Type:* aws-cdk-lib.aws_networkfirewall.CfnTLSInspectionConfiguration.AddressProperty[]
+
+A list of cidrs.
+
+---
+
+##### `protocols`<sup>Optional</sup> <a name="protocols" id="raindancers-cdk.nwFirewall.Scope.property.protocols"></a>
+
+```typescript
+public readonly protocols: Protocols[];
+```
+
+- *Type:* raindancers-cdk.nwFirewall.Protocols[]
+
+Which protocols, if any, to decrypt for inspection.
+
+only supports TCP
+
+---
+
+##### `sourcePorts`<sup>Optional</sup> <a name="sourcePorts" id="raindancers-cdk.nwFirewall.Scope.property.sourcePorts"></a>
+
+```typescript
+public readonly sourcePorts: PortRangeProperty[];
+```
+
+- *Type:* aws-cdk-lib.aws_networkfirewall.CfnTLSInspectionConfiguration.PortRangeProperty[]
+
+needs to be a valid port, or a range of ports.
+
+eg ['443', '8000:8080']
+
+---
+
+##### `sources`<sup>Optional</sup> <a name="sources" id="raindancers-cdk.nwFirewall.Scope.property.sources"></a>
+
+```typescript
+public readonly sources: AddressProperty[];
+```
+
+- *Type:* aws-cdk-lib.aws_networkfirewall.CfnTLSInspectionConfiguration.AddressProperty[]
+
+A list of Cidrs.
+
+---
+
+### ServerCertificateConfigurations <a name="ServerCertificateConfigurations" id="raindancers-cdk.nwFirewall.ServerCertificateConfigurations"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.nwFirewall.ServerCertificateConfigurations.Initializer"></a>
+
+```typescript
+import { nwFirewall } from 'raindancers-cdk'
+
+const serverCertificateConfigurations: nwFirewall.ServerCertificateConfigurations = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.ServerCertificateConfigurations.property.inspectionScopes">inspectionScopes</a></code> | <code>raindancers-cdk.nwFirewall.Scope[]</code> | Settings that define the Secure Sockets Layer/Transport Layer Security (SSL/TLS) traffic that Network Firewall should decrypt for inspection by the stateful rule engine. |
+| <code><a href="#raindancers-cdk.nwFirewall.ServerCertificateConfigurations.property.caCertificate">caCertificate</a></code> | <code>aws-cdk-lib.aws_certificatemanager.ICertificate</code> | An imported caCertificate for using for egress inspection, Supply at least of of caCertificate or serverCertificateName. |
+| <code><a href="#raindancers-cdk.nwFirewall.ServerCertificateConfigurations.property.certRevocationActions">certRevocationActions</a></code> | <code>raindancers-cdk.nwFirewall.CheckCertificateActions</code> | What to do with revoked certificates. |
+| <code><a href="#raindancers-cdk.nwFirewall.ServerCertificateConfigurations.property.serverCertificates">serverCertificates</a></code> | <code>aws-cdk-lib.aws_certificatemanager.ICertificate[]</code> | An certificate for ingress inspection, Supply at least of of caCertificate or serverCertificateName. |
+
+---
+
+##### `inspectionScopes`<sup>Required</sup> <a name="inspectionScopes" id="raindancers-cdk.nwFirewall.ServerCertificateConfigurations.property.inspectionScopes"></a>
+
+```typescript
+public readonly inspectionScopes: Scope[];
+```
+
+- *Type:* raindancers-cdk.nwFirewall.Scope[]
+
+Settings that define the Secure Sockets Layer/Transport Layer Security (SSL/TLS) traffic that Network Firewall should decrypt for inspection by the stateful rule engine.
+
+---
+
+##### `caCertificate`<sup>Optional</sup> <a name="caCertificate" id="raindancers-cdk.nwFirewall.ServerCertificateConfigurations.property.caCertificate"></a>
+
+```typescript
+public readonly caCertificate: ICertificate;
+```
+
+- *Type:* aws-cdk-lib.aws_certificatemanager.ICertificate
+
+An imported caCertificate for using for egress inspection, Supply at least of of caCertificate or serverCertificateName.
+
+---
+
+##### `certRevocationActions`<sup>Optional</sup> <a name="certRevocationActions" id="raindancers-cdk.nwFirewall.ServerCertificateConfigurations.property.certRevocationActions"></a>
+
+```typescript
+public readonly certRevocationActions: CheckCertificateActions;
+```
+
+- *Type:* raindancers-cdk.nwFirewall.CheckCertificateActions
+
+What to do with revoked certificates.
+
+---
+
+##### `serverCertificates`<sup>Optional</sup> <a name="serverCertificates" id="raindancers-cdk.nwFirewall.ServerCertificateConfigurations.property.serverCertificates"></a>
+
+```typescript
+public readonly serverCertificates: ICertificate[];
+```
+
+- *Type:* aws-cdk-lib.aws_certificatemanager.ICertificate[]
+
+An certificate for ingress inspection, Supply at least of of caCertificate or serverCertificateName.
+
+---
+
 ### ServerlessClamscanLoggingProps <a name="ServerlessClamscanLoggingProps" id="raindancers-cdk.clamscan.ServerlessClamscanLoggingProps"></a>
 
 Interface for ServerlessClamscan Virus Definitions S3 Bucket Logging.
@@ -12597,8 +12892,8 @@ const statefulRuleProps: nwFirewall.StatefulRuleProps = { ... }
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.nwFirewall.StatefulRuleProps.property.description">description</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.nwFirewall.StatefulRuleProps.property.groupName">groupName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#raindancers-cdk.nwFirewall.StatefulRuleProps.property.priority">priority</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#raindancers-cdk.nwFirewall.StatefulRuleProps.property.capacity">capacity</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.StatefulRuleProps.property.priority">priority</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#raindancers-cdk.nwFirewall.StatefulRuleProps.property.rulesSourceList">rulesSourceList</a></code> | <code>aws-cdk-lib.aws_networkfirewall.CfnRuleGroup.RulesSourceListProperty</code> | *No description.* |
 | <code><a href="#raindancers-cdk.nwFirewall.StatefulRuleProps.property.ruleVariables">ruleVariables</a></code> | <code>aws-cdk-lib.aws_networkfirewall.CfnRuleGroup.RuleVariablesProperty</code> | *No description.* |
 | <code><a href="#raindancers-cdk.nwFirewall.StatefulRuleProps.property.statefuleRules">statefuleRules</a></code> | <code>aws-cdk-lib.aws_networkfirewall.CfnRuleGroup.StatefulRuleProperty[]</code> | *No description.* |
@@ -12626,20 +12921,20 @@ public readonly groupName: string;
 
 ---
 
-##### `priority`<sup>Required</sup> <a name="priority" id="raindancers-cdk.nwFirewall.StatefulRuleProps.property.priority"></a>
+##### `capacity`<sup>Optional</sup> <a name="capacity" id="raindancers-cdk.nwFirewall.StatefulRuleProps.property.capacity"></a>
 
 ```typescript
-public readonly priority: number;
+public readonly capacity: number;
 ```
 
 - *Type:* number
 
 ---
 
-##### `capacity`<sup>Optional</sup> <a name="capacity" id="raindancers-cdk.nwFirewall.StatefulRuleProps.property.capacity"></a>
+##### `priority`<sup>Optional</sup> <a name="priority" id="raindancers-cdk.nwFirewall.StatefulRuleProps.property.priority"></a>
 
 ```typescript
-public readonly capacity: number;
+public readonly priority: number;
 ```
 
 - *Type:* number
@@ -13016,6 +13311,56 @@ public readonly regions: string[];
 
 ```typescript
 public readonly stackName: string;
+```
+
+- *Type:* string
+
+---
+
+### TLSInspectionConfigurationProps <a name="TLSInspectionConfigurationProps" id="raindancers-cdk.nwFirewall.TLSInspectionConfigurationProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.nwFirewall.TLSInspectionConfigurationProps.Initializer"></a>
+
+```typescript
+import { nwFirewall } from 'raindancers-cdk'
+
+const tLSInspectionConfigurationProps: nwFirewall.TLSInspectionConfigurationProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.TLSInspectionConfigurationProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.TLSInspectionConfigurationProps.property.serverCertificateConfigurations">serverCertificateConfigurations</a></code> | <code>raindancers-cdk.nwFirewall.ServerCertificateConfigurations[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.TLSInspectionConfigurationProps.property.description">description</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.nwFirewall.TLSInspectionConfigurationProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `serverCertificateConfigurations`<sup>Required</sup> <a name="serverCertificateConfigurations" id="raindancers-cdk.nwFirewall.TLSInspectionConfigurationProps.property.serverCertificateConfigurations"></a>
+
+```typescript
+public readonly serverCertificateConfigurations: ServerCertificateConfigurations[];
+```
+
+- *Type:* raindancers-cdk.nwFirewall.ServerCertificateConfigurations[]
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="raindancers-cdk.nwFirewall.TLSInspectionConfigurationProps.property.description"></a>
+
+```typescript
+public readonly description: string;
 ```
 
 - *Type:* string
@@ -15782,6 +16127,21 @@ SFTP (Secure Shell (SSH) File Transfer Protocol): File transfer over SSH.
 ---
 
 
+### Protocols <a name="Protocols" id="raindancers-cdk.nwFirewall.Protocols"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.Protocols.TCP">TCP</a></code> | *No description.* |
+
+---
+
+##### `TCP` <a name="TCP" id="raindancers-cdk.nwFirewall.Protocols.TCP"></a>
+
+---
+
+
 ### ResolverDirection <a name="ResolverDirection" id="raindancers-cdk.dns.ResolverDirection"></a>
 
 Direction of Resolver.
@@ -15826,6 +16186,33 @@ Resolver is outbound.
 
 
 ##### `CLOUDFORMATION_STACK_1_0` <a name="CLOUDFORMATION_STACK_1_0" id="raindancers-cdk.nwFirewall.ResourceGroupQueryTypes.CLOUDFORMATION_STACK_1_0"></a>
+
+---
+
+
+### RevokedAction <a name="RevokedAction" id="raindancers-cdk.nwFirewall.RevokedAction"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.RevokedAction.PASS">PASS</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.RevokedAction.DROP">DROP</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.RevokedAction.UNKNOWN">UNKNOWN</a></code> | *No description.* |
+
+---
+
+##### `PASS` <a name="PASS" id="raindancers-cdk.nwFirewall.RevokedAction.PASS"></a>
+
+---
+
+
+##### `DROP` <a name="DROP" id="raindancers-cdk.nwFirewall.RevokedAction.DROP"></a>
+
+---
+
+
+##### `UNKNOWN` <a name="UNKNOWN" id="raindancers-cdk.nwFirewall.RevokedAction.UNKNOWN"></a>
 
 ---
 
