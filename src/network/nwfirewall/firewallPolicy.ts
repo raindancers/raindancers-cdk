@@ -3,7 +3,10 @@ import {
   aws_networkfirewall as firewall,
 }
   from 'aws-cdk-lib';
+
 import * as constructs from 'constructs';
+import * as tls from './tlsInspection';
+
 
 export enum StatelessActions {
   PASS = 'aws:pass',
@@ -63,6 +66,7 @@ export interface IFirewallPolicyProperty {
   statelessDefaultActions: string[];
   statelessFragmentDefaultActions: string[];
   statelessRuleGroupReferences?: firewall.CfnFirewallPolicy.StatelessRuleGroupReferenceProperty[];
+  tlsInspectionConfigurationArn?: string;
 }
 
 export enum RuleGroupType {
@@ -115,7 +119,7 @@ export interface AddStatelessRulesProps{
   readonly rules: firewall.CfnRuleGroup.StatelessRuleProperty[];
   readonly description: string;
   readonly priority: number;
-  readonly capacity: number | undefined;
+  readonly capacity?: number | undefined;
 }
 
 
@@ -133,6 +137,7 @@ export class FirewallPolicy extends constructs.Construct {
       statelessFragmentDefaultActions: props.statelessFragmentDefaultActions,
       statefulEngineOptions: props.statefulEngineOptions,
     };
+
     this.policy = policy;
 
     this.firewallpolicy = new firewall.CfnFirewallPolicy(this, 'Fwpolicy', {
@@ -233,6 +238,10 @@ export class FirewallPolicy extends constructs.Construct {
     }
 
 
+  }
+
+  public addTLSInspection(tlsInspectionConfiguration: tls.ITLSInspectionConfiguration) {
+    this.policy.tlsInspectionConfigurationArn = tlsInspectionConfiguration.arn;
   }
 
 

@@ -4233,6 +4233,7 @@ new nwFirewall.FirewallPolicy(scope: Construct, id: string, props: FirewallPolic
 | <code><a href="#raindancers-cdk.nwFirewall.FirewallPolicy.addManagedStatefulRules">addManagedStatefulRules</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.nwFirewall.FirewallPolicy.addStatefulRules">addStatefulRules</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.nwFirewall.FirewallPolicy.addStatelessRuleGroup">addStatelessRuleGroup</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.FirewallPolicy.addTLSInspection">addTLSInspection</a></code> | *No description.* |
 
 ---
 
@@ -4277,6 +4278,18 @@ public addStatelessRuleGroup(props: AddStatelessRulesProps): void
 ###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.nwFirewall.FirewallPolicy.addStatelessRuleGroup.parameter.props"></a>
 
 - *Type:* raindancers-cdk.nwFirewall.AddStatelessRulesProps
+
+---
+
+##### `addTLSInspection` <a name="addTLSInspection" id="raindancers-cdk.nwFirewall.FirewallPolicy.addTLSInspection"></a>
+
+```typescript
+public addTLSInspection(tlsInspectionConfiguration: ITLSInspectionConfiguration): void
+```
+
+###### `tlsInspectionConfiguration`<sup>Required</sup> <a name="tlsInspectionConfiguration" id="raindancers-cdk.nwFirewall.FirewallPolicy.addTLSInspection.parameter.tlsInspectionConfiguration"></a>
+
+- *Type:* raindancers-cdk.nwFirewall.ITLSInspectionConfiguration
 
 ---
 
@@ -6428,6 +6441,8 @@ public readonly role: IRole;
 
 ### TLSInspectionConfiguration <a name="TLSInspectionConfiguration" id="raindancers-cdk.nwFirewall.TLSInspectionConfiguration"></a>
 
+- *Implements:* raindancers-cdk.nwFirewall.ITLSInspectionConfiguration
+
 #### Initializers <a name="Initializers" id="raindancers-cdk.nwFirewall.TLSInspectionConfiguration.Initializer"></a>
 
 ```typescript
@@ -6509,6 +6524,8 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.nwFirewall.TLSInspectionConfiguration.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.nwFirewall.TLSInspectionConfiguration.property.arn">arn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.TLSInspectionConfiguration.property.id">id</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -6521,6 +6538,26 @@ public readonly node: Node;
 - *Type:* constructs.Node
 
 The tree node.
+
+---
+
+##### `arn`<sup>Required</sup> <a name="arn" id="raindancers-cdk.nwFirewall.TLSInspectionConfiguration.property.arn"></a>
+
+```typescript
+public readonly arn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.nwFirewall.TLSInspectionConfiguration.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -14903,6 +14940,7 @@ The stack in which this resource is defined.
 | <code><a href="#raindancers-cdk.nwFirewall.IFirewallPolicyProperty.property.statefulRuleGroupReferences">statefulRuleGroupReferences</a></code> | <code>aws-cdk-lib.aws_networkfirewall.CfnFirewallPolicy.StatefulRuleGroupReferenceProperty[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.nwFirewall.IFirewallPolicyProperty.property.statelessCustomActions">statelessCustomActions</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_networkfirewall.CfnFirewallPolicy.CustomActionProperty[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.nwFirewall.IFirewallPolicyProperty.property.statelessRuleGroupReferences">statelessRuleGroupReferences</a></code> | <code>aws-cdk-lib.aws_networkfirewall.CfnFirewallPolicy.StatelessRuleGroupReferenceProperty[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.IFirewallPolicyProperty.property.tlsInspectionConfigurationArn">tlsInspectionConfigurationArn</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -14973,6 +15011,16 @@ public readonly statelessRuleGroupReferences: StatelessRuleGroupReferencePropert
 ```
 
 - *Type:* aws-cdk-lib.aws_networkfirewall.CfnFirewallPolicy.StatelessRuleGroupReferenceProperty[]
+
+---
+
+##### `tlsInspectionConfigurationArn`<sup>Optional</sup> <a name="tlsInspectionConfigurationArn" id="raindancers-cdk.nwFirewall.IFirewallPolicyProperty.property.tlsInspectionConfigurationArn"></a>
+
+```typescript
+public readonly tlsInspectionConfigurationArn: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -15311,6 +15359,40 @@ public readonly principalType: SSOPrincipalType;
 - *Type:* raindancers-cdk.sso.SSOPrincipalType
 
 The type of the principal.
+
+---
+
+### ITLSInspectionConfiguration <a name="ITLSInspectionConfiguration" id="raindancers-cdk.nwFirewall.ITLSInspectionConfiguration"></a>
+
+- *Implemented By:* raindancers-cdk.nwFirewall.TLSInspectionConfiguration, raindancers-cdk.nwFirewall.ITLSInspectionConfiguration
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.ITLSInspectionConfiguration.property.arn">arn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.ITLSInspectionConfiguration.property.id">id</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `arn`<sup>Required</sup> <a name="arn" id="raindancers-cdk.nwFirewall.ITLSInspectionConfiguration.property.arn"></a>
+
+```typescript
+public readonly arn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.nwFirewall.ITLSInspectionConfiguration.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
 
 ---
 

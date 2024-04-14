@@ -75,7 +75,15 @@ export interface TLSInspectionConfigurationProps {
   readonly serverCertificateConfigurations: ServerCertificateConfigurations[];
 }
 
-export class TLSInspectionConfiguration extends constructs.Construct {
+export interface ITLSInspectionConfiguration {
+  arn: string;
+  id: string;
+}
+
+export class TLSInspectionConfiguration extends constructs.Construct implements ITLSInspectionConfiguration {
+
+  arn: string;
+  id: string;
 
   constructor(scope: constructs.Construct, id: string, props: TLSInspectionConfigurationProps) {
     super(scope, id);
@@ -133,13 +141,16 @@ export class TLSInspectionConfiguration extends constructs.Construct {
     });
 
 
-    new networkfirewall.CfnTLSInspectionConfiguration(this, 'MyCfnTLSInspectionConfiguration', {
+    const tls = new networkfirewall.CfnTLSInspectionConfiguration(this, 'MyCfnTLSInspectionConfiguration', {
       tlsInspectionConfiguration: {
         serverCertificateConfigurations: serverCertificateConfigurations,
       },
       tlsInspectionConfigurationName: props.name,
       description: props.description,
     });
+
+    this.arn = tls.attrTlsInspectionConfigurationArn;
+    this.id = tls.attrTlsInspectionConfigurationId;
 
   }
 }
