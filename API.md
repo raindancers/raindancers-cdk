@@ -14700,6 +14700,7 @@ The properties of an DomainWindowsNodeProps, requires Active Directory parameter
 | <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.passwordObject">passwordObject</a></code> | <code>aws-cdk-lib.aws_secretsmanager.ISecret</code> | the secrect that contains the credentials of a AD user than has permissions to join an instance to the domain. |
 | <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.subnets">subnets</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | Where the instance should be launched. |
 | <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | The VPC to use. |
+| <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.encryptionKey">encryptionKey</a></code> | <code>aws-cdk-lib.aws_kms.IKey</code> | encryption key. |
 | <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.iamManagedPoliciesList">iamManagedPoliciesList</a></code> | <code>aws-cdk-lib.aws_iam.IManagedPolicy[]</code> | IAM Instance role permissions. |
 | <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.imdsv2">imdsv2</a></code> | <code>boolean</code> | Enforce the use of imdsv2. |
 | <code><a href="#raindancers-cdk.microsoft.IADJoinedNodeProps.property.machineImage">machineImage</a></code> | <code>aws-cdk-lib.aws_ec2.IMachineImage</code> | The name of the AMI to search in SSM (ec2.LookupNodeImage) supports Regex. |
@@ -14790,6 +14791,18 @@ public readonly vpc: IVpc;
 - *Type:* aws-cdk-lib.aws_ec2.IVpc
 
 The VPC to use.
+
+---
+
+##### `encryptionKey`<sup>Optional</sup> <a name="encryptionKey" id="raindancers-cdk.microsoft.IADJoinedNodeProps.property.encryptionKey"></a>
+
+```typescript
+public readonly encryptionKey: IKey;
+```
+
+- *Type:* aws-cdk-lib.aws_kms.IKey
+
+encryption key.
 
 ---
 

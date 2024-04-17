@@ -4,6 +4,7 @@ import {
   aws_ec2 as ec2,
   aws_ssm as ssm,
   aws_secretsmanager as sm,
+  aws_kms as kms,
 } from 'aws-cdk-lib';
 import { ISecret } from 'aws-cdk-lib/aws-secretsmanager';
 import {
@@ -58,9 +59,15 @@ export interface IADJoinedNodeProps {
      */
   passwordObject: sm.ISecret;
   /**
+   * encryption key
+   */
+  encryptionKey?: kms.IKey;
+
+  /**
      * optionally add a securityGroup
      * @default a new group will be added.
      */
+
   securityGroup?: ec2.SecurityGroup | undefined;
   /**
      * Enforce the use of imdsv2
@@ -95,6 +102,7 @@ export class ADDomainJoinedWindowsNode extends Construct {
   readonly vpc: ec2.IVpc;
   readonly passwordObject?: ISecret;
 
+
   constructor(scope: Construct, id: string, props: IADJoinedNodeProps) {
     super(scope, id);
 
@@ -107,7 +115,6 @@ export class ADDomainJoinedWindowsNode extends Construct {
       iam.ManagedPolicy.fromAwsManagedPolicyName(
         'AmazonSSMManagedInstanceCore',
       ),
-      iam.ManagedPolicy.fromAwsManagedPolicyName('SecretsManagerReadWrite'),
     ];
 
     props.userData = props.userData ?? '';
@@ -121,6 +128,21 @@ export class ADDomainJoinedWindowsNode extends Construct {
       managedPolicies: props.iamManagedPoliciesList,
     });
 
+    // allow this instnace to get secrect.
+    this.nodeRole.addToPolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: ['secretsmanager:GetSecretValue'],
+      resources: [props.passwordObject.secretArn],
+    }));
+
+    // if the secrect is cross account, you will need to add a secret.
+    if (props.encryptionKey) {
+      this.nodeRole.addToPolicy(new iam.PolicyStatement({
+        effect: iam.Effect.ALLOW,
+        actions: ['kms:Decrypt'],
+        resources: [props.encryptionKey.keyArn],
+      }));
+    };
     const securityGroup = props.securityGroup ?? new ec2.SecurityGroup(this, 'SecurityGroup', {
       vpc: this.vpc,
     });
@@ -130,7 +152,7 @@ export class ADDomainJoinedWindowsNode extends Construct {
     workerName.replace(/[^0-9a-z]/gi, ''); //convert string to alphanumeric
 
 
-    this.passwordObject.grantRead(this.nodeRole);
+    //this.passwordObject.grantRead(this.nodeRole);
 
     // Create CloudFormation Config set to allow the Domain join report back to Cloudformation only after reboot.
     const config = ec2.CloudFormationInit.fromConfigSets({
