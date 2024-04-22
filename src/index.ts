@@ -20,3 +20,4 @@ export * as microsoft from './microsoft/index';
 export * as zscaler from './zscaler/index';
 export * as imagebuilder from './imagebuilder/index';
 export * as loadbalancer from './network/loadbalancers/loadbalancers';
+export * as securityLake from './securitylake/index';

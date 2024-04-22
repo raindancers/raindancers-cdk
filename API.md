@@ -5814,6 +5814,129 @@ public readonly subnetSelection: SubnetSelection;
 ---
 
 
+### SecurityLake <a name="SecurityLake" id="raindancers-cdk.securityLake.SecurityLake"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.securityLake.SecurityLake.Initializer"></a>
+
+```typescript
+import { securityLake } from 'raindancers-cdk'
+
+new securityLake.SecurityLake(scope: Construct, id: string, props: SecurityLakeProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLake.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLake.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLake.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.securityLake.SecurityLakeProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.securityLake.SecurityLake.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.securityLake.SecurityLake.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.securityLake.SecurityLake.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.securityLake.SecurityLakeProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLake.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLake.addAwsSource">addAwsSource</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.securityLake.SecurityLake.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addAwsSource` <a name="addAwsSource" id="raindancers-cdk.securityLake.SecurityLake.addAwsSource"></a>
+
+```typescript
+public addAwsSource(props: AddAwsSourceProps): void
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.securityLake.SecurityLake.addAwsSource.parameter.props"></a>
+
+- *Type:* raindancers-cdk.securityLake.AddAwsSourceProps
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLake.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.securityLake.SecurityLake.isConstruct"></a>
+
+```typescript
+import { securityLake } from 'raindancers-cdk'
+
+securityLake.SecurityLake.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.securityLake.SecurityLake.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLake.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLake.property.arn">arn</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.securityLake.SecurityLake.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `arn`<sup>Required</sup> <a name="arn" id="raindancers-cdk.securityLake.SecurityLake.property.arn"></a>
+
+```typescript
+public readonly arn: string;
+```
+
+- *Type:* string
+
+---
+
+
 ### ServerlessClamscan <a name="ServerlessClamscan" id="raindancers-cdk.clamscan.ServerlessClamscan"></a>
 
 An [aws-cdk](https://github.com/aws/aws-cdk) construct that uses [ClamAV®](https://www.clamav.net/). to scan objects in Amazon S3 for viruses. The construct provides a flexible interface for a system to act based on the results of a ClamAV virus scan.
@@ -7723,6 +7846,34 @@ public readonly s3GatewayInterface: boolean;
 
 ---
 
+### AddAwsSourceProps <a name="AddAwsSourceProps" id="raindancers-cdk.securityLake.AddAwsSourceProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.securityLake.AddAwsSourceProps.Initializer"></a>
+
+```typescript
+import { securityLake } from 'raindancers-cdk'
+
+const addAwsSourceProps: securityLake.AddAwsSourceProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.securityLake.AddAwsSourceProps.property.logSources">logSources</a></code> | <code>raindancers-cdk.securityLake.AwsLogSource[]</code> | *No description.* |
+
+---
+
+##### `logSources`<sup>Required</sup> <a name="logSources" id="raindancers-cdk.securityLake.AddAwsSourceProps.property.logSources"></a>
+
+```typescript
+public readonly logSources: AwsLogSource[];
+```
+
+- *Type:* raindancers-cdk.securityLake.AwsLogSource[]
+
+---
+
 ### AddCoreRoutesProps <a name="AddCoreRoutesProps" id="raindancers-cdk.enterprisevpc.AddCoreRoutesProps"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.enterprisevpc.AddCoreRoutesProps.Initializer"></a>
@@ -8626,6 +8777,56 @@ Will this be connected in appliance mode ( used if you have Network Firewalls ).
 
 ```typescript
 public readonly attachmentSubnetGroup: string;
+```
+
+- *Type:* string
+
+---
+
+### AwsLogSource <a name="AwsLogSource" id="raindancers-cdk.securityLake.AwsLogSource"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.securityLake.AwsLogSource.Initializer"></a>
+
+```typescript
+import { securityLake } from 'raindancers-cdk'
+
+const awsLogSource: securityLake.AwsLogSource = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.securityLake.AwsLogSource.property.source">source</a></code> | <code>raindancers-cdk.securityLake.AwsSource</code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.AwsLogSource.property.accounts">accounts</a></code> | <code>aws-cdk-lib.Environment[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.AwsLogSource.property.sourceVersion">sourceVersion</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `source`<sup>Required</sup> <a name="source" id="raindancers-cdk.securityLake.AwsLogSource.property.source"></a>
+
+```typescript
+public readonly source: AwsSource;
+```
+
+- *Type:* raindancers-cdk.securityLake.AwsSource
+
+---
+
+##### `accounts`<sup>Optional</sup> <a name="accounts" id="raindancers-cdk.securityLake.AwsLogSource.property.accounts"></a>
+
+```typescript
+public readonly accounts: Environment[];
+```
+
+- *Type:* aws-cdk-lib.Environment[]
+
+---
+
+##### `sourceVersion`<sup>Optional</sup> <a name="sourceVersion" id="raindancers-cdk.securityLake.AwsLogSource.property.sourceVersion"></a>
+
+```typescript
+public readonly sourceVersion: string;
 ```
 
 - *Type:* string
@@ -12566,6 +12767,265 @@ A list of Cidrs.
 
 ---
 
+### SecurityLakeProps <a name="SecurityLakeProps" id="raindancers-cdk.securityLake.SecurityLakeProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.securityLake.SecurityLakeProps.Initializer"></a>
+
+```typescript
+import { securityLake } from 'raindancers-cdk'
+
+const securityLakeProps: securityLake.SecurityLakeProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.analyticsReporting">analyticsReporting</a></code> | <code>boolean</code> | Include runtime versioning information in this Stack. |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.crossRegionReferences">crossRegionReferences</a></code> | <code>boolean</code> | Enable this flag to allow native cross region stack references. |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.description">description</a></code> | <code>string</code> | A description of the stack. |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.env">env</a></code> | <code>aws-cdk-lib.Environment</code> | The AWS environment (account/region) where this stack will be deployed. |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.permissionsBoundary">permissionsBoundary</a></code> | <code>aws-cdk-lib.PermissionsBoundary</code> | Options for applying a permissions boundary to all IAM Roles and Users created within this Stage. |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.stackName">stackName</a></code> | <code>string</code> | Name to deploy the stack with. |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.suppressTemplateIndentation">suppressTemplateIndentation</a></code> | <code>boolean</code> | Enable this flag to suppress indentation in generated CloudFormation templates. |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.key">key</a></code> | <code>aws-cdk-lib.aws_kms.IKey</code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.lifecycle">lifecycle</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `analyticsReporting`<sup>Optional</sup> <a name="analyticsReporting" id="raindancers-cdk.securityLake.SecurityLakeProps.property.analyticsReporting"></a>
+
+```typescript
+public readonly analyticsReporting: boolean;
+```
+
+- *Type:* boolean
+- *Default:* `analyticsReporting` setting of containing `App`, or value of 'aws:cdk:version-reporting' context key
+
+Include runtime versioning information in this Stack.
+
+---
+
+##### `crossRegionReferences`<sup>Optional</sup> <a name="crossRegionReferences" id="raindancers-cdk.securityLake.SecurityLakeProps.property.crossRegionReferences"></a>
+
+```typescript
+public readonly crossRegionReferences: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Enable this flag to allow native cross region stack references.
+
+Enabling this will create a CloudFormation custom resource
+in both the producing stack and consuming stack in order to perform the export/import
+
+This feature is currently experimental
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="raindancers-cdk.securityLake.SecurityLakeProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* No description.
+
+A description of the stack.
+
+---
+
+##### `env`<sup>Optional</sup> <a name="env" id="raindancers-cdk.securityLake.SecurityLakeProps.property.env"></a>
+
+```typescript
+public readonly env: Environment;
+```
+
+- *Type:* aws-cdk-lib.Environment
+- *Default:* The environment of the containing `Stage` if available, otherwise create the stack will be environment-agnostic.
+
+The AWS environment (account/region) where this stack will be deployed.
+
+Set the `region`/`account` fields of `env` to either a concrete value to
+select the indicated environment (recommended for production stacks), or to
+the values of environment variables
+`CDK_DEFAULT_REGION`/`CDK_DEFAULT_ACCOUNT` to let the target environment
+depend on the AWS credentials/configuration that the CDK CLI is executed
+under (recommended for development stacks).
+
+If the `Stack` is instantiated inside a `Stage`, any undefined
+`region`/`account` fields from `env` will default to the same field on the
+encompassing `Stage`, if configured there.
+
+If either `region` or `account` are not set nor inherited from `Stage`, the
+Stack will be considered "*environment-agnostic*"". Environment-agnostic
+stacks can be deployed to any environment but may not be able to take
+advantage of all features of the CDK. For example, they will not be able to
+use environmental context lookups such as `ec2.Vpc.fromLookup` and will not
+automatically translate Service Principals to the right format based on the
+environment's AWS partition, and other such enhancements.
+
+---
+
+*Example*
+
+```typescript
+// Use a concrete account and region to deploy this stack to:
+// `.account` and `.region` will simply return these values.
+new Stack(app, 'Stack1', {
+  env: {
+    account: '123456789012',
+    region: 'us-east-1'
+  },
+});
+
+// Use the CLI's current credentials to determine the target environment:
+// `.account` and `.region` will reflect the account+region the CLI
+// is configured to use (based on the user CLI credentials)
+new Stack(app, 'Stack2', {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION
+  },
+});
+
+// Define multiple stacks stage associated with an environment
+const myStage = new Stage(app, 'MyStage', {
+  env: {
+    account: '123456789012',
+    region: 'us-east-1'
+  }
+});
+
+// both of these stacks will use the stage's account/region:
+// `.account` and `.region` will resolve to the concrete values as above
+new MyStack(myStage, 'Stack1');
+new YourStack(myStage, 'Stack2');
+
+// Define an environment-agnostic stack:
+// `.account` and `.region` will resolve to `{ "Ref": "AWS::AccountId" }` and `{ "Ref": "AWS::Region" }` respectively.
+// which will only resolve to actual values by CloudFormation during deployment.
+new MyStack(app, 'Stack1');
+```
+
+
+##### `permissionsBoundary`<sup>Optional</sup> <a name="permissionsBoundary" id="raindancers-cdk.securityLake.SecurityLakeProps.property.permissionsBoundary"></a>
+
+```typescript
+public readonly permissionsBoundary: PermissionsBoundary;
+```
+
+- *Type:* aws-cdk-lib.PermissionsBoundary
+- *Default:* no permissions boundary is applied
+
+Options for applying a permissions boundary to all IAM Roles and Users created within this Stage.
+
+---
+
+##### `stackName`<sup>Optional</sup> <a name="stackName" id="raindancers-cdk.securityLake.SecurityLakeProps.property.stackName"></a>
+
+```typescript
+public readonly stackName: string;
+```
+
+- *Type:* string
+- *Default:* Derived from construct path.
+
+Name to deploy the stack with.
+
+---
+
+##### `suppressTemplateIndentation`<sup>Optional</sup> <a name="suppressTemplateIndentation" id="raindancers-cdk.securityLake.SecurityLakeProps.property.suppressTemplateIndentation"></a>
+
+```typescript
+public readonly suppressTemplateIndentation: boolean;
+```
+
+- *Type:* boolean
+- *Default:* the value of `@aws-cdk/core:suppressTemplateIndentation`, or `false` if that is not set.
+
+Enable this flag to suppress indentation in generated CloudFormation templates.
+
+If not specified, the value of the `@aws-cdk/core:suppressTemplateIndentation`
+context key will be used. If that is not specified, then the
+default value `false` will be used.
+
+---
+
+##### `synthesizer`<sup>Optional</sup> <a name="synthesizer" id="raindancers-cdk.securityLake.SecurityLakeProps.property.synthesizer"></a>
+
+```typescript
+public readonly synthesizer: IStackSynthesizer;
+```
+
+- *Type:* aws-cdk-lib.IStackSynthesizer
+- *Default:* The synthesizer specified on `App`, or `DefaultStackSynthesizer` otherwise.
+
+Synthesis method to use while deploying this stack.
+
+The Stack Synthesizer controls aspects of synthesis and deployment,
+like how assets are referenced and what IAM roles to use. For more
+information, see the README of the main CDK package.
+
+If not specified, the `defaultStackSynthesizer` from `App` will be used.
+If that is not specified, `DefaultStackSynthesizer` is used if
+`@aws-cdk/core:newStyleStackSynthesis` is set to `true` or the CDK major
+version is v2. In CDK v1 `LegacyStackSynthesizer` is the default if no
+other synthesizer is specified.
+
+---
+
+##### `tags`<sup>Optional</sup> <a name="tags" id="raindancers-cdk.securityLake.SecurityLakeProps.property.tags"></a>
+
+```typescript
+public readonly tags: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* {}
+
+Stack tags that will be applied to all the taggable resources and the stack itself.
+
+---
+
+##### `terminationProtection`<sup>Optional</sup> <a name="terminationProtection" id="raindancers-cdk.securityLake.SecurityLakeProps.property.terminationProtection"></a>
+
+```typescript
+public readonly terminationProtection: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to enable termination protection for this stack.
+
+---
+
+##### `key`<sup>Required</sup> <a name="key" id="raindancers-cdk.securityLake.SecurityLakeProps.property.key"></a>
+
+```typescript
+public readonly key: IKey;
+```
+
+- *Type:* aws-cdk-lib.aws_kms.IKey
+
+---
+
+##### `lifecycle`<sup>Required</sup> <a name="lifecycle" id="raindancers-cdk.securityLake.SecurityLakeProps.property.lifecycle"></a>
+
+```typescript
+public readonly lifecycle: string;
+```
+
+- *Type:* string
+
+---
+
 ### ServerCertificateConfigurations <a name="ServerCertificateConfigurations" id="raindancers-cdk.nwFirewall.ServerCertificateConfigurations"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.nwFirewall.ServerCertificateConfigurations.Initializer"></a>
@@ -13669,6 +14129,45 @@ public readonly policy: PolicyDocument;
 - *Default:* Default Policy statement.
 
 Policy.
+
+---
+
+### Transistion <a name="Transistion" id="raindancers-cdk.securityLake.Transistion"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.securityLake.Transistion.Initializer"></a>
+
+```typescript
+import { securityLake } from 'raindancers-cdk'
+
+const transistion: securityLake.Transistion = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.securityLake.Transistion.property.class">class</a></code> | <code>raindancers-cdk.securityLake.SecurityLakeStorageClass</code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.Transistion.property.period">period</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
+
+---
+
+##### `class`<sup>Required</sup> <a name="class" id="raindancers-cdk.securityLake.Transistion.property.class"></a>
+
+```typescript
+public readonly class: SecurityLakeStorageClass;
+```
+
+- *Type:* raindancers-cdk.securityLake.SecurityLakeStorageClass
+
+---
+
+##### `period`<sup>Required</sup> <a name="period" id="raindancers-cdk.securityLake.Transistion.property.period"></a>
+
+```typescript
+public readonly period: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
 
 ---
 
@@ -15614,6 +16113,57 @@ enable Connecting VPC to TransitGateway in Appliance Mode.
 ---
 
 
+### AwsSource <a name="AwsSource" id="raindancers-cdk.securityLake.AwsSource"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.securityLake.AwsSource.ROUTE_53">ROUTE_53</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.AwsSource.VPC_FLOW">VPC_FLOW</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.AwsSource.SECURITY_HUB">SECURITY_HUB</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.AwsSource.CLOUD_TRAIL_MGMT">CLOUD_TRAIL_MGMT</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.AwsSource.LAMBDA">LAMBDA</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.AwsSource.S3_DATA">S3_DATA</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.AwsSource.EKS_AUDIT">EKS_AUDIT</a></code> | *No description.* |
+
+---
+
+##### `ROUTE_53` <a name="ROUTE_53" id="raindancers-cdk.securityLake.AwsSource.ROUTE_53"></a>
+
+---
+
+
+##### `VPC_FLOW` <a name="VPC_FLOW" id="raindancers-cdk.securityLake.AwsSource.VPC_FLOW"></a>
+
+---
+
+
+##### `SECURITY_HUB` <a name="SECURITY_HUB" id="raindancers-cdk.securityLake.AwsSource.SECURITY_HUB"></a>
+
+---
+
+
+##### `CLOUD_TRAIL_MGMT` <a name="CLOUD_TRAIL_MGMT" id="raindancers-cdk.securityLake.AwsSource.CLOUD_TRAIL_MGMT"></a>
+
+---
+
+
+##### `LAMBDA` <a name="LAMBDA" id="raindancers-cdk.securityLake.AwsSource.LAMBDA"></a>
+
+---
+
+
+##### `S3_DATA` <a name="S3_DATA" id="raindancers-cdk.securityLake.AwsSource.S3_DATA"></a>
+
+---
+
+
+##### `EKS_AUDIT` <a name="EKS_AUDIT" id="raindancers-cdk.securityLake.AwsSource.EKS_AUDIT"></a>
+
+---
+
+
 ### ComponentType <a name="ComponentType" id="raindancers-cdk.zscaler.ComponentType"></a>
 
 #### Members <a name="Members" id="Members"></a>
@@ -16329,6 +16879,57 @@ Resolver is outbound.
 
 
 ##### `STATELESS` <a name="STATELESS" id="raindancers-cdk.nwFirewall.RuleGroupType.STATELESS"></a>
+
+---
+
+
+### SecurityLakeStorageClass <a name="SecurityLakeStorageClass" id="raindancers-cdk.securityLake.SecurityLakeStorageClass"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeStorageClass.STANDARD_IA">STANDARD_IA</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeStorageClass.ONEZONE_IA">ONEZONE_IA</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeStorageClass.INTELLIGENT_TIERING">INTELLIGENT_TIERING</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeStorageClass.GLACIER_IR">GLACIER_IR</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeStorageClass.GLACIER">GLACIER</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeStorageClass.DEEP_ARCHIVE">DEEP_ARCHIVE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeStorageClass.EXPIRE">EXPIRE</a></code> | *No description.* |
+
+---
+
+##### `STANDARD_IA` <a name="STANDARD_IA" id="raindancers-cdk.securityLake.SecurityLakeStorageClass.STANDARD_IA"></a>
+
+---
+
+
+##### `ONEZONE_IA` <a name="ONEZONE_IA" id="raindancers-cdk.securityLake.SecurityLakeStorageClass.ONEZONE_IA"></a>
+
+---
+
+
+##### `INTELLIGENT_TIERING` <a name="INTELLIGENT_TIERING" id="raindancers-cdk.securityLake.SecurityLakeStorageClass.INTELLIGENT_TIERING"></a>
+
+---
+
+
+##### `GLACIER_IR` <a name="GLACIER_IR" id="raindancers-cdk.securityLake.SecurityLakeStorageClass.GLACIER_IR"></a>
+
+---
+
+
+##### `GLACIER` <a name="GLACIER" id="raindancers-cdk.securityLake.SecurityLakeStorageClass.GLACIER"></a>
+
+---
+
+
+##### `DEEP_ARCHIVE` <a name="DEEP_ARCHIVE" id="raindancers-cdk.securityLake.SecurityLakeStorageClass.DEEP_ARCHIVE"></a>
+
+---
+
+
+##### `EXPIRE` <a name="EXPIRE" id="raindancers-cdk.securityLake.SecurityLakeStorageClass.EXPIRE"></a>
 
 ---
 
