@@ -820,7 +820,7 @@ export class EnterpriseVpc extends constructs.Construct {
           },
 			  },
 			  physicalResourceId: cr.PhysicalResourceId.fromResponse('TransitGatewayVpcAttachment.TransitGatewayAttachmentId'),
-			  region: 'ap-southeast-2', // Cloudwan  is globalresource, that is based out of us-west-2
+			  region: `${cdk.Aws.REGION}`,
       },
       onDelete: {
         service: 'EC2',
@@ -828,7 +828,7 @@ export class EnterpriseVpc extends constructs.Construct {
         parameters: {
           TransitGatewayAttachmentId: new cr.PhysicalResourceIdReference(),
         },
-        region: 'ap-southeast-2',
+        region: `${cdk.Aws.REGION}`,
 
       },
       logRetention: logs.RetentionDays.ONE_DAY,
