@@ -1113,13 +1113,21 @@ export class EnterpriseVpc extends constructs.Construct {
                 },
               });
 
-              const transitgatewayroute = new ec2.CfnRoute(this, `${routeTableId.groupName}${index}tgroute${network}`, {
-                routeTableId: routeTableId.routeTableId,
-                destinationCidrBlock: network,
-                transitGatewayId: this.transitGWID,
-              });
-
-              transitgatewayroute.node.addDependency(waiter);
+              if (network.includes('::')) {
+                const transitgatewayroute = new ec2.CfnRoute(this, `${routeTableId.groupName}${index}tgroute${network}`, {
+                  routeTableId: routeTableId.routeTableId,
+                  destinationIpv6CidrBlock: network,
+                  transitGatewayId: this.transitGWID,
+                });
+                transitgatewayroute.node.addDependency(waiter);
+              } else {
+                const transitgatewayroute = new ec2.CfnRoute(this, `${routeTableId.groupName}${index}tgroute${network}`, {
+                  routeTableId: routeTableId.routeTableId,
+                  destinationCidrBlock: network,
+                  transitGatewayId: this.transitGWID,
+                });
+                transitgatewayroute.node.addDependency(waiter);
+              }
 
               break;
 
@@ -1164,11 +1172,19 @@ export class EnterpriseVpc extends constructs.Construct {
 
           this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet, index) => {
 
-            new ec2.CfnRoute(this, 'FirewallRoute-' + hashProps(props) + subnet.node.path.split('/').pop() + index, {
-              destinationCidrBlock: destinationCidr,
-              routeTableId: subnet.routeTable.routeTableId,
-              vpcEndpointId: fwDescription.getResponseField(`FirewallStatus.SyncStates.${subnet.availabilityZone}.Attachment.EndpointId`),
-            });
+            if (destinationCidr.includes('::')) {
+              new ec2.CfnRoute(this, 'FirewallRoute-' + hashProps(props) + subnet.node.path.split('/').pop() + index, {
+                destinationIpv6CidrBlock: destinationCidr,
+                routeTableId: subnet.routeTable.routeTableId,
+                vpcEndpointId: fwDescription.getResponseField(`FirewallStatus.SyncStates.${subnet.availabilityZone}.Attachment.EndpointId`),
+              });
+            } else {
+              new ec2.CfnRoute(this, 'FirewallRoute-' + hashProps(props) + subnet.node.path.split('/').pop() + index, {
+                destinationCidrBlock: destinationCidr,
+                routeTableId: subnet.routeTable.routeTableId,
+                vpcEndpointId: fwDescription.getResponseField(`FirewallStatus.SyncStates.${subnet.availabilityZone}.Attachment.EndpointId`),
+              });
+            }
           });
         });
       });
