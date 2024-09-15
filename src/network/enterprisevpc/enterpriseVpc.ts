@@ -29,6 +29,7 @@ import {
   transitGateway,
 } from '../../index';
 
+
 interface RouteTableMeta {
   readonly routeTableId: string;
   readonly groupName: string;
@@ -509,6 +510,10 @@ export class EnterpriseVpc extends constructs.Construct {
       allSubnetGroups.push(routerGroup.subnetGroup);
     });
 
+    //loop over each router Group.
+    /**
+     * A router group represents the route-tables for each group of subnets..  They will have identical routes, but will if appropriate repsect AZ boundarys.
+     */
     routerGroups.forEach((routerGroup) => {
       routerGroup.routes.forEach((route) => {
 
@@ -552,10 +557,13 @@ export class EnterpriseVpc extends constructs.Construct {
           } else {
             let subnets: ec2.ISubnet[] = [];
             subnets = this.vpc.selectSubnets({ subnetGroupName: route.subnet?.subnet.name }).subnets;
+
             let subnetGroupCidrs: string[] = [];
             subnets.forEach((subnet) => {
               subnetGroupCidrs.push(subnet.ipv4CidrBlock);
             });
+            console.log('**************subnet cirs**************');
+            console.log('subnetGroupCidrs');
             routecidr.concat(subnetGroupCidrs);
           }
         }
@@ -567,11 +575,6 @@ export class EnterpriseVpc extends constructs.Construct {
           description: route.description,
           subnetGroups: [routerGroup.subnetGroup.subnet.name],
           destination: route.destination,
-          // destination: network.Destination.NWFIREWALL,
-          // networkFirewallArn: aparua.firewallArn,
-          // destination: network.Destination.CLOUDWAN,
-          // cloudwanName: props.cloudWan.coreName
-
         });
 
       });
@@ -1153,6 +1156,7 @@ export class EnterpriseVpc extends constructs.Construct {
       });
 
       const fwDescription = new cr.AwsCustomResource(this, `DescribeFirewall${hashProps(props)}${props.description}`, {
+        resourceType: 'Custom::DescribeFirewall',
         onCreate: {
           service: 'NetworkFirewall',
           action: 'describeFirewall',
@@ -1169,19 +1173,38 @@ export class EnterpriseVpc extends constructs.Construct {
         }),
       });
 
+      console.log('(1) **** subnet Groups ****');
+      console.log(props.subnetGroups);
+
       props.subnetGroups.forEach((subnetGroup) => {
+
+        console.log('2 subnetgrous in loop');
+        console.log(subnetGroup);
+
         props.cidr.forEach((destinationCidr) => {
 
+          console.log('3 destination Cidr');
+          console.log(destinationCidr);
 
           this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet, index) => {
 
+            console.log('4 subnet id');
+            console.log(subnet.subnetId);
+
             if (destinationCidr.includes('::')) {
+
+              console.log('IPV6 Firewall Route');
+
               new ec2.CfnRoute(this, 'FirewallRoute-' + hashProps(props) + subnet.node.path.split('/').pop() + index, {
                 destinationIpv6CidrBlock: destinationCidr,
                 routeTableId: subnet.routeTable.routeTableId,
                 vpcEndpointId: fwDescription.getResponseField(`FirewallStatus.SyncStates.${subnet.availabilityZone}.Attachment.EndpointId`),
               });
+
             } else {
+
+              console.log('IPV4 Firewall Route');
+
               new ec2.CfnRoute(this, 'FirewallRoute-' + hashProps(props) + subnet.node.path.split('/').pop() + index, {
                 destinationCidrBlock: destinationCidr,
                 routeTableId: subnet.routeTable.routeTableId,
@@ -1191,6 +1214,8 @@ export class EnterpriseVpc extends constructs.Construct {
           });
         });
       });
+
+      throw Error('stopping here');
 
     } else if (props.destination === Destination.EC2_INSTANCE ) {
 
