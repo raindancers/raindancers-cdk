@@ -154,7 +154,7 @@ export interface AttachToTransitGatewayProps {
 	 //** Which Subnet Groups will the attachments be made ( defaults to 'linknet') */
 	 readonly attachmentSubnetGroup?: string | undefined;
   // Enable ipv6 Support
-  readonly ipv6Support: IpV6Support | undefined;
+  readonly ipv6Support?: IpV6Support | undefined;
 }
 
 export interface AddCoreRoutesProps {
