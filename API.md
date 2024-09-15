@@ -1,8 +1,3 @@
-# raindancers-cdk
-raindancers-cdk
-
-This is the raindancer cdk collection of constructs that supplment the aws-cdk-lib.
-
 # API Reference <a name="API Reference" id="api-reference"></a>
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
@@ -2067,6 +2062,116 @@ public readonly node: Node;
 - *Type:* constructs.Node
 
 The tree node.
+
+---
+
+
+### Document <a name="Document" id="raindancers-cdk.ssm.automation.Document"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.ssm.automation.Document.Initializer"></a>
+
+```typescript
+import { ssm } from 'raindancers-cdk'
+
+new ssm.automation.Document(scope: Construct, id: string, props: DocumentProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.ssm.automation.Document.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.ssm.automation.Document.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.ssm.automation.Document.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.ssm.automation.DocumentProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.ssm.automation.Document.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.ssm.automation.Document.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.ssm.automation.Document.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.ssm.automation.DocumentProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.ssm.automation.Document.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.ssm.automation.Document.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.ssm.automation.Document.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.ssm.automation.Document.isConstruct"></a>
+
+```typescript
+import { ssm } from 'raindancers-cdk'
+
+ssm.automation.Document.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.ssm.automation.Document.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.ssm.automation.Document.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.ssm.automation.Document.property.name">name</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.ssm.automation.Document.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.ssm.automation.Document.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -4760,6 +4865,105 @@ public readonly imageRecipeComponents: ComponentConfigurationProperty[];
 ```
 
 - *Type:* aws-cdk-lib.aws_imagebuilder.CfnImageRecipe.ComponentConfigurationProperty[]
+
+---
+
+
+### JoinActiveDirectory <a name="JoinActiveDirectory" id="raindancers-cdk.ssm.automation.JoinActiveDirectory"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.ssm.automation.JoinActiveDirectory.Initializer"></a>
+
+```typescript
+import { ssm } from 'raindancers-cdk'
+
+new ssm.automation.JoinActiveDirectory(scope: Construct, id: string, props: JoinActiveDirectoryAutomationProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.ssm.automation.JoinActiveDirectory.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.ssm.automation.JoinActiveDirectory.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.ssm.automation.JoinActiveDirectory.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.ssm.automation.JoinActiveDirectory.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.ssm.automation.JoinActiveDirectory.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.ssm.automation.JoinActiveDirectory.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.ssm.automation.JoinActiveDirectory.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.ssm.automation.JoinActiveDirectory.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.ssm.automation.JoinActiveDirectory.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.ssm.automation.JoinActiveDirectory.isConstruct"></a>
+
+```typescript
+import { ssm } from 'raindancers-cdk'
+
+ssm.automation.JoinActiveDirectory.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.ssm.automation.JoinActiveDirectory.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.ssm.automation.JoinActiveDirectory.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.ssm.automation.JoinActiveDirectory.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
 
 ---
 
@@ -8746,6 +8950,7 @@ const attachToTransitGatewayProps: enterprisevpc.AttachToTransitGatewayProps = {
 | <code><a href="#raindancers-cdk.enterprisevpc.AttachToTransitGatewayProps.property.transitGateway">transitGateway</a></code> | <code>raindancers-cdk.transitGateway.ITransitGateway</code> | the TransitGateway to connect to. |
 | <code><a href="#raindancers-cdk.enterprisevpc.AttachToTransitGatewayProps.property.applicanceMode">applicanceMode</a></code> | <code>raindancers-cdk.enterprisevpc.ApplianceMode</code> | Will this be connected in appliance mode ( used if you have Network Firewalls ). |
 | <code><a href="#raindancers-cdk.enterprisevpc.AttachToTransitGatewayProps.property.attachmentSubnetGroup">attachmentSubnetGroup</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.AttachToTransitGatewayProps.property.ipv6Support">ipv6Support</a></code> | <code>raindancers-cdk.enterprisevpc.IpV6Support</code> | *No description.* |
 
 ---
 
@@ -8780,6 +8985,16 @@ public readonly attachmentSubnetGroup: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `ipv6Support`<sup>Optional</sup> <a name="ipv6Support" id="raindancers-cdk.enterprisevpc.AttachToTransitGatewayProps.property.ipv6Support"></a>
+
+```typescript
+public readonly ipv6Support: IpV6Support;
+```
+
+- *Type:* raindancers-cdk.enterprisevpc.IpV6Support
 
 ---
 
@@ -9786,6 +10001,75 @@ public readonly zoneName: string;
 ```
 
 - *Type:* string
+
+---
+
+### DocumentProps <a name="DocumentProps" id="raindancers-cdk.ssm.automation.DocumentProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.ssm.automation.DocumentProps.Initializer"></a>
+
+```typescript
+import { ssm } from 'raindancers-cdk'
+
+const documentProps: ssm.automation.DocumentProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.ssm.automation.DocumentProps.property.name">name</a></code> | <code>string</code> | name must be unique. |
+| <code><a href="#raindancers-cdk.ssm.automation.DocumentProps.property.path">path</a></code> | <code>string</code> | path to the document. |
+| <code><a href="#raindancers-cdk.ssm.automation.DocumentProps.property.documentFormat">documentFormat</a></code> | <code>raindancers-cdk.ssm.automation.DocumentFormat</code> | default is YAML. |
+| <code><a href="#raindancers-cdk.ssm.automation.DocumentProps.property.documentType">documentType</a></code> | <code>raindancers-cdk.ssm.automation.DocumentType</code> | default AUTOMATION. |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.ssm.automation.DocumentProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+name must be unique.
+
+---
+
+##### `path`<sup>Required</sup> <a name="path" id="raindancers-cdk.ssm.automation.DocumentProps.property.path"></a>
+
+```typescript
+public readonly path: string;
+```
+
+- *Type:* string
+
+path to the document.
+
+---
+
+##### `documentFormat`<sup>Optional</sup> <a name="documentFormat" id="raindancers-cdk.ssm.automation.DocumentProps.property.documentFormat"></a>
+
+```typescript
+public readonly documentFormat: DocumentFormat;
+```
+
+- *Type:* raindancers-cdk.ssm.automation.DocumentFormat
+
+default is YAML.
+
+---
+
+##### `documentType`<sup>Optional</sup> <a name="documentType" id="raindancers-cdk.ssm.automation.DocumentProps.property.documentType"></a>
+
+```typescript
+public readonly documentType: DocumentType;
+```
+
+- *Type:* raindancers-cdk.ssm.automation.DocumentType
+
+default AUTOMATION.
 
 ---
 
@@ -11527,6 +11811,89 @@ public readonly vulnScansRepoTags: string[];
 - *Type:* string[]
 
 Store vulnerability scans through AWS Inpsector in ECR using these image tags (if option is enabled).
+
+---
+
+### JoinActiveDirectoryAutomationProps <a name="JoinActiveDirectoryAutomationProps" id="raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps.Initializer"></a>
+
+```typescript
+import { ssm } from 'raindancers-cdk'
+
+const joinActiveDirectoryAutomationProps: ssm.automation.JoinActiveDirectoryAutomationProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps.property.domainName">domainName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps.property.instances">instances</a></code> | <code>aws-cdk-lib.aws_ec2.IInstance[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps.property.joinUsername">joinUsername</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps.property.joinUserPasswordSSMParameterName">joinUserPasswordSSMParameterName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps.property.targetOU">targetOU</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `domainName`<sup>Required</sup> <a name="domainName" id="raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps.property.domainName"></a>
+
+```typescript
+public readonly domainName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `instances`<sup>Required</sup> <a name="instances" id="raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps.property.instances"></a>
+
+```typescript
+public readonly instances: IInstance[];
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IInstance[]
+
+---
+
+##### `joinUsername`<sup>Required</sup> <a name="joinUsername" id="raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps.property.joinUsername"></a>
+
+```typescript
+public readonly joinUsername: string;
+```
+
+- *Type:* string
+
+---
+
+##### `joinUserPasswordSSMParameterName`<sup>Required</sup> <a name="joinUserPasswordSSMParameterName" id="raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps.property.joinUserPasswordSSMParameterName"></a>
+
+```typescript
+public readonly joinUserPasswordSSMParameterName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `targetOU`<sup>Required</sup> <a name="targetOU" id="raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps.property.targetOU"></a>
+
+```typescript
+public readonly targetOU: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -16341,6 +16708,48 @@ route to the transitGateway that the vpc is attached to.
 ---
 
 
+### DocumentFormat <a name="DocumentFormat" id="raindancers-cdk.ssm.automation.DocumentFormat"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.ssm.automation.DocumentFormat.YAML">YAML</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.ssm.automation.DocumentFormat.JSON">JSON</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.ssm.automation.DocumentFormat.TEXT">TEXT</a></code> | *No description.* |
+
+---
+
+##### `YAML` <a name="YAML" id="raindancers-cdk.ssm.automation.DocumentFormat.YAML"></a>
+
+---
+
+
+##### `JSON` <a name="JSON" id="raindancers-cdk.ssm.automation.DocumentFormat.JSON"></a>
+
+---
+
+
+##### `TEXT` <a name="TEXT" id="raindancers-cdk.ssm.automation.DocumentFormat.TEXT"></a>
+
+---
+
+
+### DocumentType <a name="DocumentType" id="raindancers-cdk.ssm.automation.DocumentType"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.ssm.automation.DocumentType.AUTOMATION">AUTOMATION</a></code> | *No description.* |
+
+---
+
+##### `AUTOMATION` <a name="AUTOMATION" id="raindancers-cdk.ssm.automation.DocumentType.AUTOMATION"></a>
+
+---
+
+
 ### EndpointType <a name="EndpointType" id="raindancers-cdk.transfer.EndpointType"></a>
 
 #### Members <a name="Members" id="Members"></a>
@@ -16409,6 +16818,21 @@ route to the transitGateway that the vpc is attached to.
 
 
 ##### `DISABLE` <a name="DISABLE" id="raindancers-cdk.transitGateway.Ipv6Support.DISABLE"></a>
+
+---
+
+
+### IpV6Support <a name="IpV6Support" id="raindancers-cdk.enterprisevpc.IpV6Support"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.IpV6Support.ENABLED">ENABLED</a></code> | *No description.* |
+
+---
+
+##### `ENABLED` <a name="ENABLED" id="raindancers-cdk.enterprisevpc.IpV6Support.ENABLED"></a>
 
 ---
 

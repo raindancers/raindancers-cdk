@@ -139,6 +139,10 @@ export enum ApplianceMode {
   ENABLED = 'enable'
 }
 
+export enum IpV6Support {
+  ENABLED = 'enabled'
+}
+
 /**
  * Propertys to attach the Vpc To Transit Gateway
  */
@@ -149,6 +153,8 @@ export interface AttachToTransitGatewayProps {
 	 readonly applicanceMode?: ApplianceMode | undefined;
 	 //** Which Subnet Groups will the attachments be made ( defaults to 'linknet') */
 	 readonly attachmentSubnetGroup?: string | undefined;
+  // Enable ipv6 Support
+  readonly ipv6Support: IpV6Support | undefined;
 }
 
 export interface AddCoreRoutesProps {
@@ -817,6 +823,7 @@ export class EnterpriseVpc extends constructs.Construct {
           VpcId: this.vpc.vpcId,
           Options: {
 				    ApplianceModeSupport: props.applicanceMode,
+            IpV6Support: props.attachmentSubnetGroup,
           },
 			  },
 			  physicalResourceId: cr.PhysicalResourceId.fromResponse('TransitGatewayVpcAttachment.TransitGatewayAttachmentId'),

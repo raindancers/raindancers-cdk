@@ -4,7 +4,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   authorAddress: 'andrew.frazer@raindancers.cloud',
   cdkVersion: '2.138.0',
   defaultReleaseBranch: 'main',
-  jsiiVersion: '~5.3.0',
+  jsiiVersion: '~5.5.0',
   name: 'raindancers-cdk',
   projenrcTs: true,
   repositoryUrl: 'https://github.com/raindancers/raindancers-cdk',
