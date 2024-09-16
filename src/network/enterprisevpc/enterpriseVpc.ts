@@ -564,7 +564,10 @@ export class EnterpriseVpc extends constructs.Construct {
             });
             console.log('**************subnet cirs**************');
             console.log(subnetGroupCidrs);
-            routecidr.concat(subnetGroupCidrs);
+            subnetGroupCidrs.forEach((cidr)=> {
+              routecidr.push(cidr);
+            });
+            //routecidr.concat(subnetGroupCidrs);
           }
         }
         // .addRoutes takes a list of cidrs, and will deal to them so that traffic reamins symetric.
