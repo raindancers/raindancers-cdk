@@ -29,7 +29,6 @@ import {
   transitGateway,
 } from '../../index';
 
-
 interface RouteTableMeta {
   readonly routeTableId: string;
   readonly groupName: string;
@@ -510,10 +509,6 @@ export class EnterpriseVpc extends constructs.Construct {
       allSubnetGroups.push(routerGroup.subnetGroup);
     });
 
-    //loop over each router Group.
-    /**
-     * A router group represents the route-tables for each group of subnets..  They will have identical routes, but will if appropriate repsect AZ boundarys.
-     */
     routerGroups.forEach((routerGroup) => {
       routerGroup.routes.forEach((route) => {
 
@@ -557,28 +552,26 @@ export class EnterpriseVpc extends constructs.Construct {
           } else {
             let subnets: ec2.ISubnet[] = [];
             subnets = this.vpc.selectSubnets({ subnetGroupName: route.subnet?.subnet.name }).subnets;
-
             let subnetGroupCidrs: string[] = [];
             subnets.forEach((subnet) => {
               subnetGroupCidrs.push(subnet.ipv4CidrBlock);
             });
-            console.log('**************subnet cirs**************');
-            console.log(subnetGroupCidrs);
-            subnetGroupCidrs.forEach((cidr)=> {
-              routecidr.push(cidr);
-            });
-            //routecidr.concat(subnetGroupCidrs);
+            routecidr.concat(subnetGroupCidrs);
           }
         }
         // .addRoutes takes a list of cidrs, and will deal to them so that traffic reamins symetric.
 
-        console.log(routecidr);
 
         this.addRoutes({
           cidr: routecidr,
           description: route.description,
           subnetGroups: [routerGroup.subnetGroup.subnet.name],
           destination: route.destination,
+          // destination: network.Destination.NWFIREWALL,
+          // networkFirewallArn: aparua.firewallArn,
+          // destination: network.Destination.CLOUDWAN,
+          // cloudwanName: props.cloudWan.coreName
+
         });
 
       });
@@ -1154,15 +1147,12 @@ export class EnterpriseVpc extends constructs.Construct {
        * the respose from the API call, exceeds 4096, so need to limit it with an output path
        */
       const outputPaths: string[] = [];
-
-      // get the endpoints for
       const azlist = cdk.Stack.of(this).availabilityZones;
       azlist.forEach ((az) => {
         outputPaths.push(`FirewallStatus.SyncStates.${az}.Attachment.EndpointId`);
       });
 
       const fwDescription = new cr.AwsCustomResource(this, `DescribeFirewall${hashProps(props)}${props.description}`, {
-        resourceType: 'Custom::DescribeFirewall',
         onCreate: {
           service: 'NetworkFirewall',
           action: 'describeFirewall',
@@ -1179,40 +1169,28 @@ export class EnterpriseVpc extends constructs.Construct {
         }),
       });
 
-
       props.subnetGroups.forEach((subnetGroup) => {
-
         props.cidr.forEach((destinationCidr) => {
+
+
           this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet, index) => {
 
-
             if (destinationCidr.includes('::')) {
-
-              console.log('IPV6 Firewall Route');
-
-              new ec2.CfnRoute(this, 'FirewallIpv6Route-' + + hashProps(props) + subnet.node.path.split('/').pop() + index, {
+              new ec2.CfnRoute(this, 'FirewallRoute-' + hashProps(props) + subnet.node.path.split('/').pop() + index, {
                 destinationIpv6CidrBlock: destinationCidr,
                 routeTableId: subnet.routeTable.routeTableId,
                 vpcEndpointId: fwDescription.getResponseField(`FirewallStatus.SyncStates.${subnet.availabilityZone}.Attachment.EndpointId`),
               });
-
-
             } else {
-
-              console.log('IPV4 Firewall Route');
-
-              new ec2.CfnRoute(this, 'FirewallRoute-' + + hashProps(props) + subnet.node.path.split('/').pop() + index, {
+              new ec2.CfnRoute(this, 'FirewallRoute-' + hashProps(props) + subnet.node.path.split('/').pop() + index, {
                 destinationCidrBlock: destinationCidr,
                 routeTableId: subnet.routeTable.routeTableId,
                 vpcEndpointId: fwDescription.getResponseField(`FirewallStatus.SyncStates.${subnet.availabilityZone}.Attachment.EndpointId`),
               });
-
             }
           });
         });
       });
-
-      throw Error('stopping here');
 
     } else if (props.destination === Destination.EC2_INSTANCE ) {
 
@@ -1369,5 +1347,3 @@ function hashProps(props: object | string): string {
   }
   return h.toString(16).substring(0, 12);
 }
-
-
