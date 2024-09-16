@@ -1190,8 +1190,11 @@ export class EnterpriseVpc extends constructs.Construct {
           console.log('3 destination Cidr');
           console.log(destinationCidr);
 
-          this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet, index) => {
+          var index = 0;
 
+          this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet) => {
+
+            index =+ 1;
             console.log('4 subnet id');
             console.log(subnet.subnetId);
 
@@ -1376,3 +1379,5 @@ function hashProps(props: object | string): string {
   }
   return h.toString(16).substring(0, 12);
 }
+
+
