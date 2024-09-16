@@ -12986,10 +12986,19 @@ const route: enterprisevpc.Route = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.Route.property.cidr">cidr</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Route.property.description">description</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Route.property.destination">destination</a></code> | <code>raindancers-cdk.enterprisevpc.Destination</code> | *No description.* |
-| <code><a href="#raindancers-cdk.enterprisevpc.Route.property.cidr">cidr</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#raindancers-cdk.enterprisevpc.Route.property.subnet">subnet</a></code> | <code>raindancers-cdk.enterprisevpc.SubnetGroup \| raindancers-cdk.enterprisevpc.SubnetWildCards</code> | *No description.* |
+
+---
+
+##### `cidr`<sup>Required</sup> <a name="cidr" id="raindancers-cdk.enterprisevpc.Route.property.cidr"></a>
+
+```typescript
+public readonly cidr: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -13010,26 +13019,6 @@ public readonly destination: Destination;
 ```
 
 - *Type:* raindancers-cdk.enterprisevpc.Destination
-
----
-
-##### `cidr`<sup>Optional</sup> <a name="cidr" id="raindancers-cdk.enterprisevpc.Route.property.cidr"></a>
-
-```typescript
-public readonly cidr: string;
-```
-
-- *Type:* string
-
----
-
-##### `subnet`<sup>Optional</sup> <a name="subnet" id="raindancers-cdk.enterprisevpc.Route.property.subnet"></a>
-
-```typescript
-public readonly subnet: SubnetGroup | SubnetWildCards;
-```
-
-- *Type:* raindancers-cdk.enterprisevpc.SubnetGroup | raindancers-cdk.enterprisevpc.SubnetWildCards
 
 ---
 

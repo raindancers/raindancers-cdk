@@ -83,8 +83,7 @@ export enum SubnetWildCards {
 }
 
 export interface Route {
-  readonly cidr?: string;
-  readonly subnet?: SubnetGroup | SubnetWildCards;
+  readonly cidr: string;
   readonly destination: Destination;
   readonly description: string;
 }
@@ -514,9 +513,7 @@ export class EnterpriseVpc extends constructs.Construct {
 
         // Sanity Check the inputs
         // only one of cidr or subnet can be supplied
-        if (!(route.cidr || route.subnet)) {
-          throw new Error('Only one of cidr or subnet can be supplied');
-        }
+
 
         let routecidr: string[] = [];
 
@@ -525,42 +522,7 @@ export class EnterpriseVpc extends constructs.Construct {
         if (route.cidr) {
           routecidr.push(route.cidr as string);
         // it must be a subnet route
-        } else {
-
-          // if the wild card is used; we need to create routes for all subnets, except
-          // for the subnet where this is being routed from.
-          if (route.subnet === SubnetWildCards.ALLSUBNETS) {
-
-            // remove  the calling subnet from the wildcard list
-            let subnetsNotMe = allSubnetGroups;
-            subnetsNotMe.splice(subnetsNotMe.findIndex(item => item === routerGroup.subnetGroup));
-
-            // get the subnetIds
-            let subnets: ec2.ISubnet[] = [];
-            allSubnetGroups.forEach((subnetGroup) => {
-              subnets.concat(this.vpc.selectSubnets({ subnetGroupName: subnetGroup.subnet.name }).subnets);
-            });
-
-            // allSubnetCidrs is a list of subnets, from which to create routes
-            let allSubnetCidrs: string[] = [];
-            subnets.forEach((subnet) => {
-              allSubnetCidrs.push(subnet.ipv4CidrBlock);
-            });
-
-            routecidr.concat(allSubnetCidrs);
-          // if the subnets are supplied
-          } else {
-            let subnets: ec2.ISubnet[] = [];
-            subnets = this.vpc.selectSubnets({ subnetGroupName: route.subnet?.subnet.name }).subnets;
-            let subnetGroupCidrs: string[] = [];
-            subnets.forEach((subnet) => {
-              subnetGroupCidrs.push(subnet.ipv4CidrBlock);
-            });
-            routecidr.concat(subnetGroupCidrs);
-          }
         }
-        // .addRoutes takes a list of cidrs, and will deal to them so that traffic reamins symetric.
-
 
         this.addRoutes({
           cidr: routecidr,
@@ -1393,14 +1355,11 @@ export class NWFWSubnetRoutes extends constructs.Construct {
       }
     });
 
-    console.log(destIpv4Cidrs.length);
-    console.log(destIpv6Cidrs.length);
 
     // iterate over the ipv6 subnets
     sourceSubnetGroup.subnets.forEach((src, index) => {
 
       destIpv6Cidrs.forEach((destcidr, index2) => {
-        console.log(index, index2, destcidr);
         new ec2.CfnRoute(this, `FirewallRouteIpv6-${index}-${index2}`, {
           destinationIpv6CidrBlock: destcidr,
           routeTableId: src.routeTable.routeTableId,
