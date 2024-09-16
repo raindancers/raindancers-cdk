@@ -1199,7 +1199,7 @@ export class EnterpriseVpc extends constructs.Construct {
 
               console.log('IPV6 Firewall Route');
 
-              new ec2.CfnRoute(this, 'FirewallRoute-' + hashProps(props) + subnet.node.path.split('/').pop() + index, {
+              new ec2.CfnRoute(this, 'FirewallRoute-' + index + props.description, {
                 destinationIpv6CidrBlock: destinationCidr,
                 routeTableId: subnet.routeTable.routeTableId,
                 vpcEndpointId: fwDescription.getResponseField(`FirewallStatus.SyncStates.${subnet.availabilityZone}.Attachment.EndpointId`),
@@ -1209,7 +1209,7 @@ export class EnterpriseVpc extends constructs.Construct {
 
               console.log('IPV4 Firewall Route');
 
-              new ec2.CfnRoute(this, 'FirewallRoute-' + hashProps(props) + subnet.node.path.split('/').pop() + index, {
+              new ec2.CfnRoute(this, 'FirewallRoute-' + index + props.description, {
                 destinationCidrBlock: destinationCidr,
                 routeTableId: subnet.routeTable.routeTableId,
                 vpcEndpointId: fwDescription.getResponseField(`FirewallStatus.SyncStates.${subnet.availabilityZone}.Attachment.EndpointId`),
