@@ -1062,6 +1062,7 @@ export class EnterpriseVpc extends constructs.Construct {
 	 */
   public addRoutes (props: AddRoutesProps): void {
 
+    var indexA = 0;
 
     if ( props.destination === Destination.TRANSITGATEWAY || props.destination === Destination.CLOUDWAN ) {
 
@@ -1180,7 +1181,6 @@ export class EnterpriseVpc extends constructs.Construct {
       console.log('(1) **** subnet Groups ****');
       console.log(props.subnetGroups);
 
-      var indexA = 0;
 
       props.subnetGroups.forEach((subnetGroup) => {
 
