@@ -5114,6 +5114,105 @@ Firewall ID.
 ---
 
 
+### NWFWSubnetRoutes <a name="NWFWSubnetRoutes" id="raindancers-cdk.enterprisevpc.NWFWSubnetRoutes"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.enterprisevpc.NWFWSubnetRoutes.Initializer"></a>
+
+```typescript
+import { enterprisevpc } from 'raindancers-cdk'
+
+new enterprisevpc.NWFWSubnetRoutes(scope: Construct, id: string, props: SubNetRouteProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.NWFWSubnetRoutes.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.NWFWSubnetRoutes.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.NWFWSubnetRoutes.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.enterprisevpc.SubNetRouteProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.enterprisevpc.NWFWSubnetRoutes.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.enterprisevpc.NWFWSubnetRoutes.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.enterprisevpc.NWFWSubnetRoutes.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.enterprisevpc.SubNetRouteProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.NWFWSubnetRoutes.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.enterprisevpc.NWFWSubnetRoutes.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.NWFWSubnetRoutes.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.enterprisevpc.NWFWSubnetRoutes.isConstruct"></a>
+
+```typescript
+import { enterprisevpc } from 'raindancers-cdk'
+
+enterprisevpc.NWFWSubnetRoutes.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.enterprisevpc.NWFWSubnetRoutes.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.NWFWSubnetRoutes.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.enterprisevpc.NWFWSubnetRoutes.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
 ### OrganizationalUnit <a name="OrganizationalUnit" id="raindancers-cdk.organizations.OrganizationalUnit"></a>
 
 - *Implements:* raindancers-cdk.organizations.IOrganizationalUnit
@@ -14008,6 +14107,67 @@ public readonly sitePath: string;
 ```
 
 - *Type:* string
+
+---
+
+### SubNetRouteProps <a name="SubNetRouteProps" id="raindancers-cdk.enterprisevpc.SubNetRouteProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.enterprisevpc.SubNetRouteProps.Initializer"></a>
+
+```typescript
+import { enterprisevpc } from 'raindancers-cdk'
+
+const subNetRouteProps: enterprisevpc.SubNetRouteProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.SubNetRouteProps.property.destination">destination</a></code> | <code>raindancers-cdk.enterprisevpc.SubnetGroup</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.SubNetRouteProps.property.firewallArn">firewallArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.SubNetRouteProps.property.source">source</a></code> | <code>raindancers-cdk.enterprisevpc.SubnetGroup</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.SubNetRouteProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+
+---
+
+##### `destination`<sup>Required</sup> <a name="destination" id="raindancers-cdk.enterprisevpc.SubNetRouteProps.property.destination"></a>
+
+```typescript
+public readonly destination: SubnetGroup;
+```
+
+- *Type:* raindancers-cdk.enterprisevpc.SubnetGroup
+
+---
+
+##### `firewallArn`<sup>Required</sup> <a name="firewallArn" id="raindancers-cdk.enterprisevpc.SubNetRouteProps.property.firewallArn"></a>
+
+```typescript
+public readonly firewallArn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `source`<sup>Required</sup> <a name="source" id="raindancers-cdk.enterprisevpc.SubNetRouteProps.property.source"></a>
+
+```typescript
+public readonly source: SubnetGroup;
+```
+
+- *Type:* raindancers-cdk.enterprisevpc.SubnetGroup
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.enterprisevpc.SubNetRouteProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
 
 ---
 

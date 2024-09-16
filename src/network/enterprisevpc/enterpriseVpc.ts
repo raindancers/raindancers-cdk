@@ -1338,6 +1338,94 @@ export class EnterpriseVpc extends constructs.Construct {
 }
 
 
+export interface SubNetRouteProps {
+  readonly vpc: ec2.IVpc;
+  readonly firewallArn: string;
+  readonly source: SubnetGroup;
+  readonly destination: SubnetGroup;
+}
+
+
+export class NWFWSubnetRoutes extends constructs.Construct {
+
+  constructor(scope: constructs.Construct, id: string, props: SubNetRouteProps) {
+    super(scope, id);
+
+    const outputPaths: string[] = [];
+    const azlist = cdk.Stack.of(this).availabilityZones;
+    azlist.forEach ((az) => {
+      outputPaths.push(`FirewallStatus.SyncStates.${az}.Attachment.EndpointId`);
+    });
+
+    const fwDescription = new cr.AwsCustomResource(this, 'DescribeFirewall', {
+      resourceType: 'Custom::DescribeFirewall',
+      onCreate: {
+        service: 'NetworkFirewall',
+        action: 'describeFirewall',
+        parameters: {
+          FirewallArn: props.firewallArn,
+        },
+        region: cdk.Aws.REGION,
+        physicalResourceId: cr.PhysicalResourceId.of('DescribeFirewall'),
+        outputPaths: outputPaths,
+      },
+      logRetention: logs.RetentionDays.SEVEN_YEARS,
+      policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
+        resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
+      }),
+    });
+
+    const destSubnetGroup = props.vpc.selectSubnets({ subnetGroupName: props.destination.subnet.name });
+    const sourceSubnetGroup = props.vpc.selectSubnets({ subnetGroupName: props.source.subnet.name });
+
+
+    // get the destination cidrs.
+    let destIpv4Cidrs: string[] = [];
+    let destIpv6Cidrs: string[] = [];
+
+    destSubnetGroup.subnets.forEach((dest) => {
+
+      destIpv4Cidrs.push(dest.ipv4CidrBlock);
+
+      var cfnSubnet = dest.node.defaultChild as ec2.CfnSubnet;
+      if (cfnSubnet.ipv6CidrBlock) {
+        destIpv6Cidrs.push(cfnSubnet.ipv6CidrBlock);
+      }
+    });
+
+    console.log(destIpv4Cidrs.length);
+    console.log(destIpv6Cidrs.length);
+
+    // iterate over the ipv6 subnets
+    sourceSubnetGroup.subnets.forEach((src, index) => {
+
+      destIpv6Cidrs.forEach((destcidr, index2) => {
+        console.log(index, index2, destcidr);
+        new ec2.CfnRoute(this, `FirewallRouteIpv6-${index}-${index2}`, {
+          destinationIpv6CidrBlock: destcidr,
+          routeTableId: src.routeTable.routeTableId,
+          vpcEndpointId: fwDescription.getResponseField(`FirewallStatus.SyncStates.${src.availabilityZone}.Attachment.EndpointId`),
+        });
+      });
+    });
+
+
+    sourceSubnetGroup.subnets.forEach((src, index) => {
+      destIpv4Cidrs.forEach((destcidr, index3) => {
+        console.log(index, index3, destcidr);
+
+        new ec2.CfnRoute(this, `FirewallRouteIpv4-${index}-${index3}`, {
+          destinationCidrBlock: destcidr,
+          routeTableId: src.routeTable.routeTableId,
+          vpcEndpointId: fwDescription.getResponseField(`FirewallStatus.SyncStates.${src.availabilityZone}.Attachment.EndpointId`),
+        });
+      });
+    });
+
+  }
+}
+
+
 // this provides a unique string based on the props
 function hashProps(props: object | string): string {
   const str = JSON.stringify(props);
