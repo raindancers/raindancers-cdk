@@ -1183,14 +1183,14 @@ export class EnterpriseVpc extends constructs.Construct {
       props.subnetGroups.forEach((subnetGroup) => {
 
         props.cidr.forEach((destinationCidr) => {
-          this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet) => {
+          this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet, index) => {
 
 
             if (destinationCidr.includes('::')) {
 
               console.log('IPV6 Firewall Route');
 
-              new ec2.CfnRoute(this, 'FirewallIpv6Route-' + props.description + subnet.node.addr, {
+              new ec2.CfnRoute(this, 'FirewallIpv6Route-' + + hashProps(props) + subnet.node.path.split('/').pop() + index, {
                 destinationIpv6CidrBlock: destinationCidr,
                 routeTableId: subnet.routeTable.routeTableId,
                 vpcEndpointId: fwDescription.getResponseField(`FirewallStatus.SyncStates.${subnet.availabilityZone}.Attachment.EndpointId`),
@@ -1201,7 +1201,7 @@ export class EnterpriseVpc extends constructs.Construct {
 
               console.log('IPV4 Firewall Route');
 
-              new ec2.CfnRoute(this, 'FirewallRoute-' + props.description + subnet.node.addr, {
+              new ec2.CfnRoute(this, 'FirewallRoute-' + + hashProps(props) + subnet.node.path.split('/').pop() + index, {
                 destinationCidrBlock: destinationCidr,
                 routeTableId: subnet.routeTable.routeTableId,
                 vpcEndpointId: fwDescription.getResponseField(`FirewallStatus.SyncStates.${subnet.availabilityZone}.Attachment.EndpointId`),
