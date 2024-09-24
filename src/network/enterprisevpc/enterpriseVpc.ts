@@ -1076,7 +1076,6 @@ export class EnterpriseVpc extends constructs.Construct {
             case Destination.TRANSITGATEWAY: {
 
               const waiter = new cdk.CustomResource(this, `t${routeTableId.groupName}${index}tgwaiter${network}`, {
-                resourceType: 'Custom::TransitGatewayRouteWaiter',
                 serviceToken: this.tgWaiterProvider.serviceToken,
                 properties: {
                   transitGatewayId: this.transitGWID,
