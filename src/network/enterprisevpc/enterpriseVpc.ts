@@ -818,10 +818,6 @@ export class EnterpriseVpc extends constructs.Construct {
     this.transitGWID = props.transitGateway.id,
     this.transitGWAttachmentID = transitGatewaypeering.getResponseField('TransitGatewayVpcAttachment.TransitGatewayAttachmentId');
 
-    console.log('****************************');
-    console.log(this.transitGWID);
-    console.log(this.transitGWAttachmentID);
-    console.log('****************************');
 
     return transitGatewaypeering.getResponseField('TransitGatewayVpcAttachment.TransitGatewayAttachmentId');
 
