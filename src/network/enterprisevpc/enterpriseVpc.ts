@@ -776,6 +776,7 @@ export class EnterpriseVpc extends constructs.Construct {
     }
 
     const transitGatewaypeering = new cr.AwsCustomResource(this, 'AttachtheVPCtoTG', {
+      installLatestAwsSdk: true,
       onCreate: {
 			  service: 'EC2',
 			  action: 'createTransitGatewayVpcAttachment',
@@ -1039,7 +1040,6 @@ export class EnterpriseVpc extends constructs.Construct {
 
       // check that the cidrs are valid
       const ipRegex = new RegExp('(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/([1-3][0-2]$|[0-2][0-9]$|0?[0-9]$)');
-
       const ipv6Regex = new RegExp('(?:(?:(?:[A-F0-9]{1,4}:){6}|(?=(?:[A-F0-9]{0,4}:){0,6}(?:[0-9]{1,3}\.){3}[0-9]{1,3}(?![:.\w]))(([0-9A-F]{1,4}:){0,5}|:)((:[0-9A-F]{1,4}){1,5}:|:)|::(?:[A-F0-9]{1,4}:){5})(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|(?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}|(?=(?:[A-F0-9]{0,4}:){0,7}[A-F0-9]{0,4}(?![:.\w]))(([0-9A-F]{1,4}:){1,7}|:)((:[0-9A-F]{1,4}){1,7}|:)|(?:[A-F0-9]{1,4}:){7}:|:(:[A-F0-9]{1,4}){7})(?![:.\w])\/(?:12[0-8]|1[01][0-9]|[1-9]?[0-9])');
 
 
@@ -1070,28 +1070,31 @@ export class EnterpriseVpc extends constructs.Construct {
             }
             case Destination.TRANSITGATEWAY: {
 
-              const waiter = new cdk.CustomResource(this, `t${routeTableId.groupName}${index}tgwaiter${network}`, {
-                serviceToken: this.tgWaiterProvider.serviceToken,
-                properties: {
-                  transitGatewayId: this.transitGWID,
-                  transitGatewayAttachmentId: this.transitGWAttachmentID,
-                },
-              });
+              // const waiter = new cdk.CustomResource(this, `t${routeTableId.groupName}${index}tgwaiter${network}`, {
+              //   resourceType: 'Custom::TransitGatewayRouteWaiter',
+              //   serviceToken: this.tgWaiterProvider.serviceToken,
+              //   properties: {
+              //     transitGatewayId: this.transitGWID,
+              //     transitGatewayAttachmentId: this.transitGWAttachmentID,
+              //   },
+              // });
 
               if (network.includes('::')) {
-                const transitgatewayroute = new ec2.CfnRoute(this, `${routeTableId.groupName}${index}tgroute${network}`, {
+                //const transitgatewayroute =
+                new ec2.CfnRoute(this, `${routeTableId.groupName}${index}tgroute${network}`, {
                   routeTableId: routeTableId.routeTableId,
                   destinationIpv6CidrBlock: network,
                   transitGatewayId: this.transitGWID,
                 });
-                transitgatewayroute.node.addDependency(waiter);
+                //transitgatewayroute.node.addDependency(waiter);
               } else {
-                const transitgatewayroute = new ec2.CfnRoute(this, `${routeTableId.groupName}${index}tgroute${network}`, {
+                //const transitgatewayroute =
+                new ec2.CfnRoute(this, `${routeTableId.groupName}${index}tgroute${network}`, {
                   routeTableId: routeTableId.routeTableId,
                   destinationCidrBlock: network,
                   transitGatewayId: this.transitGWID,
                 });
-                transitgatewayroute.node.addDependency(waiter);
+                //transitgatewayroute.node.addDependency(waiter);
               }
 
               break;
@@ -1371,7 +1374,6 @@ export class NWFWSubnetRoutes extends constructs.Construct {
 
     sourceSubnetGroup.subnets.forEach((src, index) => {
       destIpv4Cidrs.forEach((destcidr, index3) => {
-        console.log(index, index3, destcidr);
 
         new ec2.CfnRoute(this, `FirewallRouteIpv4-${index}-${index3}`, {
           destinationCidrBlock: destcidr,
