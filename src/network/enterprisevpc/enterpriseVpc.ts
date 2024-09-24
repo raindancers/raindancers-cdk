@@ -812,8 +812,17 @@ export class EnterpriseVpc extends constructs.Construct {
       ),
     });
 
+    // console
+
+
     this.transitGWID = props.transitGateway.id,
     this.transitGWAttachmentID = transitGatewaypeering.getResponseField('TransitGatewayVpcAttachment.TransitGatewayAttachmentId');
+
+    console.log('****************************');
+    console.log(this.transitGWID);
+    console.log(this.transitGWAttachmentID);
+    console.log('****************************');
+
     return transitGatewaypeering.getResponseField('TransitGatewayVpcAttachment.TransitGatewayAttachmentId');
 
 
@@ -1070,31 +1079,29 @@ export class EnterpriseVpc extends constructs.Construct {
             }
             case Destination.TRANSITGATEWAY: {
 
-              // const waiter = new cdk.CustomResource(this, `t${routeTableId.groupName}${index}tgwaiter${network}`, {
-              //   resourceType: 'Custom::TransitGatewayRouteWaiter',
-              //   serviceToken: this.tgWaiterProvider.serviceToken,
-              //   properties: {
-              //     transitGatewayId: this.transitGWID,
-              //     transitGatewayAttachmentId: this.transitGWAttachmentID,
-              //   },
-              // });
+              const waiter = new cdk.CustomResource(this, `t${routeTableId.groupName}${index}tgwaiter${network}`, {
+                resourceType: 'Custom::TransitGatewayRouteWaiter',
+                serviceToken: this.tgWaiterProvider.serviceToken,
+                properties: {
+                  transitGatewayId: this.transitGWID,
+                  transitGatewayAttachmentId: this.transitGWAttachmentID,
+                },
+              });
 
               if (network.includes('::')) {
-                //const transitgatewayroute =
-                new ec2.CfnRoute(this, `${routeTableId.groupName}${index}tgroute${network}`, {
+                const transitgatewayroute = new ec2.CfnRoute(this, `${routeTableId.groupName}${index}tgroute${network}`, {
                   routeTableId: routeTableId.routeTableId,
                   destinationIpv6CidrBlock: network,
                   transitGatewayId: this.transitGWID,
                 });
-                //transitgatewayroute.node.addDependency(waiter);
+                transitgatewayroute.node.addDependency(waiter);
               } else {
-                //const transitgatewayroute =
-                new ec2.CfnRoute(this, `${routeTableId.groupName}${index}tgroute${network}`, {
+                const transitgatewayroute = new ec2.CfnRoute(this, `${routeTableId.groupName}${index}tgroute${network}`, {
                   routeTableId: routeTableId.routeTableId,
                   destinationCidrBlock: network,
                   transitGatewayId: this.transitGWID,
                 });
-                //transitgatewayroute.node.addDependency(waiter);
+                transitgatewayroute.node.addDependency(waiter);
               }
 
               break;
