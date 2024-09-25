@@ -5,6 +5,7 @@ import {
   aws_logs as logs,
   aws_secretsmanager as sm,
   custom_resources as cr,
+  aws_kms as kms,
 }
 
   from 'aws-cdk-lib';
@@ -14,10 +15,16 @@ import {
 
 import * as constructs from 'constructs';
 
+
 export type PortList = string[]
 
 export interface ZscalerAppSegmentProps {
   readonly zscalerAPIKeySecret: sm.ISecret;
+  /**
+   * If the Secret Is being called cross account, then you must also, provide the KmsKey
+   * @default none
+   */
+  readonly zscalerAPIKmsKey?: kms.IKey | undefined;
   readonly segmentName: string;
   readonly domainNames?: string[] | undefined;
   readonly tcpPorts?: PortList[] | undefined;
@@ -61,8 +68,14 @@ export class ZscalerAppSegment extends constructs.Construct {
       logRetention: logs.RetentionDays.ONE_WEEK,
     });
 
+    const secretKey = kms.Key.fromKeyArn(this, 'secretKey', 'arn:aws:kms:ap-southeast-2:752860630792:key/d4040fcf-c280-4942-a877-47419af0f43d');
+
     // allow the lambda to read the secret
     props.zscalerAPIKeySecret.grantRead(appSegmentLambda);
+
+    if ( props.zscalerAPIKeySecret ) {
+      secretKey.grantDecrypt(appSegmentLambda);
+    }
 
 
     this.appSegment = new core.CustomResource(this, 'ZscalerAppSegment', {

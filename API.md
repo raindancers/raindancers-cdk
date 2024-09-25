@@ -15027,6 +15027,7 @@ const zscalerAppSegmentProps: zscaler.ZscalerAppSegmentProps = { ... }
 | <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.domainNames">domainNames</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.tcpPorts">tcpPorts</a></code> | <code>string[][]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.udpPorts">udpPorts</a></code> | <code>string[][]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.zscalerAPIKmsKey">zscalerAPIKmsKey</a></code> | <code>aws-cdk-lib.aws_kms.IKey</code> | If the Secret Is being called cross account, then you must also, provide the KmsKey. |
 
 ---
 
@@ -15107,6 +15108,19 @@ public readonly udpPorts: string[][];
 ```
 
 - *Type:* string[][]
+
+---
+
+##### `zscalerAPIKmsKey`<sup>Optional</sup> <a name="zscalerAPIKmsKey" id="raindancers-cdk.zscaler.ZscalerAppSegmentProps.property.zscalerAPIKmsKey"></a>
+
+```typescript
+public readonly zscalerAPIKmsKey: IKey;
+```
+
+- *Type:* aws-cdk-lib.aws_kms.IKey
+- *Default:* none
+
+If the Secret Is being called cross account, then you must also, provide the KmsKey.
 
 ---
 
