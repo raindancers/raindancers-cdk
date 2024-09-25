@@ -14,8 +14,6 @@ import {
 // import { LifecycleHook } from 'aws-cdk-lib/aws-autoscaling';
 
 import * as constructs from 'constructs';
-import { zscaler } from '..';
-
 
 export type PortList = string[]
 
@@ -69,7 +67,7 @@ export class ZscalerAppSegment extends constructs.Construct {
       logRetention: logs.RetentionDays.ONE_WEEK,
     });
 
-    
+
     // allow the lambda to read the secret
     props.zscalerAPIKeySecret.grantRead(appSegmentLambda);
 
