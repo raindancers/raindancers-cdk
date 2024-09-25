@@ -14,6 +14,7 @@ import {
 // import { LifecycleHook } from 'aws-cdk-lib/aws-autoscaling';
 
 import * as constructs from 'constructs';
+import { zscaler } from '..';
 
 
 export type PortList = string[]
@@ -68,13 +69,13 @@ export class ZscalerAppSegment extends constructs.Construct {
       logRetention: logs.RetentionDays.ONE_WEEK,
     });
 
-    const secretKey = kms.Key.fromKeyArn(this, 'secretKey', 'arn:aws:kms:ap-southeast-2:752860630792:key/d4040fcf-c280-4942-a877-47419af0f43d');
-
+    
     // allow the lambda to read the secret
     props.zscalerAPIKeySecret.grantRead(appSegmentLambda);
 
-    if ( props.zscalerAPIKeySecret ) {
-      secretKey.grantDecrypt(appSegmentLambda);
+
+    if ( props.zscalerAPIKmsKey ) {
+      props.zscalerAPIKmsKey.grantDecrypt(appSegmentLambda);
     }
 
 
