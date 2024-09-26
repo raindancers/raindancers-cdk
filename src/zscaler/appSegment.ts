@@ -6,6 +6,7 @@ import {
   aws_secretsmanager as sm,
   custom_resources as cr,
   aws_kms as kms,
+  aws_iam as iam,
 }
 
   from 'aws-cdk-lib';
@@ -14,6 +15,7 @@ import {
 // import { LifecycleHook } from 'aws-cdk-lib/aws-autoscaling';
 
 import * as constructs from 'constructs';
+
 
 export type PortList = string[]
 
@@ -71,6 +73,11 @@ export class ZscalerAppSegment extends constructs.Construct {
     // allow the lambda to read the secret
     props.zscalerAPIKeySecret.grantRead(appSegmentLambda);
 
+    appSegmentLambda.addToRolePolicy(new iam.PolicyStatement({
+      actions: ['secretsmanager:GetSecretValue'],
+      resources: [props.zscalerAPIKeySecret.secretArn],
+      effect: iam.Effect.ALLOW,
+    }));
 
     if ( props.zscalerAPIKmsKey ) {
       props.zscalerAPIKmsKey.grantDecrypt(appSegmentLambda);
