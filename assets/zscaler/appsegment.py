@@ -17,7 +17,7 @@ def on_event(event, context):
 
 def on_create(event):
     props = event['ResourceProperties']
-    zpa_api_key = json.loads(sm.get_secret_value(SecretId=os.getenv('API_KEY_SECRET_NAME'))['SecretString'])
+    zpa_api_key = json.loads(sm.get_secret_value(SecretId=os.getenv('API_KEY_ARN'))['SecretString'])
     zpa = ZPA(
         client_id=zpa_api_key['clientId'],
         client_secret=zpa_api_key['clientSecret'],
