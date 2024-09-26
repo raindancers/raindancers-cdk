@@ -6,7 +6,6 @@ import {
   aws_secretsmanager as sm,
   custom_resources as cr,
   aws_kms as kms,
-  aws_iam as iam,
 }
 
   from 'aws-cdk-lib';
@@ -53,7 +52,7 @@ export class ZscalerAppSegment extends constructs.Construct {
     const appSegmentLambda = new lambda.Function(this, 'appSegmentLambda', {
       runtime: lambda.Runtime.PYTHON_3_12,
       environment: {
-        API_KEY_SECRET_NAME: props.zscalerAPIKeySecret.secretName,
+        API_KEY_ARN: props.zscalerAPIKeySecret.secretArn,
       },
       handler: 'appsegment.on_event',
       code: lambda.Code.fromAsset(path.join(__dirname, '../../assets/zscaler/'), {
@@ -72,12 +71,6 @@ export class ZscalerAppSegment extends constructs.Construct {
 
     // allow the lambda to read the secret
     props.zscalerAPIKeySecret.grantRead(appSegmentLambda);
-
-    appSegmentLambda.addToRolePolicy(new iam.PolicyStatement({
-      actions: ['secretsmanager:GetSecretValue'],
-      resources: [props.zscalerAPIKeySecret.secretArn],
-      effect: iam.Effect.ALLOW,
-    }));
 
     if ( props.zscalerAPIKmsKey ) {
       props.zscalerAPIKmsKey.grantDecrypt(appSegmentLambda);
