@@ -4968,6 +4968,105 @@ The tree node.
 ---
 
 
+### LocalZoneOptIn <a name="LocalZoneOptIn" id="raindancers-cdk.localzone.LocalZoneOptIn"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.localzone.LocalZoneOptIn.Initializer"></a>
+
+```typescript
+import { localzone } from 'raindancers-cdk'
+
+new localzone.LocalZoneOptIn(scope: Construct, id: string, props: LocalZoneOptInProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.localzone.LocalZoneOptIn.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.localzone.LocalZoneOptIn.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.localzone.LocalZoneOptIn.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.localzone.LocalZoneOptInProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.localzone.LocalZoneOptIn.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.localzone.LocalZoneOptIn.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.localzone.LocalZoneOptIn.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.localzone.LocalZoneOptInProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.localzone.LocalZoneOptIn.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.localzone.LocalZoneOptIn.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.localzone.LocalZoneOptIn.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.localzone.LocalZoneOptIn.isConstruct"></a>
+
+```typescript
+import { localzone } from 'raindancers-cdk'
+
+localzone.LocalZoneOptIn.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.localzone.LocalZoneOptIn.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.localzone.LocalZoneOptIn.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.localzone.LocalZoneOptIn.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
 ### NetworkFirewall <a name="NetworkFirewall" id="raindancers-cdk.nwFirewall.NetworkFirewall"></a>
 
 Creates Network Firewalls.
@@ -12162,6 +12261,34 @@ public readonly zone: HostedZone;
 
 ---
 
+### LocalZoneOptInProps <a name="LocalZoneOptInProps" id="raindancers-cdk.localzone.LocalZoneOptInProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.localzone.LocalZoneOptInProps.Initializer"></a>
+
+```typescript
+import { localzone } from 'raindancers-cdk'
+
+const localZoneOptInProps: localzone.LocalZoneOptInProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.localzone.LocalZoneOptInProps.property.zone">zone</a></code> | <code>raindancers-cdk.localzone.LocalZones</code> | *No description.* |
+
+---
+
+##### `zone`<sup>Required</sup> <a name="zone" id="raindancers-cdk.localzone.LocalZoneOptInProps.property.zone"></a>
+
+```typescript
+public readonly zone: LocalZones;
+```
+
+- *Type:* raindancers-cdk.localzone.LocalZones
+
+---
+
 ### NetworkFirewallProps <a name="NetworkFirewallProps" id="raindancers-cdk.nwFirewall.NetworkFirewallProps"></a>
 
 Propertys of a Network Firewall.
@@ -16996,6 +17123,21 @@ route to the transitGateway that the vpc is attached to.
 ---
 
 ##### `ENABLED` <a name="ENABLED" id="raindancers-cdk.enterprisevpc.IpV6Support.ENABLED"></a>
+
+---
+
+
+### LocalZones <a name="LocalZones" id="raindancers-cdk.localzone.LocalZones"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.localzone.LocalZones.AUCKLAND">AUCKLAND</a></code> | *No description.* |
+
+---
+
+##### `AUCKLAND` <a name="AUCKLAND" id="raindancers-cdk.localzone.LocalZones.AUCKLAND"></a>
 
 ---
 

@@ -21,3 +21,4 @@ export * as zscaler from './zscaler/index';
 export * as imagebuilder from './imagebuilder/index';
 export * as loadbalancer from './network/loadbalancers/loadbalancers';
 export * as securityLake from './securitylake/index';
+export * as localzone from './network/localzone';
