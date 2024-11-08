@@ -849,6 +849,7 @@ export class EnterpriseVpc extends constructs.Construct {
 
       selection.subnets.forEach((subnet) => {
         subnetarns.push(`arn:${cdk.Aws.PARTITION}:ec2:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:subnet/${subnet.subnetId}`);
+        subnetIds.push(subnet.subnetId);
       });
 
       share = new ram.CfnResourceShare(this, props.shareName ?? `ramshare${props.subnetGroup.subnet.name}`, {
