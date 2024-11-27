@@ -10606,6 +10606,7 @@ const eSubnetGroupProps: enterprisevpc.ESubnetGroupProps = { ... }
 | <code><a href="#raindancers-cdk.enterprisevpc.ESubnetGroupProps.property.cidrMask">cidrMask</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.ESubnetGroupProps.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.ESubnetGroupProps.property.subnetType">subnetType</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetType</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.ESubnetGroupProps.property.ipv6AssignAddressOnCreation">ipv6AssignAddressOnCreation</a></code> | <code>boolean</code> | *No description.* |
 
 ---
 
@@ -10636,6 +10637,16 @@ public readonly subnetType: SubnetType;
 ```
 
 - *Type:* aws-cdk-lib.aws_ec2.SubnetType
+
+---
+
+##### `ipv6AssignAddressOnCreation`<sup>Optional</sup> <a name="ipv6AssignAddressOnCreation" id="raindancers-cdk.enterprisevpc.ESubnetGroupProps.property.ipv6AssignAddressOnCreation"></a>
+
+```typescript
+public readonly ipv6AssignAddressOnCreation: boolean;
+```
+
+- *Type:* boolean
 
 ---
 

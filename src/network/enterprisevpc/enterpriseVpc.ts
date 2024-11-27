@@ -51,6 +51,8 @@ export interface ESubnetGroupProps {
   readonly name: string;
   readonly subnetType: ec2.SubnetType;
   readonly cidrMask: number;
+  readonly ipv6AssignAddressOnCreation?: boolean | undefined;
+
 }
 
 export class SubnetGroup extends constructs.Construct {
