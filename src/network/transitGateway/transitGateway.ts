@@ -48,10 +48,16 @@ export enum Ipv6Support {
   DISABLE = 'disable'
 }
 
+export enum SecurityGroupReferencingSupport {
+  ENABLE = 'enable',
+  DISABLE = 'disable'
+}
+
 export interface TransitGatewayAttachmentOptions {
   readonly applianceModeSupport?: ApplianceModeSupport | undefined;
   readonly dnsSupport?: DnsSupport | undefined;
   readonly ipv6Support?: Ipv6Support | undefined;
+  readonly securityGroupReferencingSupport?: SecurityGroupReferencingSupport | undefined;
 }
 
 
@@ -247,19 +253,22 @@ export class TransitGateway extends constructs.Construct implements ITransitGate
     });
   }
 
-  public attachVpc(vpc: ec2.IVpc, subnets: ec2.SubnetSelection, options?: TransitGatewayAttachmentOptions ): void {
+  public attachVpc(vpc: ec2.IVpc, subnets: ec2.SubnetSelection, options?: TransitGatewayAttachmentOptions ): ec2.CfnTransitGatewayAttachment {
 
     var subnetIds: string[] = [];
     subnets.subnets?.forEach((subnet) => {
       subnetIds.push(subnet.subnetId);
     });
 
-    new ec2.CfnTransitGatewayAttachment(this, 'MyCfnTransitGatewayAttachment', {
+    const attachment = new ec2.CfnTransitGatewayAttachment(this, 'MyCfnTransitGatewayAttachment', {
       subnetIds: subnetIds,
       transitGatewayId: this.id,
       vpcId: vpc.vpcId,
       options: options,
     });
+
+
+    return attachment;
   };
 
   public addRouteToRoutingTable(route: TransitGatewayRoute): void {
@@ -274,6 +283,8 @@ export class TransitGateway extends constructs.Construct implements ITransitGate
       destinationCidrBlock: route.destinationCidrBlock,
       transitGatewayAttachmentId: route.transitGatewayAttachmentId,
     });
+
+
   };
 
   public createDirectConnectGatewayAssociation(dxGatewayId: string, allowedPrefixes: AllowedPrefixes[]): void {

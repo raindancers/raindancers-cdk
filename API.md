@@ -7087,309 +7087,6 @@ public readonly id: string;
 ---
 
 
-### TransferServer <a name="TransferServer" id="raindancers-cdk.transfer.TransferServer"></a>
-
-- *Implements:* raindancers-cdk.transfer.ITransferServer
-
-Define a TransitGateway.
-
-Implements ITransitGateway
-
-#### Initializers <a name="Initializers" id="raindancers-cdk.transfer.TransferServer.Initializer"></a>
-
-```typescript
-import { transfer } from 'raindancers-cdk'
-
-new transfer.TransferServer(scope: Construct, id: string, props: TransferServerProps)
-```
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#raindancers-cdk.transfer.TransferServer.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.TransferServer.Initializer.parameter.id">id</a></code> | <code>string</code> | The ID of the transfer server. |
-| <code><a href="#raindancers-cdk.transfer.TransferServer.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.transfer.TransferServerProps</code> | *No description.* |
-
----
-
-##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.transfer.TransferServer.Initializer.parameter.scope"></a>
-
-- *Type:* constructs.Construct
-
----
-
-##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.transfer.TransferServer.Initializer.parameter.id"></a>
-
-- *Type:* string
-
-The ID of the transfer server.
-
----
-
-##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.transfer.TransferServer.Initializer.parameter.props"></a>
-
-- *Type:* raindancers-cdk.transfer.TransferServerProps
-
----
-
-#### Methods <a name="Methods" id="Methods"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#raindancers-cdk.transfer.TransferServer.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#raindancers-cdk.transfer.TransferServer.adduser">adduser</a></code> | *No description.* |
-
----
-
-##### `toString` <a name="toString" id="raindancers-cdk.transfer.TransferServer.toString"></a>
-
-```typescript
-public toString(): string
-```
-
-Returns a string representation of this construct.
-
-##### `adduser` <a name="adduser" id="raindancers-cdk.transfer.TransferServer.adduser"></a>
-
-```typescript
-public adduser(props: AddUserProps): ITransferUser
-```
-
-###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.transfer.TransferServer.adduser.parameter.props"></a>
-
-- *Type:* raindancers-cdk.transfer.AddUserProps
-
----
-
-#### Static Functions <a name="Static Functions" id="Static Functions"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#raindancers-cdk.transfer.TransferServer.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
-
----
-
-##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.transfer.TransferServer.isConstruct"></a>
-
-```typescript
-import { transfer } from 'raindancers-cdk'
-
-transfer.TransferServer.isConstruct(x: any)
-```
-
-Checks if `x` is a construct.
-
-###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.transfer.TransferServer.isConstruct.parameter.x"></a>
-
-- *Type:* any
-
-Any object.
-
----
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#raindancers-cdk.transfer.TransferServer.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#raindancers-cdk.transfer.TransferServer.property.arn">arn</a></code> | <code>string</code> | The Arn of the Transfer Server. |
-| <code><a href="#raindancers-cdk.transfer.TransferServer.property.id">id</a></code> | <code>string</code> | The id of the transitGateway. |
-| <code><a href="#raindancers-cdk.transfer.TransferServer.property.hostname">hostname</a></code> | <code>string</code> | Internet Hostname. |
-
----
-
-##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.transfer.TransferServer.property.node"></a>
-
-```typescript
-public readonly node: Node;
-```
-
-- *Type:* constructs.Node
-
-The tree node.
-
----
-
-##### `arn`<sup>Required</sup> <a name="arn" id="raindancers-cdk.transfer.TransferServer.property.arn"></a>
-
-```typescript
-public readonly arn: string;
-```
-
-- *Type:* string
-
-The Arn of the Transfer Server.
-
----
-
-##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.transfer.TransferServer.property.id"></a>
-
-```typescript
-public readonly id: string;
-```
-
-- *Type:* string
-
-The id of the transitGateway.
-
----
-
-##### `hostname`<sup>Optional</sup> <a name="hostname" id="raindancers-cdk.transfer.TransferServer.property.hostname"></a>
-
-```typescript
-public readonly hostname: string;
-```
-
-- *Type:* string
-
-Internet Hostname.
-
----
-
-
-### TransferUser <a name="TransferUser" id="raindancers-cdk.transfer.TransferUser"></a>
-
-- *Implements:* raindancers-cdk.transfer.ITransferUser
-
-Define a TransitGateway.
-
-Implements ITransitGateway
-
-#### Initializers <a name="Initializers" id="raindancers-cdk.transfer.TransferUser.Initializer"></a>
-
-```typescript
-import { transfer } from 'raindancers-cdk'
-
-new transfer.TransferUser(scope: Construct, id: string, props: TransferUserProps)
-```
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#raindancers-cdk.transfer.TransferUser.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.TransferUser.Initializer.parameter.id">id</a></code> | <code>string</code> | The ID of the transfer user. |
-| <code><a href="#raindancers-cdk.transfer.TransferUser.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.transfer.TransferUserProps</code> | *No description.* |
-
----
-
-##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.transfer.TransferUser.Initializer.parameter.scope"></a>
-
-- *Type:* constructs.Construct
-
----
-
-##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.transfer.TransferUser.Initializer.parameter.id"></a>
-
-- *Type:* string
-
-The ID of the transfer user.
-
----
-
-##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.transfer.TransferUser.Initializer.parameter.props"></a>
-
-- *Type:* raindancers-cdk.transfer.TransferUserProps
-
----
-
-#### Methods <a name="Methods" id="Methods"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#raindancers-cdk.transfer.TransferUser.toString">toString</a></code> | Returns a string representation of this construct. |
-
----
-
-##### `toString` <a name="toString" id="raindancers-cdk.transfer.TransferUser.toString"></a>
-
-```typescript
-public toString(): string
-```
-
-Returns a string representation of this construct.
-
-#### Static Functions <a name="Static Functions" id="Static Functions"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#raindancers-cdk.transfer.TransferUser.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
-
----
-
-##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.transfer.TransferUser.isConstruct"></a>
-
-```typescript
-import { transfer } from 'raindancers-cdk'
-
-transfer.TransferUser.isConstruct(x: any)
-```
-
-Checks if `x` is a construct.
-
-###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.transfer.TransferUser.isConstruct.parameter.x"></a>
-
-- *Type:* any
-
-Any object.
-
----
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#raindancers-cdk.transfer.TransferUser.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#raindancers-cdk.transfer.TransferUser.property.arn">arn</a></code> | <code>string</code> | The arn of the transfer user. |
-| <code><a href="#raindancers-cdk.transfer.TransferUser.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.TransferUser.property.id">id</a></code> | <code>string</code> | The id of the transfer User. |
-
----
-
-##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.transfer.TransferUser.property.node"></a>
-
-```typescript
-public readonly node: Node;
-```
-
-- *Type:* constructs.Node
-
-The tree node.
-
----
-
-##### `arn`<sup>Required</sup> <a name="arn" id="raindancers-cdk.transfer.TransferUser.property.arn"></a>
-
-```typescript
-public readonly arn: string;
-```
-
-- *Type:* string
-
-The arn of the transfer user.
-
----
-
-##### `bucket`<sup>Required</sup> <a name="bucket" id="raindancers-cdk.transfer.TransferUser.property.bucket"></a>
-
-```typescript
-public readonly bucket: IBucket;
-```
-
-- *Type:* aws-cdk-lib.aws_s3.IBucket
-
----
-
-##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.transfer.TransferUser.property.id"></a>
-
-```typescript
-public readonly id: string;
-```
-
-- *Type:* string
-
-The id of the transfer User.
-
----
-
-
 ### TransitGateway <a name="TransitGateway" id="raindancers-cdk.transitGateway.TransitGateway"></a>
 
 - *Implements:* raindancers-cdk.transitGateway.ITransitGateway
@@ -7469,7 +7166,7 @@ public addRouteToRoutingTable(route: TransitGatewayRoute): void
 ##### `attachVpc` <a name="attachVpc" id="raindancers-cdk.transitGateway.TransitGateway.attachVpc"></a>
 
 ```typescript
-public attachVpc(vpc: IVpc, subnets: SubnetSelection, options?: TransitGatewayAttachmentOptions): void
+public attachVpc(vpc: IVpc, subnets: SubnetSelection, options?: TransitGatewayAttachmentOptions): CfnTransitGatewayAttachment
 ```
 
 ###### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.transitGateway.TransitGateway.attachVpc.parameter.vpc"></a>
@@ -8644,114 +8341,6 @@ public readonly capacity: number;
 
 ---
 
-### AddUserProps <a name="AddUserProps" id="raindancers-cdk.transfer.AddUserProps"></a>
-
-#### Initializer <a name="Initializer" id="raindancers-cdk.transfer.AddUserProps.Initializer"></a>
-
-```typescript
-import { transfer } from 'raindancers-cdk'
-
-const addUserProps: transfer.AddUserProps = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.publicKeys">publicKeys</a></code> | <code>string[]</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.userName">userName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.permissions">permissions</a></code> | <code>raindancers-cdk.transfer.Permission</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.policy">policy</a></code> | <code>aws-cdk-lib.aws_iam.PolicyDocument</code> | Policy. |
-| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.s3LambdaIntegrations">s3LambdaIntegrations</a></code> | <code>raindancers-cdk.transfer.S3LambdaIntegration</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.AddUserProps.property.scanWithClam">scanWithClam</a></code> | <code>boolean</code> | *No description.* |
-
----
-
-##### `publicKeys`<sup>Required</sup> <a name="publicKeys" id="raindancers-cdk.transfer.AddUserProps.property.publicKeys"></a>
-
-```typescript
-public readonly publicKeys: string[];
-```
-
-- *Type:* string[]
-
----
-
-##### `userName`<sup>Required</sup> <a name="userName" id="raindancers-cdk.transfer.AddUserProps.property.userName"></a>
-
-```typescript
-public readonly userName: string;
-```
-
-- *Type:* string
-
----
-
-##### `bucket`<sup>Optional</sup> <a name="bucket" id="raindancers-cdk.transfer.AddUserProps.property.bucket"></a>
-
-```typescript
-public readonly bucket: IBucket;
-```
-
-- *Type:* aws-cdk-lib.aws_s3.IBucket
-
----
-
-##### `permissions`<sup>Optional</sup> <a name="permissions" id="raindancers-cdk.transfer.AddUserProps.property.permissions"></a>
-
-```typescript
-public readonly permissions: Permission;
-```
-
-- *Type:* raindancers-cdk.transfer.Permission
-
----
-
-##### `policy`<sup>Optional</sup> <a name="policy" id="raindancers-cdk.transfer.AddUserProps.property.policy"></a>
-
-```typescript
-public readonly policy: PolicyDocument;
-```
-
-- *Type:* aws-cdk-lib.aws_iam.PolicyDocument
-- *Default:* Default Policy statement.
-
-Policy.
-
----
-
-##### `role`<sup>Optional</sup> <a name="role" id="raindancers-cdk.transfer.AddUserProps.property.role"></a>
-
-```typescript
-public readonly role: IRole;
-```
-
-- *Type:* aws-cdk-lib.aws_iam.IRole
-
----
-
-##### `s3LambdaIntegrations`<sup>Optional</sup> <a name="s3LambdaIntegrations" id="raindancers-cdk.transfer.AddUserProps.property.s3LambdaIntegrations"></a>
-
-```typescript
-public readonly s3LambdaIntegrations: S3LambdaIntegration;
-```
-
-- *Type:* raindancers-cdk.transfer.S3LambdaIntegration
-
----
-
-##### `scanWithClam`<sup>Optional</sup> <a name="scanWithClam" id="raindancers-cdk.transfer.AddUserProps.property.scanWithClam"></a>
-
-```typescript
-public readonly scanWithClam: boolean;
-```
-
-- *Type:* boolean
-
----
-
 ### AllowedPrefixes <a name="AllowedPrefixes" id="raindancers-cdk.transitGateway.AllowedPrefixes"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.transitGateway.AllowedPrefixes.Initializer"></a>
@@ -9595,7 +9184,9 @@ const cloudTrailAlarmsProps: orgTools.CloudTrailAlarmsProps = { ... }
 | <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.crossRegionReferences">crossRegionReferences</a></code> | <code>boolean</code> | Enable this flag to allow native cross region stack references. |
 | <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.description">description</a></code> | <code>string</code> | A description of the stack. |
 | <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.env">env</a></code> | <code>aws-cdk-lib.Environment</code> | The AWS environment (account/region) where this stack will be deployed. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.notificationArns">notificationArns</a></code> | <code>string[]</code> | SNS Topic ARNs that will receive stack events. |
 | <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.permissionsBoundary">permissionsBoundary</a></code> | <code>aws-cdk-lib.PermissionsBoundary</code> | Options for applying a permissions boundary to all IAM Roles and Users created within this Stage. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.propertyInjectors">propertyInjectors</a></code> | <code>aws-cdk-lib.IPropertyInjector[]</code> | A list of IPropertyInjector attached to this Stack. |
 | <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.stackName">stackName</a></code> | <code>string</code> | Name to deploy the stack with. |
 | <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.suppressTemplateIndentation">suppressTemplateIndentation</a></code> | <code>boolean</code> | Enable this flag to suppress indentation in generated CloudFormation templates. |
 | <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
@@ -9726,6 +9317,19 @@ new MyStack(app, 'Stack1');
 ```
 
 
+##### `notificationArns`<sup>Optional</sup> <a name="notificationArns" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.notificationArns"></a>
+
+```typescript
+public readonly notificationArns: string[];
+```
+
+- *Type:* string[]
+- *Default:* no notfication arns.
+
+SNS Topic ARNs that will receive stack events.
+
+---
+
 ##### `permissionsBoundary`<sup>Optional</sup> <a name="permissionsBoundary" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.permissionsBoundary"></a>
 
 ```typescript
@@ -9736,6 +9340,19 @@ public readonly permissionsBoundary: PermissionsBoundary;
 - *Default:* no permissions boundary is applied
 
 Options for applying a permissions boundary to all IAM Roles and Users created within this Stage.
+
+---
+
+##### `propertyInjectors`<sup>Optional</sup> <a name="propertyInjectors" id="raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.propertyInjectors"></a>
+
+```typescript
+public readonly propertyInjectors: IPropertyInjector[];
+```
+
+- *Type:* aws-cdk-lib.IPropertyInjector[]
+- *Default:* no PropertyInjectors
+
+A list of IPropertyInjector attached to this Stack.
 
 ---
 
@@ -10061,45 +9678,6 @@ public readonly roleName: string;
 ```
 
 - *Type:* string
-
----
-
-### CustomDomain <a name="CustomDomain" id="raindancers-cdk.transfer.CustomDomain"></a>
-
-#### Initializer <a name="Initializer" id="raindancers-cdk.transfer.CustomDomain.Initializer"></a>
-
-```typescript
-import { transfer } from 'raindancers-cdk'
-
-const customDomain: transfer.CustomDomain = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#raindancers-cdk.transfer.CustomDomain.property.customHostName">customHostName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.CustomDomain.property.zone">zone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | *No description.* |
-
----
-
-##### `customHostName`<sup>Required</sup> <a name="customHostName" id="raindancers-cdk.transfer.CustomDomain.property.customHostName"></a>
-
-```typescript
-public readonly customHostName: string;
-```
-
-- *Type:* string
-
----
-
-##### `zone`<sup>Required</sup> <a name="zone" id="raindancers-cdk.transfer.CustomDomain.property.zone"></a>
-
-```typescript
-public readonly zone: IHostedZone;
-```
-
-- *Type:* aws-cdk-lib.aws_route53.IHostedZone
 
 ---
 
@@ -13199,79 +12777,6 @@ public readonly subnetGroup: SubnetGroup;
 
 ---
 
-### S3LambdaIntegration <a name="S3LambdaIntegration" id="raindancers-cdk.transfer.S3LambdaIntegration"></a>
-
-#### Initializer <a name="Initializer" id="raindancers-cdk.transfer.S3LambdaIntegration.Initializer"></a>
-
-```typescript
-import { transfer } from 'raindancers-cdk'
-
-const s3LambdaIntegration: transfer.S3LambdaIntegration = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.eventTypes">eventTypes</a></code> | <code>aws-cdk-lib.aws_s3.EventType[]</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.lambdaArn">lambdaArn</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.filter">filter</a></code> | <code>aws-cdk-lib.aws_s3.NotificationKeyFilter</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.lambdaRoleArn">lambdaRoleArn</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.S3LambdaIntegration.property.s3Permission">s3Permission</a></code> | <code>raindancers-cdk.transfer.Permission</code> | *No description.* |
-
----
-
-##### `eventTypes`<sup>Required</sup> <a name="eventTypes" id="raindancers-cdk.transfer.S3LambdaIntegration.property.eventTypes"></a>
-
-```typescript
-public readonly eventTypes: EventType[];
-```
-
-- *Type:* aws-cdk-lib.aws_s3.EventType[]
-
----
-
-##### `lambdaArn`<sup>Required</sup> <a name="lambdaArn" id="raindancers-cdk.transfer.S3LambdaIntegration.property.lambdaArn"></a>
-
-```typescript
-public readonly lambdaArn: string;
-```
-
-- *Type:* string
-
----
-
-##### `filter`<sup>Optional</sup> <a name="filter" id="raindancers-cdk.transfer.S3LambdaIntegration.property.filter"></a>
-
-```typescript
-public readonly filter: NotificationKeyFilter;
-```
-
-- *Type:* aws-cdk-lib.aws_s3.NotificationKeyFilter
-- *Default:* /*
-
----
-
-##### `lambdaRoleArn`<sup>Optional</sup> <a name="lambdaRoleArn" id="raindancers-cdk.transfer.S3LambdaIntegration.property.lambdaRoleArn"></a>
-
-```typescript
-public readonly lambdaRoleArn: string;
-```
-
-- *Type:* string
-
----
-
-##### `s3Permission`<sup>Optional</sup> <a name="s3Permission" id="raindancers-cdk.transfer.S3LambdaIntegration.property.s3Permission"></a>
-
-```typescript
-public readonly s3Permission: Permission;
-```
-
-- *Type:* raindancers-cdk.transfer.Permission
-
----
-
 ### Scope <a name="Scope" id="raindancers-cdk.nwFirewall.Scope"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.nwFirewall.Scope.Initializer"></a>
@@ -13378,7 +12883,9 @@ const securityLakeProps: securityLake.SecurityLakeProps = { ... }
 | <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.crossRegionReferences">crossRegionReferences</a></code> | <code>boolean</code> | Enable this flag to allow native cross region stack references. |
 | <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.description">description</a></code> | <code>string</code> | A description of the stack. |
 | <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.env">env</a></code> | <code>aws-cdk-lib.Environment</code> | The AWS environment (account/region) where this stack will be deployed. |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.notificationArns">notificationArns</a></code> | <code>string[]</code> | SNS Topic ARNs that will receive stack events. |
 | <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.permissionsBoundary">permissionsBoundary</a></code> | <code>aws-cdk-lib.PermissionsBoundary</code> | Options for applying a permissions boundary to all IAM Roles and Users created within this Stage. |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.propertyInjectors">propertyInjectors</a></code> | <code>aws-cdk-lib.IPropertyInjector[]</code> | A list of IPropertyInjector attached to this Stack. |
 | <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.stackName">stackName</a></code> | <code>string</code> | Name to deploy the stack with. |
 | <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.suppressTemplateIndentation">suppressTemplateIndentation</a></code> | <code>boolean</code> | Enable this flag to suppress indentation in generated CloudFormation templates. |
 | <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
@@ -13507,6 +13014,19 @@ new MyStack(app, 'Stack1');
 ```
 
 
+##### `notificationArns`<sup>Optional</sup> <a name="notificationArns" id="raindancers-cdk.securityLake.SecurityLakeProps.property.notificationArns"></a>
+
+```typescript
+public readonly notificationArns: string[];
+```
+
+- *Type:* string[]
+- *Default:* no notfication arns.
+
+SNS Topic ARNs that will receive stack events.
+
+---
+
 ##### `permissionsBoundary`<sup>Optional</sup> <a name="permissionsBoundary" id="raindancers-cdk.securityLake.SecurityLakeProps.property.permissionsBoundary"></a>
 
 ```typescript
@@ -13517,6 +13037,19 @@ public readonly permissionsBoundary: PermissionsBoundary;
 - *Default:* no permissions boundary is applied
 
 Options for applying a permissions boundary to all IAM Roles and Users created within this Stage.
+
+---
+
+##### `propertyInjectors`<sup>Optional</sup> <a name="propertyInjectors" id="raindancers-cdk.securityLake.SecurityLakeProps.property.propertyInjectors"></a>
+
+```typescript
+public readonly propertyInjectors: IPropertyInjector[];
+```
+
+- *Type:* aws-cdk-lib.IPropertyInjector[]
+- *Default:* no PropertyInjectors
+
+A list of IPropertyInjector attached to this Stack.
 
 ---
 
@@ -14518,274 +14051,6 @@ public readonly description: string;
 
 ---
 
-### TransferServerProps <a name="TransferServerProps" id="raindancers-cdk.transfer.TransferServerProps"></a>
-
-#### Initializer <a name="Initializer" id="raindancers-cdk.transfer.TransferServerProps.Initializer"></a>
-
-```typescript
-import { transfer } from 'raindancers-cdk'
-
-const transferServerProps: transfer.TransferServerProps = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.domain">domain</a></code> | <code>raindancers-cdk.transfer.StorageType</code> | Specifies the domain of the storage system that is used for file transfers. |
-| <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.protocols">protocols</a></code> | <code>raindancers-cdk.transfer.Protocol[]</code> | Protocols The protocol settings that are configured for your server. |
-| <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.certificate">certificate</a></code> | <code>aws-cdk-lib.aws_certificatemanager.ICertificate</code> | The Amazon Resource Name (ARN) of the AWS Certificate Manager (ACM) certificate A certificate is required if the protocol is set to FTP. |
-| <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.customDomain">customDomain</a></code> | <code>raindancers-cdk.transfer.CustomDomain</code> | Custom Domain. |
-| <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.disableLogging">disableLogging</a></code> | <code>boolean</code> | disable logging. |
-| <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.endpointType">endpointType</a></code> | <code>raindancers-cdk.transfer.EndpointType</code> | The endpoint type that you want your transfer server to be. |
-| <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.identityProviderType">identityProviderType</a></code> | <code>raindancers-cdk.transfer.IdentityProviderType</code> | identity Provider Type. |
-| <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.logDestinations">logDestinations</a></code> | <code>aws-cdk-lib.aws_logs.ILogGroup[]</code> | log destination. |
-| <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.loggingRole">loggingRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that allows a server to turn on Amazon CloudWatch logging  for Amazon S3 or Amazon EFSevents. |
-| <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.postAuthenticationLoginBanner">postAuthenticationLoginBanner</a></code> | <code>string</code> | This string is displayed after the user authenticates. |
-| <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.preAuthenticationLoginBanner">preAuthenticationLoginBanner</a></code> | <code>string</code> | This string is displayed before the user authenticates. |
-| <code><a href="#raindancers-cdk.transfer.TransferServerProps.property.securityPolicy">securityPolicy</a></code> | <code>raindancers-cdk.transfer.SecurityPolicy</code> | Security Policy. |
-
----
-
-##### `domain`<sup>Required</sup> <a name="domain" id="raindancers-cdk.transfer.TransferServerProps.property.domain"></a>
-
-```typescript
-public readonly domain: StorageType;
-```
-
-- *Type:* raindancers-cdk.transfer.StorageType
-
-Specifies the domain of the storage system that is used for file transfers.
-
-See also: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-server.html#cfn-transfer-server-domain
-
----
-
-##### `protocols`<sup>Required</sup> <a name="protocols" id="raindancers-cdk.transfer.TransferServerProps.property.protocols"></a>
-
-```typescript
-public readonly protocols: Protocol[];
-```
-
-- *Type:* raindancers-cdk.transfer.Protocol[]
-
-Protocols The protocol settings that are configured for your server.
-
----
-
-##### `certificate`<sup>Optional</sup> <a name="certificate" id="raindancers-cdk.transfer.TransferServerProps.property.certificate"></a>
-
-```typescript
-public readonly certificate: ICertificate;
-```
-
-- *Type:* aws-cdk-lib.aws_certificatemanager.ICertificate
-
-The Amazon Resource Name (ARN) of the AWS Certificate Manager (ACM) certificate A certificate is required if the protocol is set to FTP.
-
----
-
-##### `customDomain`<sup>Optional</sup> <a name="customDomain" id="raindancers-cdk.transfer.TransferServerProps.property.customDomain"></a>
-
-```typescript
-public readonly customDomain: CustomDomain;
-```
-
-- *Type:* raindancers-cdk.transfer.CustomDomain
-
-Custom Domain.
-
----
-
-##### `disableLogging`<sup>Optional</sup> <a name="disableLogging" id="raindancers-cdk.transfer.TransferServerProps.property.disableLogging"></a>
-
-```typescript
-public readonly disableLogging: boolean;
-```
-
-- *Type:* boolean
-- *Default:* : false
-
-disable logging.
-
-We have to explicity opt out of logging.
-
----
-
-##### `endpointType`<sup>Optional</sup> <a name="endpointType" id="raindancers-cdk.transfer.TransferServerProps.property.endpointType"></a>
-
-```typescript
-public readonly endpointType: EndpointType;
-```
-
-- *Type:* raindancers-cdk.transfer.EndpointType
-- *Default:* EndpointType.PUBLIC
-
-The endpoint type that you want your transfer server to be.
-
----
-
-##### `identityProviderType`<sup>Optional</sup> <a name="identityProviderType" id="raindancers-cdk.transfer.TransferServerProps.property.identityProviderType"></a>
-
-```typescript
-public readonly identityProviderType: IdentityProviderType;
-```
-
-- *Type:* raindancers-cdk.transfer.IdentityProviderType
-- *Default:* SERVICE_MANAGED
-
-identity Provider Type.
-
----
-
-##### `logDestinations`<sup>Optional</sup> <a name="logDestinations" id="raindancers-cdk.transfer.TransferServerProps.property.logDestinations"></a>
-
-```typescript
-public readonly logDestinations: ILogGroup[];
-```
-
-- *Type:* aws-cdk-lib.aws_logs.ILogGroup[]
-
-log destination.
-
----
-
-##### `loggingRole`<sup>Optional</sup> <a name="loggingRole" id="raindancers-cdk.transfer.TransferServerProps.property.loggingRole"></a>
-
-```typescript
-public readonly loggingRole: IRole;
-```
-
-- *Type:* aws-cdk-lib.aws_iam.IRole
-
-The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that allows a server to turn on Amazon CloudWatch logging  for Amazon S3 or Amazon EFSevents.
-
----
-
-##### `postAuthenticationLoginBanner`<sup>Optional</sup> <a name="postAuthenticationLoginBanner" id="raindancers-cdk.transfer.TransferServerProps.property.postAuthenticationLoginBanner"></a>
-
-```typescript
-public readonly postAuthenticationLoginBanner: string;
-```
-
-- *Type:* string
-
-This string is displayed after the user authenticates.
-
----
-
-##### `preAuthenticationLoginBanner`<sup>Optional</sup> <a name="preAuthenticationLoginBanner" id="raindancers-cdk.transfer.TransferServerProps.property.preAuthenticationLoginBanner"></a>
-
-```typescript
-public readonly preAuthenticationLoginBanner: string;
-```
-
-- *Type:* string
-
-This string is displayed before the user authenticates.
-
----
-
-##### `securityPolicy`<sup>Optional</sup> <a name="securityPolicy" id="raindancers-cdk.transfer.TransferServerProps.property.securityPolicy"></a>
-
-```typescript
-public readonly securityPolicy: SecurityPolicy;
-```
-
-- *Type:* raindancers-cdk.transfer.SecurityPolicy
-
-Security Policy.
-
----
-
-### TransferUserProps <a name="TransferUserProps" id="raindancers-cdk.transfer.TransferUserProps"></a>
-
-#### Initializer <a name="Initializer" id="raindancers-cdk.transfer.TransferUserProps.Initializer"></a>
-
-```typescript
-import { transfer } from 'raindancers-cdk'
-
-const transferUserProps: transfer.TransferUserProps = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#raindancers-cdk.transfer.TransferUserProps.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.TransferUserProps.property.publicKeys">publicKeys</a></code> | <code>string[]</code> | ssh publickeys. |
-| <code><a href="#raindancers-cdk.transfer.TransferUserProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.TransferUserProps.property.transferServer">transferServer</a></code> | <code>raindancers-cdk.transfer.ITransferServer</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.TransferUserProps.property.userName">userName</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.TransferUserProps.property.policy">policy</a></code> | <code>aws-cdk-lib.aws_iam.PolicyDocument</code> | Policy. |
-
----
-
-##### `bucket`<sup>Required</sup> <a name="bucket" id="raindancers-cdk.transfer.TransferUserProps.property.bucket"></a>
-
-```typescript
-public readonly bucket: IBucket;
-```
-
-- *Type:* aws-cdk-lib.aws_s3.IBucket
-
----
-
-##### `publicKeys`<sup>Required</sup> <a name="publicKeys" id="raindancers-cdk.transfer.TransferUserProps.property.publicKeys"></a>
-
-```typescript
-public readonly publicKeys: string[];
-```
-
-- *Type:* string[]
-
-ssh publickeys.
-
----
-
-##### `role`<sup>Required</sup> <a name="role" id="raindancers-cdk.transfer.TransferUserProps.property.role"></a>
-
-```typescript
-public readonly role: IRole;
-```
-
-- *Type:* aws-cdk-lib.aws_iam.IRole
-
----
-
-##### `transferServer`<sup>Required</sup> <a name="transferServer" id="raindancers-cdk.transfer.TransferUserProps.property.transferServer"></a>
-
-```typescript
-public readonly transferServer: ITransferServer;
-```
-
-- *Type:* raindancers-cdk.transfer.ITransferServer
-
----
-
-##### `userName`<sup>Required</sup> <a name="userName" id="raindancers-cdk.transfer.TransferUserProps.property.userName"></a>
-
-```typescript
-public readonly userName: string;
-```
-
-- *Type:* string
-
----
-
-##### `policy`<sup>Optional</sup> <a name="policy" id="raindancers-cdk.transfer.TransferUserProps.property.policy"></a>
-
-```typescript
-public readonly policy: PolicyDocument;
-```
-
-- *Type:* aws-cdk-lib.aws_iam.PolicyDocument
-- *Default:* Default Policy statement.
-
-Policy.
-
----
-
 ### Transistion <a name="Transistion" id="raindancers-cdk.securityLake.Transistion"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.securityLake.Transistion.Initializer"></a>
@@ -14842,6 +14107,7 @@ const transitGatewayAttachmentOptions: transitGateway.TransitGatewayAttachmentOp
 | <code><a href="#raindancers-cdk.transitGateway.TransitGatewayAttachmentOptions.property.applianceModeSupport">applianceModeSupport</a></code> | <code>raindancers-cdk.transitGateway.ApplianceModeSupport</code> | *No description.* |
 | <code><a href="#raindancers-cdk.transitGateway.TransitGatewayAttachmentOptions.property.dnsSupport">dnsSupport</a></code> | <code>raindancers-cdk.transitGateway.DnsSupport</code> | *No description.* |
 | <code><a href="#raindancers-cdk.transitGateway.TransitGatewayAttachmentOptions.property.ipv6Support">ipv6Support</a></code> | <code>raindancers-cdk.transitGateway.Ipv6Support</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transitGateway.TransitGatewayAttachmentOptions.property.securityGroupReferencingSupport">securityGroupReferencingSupport</a></code> | <code>raindancers-cdk.transitGateway.SecurityGroupReferencingSupport</code> | *No description.* |
 
 ---
 
@@ -14872,6 +14138,16 @@ public readonly ipv6Support: Ipv6Support;
 ```
 
 - *Type:* raindancers-cdk.transitGateway.Ipv6Support
+
+---
+
+##### `securityGroupReferencingSupport`<sup>Optional</sup> <a name="securityGroupReferencingSupport" id="raindancers-cdk.transitGateway.TransitGatewayAttachmentOptions.property.securityGroupReferencingSupport"></a>
+
+```typescript
+public readonly securityGroupReferencingSupport: SecurityGroupReferencingSupport;
+```
+
+- *Type:* raindancers-cdk.transitGateway.SecurityGroupReferencingSupport
 
 ---
 
@@ -16576,95 +15852,6 @@ public readonly id: string;
 
 ---
 
-### ITransferServer <a name="ITransferServer" id="raindancers-cdk.transfer.ITransferServer"></a>
-
-- *Implemented By:* raindancers-cdk.transfer.TransferServer, raindancers-cdk.transfer.ITransferServer
-
-Implmented by `ITransferServer`.
-
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#raindancers-cdk.transfer.ITransferServer.property.arn">arn</a></code> | <code>string</code> | A private Autonomous System Number (ASN) for the Amazon side of a BGP session. |
-| <code><a href="#raindancers-cdk.transfer.ITransferServer.property.id">id</a></code> | <code>string</code> | The ID of the transfer server. |
-
----
-
-##### `arn`<sup>Required</sup> <a name="arn" id="raindancers-cdk.transfer.ITransferServer.property.arn"></a>
-
-```typescript
-public readonly arn: string;
-```
-
-- *Type:* string
-
-A private Autonomous System Number (ASN) for the Amazon side of a BGP session.
-
-See also: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-transfer-server.html#cfn-transfer-server-certificate
-
----
-
-##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.transfer.ITransferServer.property.id"></a>
-
-```typescript
-public readonly id: string;
-```
-
-- *Type:* string
-
-The ID of the transfer server.
-
----
-
-### ITransferUser <a name="ITransferUser" id="raindancers-cdk.transfer.ITransferUser"></a>
-
-- *Implemented By:* raindancers-cdk.transfer.TransferUser, raindancers-cdk.transfer.ITransferUser
-
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#raindancers-cdk.transfer.ITransferUser.property.arn">arn</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.ITransferUser.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.ITransferUser.property.id">id</a></code> | <code>string</code> | The ID of the transfer user. |
-
----
-
-##### `arn`<sup>Required</sup> <a name="arn" id="raindancers-cdk.transfer.ITransferUser.property.arn"></a>
-
-```typescript
-public readonly arn: string;
-```
-
-- *Type:* string
-
----
-
-##### `bucket`<sup>Required</sup> <a name="bucket" id="raindancers-cdk.transfer.ITransferUser.property.bucket"></a>
-
-```typescript
-public readonly bucket: IBucket;
-```
-
-- *Type:* aws-cdk-lib.aws_s3.IBucket
-
----
-
-##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.transfer.ITransferUser.property.id"></a>
-
-```typescript
-public readonly id: string;
-```
-
-- *Type:* string
-
-The ID of the transfer user.
-
----
-
 ### ITransitGateway <a name="ITransitGateway" id="raindancers-cdk.transitGateway.ITransitGateway"></a>
 
 - *Implemented By:* raindancers-cdk.transitGateway.TransitGateway, raindancers-cdk.transitGateway.ITransitGateway
@@ -17051,21 +16238,6 @@ route to the transitGateway that the vpc is attached to.
 ---
 
 
-### EndpointType <a name="EndpointType" id="raindancers-cdk.transfer.EndpointType"></a>
-
-#### Members <a name="Members" id="Members"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#raindancers-cdk.transfer.EndpointType.PUBLIC">PUBLIC</a></code> | *No description.* |
-
----
-
-##### `PUBLIC` <a name="PUBLIC" id="raindancers-cdk.transfer.EndpointType.PUBLIC"></a>
-
----
-
-
 ### GeneratedRulesType <a name="GeneratedRulesType" id="raindancers-cdk.nwFirewall.GeneratedRulesType"></a>
 
 #### Members <a name="Members" id="Members"></a>
@@ -17083,21 +16255,6 @@ route to the transitGateway that the vpc is attached to.
 
 
 ##### `DENYLIST` <a name="DENYLIST" id="raindancers-cdk.nwFirewall.GeneratedRulesType.DENYLIST"></a>
-
----
-
-
-### IdentityProviderType <a name="IdentityProviderType" id="raindancers-cdk.transfer.IdentityProviderType"></a>
-
-#### Members <a name="Members" id="Members"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#raindancers-cdk.transfer.IdentityProviderType.SERVICE_MANAGED">SERVICE_MANAGED</a></code> | *No description.* |
-
----
-
-##### `SERVICE_MANAGED` <a name="SERVICE_MANAGED" id="raindancers-cdk.transfer.IdentityProviderType.SERVICE_MANAGED"></a>
 
 ---
 
@@ -17408,33 +16565,6 @@ route to the transitGateway that the vpc is attached to.
 ---
 
 
-### Permission <a name="Permission" id="raindancers-cdk.transfer.Permission"></a>
-
-#### Members <a name="Members" id="Members"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#raindancers-cdk.transfer.Permission.READ">READ</a></code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.Permission.WRITE">WRITE</a></code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.Permission.READ_WRITE">READ_WRITE</a></code> | *No description.* |
-
----
-
-##### `READ` <a name="READ" id="raindancers-cdk.transfer.Permission.READ"></a>
-
----
-
-
-##### `WRITE` <a name="WRITE" id="raindancers-cdk.transfer.Permission.WRITE"></a>
-
----
-
-
-##### `READ_WRITE` <a name="READ_WRITE" id="raindancers-cdk.transfer.Permission.READ_WRITE"></a>
-
----
-
-
 ### PolicyType <a name="PolicyType" id="raindancers-cdk.serviceControlPolicy.PolicyType"></a>
 
 #### Members <a name="Members" id="Members"></a>
@@ -17491,23 +16621,6 @@ route to the transitGateway that the vpc is attached to.
 
 
 ##### `UDP` <a name="UDP" id="raindancers-cdk.nwFirewall.Protocol.UDP"></a>
-
----
-
-
-### Protocol <a name="Protocol" id="raindancers-cdk.transfer.Protocol"></a>
-
-#### Members <a name="Members" id="Members"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#raindancers-cdk.transfer.Protocol.SFTP">SFTP</a></code> | SFTP (Secure Shell (SSH) File Transfer Protocol): File transfer over SSH. |
-
----
-
-##### `SFTP` <a name="SFTP" id="raindancers-cdk.transfer.Protocol.SFTP"></a>
-
-SFTP (Secure Shell (SSH) File Transfer Protocol): File transfer over SSH.
 
 ---
 
@@ -17623,6 +16736,27 @@ Resolver is outbound.
 ---
 
 
+### SecurityGroupReferencingSupport <a name="SecurityGroupReferencingSupport" id="raindancers-cdk.transitGateway.SecurityGroupReferencingSupport"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.transitGateway.SecurityGroupReferencingSupport.ENABLE">ENABLE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.transitGateway.SecurityGroupReferencingSupport.DISABLE">DISABLE</a></code> | *No description.* |
+
+---
+
+##### `ENABLE` <a name="ENABLE" id="raindancers-cdk.transitGateway.SecurityGroupReferencingSupport.ENABLE"></a>
+
+---
+
+
+##### `DISABLE` <a name="DISABLE" id="raindancers-cdk.transitGateway.SecurityGroupReferencingSupport.DISABLE"></a>
+
+---
+
+
 ### SecurityLakeStorageClass <a name="SecurityLakeStorageClass" id="raindancers-cdk.securityLake.SecurityLakeStorageClass"></a>
 
 #### Members <a name="Members" id="Members"></a>
@@ -17670,53 +16804,6 @@ Resolver is outbound.
 
 
 ##### `EXPIRE` <a name="EXPIRE" id="raindancers-cdk.securityLake.SecurityLakeStorageClass.EXPIRE"></a>
-
----
-
-
-### SecurityPolicy <a name="SecurityPolicy" id="raindancers-cdk.transfer.SecurityPolicy"></a>
-
-#### Members <a name="Members" id="Members"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#raindancers-cdk.transfer.SecurityPolicy.TRANSFER_SECURITY_POLICY_2023_05">TRANSFER_SECURITY_POLICY_2023_05</a></code> | https://docs.aws.amazon.com/transfer/latest/userguide/security-policies.html#pq-policies. |
-| <code><a href="#raindancers-cdk.transfer.SecurityPolicy.TRANSFER_SECURITY_POLICY_2022_03">TRANSFER_SECURITY_POLICY_2022_03</a></code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.SecurityPolicy.TRANSFER_SECURITY_POLICY_2020_06">TRANSFER_SECURITY_POLICY_2020_06</a></code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.SecurityPolicy.TRANSFER_SECURITY_POLICY_2018_11">TRANSFER_SECURITY_POLICY_2018_11</a></code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.SecurityPolicy.TRANSFER_SECURITY_POLICY_PQ_SSH_EXPERIMENTAL_2023_04">TRANSFER_SECURITY_POLICY_PQ_SSH_EXPERIMENTAL_2023_04</a></code> | *No description.* |
-| <code><a href="#raindancers-cdk.transfer.SecurityPolicy.TRANSFER_SECURITY_POLICY_PQ_SSH_FIPS_2023_04">TRANSFER_SECURITY_POLICY_PQ_SSH_FIPS_2023_04</a></code> | *No description.* |
-
----
-
-##### `TRANSFER_SECURITY_POLICY_2023_05` <a name="TRANSFER_SECURITY_POLICY_2023_05" id="raindancers-cdk.transfer.SecurityPolicy.TRANSFER_SECURITY_POLICY_2023_05"></a>
-
-https://docs.aws.amazon.com/transfer/latest/userguide/security-policies.html#pq-policies.
-
----
-
-
-##### `TRANSFER_SECURITY_POLICY_2022_03` <a name="TRANSFER_SECURITY_POLICY_2022_03" id="raindancers-cdk.transfer.SecurityPolicy.TRANSFER_SECURITY_POLICY_2022_03"></a>
-
----
-
-
-##### `TRANSFER_SECURITY_POLICY_2020_06` <a name="TRANSFER_SECURITY_POLICY_2020_06" id="raindancers-cdk.transfer.SecurityPolicy.TRANSFER_SECURITY_POLICY_2020_06"></a>
-
----
-
-
-##### `TRANSFER_SECURITY_POLICY_2018_11` <a name="TRANSFER_SECURITY_POLICY_2018_11" id="raindancers-cdk.transfer.SecurityPolicy.TRANSFER_SECURITY_POLICY_2018_11"></a>
-
----
-
-
-##### `TRANSFER_SECURITY_POLICY_PQ_SSH_EXPERIMENTAL_2023_04` <a name="TRANSFER_SECURITY_POLICY_PQ_SSH_EXPERIMENTAL_2023_04" id="raindancers-cdk.transfer.SecurityPolicy.TRANSFER_SECURITY_POLICY_PQ_SSH_EXPERIMENTAL_2023_04"></a>
-
----
-
-
-##### `TRANSFER_SECURITY_POLICY_PQ_SSH_FIPS_2023_04` <a name="TRANSFER_SECURITY_POLICY_PQ_SSH_FIPS_2023_04" id="raindancers-cdk.transfer.SecurityPolicy.TRANSFER_SECURITY_POLICY_PQ_SSH_FIPS_2023_04"></a>
 
 ---
 
@@ -17831,21 +16918,6 @@ https://docs.aws.amazon.com/transfer/latest/userguide/security-policies.html#pq-
 
 
 ##### `STATEFUL` <a name="STATEFUL" id="raindancers-cdk.nwFirewall.StatelessActions.STATEFUL"></a>
-
----
-
-
-### StorageType <a name="StorageType" id="raindancers-cdk.transfer.StorageType"></a>
-
-#### Members <a name="Members" id="Members"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#raindancers-cdk.transfer.StorageType.S3">S3</a></code> | *No description.* |
-
----
-
-##### `S3` <a name="S3" id="raindancers-cdk.transfer.StorageType.S3"></a>
 
 ---
 
