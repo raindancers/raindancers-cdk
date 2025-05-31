@@ -14331,6 +14331,7 @@ const transitGatewayRoute: transitGateway.TransitGatewayRoute = { ... }
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.transitGateway.TransitGatewayRoute.property.destinationCidrBlock">destinationCidrBlock</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.transitGateway.TransitGatewayRoute.property.blackhole">blackhole</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transitGateway.TransitGatewayRoute.property.id">id</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.transitGateway.TransitGatewayRoute.property.transitGatewayAttachmentId">transitGatewayAttachmentId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.transitGateway.TransitGatewayRoute.property.transitGatewayRouteTableId">transitGatewayRouteTableId</a></code> | <code>string</code> | *No description.* |
 
@@ -14353,6 +14354,16 @@ public readonly blackhole: boolean;
 ```
 
 - *Type:* boolean
+
+---
+
+##### `id`<sup>Optional</sup> <a name="id" id="raindancers-cdk.transitGateway.TransitGatewayRoute.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
 
 ---
 

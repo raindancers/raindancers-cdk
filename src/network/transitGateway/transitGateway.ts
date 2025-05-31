@@ -265,6 +265,7 @@ export class TransitGateway extends constructs.Construct implements ITransitGate
       transitGatewayId: this.id,
       vpcId: vpc.vpcId,
       options: options,
+
     });
 
 
@@ -277,7 +278,7 @@ export class TransitGateway extends constructs.Construct implements ITransitGate
       throw new Error('A route can not be both blackholed and have a destination');
     }
 
-    new ec2.CfnTransitGatewayRoute(this, `tgroute-${route.destinationCidrBlock}`, {
+    new ec2.CfnTransitGatewayRoute(this, route.id ?? `tgroute-${route.destinationCidrBlock}`, {
       transitGatewayRouteTableId: route.transitGatewayRouteTableId ?? this.defaultRoutingTableId,
       blackhole: route.blackhole,
       destinationCidrBlock: route.destinationCidrBlock,
@@ -322,6 +323,8 @@ export class TransitGateway extends constructs.Construct implements ITransitGate
 }
 
 export interface TransitGatewayRoute {
+  // use this when we dont' know the actual routes are are passing tokens
+  readonly id?: string;
   readonly transitGatewayRouteTableId?: string | undefined;
   readonly destinationCidrBlock: string;
   readonly blackhole?: boolean;
