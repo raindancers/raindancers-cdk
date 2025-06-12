@@ -5158,9 +5158,11 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.alertLogs">alertLogs</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | alert log. |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.endPointIds">endPointIds</a></code> | <code>string[]</code> | Gateway Endpoints for the Firewalls. |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.firewallArn">firewallArn</a></code> | <code>string</code> | Arn of the firewall. |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.firewallId">firewallId</a></code> | <code>string</code> | Firewall ID. |
+| <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.flowLogs">flowLogs</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | flow log. |
 
 ---
 
@@ -5173,6 +5175,18 @@ public readonly node: Node;
 - *Type:* constructs.Node
 
 The tree node.
+
+---
+
+##### `alertLogs`<sup>Required</sup> <a name="alertLogs" id="raindancers-cdk.nwFirewall.NetworkFirewall.property.alertLogs"></a>
+
+```typescript
+public readonly alertLogs: LogGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.LogGroup
+
+alert log.
 
 ---
 
@@ -5209,6 +5223,18 @@ public readonly firewallId: string;
 - *Type:* string
 
 Firewall ID.
+
+---
+
+##### `flowLogs`<sup>Required</sup> <a name="flowLogs" id="raindancers-cdk.nwFirewall.NetworkFirewall.property.flowLogs"></a>
+
+```typescript
+public readonly flowLogs: LogGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.LogGroup
+
+flow log.
 
 ---
 

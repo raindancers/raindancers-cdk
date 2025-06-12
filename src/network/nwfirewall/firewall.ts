@@ -49,6 +49,17 @@ export class NetworkFirewall extends constructs.Construct {
   public readonly firewallId: string;
 
   /**
+   * flow log
+   */
+  public readonly flowLogs: logs.LogGroup;
+
+  /**
+   * alert log
+   */
+  public readonly alertLogs: logs.LogGroup;
+
+
+  /**
    *
    * @param scope Scope
    * @param id id
@@ -73,13 +84,18 @@ export class NetworkFirewall extends constructs.Construct {
     const fwFlowLogsGroup = new logs.LogGroup(this, 'FWFlowLogsGroup', {
       logGroupName: `${props.firewallName}FlowLogs`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
-		  });
+    });
+
+    this.flowLogs = fwFlowLogsGroup;
 
     // CloudWatch Logs group to store Network Firewall alert logs
     const fwAlertLogsGroup = new logs.LogGroup(this, 'FWAlertLogsGroup', {
       logGroupName: `${props.firewallName}AlertLogs`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
-		  });
+    });
+
+    this.alertLogs = fwAlertLogsGroup;
+
 
     // Firewall logging configuration to enable both flow and alert logs
     new firewall.CfnLoggingConfiguration(this, 'FirewallLogConf', {

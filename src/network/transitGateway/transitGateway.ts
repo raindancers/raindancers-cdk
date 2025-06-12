@@ -212,6 +212,8 @@ export class TransitGateway extends constructs.Construct implements ITransitGate
       transitGatewayCidrBlocks: props.transitGatewayCidrBlocks,
     });
 
+    this.defaultRoutingTableId = transitGateway.associationDefaultRouteTableId!;
+
 
     this.defaultRoutingTableId = new cr.AwsCustomResource(this, 'GetTransitGatewayDefaultRoutingTableId', {
       onCreate: {
