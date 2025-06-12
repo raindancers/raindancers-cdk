@@ -2873,7 +2873,7 @@ public addCrossAccountR53AssociationRole(rolename?: string): void
 ##### `addNetworkFirewall` <a name="addNetworkFirewall" id="raindancers-cdk.enterprisevpc.EnterpriseVpc.addNetworkFirewall"></a>
 
 ```typescript
-public addNetworkFirewall(firewallName: string, firewallPolicy: CfnFirewallPolicy, subnet: SubnetGroup): void
+public addNetworkFirewall(firewallName: string, firewallPolicy: CfnFirewallPolicy, subnet: SubnetGroup): IFirewallLogs
 ```
 
 ###### `firewallName`<sup>Required</sup> <a name="firewallName" id="raindancers-cdk.enterprisevpc.EnterpriseVpc.addNetworkFirewall.parameter.firewallName"></a>
@@ -15414,6 +15414,40 @@ public readonly stack: Stack;
 - *Type:* aws-cdk-lib.Stack
 
 The stack in which this resource is defined.
+
+---
+
+### IFirewallLogs <a name="IFirewallLogs" id="raindancers-cdk.enterprisevpc.IFirewallLogs"></a>
+
+- *Implemented By:* raindancers-cdk.enterprisevpc.IFirewallLogs
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.IFirewallLogs.property.alertlogs">alertlogs</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.IFirewallLogs.property.flowlogs">flowlogs</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | *No description.* |
+
+---
+
+##### `alertlogs`<sup>Required</sup> <a name="alertlogs" id="raindancers-cdk.enterprisevpc.IFirewallLogs.property.alertlogs"></a>
+
+```typescript
+public readonly alertlogs: LogGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.LogGroup
+
+---
+
+##### `flowlogs`<sup>Required</sup> <a name="flowlogs" id="raindancers-cdk.enterprisevpc.IFirewallLogs.property.flowlogs"></a>
+
+```typescript
+public readonly flowlogs: LogGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.LogGroup
 
 ---
 

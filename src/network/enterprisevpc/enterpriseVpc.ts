@@ -29,6 +29,12 @@ import {
   transitGateway,
 } from '../../index';
 
+
+export interface IFirewallLogs {
+  flowlogs: logs.LogGroup;
+  alertlogs: logs.LogGroup;
+}
+
 interface RouteTableMeta {
   readonly routeTableId: string;
   readonly groupName: string;
@@ -430,7 +436,7 @@ export class EnterpriseVpc extends constructs.Construct {
     });
   }
 
-  public addNetworkFirewall(firewallName: string, firewallPolicy: firewall.CfnFirewallPolicy, subnet: SubnetGroup): void {
+  public addNetworkFirewall(firewallName: string, firewallPolicy: firewall.CfnFirewallPolicy, subnet: SubnetGroup): IFirewallLogs {
 
     const fw = new nwFirewall.NetworkFirewall(this, 'NetworkFirewall', {
       firewallName: firewallName,
@@ -440,6 +446,11 @@ export class EnterpriseVpc extends constructs.Construct {
     });
 
     this.firewallArn = fw.firewallArn;
+
+    return {
+      flowlogs: fw.flowLogs,
+      alertlogs: fw.alertLogs,
+    };
   }
 
   public addPrivateHostedZone(zonename: string): r53.HostedZone {
