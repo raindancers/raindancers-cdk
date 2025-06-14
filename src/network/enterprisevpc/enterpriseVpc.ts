@@ -1189,6 +1189,7 @@ export class EnterpriseVpc extends constructs.Construct {
 
           this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet, index) => {
 
+
             new ec2.CfnRoute(this, 'hostRoute-'+ index + subnetGroup, {
               destinationCidrBlock: destinationCidr,
               routeTableId: subnet.routeTable.routeTableId,
@@ -1228,11 +1229,21 @@ export class EnterpriseVpc extends constructs.Construct {
 
           this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet, index) => {
 
-            new ec2.CfnRoute(this, 'igwRoute-'+ index + subnetGroup, {
-              destinationCidrBlock: destinationCidr,
-              routeTableId: subnet.routeTable.routeTableId,
-              gatewayId: igwId,
-            });
+            if (destinationCidr.includes('::')) {
+              console.log('ipv6', destinationCidr);
+              new ec2.CfnRoute(this, 'igwRoute-'+ index + subnetGroup, {
+                destinationIpv6CidrBlock: destinationCidr,
+                routeTableId: subnet.routeTable.routeTableId,
+                gatewayId: igwId,
+              });
+            } else {
+              console.log('ipv4', destinationCidr),
+              new ec2.CfnRoute(this, 'igwRoute-'+ index + subnetGroup, {
+                destinationCidrBlock: destinationCidr,
+                routeTableId: subnet.routeTable.routeTableId,
+                gatewayId: igwId,
+              });
+            }
           });
         });
       });
