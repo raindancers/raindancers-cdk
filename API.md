@@ -16165,6 +16165,8 @@ The Destinations for Adding Routes.
 | <code><a href="#raindancers-cdk.enterprisevpc.Destination.TRANSITGATEWAY">TRANSITGATEWAY</a></code> | route to the transitGateway that the vpc is attached to. |
 | <code><a href="#raindancers-cdk.enterprisevpc.Destination.NWFIREWALL">NWFIREWALL</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Destination.EC2_INSTANCE">EC2_INSTANCE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Destination.INTERNET_GATEWAY">INTERNET_GATEWAY</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Destination.IPV6_EGREGSS_ONLY">IPV6_EGREGSS_ONLY</a></code> | *No description.* |
 
 ---
 
@@ -16188,6 +16190,16 @@ route to the transitGateway that the vpc is attached to.
 
 
 ##### `EC2_INSTANCE` <a name="EC2_INSTANCE" id="raindancers-cdk.enterprisevpc.Destination.EC2_INSTANCE"></a>
+
+---
+
+
+##### `INTERNET_GATEWAY` <a name="INTERNET_GATEWAY" id="raindancers-cdk.enterprisevpc.Destination.INTERNET_GATEWAY"></a>
+
+---
+
+
+##### `IPV6_EGREGSS_ONLY` <a name="IPV6_EGREGSS_ONLY" id="raindancers-cdk.enterprisevpc.Destination.IPV6_EGREGSS_ONLY"></a>
 
 ---
 

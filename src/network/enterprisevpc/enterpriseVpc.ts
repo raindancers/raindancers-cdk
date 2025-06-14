@@ -215,6 +215,10 @@ export enum Destination{
   NWFIREWALL = 'NetworkFirewall',
   // endpoint
   EC2_INSTANCE = 'EC2',
+  // internet Gateway
+  INTERNET_GATEWAY = 'INTERNET_GATEWAY',
+  //
+  IPV6_EGREGSS_ONLY = 'EGRESS_ONLY',
 }
 
 export interface PrefixCidr {
@@ -1189,6 +1193,45 @@ export class EnterpriseVpc extends constructs.Construct {
               destinationCidrBlock: destinationCidr,
               routeTableId: subnet.routeTable.routeTableId,
               instanceId: props.ec2Instance?.instanceId,
+            });
+          });
+        });
+      });
+
+    } else if (props.destination === Destination.INTERNET_GATEWAY ) {
+
+      // Get the Internet Gateway ID using an AWS Custom Resource
+      const igwLookup = new cr.AwsCustomResource(this, `IGWLookup-${hashProps(props)}`, {
+        onCreate: {
+          service: 'EC2',
+          action: 'describeInternetGateways',
+          parameters: {
+            Filters: [
+              {
+                Name: 'attachment.vpc-id',
+                Values: [this.vpc.vpcId],
+              },
+            ],
+          },
+          physicalResourceId: cr.PhysicalResourceId.of('IGWLookup'),
+          region: cdk.Aws.REGION,
+        },
+        policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
+          resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
+        }),
+      });
+
+      const igwId = igwLookup.getResponseField('InternetGateways.0.InternetGatewayId');
+
+      props.subnetGroups.forEach((subnetGroup) => {
+        props.cidr.forEach((destinationCidr) => {
+
+          this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet, index) => {
+
+            new ec2.CfnRoute(this, 'igwRoute-'+ index + subnetGroup, {
+              destinationCidrBlock: destinationCidr,
+              routeTableId: subnet.routeTable.routeTableId,
+              gatewayId: igwId,
             });
           });
         });
