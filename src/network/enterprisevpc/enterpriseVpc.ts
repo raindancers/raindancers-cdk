@@ -1202,7 +1202,7 @@ export class EnterpriseVpc extends constructs.Construct {
     } else if (props.destination === Destination.INTERNET_GATEWAY ) {
 
       // Get the Internet Gateway ID using an AWS Custom Resource
-      const igwLookup = new cr.AwsCustomResource(this, `IGWLookup-${hashProps(props)}`, {
+      const igwLookup = new cr.AwsCustomResource(this, `IGWLookup-${hashProps(props)}${props.description}`, {
         onCreate: {
           service: 'EC2',
           action: 'describeInternetGateways',
