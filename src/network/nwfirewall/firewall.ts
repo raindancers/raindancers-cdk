@@ -37,7 +37,7 @@ export interface NetworkFirewallProps {
   /**
    * Determine how the Firewall stacks will behave.
    */
-  readonly iPStackMode?: FirewallSubnetMappingIPAddressType;
+  readonly iPStackMode?: FirewallSubnetMappingIPAddressType | undefined;
 }
 
 /**
@@ -83,7 +83,7 @@ export class NetworkFirewall extends constructs.Construct {
       	(
         {
           subnetId: subnet.subnetId,
-          ipAddressType: FirewallSubnetMappingIPAddressType.DUALSTACK,
+          ipAddressType: props.iPStackMode ?? FirewallSubnetMappingIPAddressType.DUALSTACK,
         }
       ),
     	);
