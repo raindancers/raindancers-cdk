@@ -8,6 +8,12 @@ import {
 import * as constructs from 'constructs';
 
 
+export enum FirewallSubnetMappingIPAddressType {
+  DUALSTACK = 'DUALSTACK',
+  IPV4 = 'IPV4',
+  IPV6 = 'IPV6',
+}
+
 /**
  * Propertys of a Network Firewall
  */
@@ -28,6 +34,10 @@ export interface NetworkFirewallProps {
    * the firewalls policy
    */
   readonly firewallPolicy: firewall.CfnFirewallPolicy;
+  /**
+   * Determine how the Firewall stacks will behave.
+   */
+  readonly iPStackMode?: FirewallSubnetMappingIPAddressType;
 }
 
 /**
@@ -70,7 +80,12 @@ export class NetworkFirewall extends constructs.Construct {
 
     let firewallSubnetList: firewall.CfnFirewall.SubnetMappingProperty[] = [];
     	firewallSubnetList = props.vpc.selectSubnets({ subnetGroupName: 'firewall' }).subnets.map(subnet =>
-      	({ subnetId: subnet.subnetId }),
+      	(
+        {
+          subnetId: subnet.subnetId,
+          ipAddressType: FirewallSubnetMappingIPAddressType.DUALSTACK,
+        }
+      ),
     	);
 
     const fw = new firewall.CfnFirewall(this, 'Resource', {

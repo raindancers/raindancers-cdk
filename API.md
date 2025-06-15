@@ -2873,7 +2873,7 @@ public addCrossAccountR53AssociationRole(rolename?: string): void
 ##### `addNetworkFirewall` <a name="addNetworkFirewall" id="raindancers-cdk.enterprisevpc.EnterpriseVpc.addNetworkFirewall"></a>
 
 ```typescript
-public addNetworkFirewall(firewallName: string, firewallPolicy: CfnFirewallPolicy, subnet: SubnetGroup): IFirewallLogs
+public addNetworkFirewall(firewallName: string, firewallPolicy: CfnFirewallPolicy, subnet: SubnetGroup, ipStackMode?: FirewallSubnetMappingIPAddressType): IFirewallLogs
 ```
 
 ###### `firewallName`<sup>Required</sup> <a name="firewallName" id="raindancers-cdk.enterprisevpc.EnterpriseVpc.addNetworkFirewall.parameter.firewallName"></a>
@@ -2891,6 +2891,12 @@ public addNetworkFirewall(firewallName: string, firewallPolicy: CfnFirewallPolic
 ###### `subnet`<sup>Required</sup> <a name="subnet" id="raindancers-cdk.enterprisevpc.EnterpriseVpc.addNetworkFirewall.parameter.subnet"></a>
 
 - *Type:* raindancers-cdk.enterprisevpc.SubnetGroup
+
+---
+
+###### `ipStackMode`<sup>Optional</sup> <a name="ipStackMode" id="raindancers-cdk.enterprisevpc.EnterpriseVpc.addNetworkFirewall.parameter.ipStackMode"></a>
+
+- *Type:* raindancers-cdk.nwFirewall.FirewallSubnetMappingIPAddressType
 
 ---
 
@@ -11924,6 +11930,7 @@ const networkFirewallProps: nwFirewall.NetworkFirewallProps = { ... }
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewallProps.property.firewallPolicy">firewallPolicy</a></code> | <code>aws-cdk-lib.aws_networkfirewall.CfnFirewallPolicy</code> | the firewalls policy. |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewallProps.property.subnetGroup">subnetGroup</a></code> | <code>string</code> | the subnetGroup where the firewall will be created. |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewallProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc \| aws-cdk-lib.aws_ec2.Vpc</code> | the the vpc where the Network firewall is placed. |
+| <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewallProps.property.iPStackMode">iPStackMode</a></code> | <code>raindancers-cdk.nwFirewall.FirewallSubnetMappingIPAddressType</code> | Determine how the Firewall stacks will behave. |
 
 ---
 
@@ -11972,6 +11979,18 @@ public readonly vpc: IVpc | Vpc;
 - *Type:* aws-cdk-lib.aws_ec2.IVpc | aws-cdk-lib.aws_ec2.Vpc
 
 the the vpc where the Network firewall is placed.
+
+---
+
+##### `iPStackMode`<sup>Optional</sup> <a name="iPStackMode" id="raindancers-cdk.nwFirewall.NetworkFirewallProps.property.iPStackMode"></a>
+
+```typescript
+public readonly iPStackMode: FirewallSubnetMappingIPAddressType;
+```
+
+- *Type:* raindancers-cdk.nwFirewall.FirewallSubnetMappingIPAddressType
+
+Determine how the Firewall stacks will behave.
 
 ---
 
@@ -16317,6 +16336,33 @@ route to the transitGateway that the vpc is attached to.
 ---
 
 ##### `AUTOMATION` <a name="AUTOMATION" id="raindancers-cdk.ssm.automation.DocumentType.AUTOMATION"></a>
+
+---
+
+
+### FirewallSubnetMappingIPAddressType <a name="FirewallSubnetMappingIPAddressType" id="raindancers-cdk.nwFirewall.FirewallSubnetMappingIPAddressType"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.FirewallSubnetMappingIPAddressType.DUALSTACK">DUALSTACK</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.FirewallSubnetMappingIPAddressType.IPV4">IPV4</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.FirewallSubnetMappingIPAddressType.IPV6">IPV6</a></code> | *No description.* |
+
+---
+
+##### `DUALSTACK` <a name="DUALSTACK" id="raindancers-cdk.nwFirewall.FirewallSubnetMappingIPAddressType.DUALSTACK"></a>
+
+---
+
+
+##### `IPV4` <a name="IPV4" id="raindancers-cdk.nwFirewall.FirewallSubnetMappingIPAddressType.IPV4"></a>
+
+---
+
+
+##### `IPV6` <a name="IPV6" id="raindancers-cdk.nwFirewall.FirewallSubnetMappingIPAddressType.IPV6"></a>
 
 ---
 

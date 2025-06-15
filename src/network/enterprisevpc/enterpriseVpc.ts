@@ -440,12 +440,18 @@ export class EnterpriseVpc extends constructs.Construct {
     });
   }
 
-  public addNetworkFirewall(firewallName: string, firewallPolicy: firewall.CfnFirewallPolicy, subnet: SubnetGroup): IFirewallLogs {
+  public addNetworkFirewall(
+    firewallName: string,
+    firewallPolicy: firewall.CfnFirewallPolicy,
+    subnet: SubnetGroup,
+    ipStackMode?: nwFirewall.FirewallSubnetMappingIPAddressType | undefined,
+  ): IFirewallLogs {
 
     const fw = new nwFirewall.NetworkFirewall(this, 'NetworkFirewall', {
       firewallName: firewallName,
       firewallPolicy: firewallPolicy,
       subnetGroup: subnet.subnet.name,
+      iPStackMode: ipStackMode ?? nwFirewall.FirewallSubnetMappingIPAddressType.DUALSTACK,
       vpc: this.vpc,
     });
 
