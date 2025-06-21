@@ -2,9 +2,9 @@ import { awscdk, DependencyType } from 'projen';
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'mrpackethead',
   authorAddress: 'andrew.frazer@raindancers.cloud',
-  cdkVersion: '2.198.0',
+  cdkVersion: '2.201.0',
   defaultReleaseBranch: 'main',
-  jsiiVersion: '~5.5.0',
+  jsiiVersion: '~5.8.0',
   name: 'raindancers-cdk',
   projenrcTs: true,
   repositoryUrl: 'https://github.com/raindancers/raindancers-cdk',
@@ -15,8 +15,11 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // packageName: undefined,  /* The "name" in package.json. */
 });
 
-project.deps.addDependency('@aws-cdk/integ-runner@latest', DependencyType.DEVENV);
-project.deps.addDependency('@aws-cdk/integ-tests-alpha@latest', DependencyType.DEVENV);
+// project.deps.addDependency('@aws-cdk/integ-runner@latest', DependencyType.DEVENV);
+// project.deps.addDependency('@aws-cdk/integ-tests-alpha@latest', DependencyType.DEVENV);
+// project.deps.addDependency('@aws-cdk/integ-runner@^2.201.0-alpha.0', DependencyType.DEVENV);
+// project.deps.addDependency('@aws-cdk/integ-tests-alpha@^2.201.0-alpha.0', DependencyType.DEVENV);
+
 project.deps.addDependency('cdk-serverless-clamscan', DependencyType.RUNTIME);
 
 project.addGitIgnore('!lambda/**');

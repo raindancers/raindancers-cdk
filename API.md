@@ -8199,6 +8199,7 @@ const addRoutesProps: enterprisevpc.AddRoutesProps = { ... }
 | <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesProps.property.subnetGroups">subnetGroups</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesProps.property.cloudwanName">cloudwanName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesProps.property.ec2Instance">ec2Instance</a></code> | <code>aws-cdk-lib.aws_ec2.IInstance</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesProps.property.endpointTag">endpointTag</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesProps.property.networkFirewallArn">networkFirewallArn</a></code> | <code>string</code> | *No description.* |
 
 ---
@@ -8260,6 +8261,16 @@ public readonly ec2Instance: IInstance;
 ```
 
 - *Type:* aws-cdk-lib.aws_ec2.IInstance
+
+---
+
+##### `endpointTag`<sup>Optional</sup> <a name="endpointTag" id="raindancers-cdk.enterprisevpc.AddRoutesProps.property.endpointTag"></a>
+
+```typescript
+public readonly endpointTag: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -16186,6 +16197,7 @@ The Destinations for Adding Routes.
 | <code><a href="#raindancers-cdk.enterprisevpc.Destination.EC2_INSTANCE">EC2_INSTANCE</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Destination.INTERNET_GATEWAY">INTERNET_GATEWAY</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Destination.IPV6_EGREGSS_ONLY">IPV6_EGREGSS_ONLY</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Destination.GLWB_ENDPOINT">GLWB_ENDPOINT</a></code> | *No description.* |
 
 ---
 
@@ -16219,6 +16231,11 @@ route to the transitGateway that the vpc is attached to.
 
 
 ##### `IPV6_EGREGSS_ONLY` <a name="IPV6_EGREGSS_ONLY" id="raindancers-cdk.enterprisevpc.Destination.IPV6_EGREGSS_ONLY"></a>
+
+---
+
+
+##### `GLWB_ENDPOINT` <a name="GLWB_ENDPOINT" id="raindancers-cdk.enterprisevpc.Destination.GLWB_ENDPOINT"></a>
 
 ---
 

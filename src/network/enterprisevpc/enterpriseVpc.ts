@@ -3,7 +3,7 @@ import * as cdk from 'aws-cdk-lib';
 import {
   aws_ec2 as ec2,
   aws_s3 as s3,
-  aws_lambda,
+  aws_lambda as lambda,
   aws_iam as iam,
   aws_logs as logs,
   custom_resources as cr,
@@ -193,6 +193,8 @@ export interface AddRoutesProps {
   readonly cloudwanName?: string | undefined;
   // ec2instance
   readonly ec2Instance?: ec2.IInstance;
+  // gwlbInterfaceEndpointTagName
+  readonly endpointTag?: string;
 
 }// end of addRoutetoCloudWan
 
@@ -219,6 +221,8 @@ export enum Destination{
   INTERNET_GATEWAY = 'INTERNET_GATEWAY',
   //
   IPV6_EGREGSS_ONLY = 'EGRESS_ONLY',
+  //
+  GLWB_ENDPOINT = 'GATEWAYLB_ENDPOINT'
 }
 
 export interface PrefixCidr {
@@ -361,26 +365,26 @@ export class EnterpriseVpc extends constructs.Construct {
     // to associate immediately after it is created, despite Cloudformation thinking that it is complete
     // A custom resource with a iscomplete handler is used to create a waiter.
 
-    const checkDNSFirewallRuleGroupIsReadyFn = new aws_lambda.Function(
+    const checkDNSFirewallRuleGroupIsReadyFn = new lambda.Function(
       this,
       'checkDNSFirewallRuleGroupIsReadyFn',
       {
-        runtime: aws_lambda.Runtime.PYTHON_3_9,
+        runtime: lambda.Runtime.PYTHON_3_9,
         logRetention: logs.RetentionDays.ONE_MONTH,
         handler: 'checkDNSFirewallRuleGroupIsReadyFn.on_event',
-        code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/dns')),
+        code: lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/dns')),
         timeout: cdk.Duration.seconds(899),
       },
     );
 
-    const checkDNSFirewallRuleGroupisCompleteFn = new aws_lambda.Function(
+    const checkDNSFirewallRuleGroupisCompleteFn = new lambda.Function(
       this,
       'checkDNSFirewallRuleGroupIsCompleteFn',
       {
-        runtime: aws_lambda.Runtime.PYTHON_3_9,
+        runtime: lambda.Runtime.PYTHON_3_9,
         logRetention: logs.RetentionDays.ONE_MONTH,
         handler: 'checkDNSFirewallRuleGroupIsReadyFn.is_complete',
-        code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/dns')),
+        code: lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/dns')),
         timeout: cdk.Duration.seconds(899),
       },
     );
@@ -633,9 +637,9 @@ export class EnterpriseVpc extends constructs.Construct {
 
 
       // set up athena querys with a custom resource
-      const athenaLogsHandler = new aws_lambda.Function(this, 'Function', {
-        code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpriseVpc')),
-        runtime: aws_lambda.Runtime.PYTHON_3_9,
+      const athenaLogsHandler = new lambda.Function(this, 'Function', {
+        code: lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpriseVpc')),
+        runtime: lambda.Runtime.PYTHON_3_9,
         handler: 'flowlogintegration.on_event',
         timeout: cdk.Duration.seconds(300),
       });
@@ -677,10 +681,10 @@ export class EnterpriseVpc extends constructs.Construct {
     this.cloudWanName = props.coreNetworkName;
 
     // get the coreNetwork Id from the name provided
-    const lookupIdLambda = new aws_lambda.Function(this, 'lookupIdLambda-evpc', {
-      runtime: aws_lambda.Runtime.PYTHON_3_9,
+    const lookupIdLambda = new lambda.Function(this, 'lookupIdLambda-evpc', {
+      runtime: lambda.Runtime.PYTHON_3_9,
       handler: 'get_core_network_id.on_event',
-      code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpriseVpc')),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpriseVpc')),
 		  });
 
     lookupIdLambda.addToRolePolicy(
@@ -693,10 +697,10 @@ export class EnterpriseVpc extends constructs.Construct {
 
 
     // check to see if the coreNetwork is ready.
-    const isReadyFn = new aws_lambda.Function(this, 'isreadyFn', {
-      runtime: aws_lambda.Runtime.PYTHON_3_9,
+    const isReadyFn = new lambda.Function(this, 'isreadyFn', {
+      runtime: lambda.Runtime.PYTHON_3_9,
       handler: 'get_core_network_id.is_complete',
-      code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpriseVpc')),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpriseVpc')),
     });
 
     isReadyFn.addToRolePolicy(
@@ -915,12 +919,12 @@ export class EnterpriseVpc extends constructs.Construct {
 
     if (props.cdkTagResourcesInSharedToAccountRoleName) {
 
-      const tagResources = new aws_lambda.SingletonFunction(this, `tagRemoteResources${props.shareName}`, {
+      const tagResources = new lambda.SingletonFunction(this, `tagRemoteResources${props.shareName}`, {
         logRetention: logs.RetentionDays.FIVE_DAYS,
         uuid: '37FEAC0011422A0',
-        code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpriseVpc')),
+        code: lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpriseVpc')),
         timeout: cdk.Duration.seconds(180),
-        runtime: aws_lambda.Runtime.PYTHON_3_12,
+        runtime: lambda.Runtime.PYTHON_3_12,
         handler: 'tagResources.on_event',
       });
 
@@ -982,11 +986,11 @@ export class EnterpriseVpc extends constructs.Construct {
 
 
     // setCoreRoutesLambda
-    const setCoreRoutes = new aws_lambda.Function(this, 'setCoreRoutesLambda', {
-      runtime: aws_lambda.Runtime.PYTHON_3_9,
+    const setCoreRoutes = new lambda.Function(this, 'setCoreRoutesLambda', {
+      runtime: lambda.Runtime.PYTHON_3_9,
       logRetention: logs.RetentionDays.ONE_MONTH,
       handler: 'setcoreroutes.on_event', // to do
-      code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpriseVpc')), // to do
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpriseVpc')), // to do
       timeout: cdk.Duration.seconds(899),
       environment: {
         RouteTableIds: cdk.Stack.of(this).toJsonString(routeTableIds),
@@ -1254,9 +1258,70 @@ export class EnterpriseVpc extends constructs.Construct {
         });
       });
 
+    } else if (props.destination === Destination.GLWB_ENDPOINT) {
+
+      if (!props.endpointTag) {
+        throw new Error('endpointTag must be provided when destination is GLWB_ENDPOINT');
+      }
+
+      const endPointLambda = new lambda.Function(this, 'GetEndpointsLambda', {
+        runtime: lambda.Runtime.PYTHON_3_13,
+        code: lambda.Code.fromAsset(path.join(__dirname, '../lambda')),
+        handler: 'index.handler',
+        timeout: cdk.Duration.seconds(30),
+      });
+
+      endPointLambda.addToRolePolicy(new iam.PolicyStatement({
+        actions: [
+          'ec2:DescribeVpcEndpoints',
+          'ec2:DescribeSubnets',
+        ],
+        effect: iam.Effect.ALLOW,
+        resources: ['*'],
+      }));
+
+      const serviceToken = new cr.Provider(this, 'GetEndpointsProvider', {
+        onEventHandler: endPointLambda,
+      }).serviceToken;
+
+      props.subnetGroups.forEach((subnetGroup) => {
+        props.cidr.forEach((destinationCidr) => {
+
+          this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet, index) => {
+
+            const endPointId = new cdk.CustomResource(this, 'GetEndpoints', {
+              serviceToken: serviceToken,
+              properties: {
+                Name: props.endpointTag,
+                AvailabilityZone: subnet.availabilityZone,
+              },
+            }).getAttString('EndpointId');
+
+            if (destinationCidr.includes('::')) {
+              new ec2.CfnRoute(this, 'GWLBRoute' + hashProps(props) + subnet.node.path.split('/').pop() + index, {
+                destinationIpv6CidrBlock: destinationCidr,
+                routeTableId: subnet.routeTable.routeTableId,
+                vpcEndpointId: endPointId,
+              });
+            } else {
+              new ec2.CfnRoute(this, 'GWLBRoute-' + hashProps(props) + subnet.node.path.split('/').pop() + index, {
+                destinationCidrBlock: destinationCidr,
+                routeTableId: subnet.routeTable.routeTableId,
+                vpcEndpointId: endPointId,
+              });
+            }
+          });
+        });
+      });
+
+
+      // create a lambda, and service token
+
+
     } else {
       throw new Error('Unsupported Destination for Route');
-    }
+    };
+
   } // end of add routes
 
 
@@ -1291,12 +1356,12 @@ export class EnterpriseVpc extends constructs.Construct {
 
     // create the lambda that
 
-    const onEvent = new aws_lambda.SingletonFunction(this, `${props.description}putItems`, {
+    const onEvent = new lambda.SingletonFunction(this, `${props.description}putItems`, {
       uuid: 'AA002244FF',
       environment: { policyTableName: policyTable.tableName },
-      runtime: aws_lambda.Runtime.PYTHON_3_9,
+      runtime: lambda.Runtime.PYTHON_3_9,
       handler: 'putitems.on_event',
-      code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/cloudwan')),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/cloudwan')),
     });
 
 
@@ -1333,11 +1398,11 @@ export class EnterpriseVpc extends constructs.Construct {
 
     // now update the routetable
     // this updates the policy
-    const updatePolicyLambda = new aws_lambda.Function(this, `${props.description}UpdateCoreNetworkCoreRoutesLambda`, {
+    const updatePolicyLambda = new lambda.Function(this, `${props.description}UpdateCoreNetworkCoreRoutesLambda`, {
       environment: { coreNetworkName: props.coreName },
-      runtime: aws_lambda.Runtime.PYTHON_3_9,
+      runtime: lambda.Runtime.PYTHON_3_9,
       handler: 'updatepolicy.on_event',
-      code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/cloudwan')),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/cloudwan')),
       timeout: cdk.Duration.seconds(899),
     });
 
