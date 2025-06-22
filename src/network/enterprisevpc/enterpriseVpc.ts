@@ -1289,7 +1289,7 @@ export class EnterpriseVpc extends constructs.Construct {
 
           this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet, index) => {
 
-            const endPointId = new cdk.CustomResource(this, 'GetEndpointsId', {
+            const endPointId = new cdk.CustomResource(this, `GetEndpointsId${index}`, {
               serviceToken: serviceToken,
               properties: {
                 Name: props.endpointTag,
