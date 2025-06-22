@@ -1266,7 +1266,7 @@ export class EnterpriseVpc extends constructs.Construct {
 
       const endPointLambda = new lambda.Function(this, 'GetEndpointsLambda', {
         runtime: lambda.Runtime.PYTHON_3_13,
-        code: lambda.Code.fromAsset(path.join(__dirname, '../lambda')),
+        code: lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/gwlb')),
         handler: 'index.handler',
         timeout: cdk.Duration.seconds(30),
       });
