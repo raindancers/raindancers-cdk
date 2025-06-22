@@ -277,6 +277,8 @@ export class EnterpriseVpc extends constructs.Construct {
 
   public readonly attachToCloudwanProvider: cr.Provider;
 
+  public readonly gwlbEndpoints: cr.Provider;
+
   public vpcAttachmentCR: cdk.CustomResource | undefined;
 
   public vpcAttachmentId: string | undefined;
@@ -325,6 +327,7 @@ export class EnterpriseVpc extends constructs.Construct {
     this.addRoutesProvider = crHandlders.addRoutesProvider;
     this.tgWaiterProvider = crHandlders.tgWaiterProvider;
     this.attachToCloudwanProvider = crHandlders.attachToCloudwanProvider;
+    this.gwlbEndpoints = crHandlders.gwlbEndpointProvider;
 
   }
 
@@ -1264,33 +1267,14 @@ export class EnterpriseVpc extends constructs.Construct {
         throw new Error('endpointTag must be provided when destination is GLWB_ENDPOINT');
       }
 
-      const endPointLambda = new lambda.Function(this, 'GetEndpointsLambda', {
-        runtime: lambda.Runtime.PYTHON_3_13,
-        code: lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/gwlb')),
-        handler: 'index.handler',
-        timeout: cdk.Duration.seconds(30),
-      });
-
-      endPointLambda.addToRolePolicy(new iam.PolicyStatement({
-        actions: [
-          'ec2:DescribeVpcEndpoints',
-          'ec2:DescribeSubnets',
-        ],
-        effect: iam.Effect.ALLOW,
-        resources: ['*'],
-      }));
-
-      const serviceToken = new cr.Provider(this, 'GetEndpointsProvider', {
-        onEventHandler: endPointLambda,
-      }).serviceToken;
 
       props.subnetGroups.forEach((subnetGroup) => {
         props.cidr.forEach((destinationCidr) => {
 
           this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet, index) => {
 
-            const endPointId = new cdk.CustomResource(this, `GetEndpointsId${index}${subnet.availabilityZone}`, {
-              serviceToken: serviceToken,
+            const endPointId = new cdk.CustomResource(this, `GetEndpointsId${index}${subnet.availabilityZone}${props.cidr}`, {
+              serviceToken: this.gwlbEndpoints.serviceToken,
               properties: {
                 Name: props.endpointTag,
                 AvailabilityZone: subnet.availabilityZone,

@@ -3145,6 +3145,7 @@ Any object.
 | <code><a href="#raindancers-cdk.enterprisevpc.EnterpriseVpc.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#raindancers-cdk.enterprisevpc.EnterpriseVpc.property.addRoutesProvider">addRoutesProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.EnterpriseVpc.property.attachToCloudwanProvider">attachToCloudwanProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.EnterpriseVpc.property.gwlbEndpoints">gwlbEndpoints</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.EnterpriseVpc.property.tgWaiterProvider">tgWaiterProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.EnterpriseVpc.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc \| aws-cdk-lib.aws_ec2.Vpc</code> | the ec2.Vpc that is passed in as property. |
 | <code><a href="#raindancers-cdk.enterprisevpc.EnterpriseVpc.property.subnetConfiguration">subnetConfiguration</a></code> | <code>raindancers-cdk.enterprisevpc.SubnetGroup[]</code> | *No description.* |
@@ -3188,6 +3189,16 @@ public readonly addRoutesProvider: Provider;
 
 ```typescript
 public readonly attachToCloudwanProvider: Provider;
+```
+
+- *Type:* aws-cdk-lib.custom_resources.Provider
+
+---
+
+##### `gwlbEndpoints`<sup>Required</sup> <a name="gwlbEndpoints" id="raindancers-cdk.enterprisevpc.EnterpriseVpc.property.gwlbEndpoints"></a>
+
+```typescript
+public readonly gwlbEndpoints: Provider;
 ```
 
 - *Type:* aws-cdk-lib.custom_resources.Provider
@@ -3425,6 +3436,7 @@ Any object.
 | <code><a href="#raindancers-cdk.enterprisevpc.EnterpriseVpcLambda.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#raindancers-cdk.enterprisevpc.EnterpriseVpcLambda.property.addRoutesProvider">addRoutesProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | A custom resource to use for adding routes. |
 | <code><a href="#raindancers-cdk.enterprisevpc.EnterpriseVpcLambda.property.attachToCloudwanProvider">attachToCloudwanProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | attach to cloudwan with a water. |
+| <code><a href="#raindancers-cdk.enterprisevpc.EnterpriseVpcLambda.property.gwlbEndpointProvider">gwlbEndpointProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | gwlb endpoint provider. |
 | <code><a href="#raindancers-cdk.enterprisevpc.EnterpriseVpcLambda.property.tgWaiterProvider">tgWaiterProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | A check to see if transitgateway is ready to route to. |
 
 ---
@@ -3462,6 +3474,18 @@ public readonly attachToCloudwanProvider: Provider;
 - *Type:* aws-cdk-lib.custom_resources.Provider
 
 attach to cloudwan with a water.
+
+---
+
+##### `gwlbEndpointProvider`<sup>Required</sup> <a name="gwlbEndpointProvider" id="raindancers-cdk.enterprisevpc.EnterpriseVpcLambda.property.gwlbEndpointProvider"></a>
+
+```typescript
+public readonly gwlbEndpointProvider: Provider;
+```
+
+- *Type:* aws-cdk-lib.custom_resources.Provider
+
+gwlb endpoint provider.
 
 ---
 

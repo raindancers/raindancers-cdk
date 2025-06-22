@@ -24,6 +24,10 @@ export class EnterpriseVpcLambda extends constructs.Construct {
    * attach to cloudwan with a water
    */
   public readonly attachToCloudwanProvider: cr.Provider;
+  /**
+   * gwlb endpoint provider
+   */
+  public readonly gwlbEndpointProvider: cr.Provider;
 
 
   /**
@@ -37,7 +41,7 @@ export class EnterpriseVpcLambda extends constructs.Construct {
     // attach vpc to cloudwan
     const attachToCloudwan = new aws_lambda.SingletonFunction(this, 'attachtoCloudwan', {
       uuid: 'FEAD99771132',
-      runtime: aws_lambda.Runtime.PYTHON_3_9,
+      runtime: aws_lambda.Runtime.PYTHON_3_13,
       handler: 'vpcattachment.on_event',
       code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpriseVpc'), {
         bundling: {
@@ -69,7 +73,7 @@ export class EnterpriseVpcLambda extends constructs.Construct {
 
     const isAttachmentComplete = new aws_lambda.SingletonFunction(this, 'isattachmentComplete', {
       uuid: 'FEAD99771134',
-      runtime: aws_lambda.Runtime.PYTHON_3_9,
+      runtime: aws_lambda.Runtime.PYTHON_3_13,
       handler: 'vpcattachment.is_complete',
       code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpriseVpc'), {
         bundling: {
@@ -132,7 +136,7 @@ export class EnterpriseVpcLambda extends constructs.Construct {
     // transit gateway is ready
     const tgwaittofinishOnEvent = new aws_lambda.Function(this, 'tgReadyOnevent', {
 
-      runtime: aws_lambda.Runtime.PYTHON_3_9,
+      runtime: aws_lambda.Runtime.PYTHON_3_13,
       handler: 'checktgready.on_event',
       code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpriseVpc')),
       timeout: cdk.Duration.seconds(899),
@@ -141,7 +145,7 @@ export class EnterpriseVpcLambda extends constructs.Construct {
 
 
     const tgwaittofinishIsComplete = new aws_lambda.Function(this, 'tgReadyisComplete', {
-      runtime: aws_lambda.Runtime.PYTHON_3_9,
+      runtime: aws_lambda.Runtime.PYTHON_3_13,
       handler: 'checktgready.is_complete',
       code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/network/enterpriseVpc')),
       timeout: cdk.Duration.seconds(899),
@@ -166,5 +170,28 @@ export class EnterpriseVpcLambda extends constructs.Construct {
       logRetention: logs.RetentionDays.ONE_MONTH,
       providerFunctionName: cdk.PhysicalName.GENERATE_IF_NEEDED,
     });
+
+
+    const endPointLambda = new aws_lambda.Function(this, 'GetEndpointsLambda', {
+      runtime: aws_lambda.Runtime.PYTHON_3_13,
+      code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/gwlb')),
+      handler: 'index.handler',
+      timeout: cdk.Duration.seconds(30),
+    });
+
+    endPointLambda.addToRolePolicy(new iam.PolicyStatement({
+      actions: [
+        'ec2:DescribeVpcEndpoints',
+        'ec2:DescribeSubnets',
+      ],
+      effect: iam.Effect.ALLOW,
+      resources: ['*'],
+    }));
+
+    this.gwlbEndpointProvider = new cr.Provider(this, 'GetEndpointsProvider', {
+      onEventHandler: endPointLambda,
+    });
+
+
   }
 }
