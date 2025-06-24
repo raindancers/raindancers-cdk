@@ -175,7 +175,7 @@ export class EnterpriseVpcLambda extends constructs.Construct {
     const endPointLambda = new aws_lambda.Function(this, 'GetEndpointsLambda', {
       runtime: aws_lambda.Runtime.PYTHON_3_13,
       code: aws_lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/gwlb')),
-      handler: 'index.handler',
+      handler: 'gwlb.handler',
       timeout: cdk.Duration.seconds(30),
     });
 
