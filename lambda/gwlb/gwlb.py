@@ -16,12 +16,12 @@ def handler(event, context):
     props = event['ResourceProperties']
 
         
-    session = boto3.Session(profile_name='network', region_name = 'ap-southeast-2')
-    elbv2 = session.client('elbv2')
-    ec2 = session.client('ec2')
+    # session = boto3.Session(profile_name='network', region_name = 'ap-southeast-2')
+    # elbv2 = session.client('elbv2')
+    # ec2 = session.client('ec2')
 
-    # elbv2 = boto3.client('elbv2')
-    # ec2 = boto3.client('ec2')
+    elbv2 = boto3.client('elbv2')
+    ec2 = boto3.client('ec2')
     
     # Find VPC endpoints related to the Gateway Load Balancer
     vpc_endpoints = ec2.describe_vpc_endpoints(
