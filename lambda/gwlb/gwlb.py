@@ -39,7 +39,7 @@ def handler(event, context):
             return {
                 'PhysicalResourceId': props['Name'],
                 'Data': {
-                    'Endpoint': endpoint['VpcEndpointId']
+                    'EndpointId': endpoint['VpcEndpointId']
                 }
             }
 
