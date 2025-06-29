@@ -2873,7 +2873,7 @@ public addCrossAccountR53AssociationRole(rolename?: string): void
 ##### `addNetworkFirewall` <a name="addNetworkFirewall" id="raindancers-cdk.enterprisevpc.EnterpriseVpc.addNetworkFirewall"></a>
 
 ```typescript
-public addNetworkFirewall(firewallName: string, firewallPolicy: CfnFirewallPolicy, subnet: SubnetGroup, ipStackMode?: FirewallSubnetMappingIPAddressType): IFirewallLogs
+public addNetworkFirewall(firewallName: string, firewallPolicy: CfnFirewallPolicy, subnet: SubnetGroup, ipStackMode?: FirewallSubnetMappingIPAddressType): IFirewall
 ```
 
 ###### `firewallName`<sup>Required</sup> <a name="firewallName" id="raindancers-cdk.enterprisevpc.EnterpriseVpc.addNetworkFirewall.parameter.firewallName"></a>
@@ -15848,21 +15848,22 @@ The stack in which this resource is defined.
 
 ---
 
-### IFirewallLogs <a name="IFirewallLogs" id="raindancers-cdk.enterprisevpc.IFirewallLogs"></a>
+### IFirewall <a name="IFirewall" id="raindancers-cdk.enterprisevpc.IFirewall"></a>
 
-- *Implemented By:* raindancers-cdk.enterprisevpc.IFirewallLogs
+- *Implemented By:* raindancers-cdk.enterprisevpc.IFirewall
 
 
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#raindancers-cdk.enterprisevpc.IFirewallLogs.property.alertlogs">alertlogs</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | *No description.* |
-| <code><a href="#raindancers-cdk.enterprisevpc.IFirewallLogs.property.flowlogs">flowlogs</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.IFirewall.property.alertlogs">alertlogs</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.IFirewall.property.arn">arn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.IFirewall.property.flowlogs">flowlogs</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | *No description.* |
 
 ---
 
-##### `alertlogs`<sup>Required</sup> <a name="alertlogs" id="raindancers-cdk.enterprisevpc.IFirewallLogs.property.alertlogs"></a>
+##### `alertlogs`<sup>Required</sup> <a name="alertlogs" id="raindancers-cdk.enterprisevpc.IFirewall.property.alertlogs"></a>
 
 ```typescript
 public readonly alertlogs: LogGroup;
@@ -15872,7 +15873,17 @@ public readonly alertlogs: LogGroup;
 
 ---
 
-##### `flowlogs`<sup>Required</sup> <a name="flowlogs" id="raindancers-cdk.enterprisevpc.IFirewallLogs.property.flowlogs"></a>
+##### `arn`<sup>Required</sup> <a name="arn" id="raindancers-cdk.enterprisevpc.IFirewall.property.arn"></a>
+
+```typescript
+public readonly arn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `flowlogs`<sup>Required</sup> <a name="flowlogs" id="raindancers-cdk.enterprisevpc.IFirewall.property.flowlogs"></a>
 
 ```typescript
 public readonly flowlogs: LogGroup;

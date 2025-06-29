@@ -30,9 +30,10 @@ import {
 } from '../../index';
 
 
-export interface IFirewallLogs {
+export interface IFirewall {
   flowlogs: logs.LogGroup;
   alertlogs: logs.LogGroup;
+  arn: string;
 }
 
 export interface RouteTableMeta {
@@ -452,7 +453,7 @@ export class EnterpriseVpc extends constructs.Construct {
     firewallPolicy: firewall.CfnFirewallPolicy,
     subnet: SubnetGroup,
     ipStackMode?: nwFirewall.FirewallSubnetMappingIPAddressType | undefined,
-  ): IFirewallLogs {
+  ): IFirewall {
 
     const fw = new nwFirewall.NetworkFirewall(this, 'NetworkFirewall', {
       firewallName: firewallName,
@@ -467,6 +468,7 @@ export class EnterpriseVpc extends constructs.Construct {
     return {
       flowlogs: fw.flowLogs,
       alertlogs: fw.alertLogs,
+      arn: fw.firewallArn,
     };
   }
 
