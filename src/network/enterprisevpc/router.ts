@@ -14,7 +14,7 @@ export interface RouterProps {
   readonly routerGroups: enterpriseVpc.RouterGroup[];
   readonly addRoutesProvider: cr.Provider;
   readonly cloudWan?: any | undefined;
-  readonly vpcAttachmentCR: cr.Provider;
+  readonly vpcAttachmentCR: core.CustomResource;
   readonly twWaiterProvider: cr.Provider;
   readonly gwlbEndpoints: cr.Provider;
   readonly transitGatewayId?: string | undefined;
@@ -28,7 +28,7 @@ export class Router extends constructs.Construct {
   readonly vpc: ec2.IVpc;
   readonly addRoutesProvider: cr.Provider;
   readonly gwlbEndpoints: cr.Provider;
-  readonly vpcAttachmentCR: cr.Provider;
+  readonly vpcAttachmentCR: core.CustomResource;
   readonly tgWaiterProvider: cr.Provider;
   readonly cloudWanName: any | undefined;
   readonly transitGatewayId: string | undefined;

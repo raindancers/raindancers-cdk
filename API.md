@@ -6373,7 +6373,7 @@ Any object.
 | <code><a href="#raindancers-cdk.enterprisevpc.Router.property.gwlbEndpoints">gwlbEndpoints</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Router.property.tgWaiterProvider">tgWaiterProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Router.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
-| <code><a href="#raindancers-cdk.enterprisevpc.Router.property.vpcAttachmentCR">vpcAttachmentCR</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.property.vpcAttachmentCR">vpcAttachmentCR</a></code> | <code>aws-cdk-lib.CustomResource</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Router.property.firewallArn">firewallArn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Router.property.transitGatewayAttachmentId">transitGatewayAttachmentId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Router.property.transitGatewayId">transitGatewayId</a></code> | <code>string</code> | *No description.* |
@@ -6445,10 +6445,10 @@ public readonly vpc: IVpc;
 ##### `vpcAttachmentCR`<sup>Required</sup> <a name="vpcAttachmentCR" id="raindancers-cdk.enterprisevpc.Router.property.vpcAttachmentCR"></a>
 
 ```typescript
-public readonly vpcAttachmentCR: Provider;
+public readonly vpcAttachmentCR: CustomResource;
 ```
 
-- *Type:* aws-cdk-lib.custom_resources.Provider
+- *Type:* aws-cdk-lib.CustomResource
 
 ---
 
@@ -13087,7 +13087,7 @@ const routerProps: enterprisevpc.RouterProps = { ... }
 | <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.routerGroups">routerGroups</a></code> | <code>raindancers-cdk.enterprisevpc.RouterGroup[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.twWaiterProvider">twWaiterProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
-| <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.vpcAttachmentCR">vpcAttachmentCR</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.vpcAttachmentCR">vpcAttachmentCR</a></code> | <code>aws-cdk-lib.CustomResource</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.cloudWan">cloudWan</a></code> | <code>any</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.firewallArn">firewallArn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.transitGatewayAttachmentId">transitGatewayAttachmentId</a></code> | <code>string</code> | *No description.* |
@@ -13148,10 +13148,10 @@ public readonly vpc: IVpc;
 ##### `vpcAttachmentCR`<sup>Required</sup> <a name="vpcAttachmentCR" id="raindancers-cdk.enterprisevpc.RouterProps.property.vpcAttachmentCR"></a>
 
 ```typescript
-public readonly vpcAttachmentCR: Provider;
+public readonly vpcAttachmentCR: CustomResource;
 ```
 
-- *Type:* aws-cdk-lib.custom_resources.Provider
+- *Type:* aws-cdk-lib.CustomResource
 
 ---
 
