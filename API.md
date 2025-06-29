@@ -6272,6 +6272,217 @@ public readonly subnetSelection: SubnetSelection;
 ---
 
 
+### Router <a name="Router" id="raindancers-cdk.enterprisevpc.Router"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.enterprisevpc.Router.Initializer"></a>
+
+```typescript
+import { enterprisevpc } from 'raindancers-cdk'
+
+new enterprisevpc.Router(scope: Construct, id: string, props: RouterProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.enterprisevpc.RouterProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.enterprisevpc.Router.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.enterprisevpc.Router.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.enterprisevpc.Router.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.enterprisevpc.RouterProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.addRoutes">addRoutes</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.enterprisevpc.Router.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addRoutes` <a name="addRoutes" id="raindancers-cdk.enterprisevpc.Router.addRoutes"></a>
+
+```typescript
+public addRoutes(props: AddRoutesProps): void
+```
+
+###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.enterprisevpc.Router.addRoutes.parameter.props"></a>
+
+- *Type:* raindancers-cdk.enterprisevpc.AddRoutesProps
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.enterprisevpc.Router.isConstruct"></a>
+
+```typescript
+import { enterprisevpc } from 'raindancers-cdk'
+
+enterprisevpc.Router.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.enterprisevpc.Router.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.property.addRoutesProvider">addRoutesProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.property.cloudWanName">cloudWanName</a></code> | <code>any</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.property.gwlbEndpoints">gwlbEndpoints</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.property.tgWaiterProvider">tgWaiterProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.property.vpcAttachmentCR">vpcAttachmentCR</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.property.firewallArn">firewallArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.property.transitGatewayAttachmentId">transitGatewayAttachmentId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.property.transitGatewayId">transitGatewayId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.enterprisevpc.Router.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `addRoutesProvider`<sup>Required</sup> <a name="addRoutesProvider" id="raindancers-cdk.enterprisevpc.Router.property.addRoutesProvider"></a>
+
+```typescript
+public readonly addRoutesProvider: Provider;
+```
+
+- *Type:* aws-cdk-lib.custom_resources.Provider
+
+---
+
+##### `cloudWanName`<sup>Required</sup> <a name="cloudWanName" id="raindancers-cdk.enterprisevpc.Router.property.cloudWanName"></a>
+
+```typescript
+public readonly cloudWanName: any;
+```
+
+- *Type:* any
+
+---
+
+##### `gwlbEndpoints`<sup>Required</sup> <a name="gwlbEndpoints" id="raindancers-cdk.enterprisevpc.Router.property.gwlbEndpoints"></a>
+
+```typescript
+public readonly gwlbEndpoints: Provider;
+```
+
+- *Type:* aws-cdk-lib.custom_resources.Provider
+
+---
+
+##### `tgWaiterProvider`<sup>Required</sup> <a name="tgWaiterProvider" id="raindancers-cdk.enterprisevpc.Router.property.tgWaiterProvider"></a>
+
+```typescript
+public readonly tgWaiterProvider: Provider;
+```
+
+- *Type:* aws-cdk-lib.custom_resources.Provider
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.enterprisevpc.Router.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+##### `vpcAttachmentCR`<sup>Required</sup> <a name="vpcAttachmentCR" id="raindancers-cdk.enterprisevpc.Router.property.vpcAttachmentCR"></a>
+
+```typescript
+public readonly vpcAttachmentCR: Provider;
+```
+
+- *Type:* aws-cdk-lib.custom_resources.Provider
+
+---
+
+##### `firewallArn`<sup>Optional</sup> <a name="firewallArn" id="raindancers-cdk.enterprisevpc.Router.property.firewallArn"></a>
+
+```typescript
+public readonly firewallArn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `transitGatewayAttachmentId`<sup>Optional</sup> <a name="transitGatewayAttachmentId" id="raindancers-cdk.enterprisevpc.Router.property.transitGatewayAttachmentId"></a>
+
+```typescript
+public readonly transitGatewayAttachmentId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `transitGatewayId`<sup>Optional</sup> <a name="transitGatewayId" id="raindancers-cdk.enterprisevpc.Router.property.transitGatewayId"></a>
+
+```typescript
+public readonly transitGatewayId: string;
+```
+
+- *Type:* string
+
+---
+
+
 ### SecurityLake <a name="SecurityLake" id="raindancers-cdk.securityLake.SecurityLake"></a>
 
 #### Initializers <a name="Initializers" id="raindancers-cdk.securityLake.SecurityLake.Initializer"></a>
@@ -12854,6 +13065,172 @@ public readonly subnetGroup: SubnetGroup;
 ```
 
 - *Type:* raindancers-cdk.enterprisevpc.SubnetGroup
+
+---
+
+### RouterProps <a name="RouterProps" id="raindancers-cdk.enterprisevpc.RouterProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.enterprisevpc.RouterProps.Initializer"></a>
+
+```typescript
+import { enterprisevpc } from 'raindancers-cdk'
+
+const routerProps: enterprisevpc.RouterProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.addRoutesProvider">addRoutesProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.gwlbEndpoints">gwlbEndpoints</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.routerGroups">routerGroups</a></code> | <code>raindancers-cdk.enterprisevpc.RouterGroup[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.twWaiterProvider">twWaiterProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.vpcAttachmentCR">vpcAttachmentCR</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.cloudWan">cloudWan</a></code> | <code>any</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.firewallArn">firewallArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.transitGatewayAttachmentId">transitGatewayAttachmentId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.transitGatewayId">transitGatewayId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `addRoutesProvider`<sup>Required</sup> <a name="addRoutesProvider" id="raindancers-cdk.enterprisevpc.RouterProps.property.addRoutesProvider"></a>
+
+```typescript
+public readonly addRoutesProvider: Provider;
+```
+
+- *Type:* aws-cdk-lib.custom_resources.Provider
+
+---
+
+##### `gwlbEndpoints`<sup>Required</sup> <a name="gwlbEndpoints" id="raindancers-cdk.enterprisevpc.RouterProps.property.gwlbEndpoints"></a>
+
+```typescript
+public readonly gwlbEndpoints: Provider;
+```
+
+- *Type:* aws-cdk-lib.custom_resources.Provider
+
+---
+
+##### `routerGroups`<sup>Required</sup> <a name="routerGroups" id="raindancers-cdk.enterprisevpc.RouterProps.property.routerGroups"></a>
+
+```typescript
+public readonly routerGroups: RouterGroup[];
+```
+
+- *Type:* raindancers-cdk.enterprisevpc.RouterGroup[]
+
+---
+
+##### `twWaiterProvider`<sup>Required</sup> <a name="twWaiterProvider" id="raindancers-cdk.enterprisevpc.RouterProps.property.twWaiterProvider"></a>
+
+```typescript
+public readonly twWaiterProvider: Provider;
+```
+
+- *Type:* aws-cdk-lib.custom_resources.Provider
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.enterprisevpc.RouterProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+##### `vpcAttachmentCR`<sup>Required</sup> <a name="vpcAttachmentCR" id="raindancers-cdk.enterprisevpc.RouterProps.property.vpcAttachmentCR"></a>
+
+```typescript
+public readonly vpcAttachmentCR: Provider;
+```
+
+- *Type:* aws-cdk-lib.custom_resources.Provider
+
+---
+
+##### `cloudWan`<sup>Optional</sup> <a name="cloudWan" id="raindancers-cdk.enterprisevpc.RouterProps.property.cloudWan"></a>
+
+```typescript
+public readonly cloudWan: any;
+```
+
+- *Type:* any
+
+---
+
+##### `firewallArn`<sup>Optional</sup> <a name="firewallArn" id="raindancers-cdk.enterprisevpc.RouterProps.property.firewallArn"></a>
+
+```typescript
+public readonly firewallArn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `transitGatewayAttachmentId`<sup>Optional</sup> <a name="transitGatewayAttachmentId" id="raindancers-cdk.enterprisevpc.RouterProps.property.transitGatewayAttachmentId"></a>
+
+```typescript
+public readonly transitGatewayAttachmentId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `transitGatewayId`<sup>Optional</sup> <a name="transitGatewayId" id="raindancers-cdk.enterprisevpc.RouterProps.property.transitGatewayId"></a>
+
+```typescript
+public readonly transitGatewayId: string;
+```
+
+- *Type:* string
+
+---
+
+### RouteTableMeta <a name="RouteTableMeta" id="raindancers-cdk.enterprisevpc.RouteTableMeta"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.enterprisevpc.RouteTableMeta.Initializer"></a>
+
+```typescript
+import { enterprisevpc } from 'raindancers-cdk'
+
+const routeTableMeta: enterprisevpc.RouteTableMeta = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.RouteTableMeta.property.groupName">groupName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.RouteTableMeta.property.routeTableId">routeTableId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `groupName`<sup>Required</sup> <a name="groupName" id="raindancers-cdk.enterprisevpc.RouteTableMeta.property.groupName"></a>
+
+```typescript
+public readonly groupName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `routeTableId`<sup>Required</sup> <a name="routeTableId" id="raindancers-cdk.enterprisevpc.RouteTableMeta.property.routeTableId"></a>
+
+```typescript
+public readonly routeTableId: string;
+```
+
+- *Type:* string
 
 ---
 

@@ -35,7 +35,7 @@ export interface IFirewallLogs {
   alertlogs: logs.LogGroup;
 }
 
-interface RouteTableMeta {
+export interface RouteTableMeta {
   readonly routeTableId: string;
   readonly groupName: string;
 }
@@ -1513,7 +1513,7 @@ export class NWFWSubnetRoutes extends constructs.Construct {
 
 
 // this provides a unique string based on the props
-function hashProps(props: object | string): string {
+export function hashProps(props: object | string): string {
   const str = JSON.stringify(props);
   var h: number = 0;
   for (var i = 0; i < str.length; i++) {
