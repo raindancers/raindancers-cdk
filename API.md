@@ -2873,7 +2873,7 @@ public addCrossAccountR53AssociationRole(rolename?: string): void
 ##### `addNetworkFirewall` <a name="addNetworkFirewall" id="raindancers-cdk.enterprisevpc.EnterpriseVpc.addNetworkFirewall"></a>
 
 ```typescript
-public addNetworkFirewall(firewallName: string, firewallPolicy: CfnFirewallPolicy, subnet: SubnetGroup, ipStackMode?: FirewallSubnetMappingIPAddressType): IFirewall
+public addNetworkFirewall(firewallName: string, firewallPolicy: CfnFirewallPolicy, subnet: SubnetGroup, ipStackMode?: FirewallSubnetMappingIPAddressType): INetworkFirewall
 ```
 
 ###### `firewallName`<sup>Required</sup> <a name="firewallName" id="raindancers-cdk.enterprisevpc.EnterpriseVpc.addNetworkFirewall.parameter.firewallName"></a>
@@ -5098,6 +5098,8 @@ The tree node.
 
 
 ### NetworkFirewall <a name="NetworkFirewall" id="raindancers-cdk.nwFirewall.NetworkFirewall"></a>
+
+- *Implements:* raindancers-cdk.nwFirewall.INetworkFirewall
 
 Creates Network Firewalls.
 
@@ -16069,6 +16071,83 @@ public readonly arn: string;
 ```
 
 - *Type:* string
+
+---
+
+### INetworkFirewall <a name="INetworkFirewall" id="raindancers-cdk.nwFirewall.INetworkFirewall"></a>
+
+- *Implemented By:* raindancers-cdk.nwFirewall.NetworkFirewall, raindancers-cdk.nwFirewall.INetworkFirewall
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.INetworkFirewall.property.alertLogs">alertLogs</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | alert log. |
+| <code><a href="#raindancers-cdk.nwFirewall.INetworkFirewall.property.endPointIds">endPointIds</a></code> | <code>string[]</code> | Gateway Endpoints for the Firewalls. |
+| <code><a href="#raindancers-cdk.nwFirewall.INetworkFirewall.property.firewallArn">firewallArn</a></code> | <code>string</code> | Arn of the firewall. |
+| <code><a href="#raindancers-cdk.nwFirewall.INetworkFirewall.property.firewallId">firewallId</a></code> | <code>string</code> | Firewall ID. |
+| <code><a href="#raindancers-cdk.nwFirewall.INetworkFirewall.property.flowLogs">flowLogs</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | flow log. |
+
+---
+
+##### `alertLogs`<sup>Required</sup> <a name="alertLogs" id="raindancers-cdk.nwFirewall.INetworkFirewall.property.alertLogs"></a>
+
+```typescript
+public readonly alertLogs: LogGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.LogGroup
+
+alert log.
+
+---
+
+##### `endPointIds`<sup>Required</sup> <a name="endPointIds" id="raindancers-cdk.nwFirewall.INetworkFirewall.property.endPointIds"></a>
+
+```typescript
+public readonly endPointIds: string[];
+```
+
+- *Type:* string[]
+
+Gateway Endpoints for the Firewalls.
+
+---
+
+##### `firewallArn`<sup>Required</sup> <a name="firewallArn" id="raindancers-cdk.nwFirewall.INetworkFirewall.property.firewallArn"></a>
+
+```typescript
+public readonly firewallArn: string;
+```
+
+- *Type:* string
+
+Arn of the firewall.
+
+---
+
+##### `firewallId`<sup>Required</sup> <a name="firewallId" id="raindancers-cdk.nwFirewall.INetworkFirewall.property.firewallId"></a>
+
+```typescript
+public readonly firewallId: string;
+```
+
+- *Type:* string
+
+Firewall ID.
+
+---
+
+##### `flowLogs`<sup>Required</sup> <a name="flowLogs" id="raindancers-cdk.nwFirewall.INetworkFirewall.property.flowLogs"></a>
+
+```typescript
+public readonly flowLogs: LogGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.LogGroup
+
+flow log.
 
 ---
 

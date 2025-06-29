@@ -40,10 +40,38 @@ export interface NetworkFirewallProps {
   readonly iPStackMode?: FirewallSubnetMappingIPAddressType | undefined;
 }
 
+export interface INetworkFirewall {
+
+  /**
+   * Gateway Endpoints for the Firewalls
+   */
+  readonly endPointIds: string[];
+  /**
+   * Arn of the firewall
+   */
+  readonly firewallArn: string;
+  /**
+   * Firewall ID
+   */
+  readonly firewallId: string;
+
+  /**
+   * flow log
+   */
+  readonly flowLogs: logs.LogGroup;
+
+  /**
+   * alert log
+   */
+  readonly alertLogs: logs.LogGroup;
+
+
+}
+
 /**
  * Creates Network Firewalls
  */
-export class NetworkFirewall extends constructs.Construct {
+export class NetworkFirewall extends constructs.Construct implements INetworkFirewall {
 
   /**
    * Gateway Endpoints for the Firewalls

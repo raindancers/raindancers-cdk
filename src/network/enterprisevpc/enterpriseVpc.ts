@@ -29,6 +29,10 @@ import {
   transitGateway,
 } from '../../index';
 
+import {
+  INetworkFirewall,
+} from '../nwfirewall';
+
 
 export interface IFirewall {
   flowlogs: logs.LogGroup;
@@ -453,7 +457,7 @@ export class EnterpriseVpc extends constructs.Construct {
     firewallPolicy: firewall.CfnFirewallPolicy,
     subnet: SubnetGroup,
     ipStackMode?: nwFirewall.FirewallSubnetMappingIPAddressType | undefined,
-  ): IFirewall {
+  ): INetworkFirewall {
 
     const fw = new nwFirewall.NetworkFirewall(this, 'NetworkFirewall', {
       firewallName: firewallName,
@@ -466,9 +470,11 @@ export class EnterpriseVpc extends constructs.Construct {
     this.firewallArn = fw.firewallArn;
 
     return {
-      flowlogs: fw.flowLogs,
-      alertlogs: fw.alertLogs,
-      arn: fw.firewallArn,
+      flowLogs: fw.flowLogs,
+      alertLogs: fw.alertLogs,
+      firewallArn: fw.firewallArn,
+      firewallId: fw.firewallId,
+      endPointIds: fw.endPointIds,
     };
   }
 
