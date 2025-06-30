@@ -3086,7 +3086,7 @@ Create Enterprise VPC Flow Logs (to central log account) and advanced diagnostic
 
 ---
 
-##### `router` <a name="router" id="raindancers-cdk.enterprisevpc.EnterpriseVpc.router"></a>
+##### ~~`router`~~ <a name="router" id="raindancers-cdk.enterprisevpc.EnterpriseVpc.router"></a>
 
 ```typescript
 public router(routerGroups: RouterGroup[]): void
@@ -6330,12 +6330,12 @@ Returns a string representation of this construct.
 ##### `addRoutes` <a name="addRoutes" id="raindancers-cdk.enterprisevpc.Router.addRoutes"></a>
 
 ```typescript
-public addRoutes(props: AddRoutesProps): void
+public addRoutes(props: AddRoutesPropsV2): void
 ```
 
 ###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.enterprisevpc.Router.addRoutes.parameter.props"></a>
 
-- *Type:* raindancers-cdk.enterprisevpc.AddRoutesProps
+- *Type:* raindancers-cdk.enterprisevpc.AddRoutesPropsV2
 
 ---
 
@@ -8437,6 +8437,7 @@ const addRoutesProps: enterprisevpc.AddRoutesProps = { ... }
 | <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesProps.property.cloudwanName">cloudwanName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesProps.property.ec2Instance">ec2Instance</a></code> | <code>aws-cdk-lib.aws_ec2.IInstance</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesProps.property.endpointTag">endpointTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesProps.property.fwEndpoints">fwEndpoints</a></code> | <code>raindancers-cdk.enterprisevpc.IFirewallEndpoints[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesProps.property.networkFirewallArn">networkFirewallArn</a></code> | <code>string</code> | *No description.* |
 
 ---
@@ -8511,7 +8512,133 @@ public readonly endpointTag: string;
 
 ---
 
+##### `fwEndpoints`<sup>Optional</sup> <a name="fwEndpoints" id="raindancers-cdk.enterprisevpc.AddRoutesProps.property.fwEndpoints"></a>
+
+```typescript
+public readonly fwEndpoints: IFirewallEndpoints[];
+```
+
+- *Type:* raindancers-cdk.enterprisevpc.IFirewallEndpoints[]
+
+---
+
 ##### `networkFirewallArn`<sup>Optional</sup> <a name="networkFirewallArn" id="raindancers-cdk.enterprisevpc.AddRoutesProps.property.networkFirewallArn"></a>
+
+```typescript
+public readonly networkFirewallArn: string;
+```
+
+- *Type:* string
+
+---
+
+### AddRoutesPropsV2 <a name="AddRoutesPropsV2" id="raindancers-cdk.enterprisevpc.AddRoutesPropsV2"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.enterprisevpc.AddRoutesPropsV2.Initializer"></a>
+
+```typescript
+import { enterprisevpc } from 'raindancers-cdk'
+
+const addRoutesPropsV2: enterprisevpc.AddRoutesPropsV2 = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.cidr">cidr</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.destination">destination</a></code> | <code>raindancers-cdk.enterprisevpc.Destination</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.subnetGroup">subnetGroup</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.cloudwanName">cloudwanName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.ec2Instance">ec2Instance</a></code> | <code>aws-cdk-lib.aws_ec2.IInstance</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.endpointTag">endpointTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.fwEndpoints">fwEndpoints</a></code> | <code>raindancers-cdk.enterprisevpc.IFirewallEndpoints[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.networkFirewallArn">networkFirewallArn</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `cidr`<sup>Required</sup> <a name="cidr" id="raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.cidr"></a>
+
+```typescript
+public readonly cidr: string;
+```
+
+- *Type:* string
+
+---
+
+##### `description`<sup>Required</sup> <a name="description" id="raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `destination`<sup>Required</sup> <a name="destination" id="raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.destination"></a>
+
+```typescript
+public readonly destination: Destination;
+```
+
+- *Type:* raindancers-cdk.enterprisevpc.Destination
+
+---
+
+##### `subnetGroup`<sup>Required</sup> <a name="subnetGroup" id="raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.subnetGroup"></a>
+
+```typescript
+public readonly subnetGroup: string;
+```
+
+- *Type:* string
+
+---
+
+##### `cloudwanName`<sup>Optional</sup> <a name="cloudwanName" id="raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.cloudwanName"></a>
+
+```typescript
+public readonly cloudwanName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `ec2Instance`<sup>Optional</sup> <a name="ec2Instance" id="raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.ec2Instance"></a>
+
+```typescript
+public readonly ec2Instance: IInstance;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IInstance
+
+---
+
+##### `endpointTag`<sup>Optional</sup> <a name="endpointTag" id="raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.endpointTag"></a>
+
+```typescript
+public readonly endpointTag: string;
+```
+
+- *Type:* string
+
+---
+
+##### `fwEndpoints`<sup>Optional</sup> <a name="fwEndpoints" id="raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.fwEndpoints"></a>
+
+```typescript
+public readonly fwEndpoints: IFirewallEndpoints[];
+```
+
+- *Type:* raindancers-cdk.enterprisevpc.IFirewallEndpoints[]
+
+---
+
+##### `networkFirewallArn`<sup>Optional</sup> <a name="networkFirewallArn" id="raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.networkFirewallArn"></a>
 
 ```typescript
 public readonly networkFirewallArn: string;
@@ -12998,6 +13125,7 @@ const route: enterprisevpc.Route = { ... }
 | <code><a href="#raindancers-cdk.enterprisevpc.Route.property.cidr">cidr</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Route.property.description">description</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Route.property.destination">destination</a></code> | <code>raindancers-cdk.enterprisevpc.Destination</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Route.property.ec2Instance">ec2Instance</a></code> | <code>aws-cdk-lib.aws_ec2.IInstance</code> | *No description.* |
 
 ---
 
@@ -13028,6 +13156,16 @@ public readonly destination: Destination;
 ```
 
 - *Type:* raindancers-cdk.enterprisevpc.Destination
+
+---
+
+##### `ec2Instance`<sup>Optional</sup> <a name="ec2Instance" id="raindancers-cdk.enterprisevpc.Route.property.ec2Instance"></a>
+
+```typescript
+public readonly ec2Instance: IInstance;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IInstance
 
 ---
 
@@ -13227,6 +13365,56 @@ public readonly groupName: string;
 ---
 
 ##### `routeTableId`<sup>Required</sup> <a name="routeTableId" id="raindancers-cdk.enterprisevpc.RouteTableMeta.property.routeTableId"></a>
+
+```typescript
+public readonly routeTableId: string;
+```
+
+- *Type:* string
+
+---
+
+### RouteTableMetaV2 <a name="RouteTableMetaV2" id="raindancers-cdk.enterprisevpc.RouteTableMetaV2"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.enterprisevpc.RouteTableMetaV2.Initializer"></a>
+
+```typescript
+import { enterprisevpc } from 'raindancers-cdk'
+
+const routeTableMetaV2: enterprisevpc.RouteTableMetaV2 = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.RouteTableMetaV2.property.az">az</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.RouteTableMetaV2.property.groupName">groupName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.RouteTableMetaV2.property.routeTableId">routeTableId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `az`<sup>Required</sup> <a name="az" id="raindancers-cdk.enterprisevpc.RouteTableMetaV2.property.az"></a>
+
+```typescript
+public readonly az: string;
+```
+
+- *Type:* string
+
+---
+
+##### `groupName`<sup>Required</sup> <a name="groupName" id="raindancers-cdk.enterprisevpc.RouteTableMetaV2.property.groupName"></a>
+
+```typescript
+public readonly groupName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `routeTableId`<sup>Required</sup> <a name="routeTableId" id="raindancers-cdk.enterprisevpc.RouteTableMetaV2.property.routeTableId"></a>
 
 ```typescript
 public readonly routeTableId: string;
@@ -15895,6 +16083,40 @@ public readonly flowlogs: LogGroup;
 
 ---
 
+### IFirewallEndpoints <a name="IFirewallEndpoints" id="raindancers-cdk.enterprisevpc.IFirewallEndpoints"></a>
+
+- *Implemented By:* raindancers-cdk.enterprisevpc.IFirewallEndpoints
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.enterprisevpc.IFirewallEndpoints.property.az">az</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.IFirewallEndpoints.property.endpointId">endpointId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `az`<sup>Required</sup> <a name="az" id="raindancers-cdk.enterprisevpc.IFirewallEndpoints.property.az"></a>
+
+```typescript
+public readonly az: string;
+```
+
+- *Type:* string
+
+---
+
+##### `endpointId`<sup>Required</sup> <a name="endpointId" id="raindancers-cdk.enterprisevpc.IFirewallEndpoints.property.endpointId"></a>
+
+```typescript
+public readonly endpointId: string;
+```
+
+- *Type:* string
+
+---
+
 ### IFirewallPolicyProperty <a name="IFirewallPolicyProperty" id="raindancers-cdk.nwFirewall.IFirewallPolicyProperty"></a>
 
 - *Implemented By:* raindancers-cdk.nwFirewall.IFirewallPolicyProperty
@@ -16689,6 +16911,7 @@ The Destinations for Adding Routes.
 | <code><a href="#raindancers-cdk.enterprisevpc.Destination.INTERNET_GATEWAY">INTERNET_GATEWAY</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Destination.IPV6_EGREGSS_ONLY">IPV6_EGREGSS_ONLY</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Destination.GLWB_ENDPOINT">GLWB_ENDPOINT</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Destination.FIREWALL_ENDPOINT">FIREWALL_ENDPOINT</a></code> | *No description.* |
 
 ---
 
@@ -16727,6 +16950,11 @@ route to the transitGateway that the vpc is attached to.
 
 
 ##### `GLWB_ENDPOINT` <a name="GLWB_ENDPOINT" id="raindancers-cdk.enterprisevpc.Destination.GLWB_ENDPOINT"></a>
+
+---
+
+
+##### `FIREWALL_ENDPOINT` <a name="FIREWALL_ENDPOINT" id="raindancers-cdk.enterprisevpc.Destination.FIREWALL_ENDPOINT"></a>
 
 ---
 

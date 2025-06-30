@@ -8,6 +8,34 @@ import * as constructs from 'constructs';
 
 import * as enterpriseVpc from './enterpriseVpc';
 
+export interface AddRoutesPropsV2 {
+  // a list of cidrs to route
+  readonly cidr: string;
+  // description
+  readonly description: string;
+  // the subnet Group to add routes to
+  readonly subnetGroup: string;
+  // the destination for the route
+  readonly destination: enterpriseVpc.Destination;
+  // gatewayloadbalancers
+  readonly networkFirewallArn?: string | undefined;
+  // cloudwanName
+  readonly cloudwanName?: string | undefined;
+  // ec2instance
+  readonly ec2Instance?: ec2.IInstance;
+  // gwlbInterfaceEndpointTagName
+  readonly endpointTag?: string;
+  // firewallendpoitns.
+  readonly fwEndpoints?: enterpriseVpc.IFirewallEndpoints[];
+
+}// end of addRoutetoCloudWan
+
+
+export interface RouteTableMetaV2 {
+  readonly routeTableId: string;
+  readonly groupName: string;
+  readonly az: string;
+}
 
 export interface RouterProps {
   readonly vpc: ec2.IVpc;
@@ -50,283 +78,240 @@ export class Router extends constructs.Construct {
     this.gwlbEndpoints = props.gwlbEndpoints;
 
 
+    // what is this code used for????
     // Extract all the subnets, these will be tokens
-    let allSubnetGroups: enterpriseVpc.SubnetGroup[] = [];
-    props.routerGroups.forEach((routerGroup)=> {
-      allSubnetGroups.push(routerGroup.subnetGroup);
-    });
+    // let allSubnetGroups: enterpriseVpc.SubnetGroup[] = [];
+    // props.routerGroups.forEach((routerGroup)=> {
+    //   allSubnetGroups.push(routerGroup.subnetGroup);
+    // });
+
+    // subnetGroup: sandpit.alpha,
+    //{ cidr: '::/0', description: `${sandpit.name}-alpha->default`, destination: enterprisevpc.Destination.FIREWALL_ENDPOINT },
 
     props.routerGroups.forEach((routerGroup) => {
       routerGroup.routes.forEach((route) => {
 
-        let routecidr: string[] = [];
-
-        if (route.cidr) {
-          routecidr.push(route.cidr as string);
-        }
-
         this.addRoutes({
-          cidr: routecidr,
+          cidr: route.cidr,
           description: route.description,
-          subnetGroups: [routerGroup.subnetGroup.subnet.name],
+          subnetGroup: routerGroup.subnetGroup.subnet.name,
           destination: route.destination,
+          ec2Instance: route.ec2Instance,
         });
       });
     });
   }
 
-  public addRoutes (props: enterpriseVpc.AddRoutesProps): void {
+  public addRoutes (props: AddRoutesPropsV2): void {
 
-    if ( props.destination === enterpriseVpc.Destination.TRANSITGATEWAY || props.destination === enterpriseVpc.Destination.CLOUDWAN ) {
+    // validate that the cidrs are valid.
+    const ipRegex = new RegExp('(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/([1-3][0-2]$|[0-2][0-9]$|0?[0-9]$)');
+    const ipv6Regex = new RegExp('(?:(?:(?:[A-F0-9]{1,4}:){6}|(?=(?:[A-F0-9]{0,4}:){0,6}(?:[0-9]{1,3}\.){3}[0-9]{1,3}(?![:.\w]))(([0-9A-F]{1,4}:){0,5}|:)((:[0-9A-F]{1,4}){1,5}:|:)|::(?:[A-F0-9]{1,4}:){5})(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|(?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}|(?=(?:[A-F0-9]{0,4}:){0,7}[A-F0-9]{0,4}(?![:.\w]))(([0-9A-F]{1,4}:){1,7}|:)((:[0-9A-F]{1,4}){1,7}|:)|(?:[A-F0-9]{1,4}:){7}:|:(:[A-F0-9]{1,4}){7})(?![:.\w])\/(?:12[0-8]|1[01][0-9]|[1-9]?[0-9])');
 
-      var routeTableIds: enterpriseVpc.RouteTableMeta[] = [];
+    if (!(ipRegex.test(props.cidr) || (ipv6Regex.test(props.cidr)))) {
+      throw new Error(`cidr ${props.cidr} is invalid`);
+    }
 
-      // get all the routeTableIds for the subnets
-      props.subnetGroups.forEach((groupName) => {
 
-        // array of subnets
-        const selection = this.vpc.selectSubnets({ subnetGroupName: groupName });
+    const selection = this.vpc.selectSubnets({ subnetGroupName: props.subnetGroup });
 
-        selection.subnets.forEach((subnet) => {
-          routeTableIds.push({
-            routeTableId: subnet.routeTable.routeTableId,
-            groupName: groupName,
-          });
-        });
+    // get the routeTables that are assocaited with this Group.
+    var routeTables: RouteTableMetaV2[] = [];
+    selection.subnets.forEach((subnet) => {
+      routeTables.push({
+        routeTableId: subnet.routeTable.routeTableId,
+        groupName: props.subnetGroup,
+        az: subnet.availabilityZone,
       });
+    });
+
+    // we need to do this for each route table, which is effectively each AZ
+    routeTables.forEach((routeTable, index) => {
 
 
-      // check that the cidrs are valid
-      const ipRegex = new RegExp('(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/([1-3][0-2]$|[0-2][0-9]$|0?[0-9]$)');
-      const ipv6Regex = new RegExp('(?:(?:(?:[A-F0-9]{1,4}:){6}|(?=(?:[A-F0-9]{0,4}:){0,6}(?:[0-9]{1,3}\.){3}[0-9]{1,3}(?![:.\w]))(([0-9A-F]{1,4}:){0,5}|:)((:[0-9A-F]{1,4}){1,5}:|:)|::(?:[A-F0-9]{1,4}:){5})(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|(?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}|(?=(?:[A-F0-9]{0,4}:){0,7}[A-F0-9]{0,4}(?![:.\w]))(([0-9A-F]{1,4}:){1,7}|:)((:[0-9A-F]{1,4}){1,7}|:)|(?:[A-F0-9]{1,4}:){7}:|:(:[A-F0-9]{1,4}){7})(?![:.\w])\/(?:12[0-8]|1[01][0-9]|[1-9]?[0-9])');
+      switch (props.destination) {
 
+        /**
+             * add Routes to CloudWan
+             */
+        case enterpriseVpc.Destination.CLOUDWAN: {
+          const cloudwanroute = new core.CustomResource(this, `${routeTable.groupName}${index}cloudwanroute${props.cidr}`, {
+            serviceToken: this.addRoutesProvider.serviceToken,
+            properties: {
+              cidr: props.cidr,
+              RouteTableId: routeTable.routeTableId,
+              Destination: props.destination,
+              CloudWanName: this.cloudWanName,
+            },
+          });
 
-      // iterate over the route tables.
-      routeTableIds.forEach((routeTableId, index) => {
-        props.cidr.forEach((network) => {
-          if (!(ipRegex.test(network) || (ipv6Regex.test(network)))) {
-            throw new Error(`cidr ${network} is invalid`);
+          cloudwanroute.node.addDependency(this.vpcAttachmentCR);
+          break;
+        }
+
+        /**
+             * add routes To Transit Gateway
+             */
+        case enterpriseVpc.Destination.TRANSITGATEWAY: {
+
+          const waiter = new core.CustomResource(this, `t${routeTable.groupName}${index}tgwaiter${props.cidr}`, {
+            serviceToken: this.tgWaiterProvider.serviceToken,
+            properties: {
+              transitGatewayId: this.transitGatewayId,
+              transitGatewayAttachmentId: this.transitGatewayAttachmentId,
+            },
+          });
+
+          const transitgatewayroute = new ec2.CfnRoute(this, `${routeTable.groupName}${index}tgroute${props.cidr}`, {
+            routeTableId: routeTable.routeTableId,
+            transitGatewayId: this.transitGatewayId,
+            ...(props.cidr.includes('::') ? { destinationIpv6CidrBlock: props.cidr } : { destinationCidrBlock: props.cidr }),
+          });
+          transitgatewayroute.node.addDependency(waiter);
+
+          break;
+        }
+
+        /**
+             * Add Routes to the NEtwork Firewall
+             */
+        case enterpriseVpc.Destination.NWFIREWALL: {
+
+          /**
+               * the respose from the API call, exceeds 4096, so need to limit it with an output path
+               */
+          const outputPaths: string[] = [];
+          const azlist = core.Stack.of(this).availabilityZones;
+          azlist.forEach ((az) => {
+            outputPaths.push(`FirewallStatus.SyncStates.${az}.Attachment.EndpointId`);
+          });
+
+          const fwDescription = new cr.AwsCustomResource(this, `DescribeFirewall${enterpriseVpc.hashProps(props)}${props.description}`, {
+            onCreate: {
+              service: 'NetworkFirewall',
+              action: 'describeFirewall',
+              parameters: {
+                FirewallArn: this.firewallArn,
+              },
+              region: core.Aws.REGION,
+              physicalResourceId: cr.PhysicalResourceId.of('DescribeFirewall'),
+              outputPaths: outputPaths,
+            },
+            logRetention: logs.RetentionDays.SEVEN_YEARS,
+            policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
+              resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
+            }),
+          });
+
+          new ec2.CfnRoute(this, 'FirewallRoute-' + enterpriseVpc.hashProps(props) + props.description + index, {
+            ...(props.cidr.includes('::') ? { destinationIpv6CidrBlock: props.cidr } : { destinationCidrBlock: props.cidr }),
+            routeTableId: routeTable.routeTableId,
+            vpcEndpointId: fwDescription.getResponseField(`FirewallStatus.SyncStates.${routeTable.az}.Attachment.EndpointId`),
+          });
+
+          break;
+        }
+
+        case enterpriseVpc.Destination.EC2_INSTANCE: {
+
+          if (!(props.ec2Instance)) {
+            throw new Error('if destination is an EC2_Instance then the instance must be supplied. ');
           }
 
-          switch (props.destination) {
-            case enterpriseVpc.Destination.CLOUDWAN: {
+          new ec2.CfnRoute(this, 'hostRoute-'+ props.description + index, {
+            ...(props.cidr.includes('::') ? { destinationIpv6CidrBlock: props.cidr } : { destinationCidrBlock: props.cidr }),
+            routeTableId: routeTable.routeTableId,
+            instanceId: props.ec2Instance?.instanceId,
+          });
 
+          break;
+        }
 
-              const cloudwanroute = new core.CustomResource(this, `${routeTableId.groupName}${index}cloudwanroute${network}`, {
-                serviceToken: this.addRoutesProvider.serviceToken,
-                properties: {
-                  cidr: network,
-                  RouteTableId: routeTableId.routeTableId,
-                  Destination: props.destination,
-                  CloudWanName: this.cloudWanName,
-                },
-              });
+        case enterpriseVpc.Destination.INTERNET_GATEWAY:{
 
-              cloudwanroute.node.addDependency(this.vpcAttachmentCR);
+          const igwLookup = new cr.AwsCustomResource(this, `IGWLookup-${enterpriseVpc.hashProps(props)}${props.description}`, {
+            onCreate: {
+              service: 'EC2',
+              action: 'describeInternetGateways',
+              parameters: {
+                Filters: [
+                  {
+                    Name: 'attachment.vpc-id',
+                    Values: [this.vpc.vpcId],
+                  },
+                ],
+              },
+              physicalResourceId: cr.PhysicalResourceId.of('IGWLookup'),
+              region: core.Aws.REGION,
+            },
+            policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
+              resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
+            }),
+          });
 
-              break;
-            }
-            case enterpriseVpc.Destination.TRANSITGATEWAY: {
+          const igwId = igwLookup.getResponseField('InternetGateways.0.InternetGatewayId');
 
-              const waiter = new core.CustomResource(this, `t${routeTableId.groupName}${index}tgwaiter${network}`, {
-                serviceToken: this.tgWaiterProvider.serviceToken,
-                properties: {
-                  transitGatewayId: this.transitGatewayId,
-                  transitGatewayAttachmentId: this.transitGatewayAttachmentId,
-                },
-              });
+          new ec2.CfnRoute(this, 'igwRoute-'+ index + props.description, {
+            ...(props.cidr.includes('::') ? { destinationIpv6CidrBlock: props.cidr } : { destinationCidrBlock: props.cidr }),
+            routeTableId: routeTable.routeTableId,
+            gatewayId: igwId,
+          });
 
-              if (network.includes('::')) {
-                const transitgatewayroute = new ec2.CfnRoute(this, `${routeTableId.groupName}${index}tgroute${network}`, {
-                  routeTableId: routeTableId.routeTableId,
-                  destinationIpv6CidrBlock: network,
-                  transitGatewayId: this.transitGatewayId,
-                });
-                transitgatewayroute.node.addDependency(waiter);
-              } else {
-                const transitgatewayroute = new ec2.CfnRoute(this, `${routeTableId.groupName}${index}tgroute${network}`, {
-                  routeTableId: routeTableId.routeTableId,
-                  destinationCidrBlock: network,
-                  transitGatewayId: this.transitGatewayId,
-                });
-                transitgatewayroute.node.addDependency(waiter);
-              }
+          break;
+        }
 
-              break;
-
-            }
-            default: {
-              throw new Error('No valid destinations for this method. ');
-            }
+        case enterpriseVpc.Destination.GLWB_ENDPOINT: {
+          if (!props.endpointTag) {
+            throw new Error('endpointTag must be provided when destination is GLWB_ENDPOINT');
           }
-        });
-      });
-    } else if (props.destination === enterpriseVpc.Destination.NWFIREWALL) {
 
-      /**
-       * the respose from the API call, exceeds 4096, so need to limit it with an output path
-       */
-      const outputPaths: string[] = [];
-      const azlist = core.Stack.of(this).availabilityZones;
-      azlist.forEach ((az) => {
-        outputPaths.push(`FirewallStatus.SyncStates.${az}.Attachment.EndpointId`);
-      });
+          const endPointId = new core.CustomResource(this, `GetEndpointsId${index}${routeTable.az}}${props.cidr}`, {
+            serviceToken: this.gwlbEndpoints.serviceToken,
+            properties: {
+              Name: props.endpointTag,
+              AvailabilityZone: routeTable.az,
+            },
+          }).getAttString('EndpointId');
 
-      const fwDescription = new cr.AwsCustomResource(this, `DescribeFirewall${enterpriseVpc.hashProps(props)}${props.description}`, {
-        onCreate: {
-          service: 'NetworkFirewall',
-          action: 'describeFirewall',
-          parameters: {
-            FirewallArn: this.firewallArn,
-          },
-          region: core.Aws.REGION,
-          physicalResourceId: cr.PhysicalResourceId.of('DescribeFirewall'),
-          outputPaths: outputPaths,
-        },
-        logRetention: logs.RetentionDays.SEVEN_YEARS,
-        policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
-          resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
-        }),
-      });
-
-      props.subnetGroups.forEach((subnetGroup) => {
-        props.cidr.forEach((destinationCidr) => {
-
-
-          this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet, index) => {
-
-            if (destinationCidr.includes('::')) {
-              new ec2.CfnRoute(this, 'FirewallRoute-' + enterpriseVpc.hashProps(props) + subnet.node.path.split('/').pop() + index, {
-                destinationIpv6CidrBlock: destinationCidr,
-                routeTableId: subnet.routeTable.routeTableId,
-                vpcEndpointId: fwDescription.getResponseField(`FirewallStatus.SyncStates.${subnet.availabilityZone}.Attachment.EndpointId`),
-              });
-            } else {
-              new ec2.CfnRoute(this, 'FirewallRoute-' + enterpriseVpc.hashProps(props) + subnet.node.path.split('/').pop() + index, {
-                destinationCidrBlock: destinationCidr,
-                routeTableId: subnet.routeTable.routeTableId,
-                vpcEndpointId: fwDescription.getResponseField(`FirewallStatus.SyncStates.${subnet.availabilityZone}.Attachment.EndpointId`),
-              });
-            }
+          new ec2.CfnRoute(this, 'GWLBRoute' + enterpriseVpc.hashProps(props) + props.description + index, {
+            ...(props.cidr.includes('::') ? { destinationIpv6CidrBlock: props.cidr } : { destinationCidrBlock: props.cidr }),
+            routeTableId: routeTable.routeTableId,
+            vpcEndpointId: endPointId,
           });
-        });
-      });
 
-    } else if (props.destination === enterpriseVpc.Destination.EC2_INSTANCE ) {
+          break;
+        }
 
-      if (!(props.ec2Instance)) {
-        throw new Error('if destination is an EC2_Instance then the instance must be supplied. ');
+        case enterpriseVpc.Destination.FIREWALL_ENDPOINT: {
+
+          if (!props.fwEndpoints) {
+            throw new Error('fwEndpoints must be supplied');
+          }
+
+
+          const matchingEndpoint = props.fwEndpoints!.find(endpoint => endpoint.az === routeTable.az);
+          if (!matchingEndpoint) {
+            throw new Error(`No firewall endpoint found for availability zone: ${routeTable.az}`);
+          }
+          const endPointId = matchingEndpoint.endpointId;
+
+          new ec2.CfnRoute(this, 'GWLBRoute' + enterpriseVpc.hashProps(props) + props.description + index, {
+            ...(props.cidr.includes('::') ? { destinationIpv6CidrBlock: props.cidr } : { destinationCidrBlock: props.cidr }),
+            routeTableId: routeTable.routeTableId,
+            vpcEndpointId: endPointId,
+          });
+
+          break;
+        }
+
+        case enterpriseVpc.Destination.IPV6_EGREGSS_ONLY: {
+          break;
+        }
+
       }
 
-      props.subnetGroups.forEach((subnetGroup) => {
-        props.cidr.forEach((destinationCidr) => {
+    });
 
-
-          this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet, index) => {
-
-
-            new ec2.CfnRoute(this, 'hostRoute-'+ index + subnetGroup, {
-              destinationCidrBlock: destinationCidr,
-              routeTableId: subnet.routeTable.routeTableId,
-              instanceId: props.ec2Instance?.instanceId,
-            });
-          });
-        });
-      });
-
-    } else if (props.destination === enterpriseVpc.Destination.INTERNET_GATEWAY ) {
-
-      // Get the Internet Gateway ID using an AWS Custom Resource
-      const igwLookup = new cr.AwsCustomResource(this, `IGWLookup-${enterpriseVpc.hashProps(props)}${props.description}`, {
-        onCreate: {
-          service: 'EC2',
-          action: 'describeInternetGateways',
-          parameters: {
-            Filters: [
-              {
-                Name: 'attachment.vpc-id',
-                Values: [this.vpc.vpcId],
-              },
-            ],
-          },
-          physicalResourceId: cr.PhysicalResourceId.of('IGWLookup'),
-          region: core.Aws.REGION,
-        },
-        policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
-          resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
-        }),
-      });
-
-      const igwId = igwLookup.getResponseField('InternetGateways.0.InternetGatewayId');
-
-      props.subnetGroups.forEach((subnetGroup) => {
-        props.cidr.forEach((destinationCidr) => {
-
-          this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet, index) => {
-
-            if (destinationCidr.includes('::')) {
-              console.log('ipv6', destinationCidr);
-              new ec2.CfnRoute(this, 'igwRoute-'+ index + subnetGroup, {
-                destinationIpv6CidrBlock: destinationCidr,
-                routeTableId: subnet.routeTable.routeTableId,
-                gatewayId: igwId,
-              });
-            } else {
-              console.log('ipv4', destinationCidr),
-              new ec2.CfnRoute(this, 'igwRoute-'+ index + subnetGroup, {
-                destinationCidrBlock: destinationCidr,
-                routeTableId: subnet.routeTable.routeTableId,
-                gatewayId: igwId,
-              });
-            }
-          });
-        });
-      });
-
-    } else if (props.destination === enterpriseVpc.Destination.GLWB_ENDPOINT) {
-
-      if (!props.endpointTag) {
-        throw new Error('endpointTag must be provided when destination is GLWB_ENDPOINT');
-      }
-
-
-      props.subnetGroups.forEach((subnetGroup) => {
-        props.cidr.forEach((destinationCidr) => {
-
-          this.vpc.selectSubnets({ subnetGroupName: subnetGroup }).subnets.forEach((subnet, index) => {
-
-            const endPointId = new core.CustomResource(this, `GetEndpointsId${index}${subnet.availabilityZone}${props.cidr}`, {
-              serviceToken: this.gwlbEndpoints.serviceToken,
-              properties: {
-                Name: props.endpointTag,
-                AvailabilityZone: subnet.availabilityZone,
-              },
-            }).getAttString('EndpointId');
-
-            if (destinationCidr.includes('::')) {
-              new ec2.CfnRoute(this, 'GWLBRoute' + enterpriseVpc.hashProps(props) + subnet.node.path.split('/').pop() + index, {
-                destinationIpv6CidrBlock: destinationCidr,
-                routeTableId: subnet.routeTable.routeTableId,
-                vpcEndpointId: endPointId,
-              });
-            } else {
-              new ec2.CfnRoute(this, 'GWLBRoute-' + enterpriseVpc.hashProps(props) + subnet.node.path.split('/').pop() + index, {
-                destinationCidrBlock: destinationCidr,
-                routeTableId: subnet.routeTable.routeTableId,
-                vpcEndpointId: endPointId,
-              });
-            }
-          });
-        });
-      });
-
-
-      // create a lambda, and service token
-
-
-    } else {
-      throw new Error('Unsupported Destination for Route');
-    };
 
   } // end of add routes
 }

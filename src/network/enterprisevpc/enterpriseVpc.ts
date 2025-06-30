@@ -33,6 +33,11 @@ import {
   INetworkFirewall,
 } from '../nwfirewall';
 
+export interface IFirewallEndpoints {
+  endpointId: string;
+  az: string;
+}
+
 
 export interface IFirewall {
   flowlogs: logs.LogGroup;
@@ -99,6 +104,7 @@ export interface Route {
   readonly cidr: string;
   readonly destination: Destination;
   readonly description: string;
+  readonly ec2Instance?: ec2.IInstance | undefined;
 }
 
 export interface RouterGroup {
@@ -200,6 +206,8 @@ export interface AddRoutesProps {
   readonly ec2Instance?: ec2.IInstance;
   // gwlbInterfaceEndpointTagName
   readonly endpointTag?: string;
+  // firewallendpoitns.
+  readonly fwEndpoints?: IFirewallEndpoints[];
 
 }// end of addRoutetoCloudWan
 
@@ -227,7 +235,9 @@ export enum Destination{
   //
   IPV6_EGREGSS_ONLY = 'EGRESS_ONLY',
   //
-  GLWB_ENDPOINT = 'GATEWAYLB_ENDPOINT'
+  GLWB_ENDPOINT = 'GATEWAYLB_ENDPOINT',
+  //
+  FIREWALL_ENDPOINT = 'FIREWALL_ENDPOINT'
 }
 
 export interface PrefixCidr {
@@ -537,6 +547,7 @@ export class EnterpriseVpc extends constructs.Construct {
    * This is a convience method to present the routing for the Vpc in a simpler format,
    * than the addRoutes Method, which it calls.
    * @param routerGroups
+   * @deprecated use Router Class instead.
    */
   public router(routerGroups: RouterGroup[]): void {
 
@@ -691,7 +702,7 @@ export class EnterpriseVpc extends constructs.Construct {
 
     this.cloudWanName = props.coreNetworkName;
 
-    // get the coreNetwork Id from the name provided
+    // get the coreNetwork Id from the name provideda
     const lookupIdLambda = new lambda.Function(this, 'lookupIdLambda-evpc', {
       runtime: lambda.Runtime.PYTHON_3_9,
       handler: 'get_core_network_id.on_event',
@@ -1308,7 +1319,6 @@ export class EnterpriseVpc extends constructs.Construct {
 
 
       // create a lambda, and service token
-
 
     } else {
       throw new Error('Unsupported Destination for Route');
