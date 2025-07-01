@@ -7,6 +7,7 @@ import {
 import * as constructs from 'constructs';
 
 import * as enterpriseVpc from './enterpriseVpc';
+import * as nwfirewall from '../nwfirewall';
 
 export interface AddRoutesPropsV2 {
   // a list of cidrs to route
@@ -25,8 +26,6 @@ export interface AddRoutesPropsV2 {
   readonly ec2Instance?: ec2.IInstance;
   // gwlbInterfaceEndpointTagName
   readonly endpointTag?: string;
-  // firewallendpoitns.
-  readonly fwEndpoints?: enterpriseVpc.IFirewallEndpoints[];
 
 }// end of addRoutetoCloudWan
 
@@ -48,7 +47,7 @@ export interface RouterProps {
   readonly transitGatewayId?: string | undefined;
   readonly transitGatewayAttachmentId?: string | undefined;
   readonly firewallArn?: string | undefined;
-
+  readonly firewallEndPoints?: nwfirewall.IFirewallEndpoints[] | undefined;
 }
 
 export class Router extends constructs.Construct {
@@ -62,6 +61,7 @@ export class Router extends constructs.Construct {
   readonly transitGatewayId: string | undefined;
   readonly transitGatewayAttachmentId: string | undefined;
   readonly firewallArn: string | undefined;
+  readonly firewallEndpoints: any | undefined;
 
 
   constructor(scope: constructs.Construct, id: string, props: RouterProps) {
@@ -76,6 +76,7 @@ export class Router extends constructs.Construct {
     this.transitGatewayAttachmentId = props.transitGatewayAttachmentId;
     this.firewallArn = props.firewallArn;
     this.gwlbEndpoints = props.gwlbEndpoints;
+    this.firewallEndpoints = props.firewallEndPoints;
 
 
     // what is this code used for????
@@ -284,12 +285,12 @@ export class Router extends constructs.Construct {
 
         case enterpriseVpc.Destination.FIREWALL_ENDPOINT: {
 
-          if (!props.fwEndpoints) {
+          if (this.firewallEndpoints) {
             throw new Error('fwEndpoints must be supplied');
           }
 
 
-          const matchingEndpoint = props.fwEndpoints!.find(endpoint => endpoint.az === routeTable.az);
+          const matchingEndpoint = this.firewallEndpoints!.find((endpoint: { az: string }) => endpoint.az === routeTable.az);
           if (!matchingEndpoint) {
             throw new Error(`No firewall endpoint found for availability zone: ${routeTable.az}`);
           }

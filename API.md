@@ -6372,6 +6372,7 @@ Any object.
 | <code><a href="#raindancers-cdk.enterprisevpc.Router.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#raindancers-cdk.enterprisevpc.Router.property.addRoutesProvider">addRoutesProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Router.property.cloudWanName">cloudWanName</a></code> | <code>any</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.Router.property.firewallEndpoints">firewallEndpoints</a></code> | <code>any</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Router.property.gwlbEndpoints">gwlbEndpoints</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Router.property.tgWaiterProvider">tgWaiterProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.Router.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
@@ -6408,6 +6409,16 @@ public readonly addRoutesProvider: Provider;
 
 ```typescript
 public readonly cloudWanName: any;
+```
+
+- *Type:* any
+
+---
+
+##### `firewallEndpoints`<sup>Required</sup> <a name="firewallEndpoints" id="raindancers-cdk.enterprisevpc.Router.property.firewallEndpoints"></a>
+
+```typescript
+public readonly firewallEndpoints: any;
 ```
 
 - *Type:* any
@@ -8553,7 +8564,6 @@ const addRoutesPropsV2: enterprisevpc.AddRoutesPropsV2 = { ... }
 | <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.cloudwanName">cloudwanName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.ec2Instance">ec2Instance</a></code> | <code>aws-cdk-lib.aws_ec2.IInstance</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.endpointTag">endpointTag</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.fwEndpoints">fwEndpoints</a></code> | <code>raindancers-cdk.enterprisevpc.IFirewallEndpoints[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.networkFirewallArn">networkFirewallArn</a></code> | <code>string</code> | *No description.* |
 
 ---
@@ -8625,16 +8635,6 @@ public readonly endpointTag: string;
 ```
 
 - *Type:* string
-
----
-
-##### `fwEndpoints`<sup>Optional</sup> <a name="fwEndpoints" id="raindancers-cdk.enterprisevpc.AddRoutesPropsV2.property.fwEndpoints"></a>
-
-```typescript
-public readonly fwEndpoints: IFirewallEndpoints[];
-```
-
-- *Type:* raindancers-cdk.enterprisevpc.IFirewallEndpoints[]
 
 ---
 
@@ -13230,6 +13230,7 @@ const routerProps: enterprisevpc.RouterProps = { ... }
 | <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.vpcAttachmentCR">vpcAttachmentCR</a></code> | <code>aws-cdk-lib.CustomResource</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.cloudWan">cloudWan</a></code> | <code>any</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.firewallArn">firewallArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.firewallEndPoints">firewallEndPoints</a></code> | <code>raindancers-cdk.nwFirewall.IFirewallEndpoints[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.transitGatewayAttachmentId">transitGatewayAttachmentId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.enterprisevpc.RouterProps.property.transitGatewayId">transitGatewayId</a></code> | <code>string</code> | *No description.* |
 
@@ -13312,6 +13313,16 @@ public readonly firewallArn: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `firewallEndPoints`<sup>Optional</sup> <a name="firewallEndPoints" id="raindancers-cdk.enterprisevpc.RouterProps.property.firewallEndPoints"></a>
+
+```typescript
+public readonly firewallEndPoints: IFirewallEndpoints[];
+```
+
+- *Type:* raindancers-cdk.nwFirewall.IFirewallEndpoints[]
 
 ---
 
@@ -16108,6 +16119,40 @@ public readonly az: string;
 ---
 
 ##### `endpointId`<sup>Required</sup> <a name="endpointId" id="raindancers-cdk.enterprisevpc.IFirewallEndpoints.property.endpointId"></a>
+
+```typescript
+public readonly endpointId: string;
+```
+
+- *Type:* string
+
+---
+
+### IFirewallEndpoints <a name="IFirewallEndpoints" id="raindancers-cdk.nwFirewall.IFirewallEndpoints"></a>
+
+- *Implemented By:* raindancers-cdk.nwFirewall.IFirewallEndpoints
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.IFirewallEndpoints.property.az">az</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.IFirewallEndpoints.property.endpointId">endpointId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `az`<sup>Required</sup> <a name="az" id="raindancers-cdk.nwFirewall.IFirewallEndpoints.property.az"></a>
+
+```typescript
+public readonly az: string;
+```
+
+- *Type:* string
+
+---
+
+##### `endpointId`<sup>Required</sup> <a name="endpointId" id="raindancers-cdk.nwFirewall.IFirewallEndpoints.property.endpointId"></a>
 
 ```typescript
 public readonly endpointId: string;
