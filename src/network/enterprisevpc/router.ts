@@ -285,7 +285,7 @@ export class Router extends constructs.Construct {
 
         case enterpriseVpc.Destination.FIREWALL_ENDPOINT: {
 
-          if (this.firewallEndpoints) {
+          if (!this.firewallEndpoints) {
             throw new Error('fwEndpoints must be supplied');
           }
 
