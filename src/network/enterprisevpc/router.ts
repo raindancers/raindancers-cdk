@@ -300,6 +300,7 @@ export class Router extends constructs.Construct {
             ...(props.cidr.includes('::') ? { destinationIpv6CidrBlock: props.cidr } : { destinationCidrBlock: props.cidr }),
             routeTableId: routeTable.routeTableId,
             vpcEndpointId: endPointId,
+
           });
 
           break;

@@ -1657,6 +1657,731 @@ The tree node.
 ---
 
 
+### CloudNetwork <a name="CloudNetwork" id="raindancers-cdk.cloudNetwork.CloudNetwork"></a>
+
+- *Implements:* aws-cdk-lib.aws_ec2.IVpc
+
+A dual-stack VPC construct that supports both IPv4 and IPv6 addressing using AWS IPAM.
+
+This construct creates a VPC with IPAM-managed IP address allocation, supporting multiple
+subnet types across availability zones with automatic routing configuration.
+
+Features:
+- IPv4 and IPv6 dual-stack networking
+- IPAM-managed address allocation
+- Automatic subnet and route table creation
+- NAT Gateway support for private subnet egress
+- Internet Gateway for public subnet access
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.cloudNetwork.CloudNetwork.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+new cloudNetwork.CloudNetwork(scope: Construct, id: string, props: CloudNetworkProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | - The parent construct. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.Initializer.parameter.id">id</a></code> | <code>string</code> | - The construct ID. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.cloudNetwork.CloudNetworkProps</code> | - Configuration properties for the VPC. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.cloudNetwork.CloudNetwork.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The parent construct.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.CloudNetwork.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+The construct ID.
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudNetwork.CloudNetwork.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.CloudNetworkProps
+
+Configuration properties for the VPC.
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.addClientVpnEndpoint">addClientVpnEndpoint</a></code> | Adds a new client VPN endpoint to this VPC for remote user access. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.addFlowLog">addFlowLog</a></code> | Adds a new Flow Log to this VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.addGatewayEndpoint">addGatewayEndpoint</a></code> | Adds a new gateway endpoint to this VPC for AWS service access. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.addInterfaceEndpoint">addInterfaceEndpoint</a></code> | Adds a new interface endpoint to this VPC for private AWS service access. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.addNetworkFirewallEndpoint">addNetworkFirewallEndpoint</a></code> | Adds AWS Network Firewall endpoints to this VPC for traffic inspection. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.addPersonalityRoutes">addPersonalityRoutes</a></code> | Generates routing configurations based on subnet personalities. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.addServiceEndpoints">addServiceEndpoints</a></code> | Adds multiple AWS service endpoints to the VPC in a single operation. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.addVpnConnection">addVpnConnection</a></code> | Adds a new VPN connection to this VPC for site-to-site connectivity. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.applyRemovalPolicy">applyRemovalPolicy</a></code> | Applies a removal policy to the VPC resources. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.associateSharedResolverRules">associateSharedResolverRules</a></code> | Associates shared Route 53 resolver rules with this VPC for DNS resolution. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.attachToTransitGateway">attachToTransitGateway</a></code> | Attaches this VPC to a Transit Gateway for inter-VPC connectivity. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.createFlowLogwithAnalysis">createFlowLogwithAnalysis</a></code> | Creates VPC Flow Logs with optional Athena analysis capabilities. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.enableVpnGateway">enableVpnGateway</a></code> | Adds a VPN Gateway to this VPC for site-to-site connectivity. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.selectSubnets">selectSubnets</a></code> | Selects subnets from the VPC based on the provided criteria. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.shareSubnetGroup">shareSubnetGroup</a></code> | Shares subnet groups with other AWS accounts using Resource Access Manager. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.cloudNetwork.CloudNetwork.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addClientVpnEndpoint` <a name="addClientVpnEndpoint" id="raindancers-cdk.cloudNetwork.CloudNetwork.addClientVpnEndpoint"></a>
+
+```typescript
+public addClientVpnEndpoint(id: string, options: ClientVpnEndpointOptions): ClientVpnEndpoint
+```
+
+Adds a new client VPN endpoint to this VPC for remote user access.
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.CloudNetwork.addClientVpnEndpoint.parameter.id"></a>
+
+- *Type:* string
+
+Unique identifier for the client VPN endpoint.
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="raindancers-cdk.cloudNetwork.CloudNetwork.addClientVpnEndpoint.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.ClientVpnEndpointOptions
+
+Configuration options for the client VPN endpoint.
+
+---
+
+##### ~~`addFlowLog`~~ <a name="addFlowLog" id="raindancers-cdk.cloudNetwork.CloudNetwork.addFlowLog"></a>
+
+```typescript
+public addFlowLog(id: string, options?: FlowLogOptions): FlowLog
+```
+
+Adds a new Flow Log to this VPC.
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.CloudNetwork.addFlowLog.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="raindancers-cdk.cloudNetwork.CloudNetwork.addFlowLog.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.FlowLogOptions
+
+---
+
+##### `addGatewayEndpoint` <a name="addGatewayEndpoint" id="raindancers-cdk.cloudNetwork.CloudNetwork.addGatewayEndpoint"></a>
+
+```typescript
+public addGatewayEndpoint(id: string, options: GatewayVpcEndpointOptions): GatewayVpcEndpoint
+```
+
+Adds a new gateway endpoint to this VPC for AWS service access.
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.CloudNetwork.addGatewayEndpoint.parameter.id"></a>
+
+- *Type:* string
+
+Unique identifier for the gateway endpoint.
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="raindancers-cdk.cloudNetwork.CloudNetwork.addGatewayEndpoint.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.GatewayVpcEndpointOptions
+
+Configuration options for the gateway endpoint.
+
+---
+
+##### `addInterfaceEndpoint` <a name="addInterfaceEndpoint" id="raindancers-cdk.cloudNetwork.CloudNetwork.addInterfaceEndpoint"></a>
+
+```typescript
+public addInterfaceEndpoint(id: string, options: InterfaceVpcEndpointOptions): InterfaceVpcEndpoint
+```
+
+Adds a new interface endpoint to this VPC for private AWS service access.
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.CloudNetwork.addInterfaceEndpoint.parameter.id"></a>
+
+- *Type:* string
+
+Unique identifier for the interface endpoint.
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="raindancers-cdk.cloudNetwork.CloudNetwork.addInterfaceEndpoint.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.InterfaceVpcEndpointOptions
+
+Configuration options for the interface endpoint.
+
+---
+
+##### `addNetworkFirewallEndpoint` <a name="addNetworkFirewallEndpoint" id="raindancers-cdk.cloudNetwork.CloudNetwork.addNetworkFirewallEndpoint"></a>
+
+```typescript
+public addNetworkFirewallEndpoint(id: string, props: AddNetworkFirewallEndpointProps): IFirewallEndpoints[]
+```
+
+Adds AWS Network Firewall endpoints to this VPC for traffic inspection.
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.CloudNetwork.addNetworkFirewallEndpoint.parameter.id"></a>
+
+- *Type:* string
+
+Unique identifier for the firewall endpoint associations.
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudNetwork.CloudNetwork.addNetworkFirewallEndpoint.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.AddNetworkFirewallEndpointProps
+
+Configuration properties for the firewall endpoints.
+
+---
+
+##### `addPersonalityRoutes` <a name="addPersonalityRoutes" id="raindancers-cdk.cloudNetwork.CloudNetwork.addPersonalityRoutes"></a>
+
+```typescript
+public addPersonalityRoutes(): RouterGroup[]
+```
+
+Generates routing configurations based on subnet personalities.
+
+This method creates routing rules for each subnet based on its personality type,
+defining how traffic flows between different subnet types and external destinations.
+It handles complex routing scenarios including firewall inspection, transit gateway
+routing, and security isolation between subnet types.
+
+##### `addServiceEndpoints` <a name="addServiceEndpoints" id="raindancers-cdk.cloudNetwork.CloudNetwork.addServiceEndpoints"></a>
+
+```typescript
+public addServiceEndpoints(id: string, endpoints: AddAwsServiceEndPointsProps): void
+```
+
+Adds multiple AWS service endpoints to the VPC in a single operation.
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.CloudNetwork.addServiceEndpoints.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `endpoints`<sup>Required</sup> <a name="endpoints" id="raindancers-cdk.cloudNetwork.CloudNetwork.addServiceEndpoints.parameter.endpoints"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps
+
+---
+
+##### `addVpnConnection` <a name="addVpnConnection" id="raindancers-cdk.cloudNetwork.CloudNetwork.addVpnConnection"></a>
+
+```typescript
+public addVpnConnection(id: string, options: VpnConnectionOptions): VpnConnection
+```
+
+Adds a new VPN connection to this VPC for site-to-site connectivity.
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.CloudNetwork.addVpnConnection.parameter.id"></a>
+
+- *Type:* string
+
+Unique identifier for the VPN connection.
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="raindancers-cdk.cloudNetwork.CloudNetwork.addVpnConnection.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.VpnConnectionOptions
+
+Configuration options for the VPN connection.
+
+---
+
+##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="raindancers-cdk.cloudNetwork.CloudNetwork.applyRemovalPolicy"></a>
+
+```typescript
+public applyRemovalPolicy(policy: RemovalPolicy): void
+```
+
+Applies a removal policy to the VPC resources.
+
+###### `policy`<sup>Required</sup> <a name="policy" id="raindancers-cdk.cloudNetwork.CloudNetwork.applyRemovalPolicy.parameter.policy"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+The removal policy to apply.
+
+---
+
+##### `associateSharedResolverRules` <a name="associateSharedResolverRules" id="raindancers-cdk.cloudNetwork.CloudNetwork.associateSharedResolverRules"></a>
+
+```typescript
+public associateSharedResolverRules(id: string, props: AssociateSharedResolverRulesProps): void
+```
+
+Associates shared Route 53 resolver rules with this VPC for DNS resolution.
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.CloudNetwork.associateSharedResolverRules.parameter.id"></a>
+
+- *Type:* string
+
+Unique identifier for the resolver rule associations.
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudNetwork.CloudNetwork.associateSharedResolverRules.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.AssociateSharedResolverRulesProps
+
+Configuration properties for associating resolver rules.
+
+---
+
+##### `attachToTransitGateway` <a name="attachToTransitGateway" id="raindancers-cdk.cloudNetwork.CloudNetwork.attachToTransitGateway"></a>
+
+```typescript
+public attachToTransitGateway(id: string, props: AttachToTransitGatewayProps): void
+```
+
+Attaches this VPC to a Transit Gateway for inter-VPC connectivity.
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.CloudNetwork.attachToTransitGateway.parameter.id"></a>
+
+- *Type:* string
+
+Unique identifier for the Transit Gateway attachment.
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudNetwork.CloudNetwork.attachToTransitGateway.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps
+
+Configuration properties for the attachment.
+
+---
+
+##### `createFlowLogwithAnalysis` <a name="createFlowLogwithAnalysis" id="raindancers-cdk.cloudNetwork.CloudNetwork.createFlowLogwithAnalysis"></a>
+
+```typescript
+public createFlowLogwithAnalysis(id: string, props: FlowLogProps): void
+```
+
+Creates VPC Flow Logs with optional Athena analysis capabilities.
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.CloudNetwork.createFlowLogwithAnalysis.parameter.id"></a>
+
+- *Type:* string
+
+Unique identifier for the flow log resources.
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudNetwork.CloudNetwork.createFlowLogwithAnalysis.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.FlowLogProps
+
+Configuration properties for flow log creation.
+
+---
+
+##### `enableVpnGateway` <a name="enableVpnGateway" id="raindancers-cdk.cloudNetwork.CloudNetwork.enableVpnGateway"></a>
+
+```typescript
+public enableVpnGateway(options: EnableVpnGatewayOptions): void
+```
+
+Adds a VPN Gateway to this VPC for site-to-site connectivity.
+
+###### `options`<sup>Required</sup> <a name="options" id="raindancers-cdk.cloudNetwork.CloudNetwork.enableVpnGateway.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.EnableVpnGatewayOptions
+
+Configuration options for the VPN Gateway.
+
+---
+
+##### `selectSubnets` <a name="selectSubnets" id="raindancers-cdk.cloudNetwork.CloudNetwork.selectSubnets"></a>
+
+```typescript
+public selectSubnets(selection?: SubnetSelection): SelectedSubnets
+```
+
+Selects subnets from the VPC based on the provided criteria.
+
+###### `selection`<sup>Optional</sup> <a name="selection" id="raindancers-cdk.cloudNetwork.CloudNetwork.selectSubnets.parameter.selection"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.SubnetSelection
+
+Criteria for selecting subnets.
+
+---
+
+##### `shareSubnetGroup` <a name="shareSubnetGroup" id="raindancers-cdk.cloudNetwork.CloudNetwork.shareSubnetGroup"></a>
+
+```typescript
+public shareSubnetGroup(id: string, props: ShareSubnetGroupProps): void
+```
+
+Shares subnet groups with other AWS accounts using Resource Access Manager.
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.CloudNetwork.shareSubnetGroup.parameter.id"></a>
+
+- *Type:* string
+
+Unique identifier for the resource share.
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudNetwork.CloudNetwork.shareSubnetGroup.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.ShareSubnetGroupProps
+
+Configuration properties for sharing subnet groups.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.cloudNetwork.CloudNetwork.isConstruct"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+cloudNetwork.CloudNetwork.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.cloudNetwork.CloudNetwork.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.availabilityZones">availabilityZones</a></code> | <code>string[]</code> | List of availability zones used by the VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment (account/region) for this VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.internetConnectivityEstablished">internetConnectivityEstablished</a></code> | <code>constructs.IDependable</code> | Dependency representing when internet connectivity is established. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.isolatedRouteTableIds">isolatedRouteTableIds</a></code> | <code>string[]</code> | Route table IDs for isolated subnets. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.isolatedSubnets">isolatedSubnets</a></code> | <code>aws-cdk-lib.aws_ec2.ISubnet[]</code> | List of isolated subnets in the VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.privateRouteTableIds">privateRouteTableIds</a></code> | <code>string[]</code> | Route table IDs for private subnets. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.privateSubnets">privateSubnets</a></code> | <code>aws-cdk-lib.aws_ec2.ISubnet[]</code> | List of private subnets with egress capability. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.publicRouteTableIds">publicRouteTableIds</a></code> | <code>string[]</code> | Route table IDs for public subnets. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.publicSubnets">publicSubnets</a></code> | <code>aws-cdk-lib.aws_ec2.ISubnet[]</code> | List of public subnets in the VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The CDK stack containing this VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.subnetConfigurations">subnetConfigurations</a></code> | <code>raindancers-cdk.cloudNetwork.ISubnetGroup[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.CfnVPC</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcArn">vpcArn</a></code> | <code>string</code> | The VPC ARN. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcCidrBlock">vpcCidrBlock</a></code> | <code>string</code> | The IPv4 CIDR block assigned to the VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcId">vpcId</a></code> | <code>string</code> | The VPC ID. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpnGatewayId">vpnGatewayId</a></code> | <code>string</code> | VPN Gateway ID if one is attached. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.ipamConfig">ipamConfig</a></code> | <code>raindancers-cdk.cloudNetwork.IpamConfig</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.subnetCidrLookup">subnetCidrLookup</a></code> | <code>raindancers-cdk.cloudNetwork.ISubNetCidrLookup[]</code> | The IPv6 CIDR block assigned to the VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.igw">igw</a></code> | <code>aws-cdk-lib.aws_ec2.CfnInternetGateway</code> | The Internet Gateway attached to the VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.networkFirewallEndpoints">networkFirewallEndpoints</a></code> | <code>raindancers-cdk.cloudNetwork.IFirewallEndpoints[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.tgRoutes">tgRoutes</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.transitGatewayAttachment">transitGatewayAttachment</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `availabilityZones`<sup>Required</sup> <a name="availabilityZones" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.availabilityZones"></a>
+
+```typescript
+public readonly availabilityZones: string[];
+```
+
+- *Type:* string[]
+
+List of availability zones used by the VPC.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment (account/region) for this VPC.
+
+---
+
+##### `internetConnectivityEstablished`<sup>Required</sup> <a name="internetConnectivityEstablished" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.internetConnectivityEstablished"></a>
+
+```typescript
+public readonly internetConnectivityEstablished: IDependable;
+```
+
+- *Type:* constructs.IDependable
+
+Dependency representing when internet connectivity is established.
+
+---
+
+##### `isolatedRouteTableIds`<sup>Required</sup> <a name="isolatedRouteTableIds" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.isolatedRouteTableIds"></a>
+
+```typescript
+public readonly isolatedRouteTableIds: string[];
+```
+
+- *Type:* string[]
+
+Route table IDs for isolated subnets.
+
+---
+
+##### `isolatedSubnets`<sup>Required</sup> <a name="isolatedSubnets" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.isolatedSubnets"></a>
+
+```typescript
+public readonly isolatedSubnets: ISubnet[];
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISubnet[]
+
+List of isolated subnets in the VPC.
+
+---
+
+##### `privateRouteTableIds`<sup>Required</sup> <a name="privateRouteTableIds" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.privateRouteTableIds"></a>
+
+```typescript
+public readonly privateRouteTableIds: string[];
+```
+
+- *Type:* string[]
+
+Route table IDs for private subnets.
+
+---
+
+##### `privateSubnets`<sup>Required</sup> <a name="privateSubnets" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.privateSubnets"></a>
+
+```typescript
+public readonly privateSubnets: ISubnet[];
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISubnet[]
+
+List of private subnets with egress capability.
+
+---
+
+##### `publicRouteTableIds`<sup>Required</sup> <a name="publicRouteTableIds" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.publicRouteTableIds"></a>
+
+```typescript
+public readonly publicRouteTableIds: string[];
+```
+
+- *Type:* string[]
+
+Route table IDs for public subnets.
+
+---
+
+##### `publicSubnets`<sup>Required</sup> <a name="publicSubnets" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.publicSubnets"></a>
+
+```typescript
+public readonly publicSubnets: ISubnet[];
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISubnet[]
+
+List of public subnets in the VPC.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The CDK stack containing this VPC.
+
+---
+
+##### `subnetConfigurations`<sup>Required</sup> <a name="subnetConfigurations" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.subnetConfigurations"></a>
+
+```typescript
+public readonly subnetConfigurations: ISubnetGroup[];
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.ISubnetGroup[]
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.vpc"></a>
+
+```typescript
+public readonly vpc: CfnVPC;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.CfnVPC
+
+---
+
+##### `vpcArn`<sup>Required</sup> <a name="vpcArn" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcArn"></a>
+
+```typescript
+public readonly vpcArn: string;
+```
+
+- *Type:* string
+
+The VPC ARN.
+
+---
+
+##### `vpcCidrBlock`<sup>Required</sup> <a name="vpcCidrBlock" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcCidrBlock"></a>
+
+```typescript
+public readonly vpcCidrBlock: string;
+```
+
+- *Type:* string
+
+The IPv4 CIDR block assigned to the VPC.
+
+---
+
+##### `vpcId`<sup>Required</sup> <a name="vpcId" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcId"></a>
+
+```typescript
+public readonly vpcId: string;
+```
+
+- *Type:* string
+
+The VPC ID.
+
+---
+
+##### `vpnGatewayId`<sup>Optional</sup> <a name="vpnGatewayId" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.vpnGatewayId"></a>
+
+```typescript
+public readonly vpnGatewayId: string;
+```
+
+- *Type:* string
+
+VPN Gateway ID if one is attached.
+
+---
+
+##### `ipamConfig`<sup>Required</sup> <a name="ipamConfig" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.ipamConfig"></a>
+
+```typescript
+public readonly ipamConfig: IpamConfig;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.IpamConfig
+
+---
+
+##### `subnetCidrLookup`<sup>Required</sup> <a name="subnetCidrLookup" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.subnetCidrLookup"></a>
+
+```typescript
+public readonly subnetCidrLookup: ISubNetCidrLookup[];
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.ISubNetCidrLookup[]
+
+The IPv6 CIDR block assigned to the VPC.
+
+---
+
+##### `igw`<sup>Optional</sup> <a name="igw" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.igw"></a>
+
+```typescript
+public readonly igw: CfnInternetGateway;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.CfnInternetGateway
+
+The Internet Gateway attached to the VPC.
+
+---
+
+##### `networkFirewallEndpoints`<sup>Optional</sup> <a name="networkFirewallEndpoints" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.networkFirewallEndpoints"></a>
+
+```typescript
+public readonly networkFirewallEndpoints: IFirewallEndpoints[];
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.IFirewallEndpoints[]
+
+---
+
+##### `tgRoutes`<sup>Optional</sup> <a name="tgRoutes" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.tgRoutes"></a>
+
+```typescript
+public readonly tgRoutes: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `transitGatewayAttachment`<sup>Optional</sup> <a name="transitGatewayAttachment" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.transitGatewayAttachment"></a>
+
+```typescript
+public readonly transitGatewayAttachment: string;
+```
+
+- *Type:* string
+
+---
+
+
 ### CloudTrailAlarms <a name="CloudTrailAlarms" id="raindancers-cdk.orgTools.CloudTrailAlarms"></a>
 
 #### Initializers <a name="Initializers" id="raindancers-cdk.orgTools.CloudTrailAlarms.Initializer"></a>
@@ -4899,6 +5624,178 @@ public readonly imageRecipeComponents: ComponentConfigurationProperty[];
 ---
 
 
+### IpamVPCPlanningTools <a name="IpamVPCPlanningTools" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools"></a>
+
+- *Implements:* raindancers-cdk.cloudNetwork.IIpamPlanningTool
+
+Creates IPAM planning pools for VPC subnet allocation.
+
+This construct creates IPv4 and IPv6 IPAM pools that are used to allocate
+IP addresses to subnets within the VPC. The pools are configured as planning
+pools with the VPC as the source resource.
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+new cloudNetwork.IpamVPCPlanningTools(scope: Construct, id: string, props: IpamPlanningTools)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | - The parent construct. |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.Initializer.parameter.id">id</a></code> | <code>string</code> | - The construct ID. |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.cloudNetwork.IpamPlanningTools</code> | - Configuration properties. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The parent construct.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+The construct ID.
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.IpamPlanningTools
+
+Configuration properties.
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.isConstruct"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+cloudNetwork.IpamVPCPlanningTools.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv4PlanningPool">ipv4PlanningPool</a></code> | <code>aws-cdk-lib.aws_ec2.CfnIPAMPool</code> | IPv4 IPAM pool for subnet allocation. |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv6PlanningPool">ipv6PlanningPool</a></code> | <code>aws-cdk-lib.aws_ec2.CfnIPAMPool</code> | IPv6 IPAM pool for subnet allocation. |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.waiter">waiter</a></code> | <code>aws-cdk-lib.CustomResource</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv6CidrBlock">ipv6CidrBlock</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.vpcCidrBlock">vpcCidrBlock</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `ipv4PlanningPool`<sup>Required</sup> <a name="ipv4PlanningPool" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv4PlanningPool"></a>
+
+```typescript
+public readonly ipv4PlanningPool: CfnIPAMPool;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.CfnIPAMPool
+
+IPv4 IPAM pool for subnet allocation.
+
+---
+
+##### `ipv6PlanningPool`<sup>Required</sup> <a name="ipv6PlanningPool" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv6PlanningPool"></a>
+
+```typescript
+public readonly ipv6PlanningPool: CfnIPAMPool;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.CfnIPAMPool
+
+IPv6 IPAM pool for subnet allocation.
+
+---
+
+##### `waiter`<sup>Required</sup> <a name="waiter" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.waiter"></a>
+
+```typescript
+public readonly waiter: CustomResource;
+```
+
+- *Type:* aws-cdk-lib.CustomResource
+
+---
+
+##### `ipv6CidrBlock`<sup>Optional</sup> <a name="ipv6CidrBlock" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv6CidrBlock"></a>
+
+```typescript
+public readonly ipv6CidrBlock: string;
+```
+
+- *Type:* string
+
+---
+
+##### `vpcCidrBlock`<sup>Optional</sup> <a name="vpcCidrBlock" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.vpcCidrBlock"></a>
+
+```typescript
+public readonly vpcCidrBlock: string;
+```
+
+- *Type:* string
+
+---
+
+
 ### JoinActiveDirectory <a name="JoinActiveDirectory" id="raindancers-cdk.ssm.automation.JoinActiveDirectory"></a>
 
 #### Initializers <a name="Initializers" id="raindancers-cdk.ssm.automation.JoinActiveDirectory.Initializer"></a>
@@ -5093,6 +5990,929 @@ public readonly node: Node;
 - *Type:* constructs.Node
 
 The tree node.
+
+---
+
+
+### NestedRouteStack <a name="NestedRouteStack" id="raindancers-cdk.cloudNetwork.NestedRouteStack"></a>
+
+A nested stack that contains routing configurations for a VPC.
+
+This nested stack creates and manages all routing tables and routes for a VPC,
+including Transit Gateway routes, firewall inspection routes, and internet routing.
+Using a nested stack helps organize complex routing configurations separately
+from the main VPC infrastructure.
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.cloudNetwork.NestedRouteStack.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+new cloudNetwork.NestedRouteStack(scope: Construct, id: string, props: NestedRouteStackProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | - The parent construct. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.Initializer.parameter.id">id</a></code> | <code>string</code> | - The construct ID. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.cloudNetwork.NestedRouteStackProps</code> | - Configuration properties for the routing stack. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.cloudNetwork.NestedRouteStack.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The parent construct.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.NestedRouteStack.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+The construct ID.
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudNetwork.NestedRouteStack.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.NestedRouteStackProps
+
+Configuration properties for the routing stack.
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.addDependency">addDependency</a></code> | Add a dependency between this stack and another stack. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.addMetadata">addMetadata</a></code> | Adds an arbitrary key-value pair, with information you want to record about the stack. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.addTransform">addTransform</a></code> | Add a Transform to this stack. A Transform is a macro that AWS CloudFormation uses to process your template. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.exportStringListValue">exportStringListValue</a></code> | Create a CloudFormation Export for a string list value. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.exportValue">exportValue</a></code> | Create a CloudFormation Export for a string value. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.formatArn">formatArn</a></code> | Creates an ARN from components. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.getLogicalId">getLogicalId</a></code> | Allocates a stack-unique CloudFormation-compatible logical identity for a specific resource. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.regionalFact">regionalFact</a></code> | Look up a fact value for the given fact for the region of this stack. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.renameLogicalId">renameLogicalId</a></code> | Rename a generated logical identities. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.reportMissingContextKey">reportMissingContextKey</a></code> | Indicate that a context key was expected. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.resolve">resolve</a></code> | Resolve a tokenized value in the context of the current stack. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.splitArn">splitArn</a></code> | Splits the provided ARN into its components. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.toJsonString">toJsonString</a></code> | Convert an object, potentially containing tokens, to a JSON string. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.toYamlString">toYamlString</a></code> | Convert an object, potentially containing tokens, to a YAML string. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.setParameter">setParameter</a></code> | Assign a value to one of the nested stack parameters. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.cloudNetwork.NestedRouteStack.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addDependency` <a name="addDependency" id="raindancers-cdk.cloudNetwork.NestedRouteStack.addDependency"></a>
+
+```typescript
+public addDependency(target: Stack, reason?: string): void
+```
+
+Add a dependency between this stack and another stack.
+
+This can be used to define dependencies between any two stacks within an
+app, and also supports nested stacks.
+
+###### `target`<sup>Required</sup> <a name="target" id="raindancers-cdk.cloudNetwork.NestedRouteStack.addDependency.parameter.target"></a>
+
+- *Type:* aws-cdk-lib.Stack
+
+---
+
+###### `reason`<sup>Optional</sup> <a name="reason" id="raindancers-cdk.cloudNetwork.NestedRouteStack.addDependency.parameter.reason"></a>
+
+- *Type:* string
+
+---
+
+##### `addMetadata` <a name="addMetadata" id="raindancers-cdk.cloudNetwork.NestedRouteStack.addMetadata"></a>
+
+```typescript
+public addMetadata(key: string, value: any): void
+```
+
+Adds an arbitrary key-value pair, with information you want to record about the stack.
+
+These get translated to the Metadata section of the generated template.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html)
+
+###### `key`<sup>Required</sup> <a name="key" id="raindancers-cdk.cloudNetwork.NestedRouteStack.addMetadata.parameter.key"></a>
+
+- *Type:* string
+
+---
+
+###### `value`<sup>Required</sup> <a name="value" id="raindancers-cdk.cloudNetwork.NestedRouteStack.addMetadata.parameter.value"></a>
+
+- *Type:* any
+
+---
+
+##### `addTransform` <a name="addTransform" id="raindancers-cdk.cloudNetwork.NestedRouteStack.addTransform"></a>
+
+```typescript
+public addTransform(transform: string): void
+```
+
+Add a Transform to this stack. A Transform is a macro that AWS CloudFormation uses to process your template.
+
+Duplicate values are removed when stack is synthesized.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html)
+
+*Example*
+
+```typescript
+declare const stack: Stack;
+
+stack.addTransform('AWS::Serverless-2016-10-31')
+```
+
+
+###### `transform`<sup>Required</sup> <a name="transform" id="raindancers-cdk.cloudNetwork.NestedRouteStack.addTransform.parameter.transform"></a>
+
+- *Type:* string
+
+The transform to add.
+
+---
+
+##### `exportStringListValue` <a name="exportStringListValue" id="raindancers-cdk.cloudNetwork.NestedRouteStack.exportStringListValue"></a>
+
+```typescript
+public exportStringListValue(exportedValue: any, options?: ExportValueOptions): string[]
+```
+
+Create a CloudFormation Export for a string list value.
+
+Returns a string list representing the corresponding `Fn.importValue()`
+expression for this Export. The export expression is automatically wrapped with an
+`Fn::Join` and the import value with an `Fn::Split`, since CloudFormation can only
+export strings. You can control the name for the export by passing the `name` option.
+
+If you don't supply a value for `name`, the value you're exporting must be
+a Resource attribute (for example: `bucket.bucketName`) and it will be
+given the same name as the automatic cross-stack reference that would be created
+if you used the attribute in another Stack.
+
+One of the uses for this method is to *remove* the relationship between
+two Stacks established by automatic cross-stack references. It will
+temporarily ensure that the CloudFormation Export still exists while you
+remove the reference from the consuming stack. After that, you can remove
+the resource and the manual export.
+
+See `exportValue` for an example of this process.
+
+###### `exportedValue`<sup>Required</sup> <a name="exportedValue" id="raindancers-cdk.cloudNetwork.NestedRouteStack.exportStringListValue.parameter.exportedValue"></a>
+
+- *Type:* any
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="raindancers-cdk.cloudNetwork.NestedRouteStack.exportStringListValue.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.ExportValueOptions
+
+---
+
+##### `exportValue` <a name="exportValue" id="raindancers-cdk.cloudNetwork.NestedRouteStack.exportValue"></a>
+
+```typescript
+public exportValue(exportedValue: any, options?: ExportValueOptions): string
+```
+
+Create a CloudFormation Export for a string value.
+
+Returns a string representing the corresponding `Fn.importValue()`
+expression for this Export. You can control the name for the export by
+passing the `name` option.
+
+If you don't supply a value for `name`, the value you're exporting must be
+a Resource attribute (for example: `bucket.bucketName`) and it will be
+given the same name as the automatic cross-stack reference that would be created
+if you used the attribute in another Stack.
+
+One of the uses for this method is to *remove* the relationship between
+two Stacks established by automatic cross-stack references. It will
+temporarily ensure that the CloudFormation Export still exists while you
+remove the reference from the consuming stack. After that, you can remove
+the resource and the manual export.
+
+Here is how the process works. Let's say there are two stacks,
+`producerStack` and `consumerStack`, and `producerStack` has a bucket
+called `bucket`, which is referenced by `consumerStack` (perhaps because
+an AWS Lambda Function writes into it, or something like that).
+
+It is not safe to remove `producerStack.bucket` because as the bucket is being
+deleted, `consumerStack` might still be using it.
+
+Instead, the process takes two deployments:
+
+**Deployment 1: break the relationship**:
+
+- Make sure `consumerStack` no longer references `bucket.bucketName` (maybe the consumer
+  stack now uses its own bucket, or it writes to an AWS DynamoDB table, or maybe you just
+  remove the Lambda Function altogether).
+- In the `ProducerStack` class, call `this.exportValue(this.bucket.bucketName)`. This
+  will make sure the CloudFormation Export continues to exist while the relationship
+  between the two stacks is being broken.
+- Deploy (this will effectively only change the `consumerStack`, but it's safe to deploy both).
+
+**Deployment 2: remove the bucket resource**:
+
+- You are now free to remove the `bucket` resource from `producerStack`.
+- Don't forget to remove the `exportValue()` call as well.
+- Deploy again (this time only the `producerStack` will be changed -- the bucket will be deleted).
+
+###### `exportedValue`<sup>Required</sup> <a name="exportedValue" id="raindancers-cdk.cloudNetwork.NestedRouteStack.exportValue.parameter.exportedValue"></a>
+
+- *Type:* any
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="raindancers-cdk.cloudNetwork.NestedRouteStack.exportValue.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.ExportValueOptions
+
+---
+
+##### `formatArn` <a name="formatArn" id="raindancers-cdk.cloudNetwork.NestedRouteStack.formatArn"></a>
+
+```typescript
+public formatArn(components: ArnComponents): string
+```
+
+Creates an ARN from components.
+
+If `partition`, `region` or `account` are not specified, the stack's
+partition, region and account will be used.
+
+If any component is the empty string, an empty string will be inserted
+into the generated ARN at the location that component corresponds to.
+
+The ARN will be formatted as follows:
+
+  arn:{partition}:{service}:{region}:{account}:{resource}{sep}{resource-name}
+
+The required ARN pieces that are omitted will be taken from the stack that
+the 'scope' is attached to. If all ARN pieces are supplied, the supplied scope
+can be 'undefined'.
+
+###### `components`<sup>Required</sup> <a name="components" id="raindancers-cdk.cloudNetwork.NestedRouteStack.formatArn.parameter.components"></a>
+
+- *Type:* aws-cdk-lib.ArnComponents
+
+---
+
+##### `getLogicalId` <a name="getLogicalId" id="raindancers-cdk.cloudNetwork.NestedRouteStack.getLogicalId"></a>
+
+```typescript
+public getLogicalId(element: CfnElement): string
+```
+
+Allocates a stack-unique CloudFormation-compatible logical identity for a specific resource.
+
+This method is called when a `CfnElement` is created and used to render the
+initial logical identity of resources. Logical ID renames are applied at
+this stage.
+
+This method uses the protected method `allocateLogicalId` to render the
+logical ID for an element. To modify the naming scheme, extend the `Stack`
+class and override this method.
+
+###### `element`<sup>Required</sup> <a name="element" id="raindancers-cdk.cloudNetwork.NestedRouteStack.getLogicalId.parameter.element"></a>
+
+- *Type:* aws-cdk-lib.CfnElement
+
+The CloudFormation element for which a logical identity is needed.
+
+---
+
+##### `regionalFact` <a name="regionalFact" id="raindancers-cdk.cloudNetwork.NestedRouteStack.regionalFact"></a>
+
+```typescript
+public regionalFact(factName: string, defaultValue?: string): string
+```
+
+Look up a fact value for the given fact for the region of this stack.
+
+Will return a definite value only if the region of the current stack is resolved.
+If not, a lookup map will be added to the stack and the lookup will be done at
+CDK deployment time.
+
+What regions will be included in the lookup map is controlled by the
+`@aws-cdk/core:target-partitions` context value: it must be set to a list
+of partitions, and only regions from the given partitions will be included.
+If no such context key is set, all regions will be included.
+
+This function is intended to be used by construct library authors. Application
+builders can rely on the abstractions offered by construct libraries and do
+not have to worry about regional facts.
+
+If `defaultValue` is not given, it is an error if the fact is unknown for
+the given region.
+
+###### `factName`<sup>Required</sup> <a name="factName" id="raindancers-cdk.cloudNetwork.NestedRouteStack.regionalFact.parameter.factName"></a>
+
+- *Type:* string
+
+---
+
+###### `defaultValue`<sup>Optional</sup> <a name="defaultValue" id="raindancers-cdk.cloudNetwork.NestedRouteStack.regionalFact.parameter.defaultValue"></a>
+
+- *Type:* string
+
+---
+
+##### `renameLogicalId` <a name="renameLogicalId" id="raindancers-cdk.cloudNetwork.NestedRouteStack.renameLogicalId"></a>
+
+```typescript
+public renameLogicalId(oldId: string, newId: string): void
+```
+
+Rename a generated logical identities.
+
+To modify the naming scheme strategy, extend the `Stack` class and
+override the `allocateLogicalId` method.
+
+###### `oldId`<sup>Required</sup> <a name="oldId" id="raindancers-cdk.cloudNetwork.NestedRouteStack.renameLogicalId.parameter.oldId"></a>
+
+- *Type:* string
+
+---
+
+###### `newId`<sup>Required</sup> <a name="newId" id="raindancers-cdk.cloudNetwork.NestedRouteStack.renameLogicalId.parameter.newId"></a>
+
+- *Type:* string
+
+---
+
+##### `reportMissingContextKey` <a name="reportMissingContextKey" id="raindancers-cdk.cloudNetwork.NestedRouteStack.reportMissingContextKey"></a>
+
+```typescript
+public reportMissingContextKey(report: MissingContext): void
+```
+
+Indicate that a context key was expected.
+
+Contains instructions which will be emitted into the cloud assembly on how
+the key should be supplied.
+
+###### `report`<sup>Required</sup> <a name="report" id="raindancers-cdk.cloudNetwork.NestedRouteStack.reportMissingContextKey.parameter.report"></a>
+
+- *Type:* aws-cdk-lib.cloud_assembly_schema.MissingContext
+
+The set of parameters needed to obtain the context.
+
+---
+
+##### `resolve` <a name="resolve" id="raindancers-cdk.cloudNetwork.NestedRouteStack.resolve"></a>
+
+```typescript
+public resolve(obj: any): any
+```
+
+Resolve a tokenized value in the context of the current stack.
+
+###### `obj`<sup>Required</sup> <a name="obj" id="raindancers-cdk.cloudNetwork.NestedRouteStack.resolve.parameter.obj"></a>
+
+- *Type:* any
+
+---
+
+##### `splitArn` <a name="splitArn" id="raindancers-cdk.cloudNetwork.NestedRouteStack.splitArn"></a>
+
+```typescript
+public splitArn(arn: string, arnFormat: ArnFormat): ArnComponents
+```
+
+Splits the provided ARN into its components.
+
+Works both if 'arn' is a string like 'arn:aws:s3:::bucket',
+and a Token representing a dynamic CloudFormation expression
+(in which case the returned components will also be dynamic CloudFormation expressions,
+encoded as Tokens).
+
+###### `arn`<sup>Required</sup> <a name="arn" id="raindancers-cdk.cloudNetwork.NestedRouteStack.splitArn.parameter.arn"></a>
+
+- *Type:* string
+
+the ARN to split into its components.
+
+---
+
+###### `arnFormat`<sup>Required</sup> <a name="arnFormat" id="raindancers-cdk.cloudNetwork.NestedRouteStack.splitArn.parameter.arnFormat"></a>
+
+- *Type:* aws-cdk-lib.ArnFormat
+
+the expected format of 'arn' - depends on what format the service 'arn' represents uses.
+
+---
+
+##### `toJsonString` <a name="toJsonString" id="raindancers-cdk.cloudNetwork.NestedRouteStack.toJsonString"></a>
+
+```typescript
+public toJsonString(obj: any, space?: number): string
+```
+
+Convert an object, potentially containing tokens, to a JSON string.
+
+###### `obj`<sup>Required</sup> <a name="obj" id="raindancers-cdk.cloudNetwork.NestedRouteStack.toJsonString.parameter.obj"></a>
+
+- *Type:* any
+
+---
+
+###### `space`<sup>Optional</sup> <a name="space" id="raindancers-cdk.cloudNetwork.NestedRouteStack.toJsonString.parameter.space"></a>
+
+- *Type:* number
+
+---
+
+##### `toYamlString` <a name="toYamlString" id="raindancers-cdk.cloudNetwork.NestedRouteStack.toYamlString"></a>
+
+```typescript
+public toYamlString(obj: any): string
+```
+
+Convert an object, potentially containing tokens, to a YAML string.
+
+###### `obj`<sup>Required</sup> <a name="obj" id="raindancers-cdk.cloudNetwork.NestedRouteStack.toYamlString.parameter.obj"></a>
+
+- *Type:* any
+
+---
+
+##### `setParameter` <a name="setParameter" id="raindancers-cdk.cloudNetwork.NestedRouteStack.setParameter"></a>
+
+```typescript
+public setParameter(name: string, value: string): void
+```
+
+Assign a value to one of the nested stack parameters.
+
+###### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.cloudNetwork.NestedRouteStack.setParameter.parameter.name"></a>
+
+- *Type:* string
+
+The parameter name (ID).
+
+---
+
+###### `value`<sup>Required</sup> <a name="value" id="raindancers-cdk.cloudNetwork.NestedRouteStack.setParameter.parameter.value"></a>
+
+- *Type:* string
+
+The value to assign.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.isStack">isStack</a></code> | Return whether the given object is a Stack. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.of">of</a></code> | Looks up the first stack scope in which `construct` is defined. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.isNestedStack">isNestedStack</a></code> | Checks if `x` is an object of type `NestedStack`. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.cloudNetwork.NestedRouteStack.isConstruct"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+cloudNetwork.NestedRouteStack.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.cloudNetwork.NestedRouteStack.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isStack` <a name="isStack" id="raindancers-cdk.cloudNetwork.NestedRouteStack.isStack"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+cloudNetwork.NestedRouteStack.isStack(x: any)
+```
+
+Return whether the given object is a Stack.
+
+We do attribute detection since we can't reliably use 'instanceof'.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.cloudNetwork.NestedRouteStack.isStack.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+##### `of` <a name="of" id="raindancers-cdk.cloudNetwork.NestedRouteStack.of"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+cloudNetwork.NestedRouteStack.of(construct: IConstruct)
+```
+
+Looks up the first stack scope in which `construct` is defined.
+
+Fails if there is no stack up the tree.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="raindancers-cdk.cloudNetwork.NestedRouteStack.of.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+The construct to start the search from.
+
+---
+
+##### `isNestedStack` <a name="isNestedStack" id="raindancers-cdk.cloudNetwork.NestedRouteStack.isNestedStack"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+cloudNetwork.NestedRouteStack.isNestedStack(x: any)
+```
+
+Checks if `x` is an object of type `NestedStack`.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.cloudNetwork.NestedRouteStack.isNestedStack.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.account">account</a></code> | <code>string</code> | The AWS account into which this stack will be deployed. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.artifactId">artifactId</a></code> | <code>string</code> | The ID of the cloud assembly artifact for this stack. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.availabilityZones">availabilityZones</a></code> | <code>string[]</code> | Returns the list of AZs that are available in the AWS environment (account/region) associated with this stack. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.bundlingRequired">bundlingRequired</a></code> | <code>boolean</code> | Indicates whether the stack requires bundling or not. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.dependencies">dependencies</a></code> | <code>aws-cdk-lib.Stack[]</code> | Return the stacks this stack depends on. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.environment">environment</a></code> | <code>string</code> | The environment coordinates in which this stack is deployed. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.nested">nested</a></code> | <code>boolean</code> | Indicates if this is a nested stack, in which case `parentStack` will include a reference to it's parent. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.notificationArns">notificationArns</a></code> | <code>string[]</code> | Returns the list of notification Amazon Resource Names (ARNs) for the current stack. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.partition">partition</a></code> | <code>string</code> | The partition in which this stack is defined. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.region">region</a></code> | <code>string</code> | The AWS region into which this stack will be deployed (e.g. `us-west-2`). |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.stackId">stackId</a></code> | <code>string</code> | An attribute that represents the ID of the stack. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.stackName">stackName</a></code> | <code>string</code> | An attribute that represents the name of the nested stack. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method for this stack. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.tags">tags</a></code> | <code>aws-cdk-lib.TagManager</code> | Tags to be applied to the stack. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.templateFile">templateFile</a></code> | <code>string</code> | The name of the CloudFormation template file emitted to the output directory during synthesis. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.templateOptions">templateOptions</a></code> | <code>aws-cdk-lib.ITemplateOptions</code> | Options for CloudFormation template (like version, transform, description). |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.urlSuffix">urlSuffix</a></code> | <code>string</code> | The Amazon domain suffix for the region in which this stack is defined. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.nestedStackParent">nestedStackParent</a></code> | <code>aws-cdk-lib.Stack</code> | If this is a nested stack, returns it's parent stack. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.nestedStackResource">nestedStackResource</a></code> | <code>aws-cdk-lib.CfnResource</code> | If this is a nested stack, this represents its `AWS::CloudFormation::Stack` resource. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether termination protection is enabled for this stack. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `account`<sup>Required</sup> <a name="account" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.account"></a>
+
+```typescript
+public readonly account: string;
+```
+
+- *Type:* string
+
+The AWS account into which this stack will be deployed.
+
+This value is resolved according to the following rules:
+
+1. The value provided to `env.account` when the stack is defined. This can
+   either be a concrete account (e.g. `585695031111`) or the
+   `Aws.ACCOUNT_ID` token.
+3. `Aws.ACCOUNT_ID`, which represents the CloudFormation intrinsic reference
+   `{ "Ref": "AWS::AccountId" }` encoded as a string token.
+
+Preferably, you should use the return value as an opaque string and not
+attempt to parse it to implement your logic. If you do, you must first
+check that it is a concrete value an not an unresolved token. If this
+value is an unresolved token (`Token.isUnresolved(stack.account)` returns
+`true`), this implies that the user wishes that this stack will synthesize
+into an **account-agnostic template**. In this case, your code should either
+fail (throw an error, emit a synth error using `Annotations.of(construct).addError()`) or
+implement some other account-agnostic behavior.
+
+---
+
+##### `artifactId`<sup>Required</sup> <a name="artifactId" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.artifactId"></a>
+
+```typescript
+public readonly artifactId: string;
+```
+
+- *Type:* string
+
+The ID of the cloud assembly artifact for this stack.
+
+---
+
+##### `availabilityZones`<sup>Required</sup> <a name="availabilityZones" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.availabilityZones"></a>
+
+```typescript
+public readonly availabilityZones: string[];
+```
+
+- *Type:* string[]
+
+Returns the list of AZs that are available in the AWS environment (account/region) associated with this stack.
+
+If the stack is environment-agnostic (either account and/or region are
+tokens), this property will return an array with 2 tokens that will resolve
+at deploy-time to the first two availability zones returned from CloudFormation's
+`Fn::GetAZs` intrinsic function.
+
+If they are not available in the context, returns a set of dummy values and
+reports them as missing, and let the CLI resolve them by calling EC2
+`DescribeAvailabilityZones` on the target environment.
+
+To specify a different strategy for selecting availability zones override this method.
+
+---
+
+##### `bundlingRequired`<sup>Required</sup> <a name="bundlingRequired" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.bundlingRequired"></a>
+
+```typescript
+public readonly bundlingRequired: boolean;
+```
+
+- *Type:* boolean
+
+Indicates whether the stack requires bundling or not.
+
+---
+
+##### `dependencies`<sup>Required</sup> <a name="dependencies" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.dependencies"></a>
+
+```typescript
+public readonly dependencies: Stack[];
+```
+
+- *Type:* aws-cdk-lib.Stack[]
+
+Return the stacks this stack depends on.
+
+---
+
+##### `environment`<sup>Required</sup> <a name="environment" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.environment"></a>
+
+```typescript
+public readonly environment: string;
+```
+
+- *Type:* string
+
+The environment coordinates in which this stack is deployed.
+
+In the form
+`aws://account/region`. Use `stack.account` and `stack.region` to obtain
+the specific values, no need to parse.
+
+You can use this value to determine if two stacks are targeting the same
+environment.
+
+If either `stack.account` or `stack.region` are not concrete values (e.g.
+`Aws.ACCOUNT_ID` or `Aws.REGION`) the special strings `unknown-account` and/or
+`unknown-region` will be used respectively to indicate this stack is
+region/account-agnostic.
+
+---
+
+##### `nested`<sup>Required</sup> <a name="nested" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.nested"></a>
+
+```typescript
+public readonly nested: boolean;
+```
+
+- *Type:* boolean
+
+Indicates if this is a nested stack, in which case `parentStack` will include a reference to it's parent.
+
+---
+
+##### `notificationArns`<sup>Required</sup> <a name="notificationArns" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.notificationArns"></a>
+
+```typescript
+public readonly notificationArns: string[];
+```
+
+- *Type:* string[]
+
+Returns the list of notification Amazon Resource Names (ARNs) for the current stack.
+
+---
+
+##### `partition`<sup>Required</sup> <a name="partition" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.partition"></a>
+
+```typescript
+public readonly partition: string;
+```
+
+- *Type:* string
+
+The partition in which this stack is defined.
+
+---
+
+##### `region`<sup>Required</sup> <a name="region" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.region"></a>
+
+```typescript
+public readonly region: string;
+```
+
+- *Type:* string
+
+The AWS region into which this stack will be deployed (e.g. `us-west-2`).
+
+This value is resolved according to the following rules:
+
+1. The value provided to `env.region` when the stack is defined. This can
+   either be a concrete region (e.g. `us-west-2`) or the `Aws.REGION`
+   token.
+3. `Aws.REGION`, which is represents the CloudFormation intrinsic reference
+   `{ "Ref": "AWS::Region" }` encoded as a string token.
+
+Preferably, you should use the return value as an opaque string and not
+attempt to parse it to implement your logic. If you do, you must first
+check that it is a concrete value an not an unresolved token. If this
+value is an unresolved token (`Token.isUnresolved(stack.region)` returns
+`true`), this implies that the user wishes that this stack will synthesize
+into a **region-agnostic template**. In this case, your code should either
+fail (throw an error, emit a synth error using `Annotations.of(construct).addError()`) or
+implement some other region-agnostic behavior.
+
+---
+
+##### `stackId`<sup>Required</sup> <a name="stackId" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.stackId"></a>
+
+```typescript
+public readonly stackId: string;
+```
+
+- *Type:* string
+
+An attribute that represents the ID of the stack.
+
+This is a context aware attribute:
+- If this is referenced from the parent stack, it will return `{ "Ref": "LogicalIdOfNestedStackResource" }`.
+- If this is referenced from the context of the nested stack, it will return `{ "Ref": "AWS::StackId" }`
+
+Example value: `arn:aws:cloudformation:us-east-2:123456789012:stack/mystack-mynestedstack-sggfrhxhum7w/f449b250-b969-11e0-a185-5081d0136786`
+
+---
+
+##### `stackName`<sup>Required</sup> <a name="stackName" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.stackName"></a>
+
+```typescript
+public readonly stackName: string;
+```
+
+- *Type:* string
+
+An attribute that represents the name of the nested stack.
+
+This is a context aware attribute:
+- If this is referenced from the parent stack, it will return a token that parses the name from the stack ID.
+- If this is referenced from the context of the nested stack, it will return `{ "Ref": "AWS::StackName" }`
+
+Example value: `mystack-mynestedstack-sggfrhxhum7w`
+
+---
+
+##### `synthesizer`<sup>Required</sup> <a name="synthesizer" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.synthesizer"></a>
+
+```typescript
+public readonly synthesizer: IStackSynthesizer;
+```
+
+- *Type:* aws-cdk-lib.IStackSynthesizer
+
+Synthesis method for this stack.
+
+---
+
+##### `tags`<sup>Required</sup> <a name="tags" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.tags"></a>
+
+```typescript
+public readonly tags: TagManager;
+```
+
+- *Type:* aws-cdk-lib.TagManager
+
+Tags to be applied to the stack.
+
+---
+
+##### `templateFile`<sup>Required</sup> <a name="templateFile" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.templateFile"></a>
+
+```typescript
+public readonly templateFile: string;
+```
+
+- *Type:* string
+
+The name of the CloudFormation template file emitted to the output directory during synthesis.
+
+Example value: `MyStack.template.json`
+
+---
+
+##### `templateOptions`<sup>Required</sup> <a name="templateOptions" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.templateOptions"></a>
+
+```typescript
+public readonly templateOptions: ITemplateOptions;
+```
+
+- *Type:* aws-cdk-lib.ITemplateOptions
+
+Options for CloudFormation template (like version, transform, description).
+
+---
+
+##### `urlSuffix`<sup>Required</sup> <a name="urlSuffix" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.urlSuffix"></a>
+
+```typescript
+public readonly urlSuffix: string;
+```
+
+- *Type:* string
+
+The Amazon domain suffix for the region in which this stack is defined.
+
+---
+
+##### `nestedStackParent`<sup>Optional</sup> <a name="nestedStackParent" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.nestedStackParent"></a>
+
+```typescript
+public readonly nestedStackParent: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+If this is a nested stack, returns it's parent stack.
+
+---
+
+##### `nestedStackResource`<sup>Optional</sup> <a name="nestedStackResource" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.nestedStackResource"></a>
+
+```typescript
+public readonly nestedStackResource: CfnResource;
+```
+
+- *Type:* aws-cdk-lib.CfnResource
+
+If this is a nested stack, this represents its `AWS::CloudFormation::Stack` resource.
+
+`undefined` for top-level (non-nested) stacks.
+
+---
+
+##### `terminationProtection`<sup>Required</sup> <a name="terminationProtection" id="raindancers-cdk.cloudNetwork.NestedRouteStack.property.terminationProtection"></a>
+
+```typescript
+public readonly terminationProtection: boolean;
+```
+
+- *Type:* boolean
+
+Whether termination protection is enabled for this stack.
 
 ---
 
@@ -6270,6 +8090,203 @@ public readonly subnetSelection: SubnetSelection;
 ```
 
 - *Type:* aws-cdk-lib.aws_ec2.SubnetSelection
+
+---
+
+
+### Router <a name="Router" id="raindancers-cdk.cloudNetwork.Router"></a>
+
+Router construct that manages routing configuration for VPC subnets.
+
+Handles routing to Transit Gateway, Internet Gateway, Firewall Endpoints, and other destinations.
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.cloudNetwork.Router.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+new cloudNetwork.Router(scope: Construct, id: string, props: RouterProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.Router.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | - The parent construct. |
+| <code><a href="#raindancers-cdk.cloudNetwork.Router.Initializer.parameter.id">id</a></code> | <code>string</code> | - The construct identifier. |
+| <code><a href="#raindancers-cdk.cloudNetwork.Router.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.cloudNetwork.RouterProps</code> | - Router configuration properties. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.cloudNetwork.Router.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The parent construct.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.Router.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+The construct identifier.
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudNetwork.Router.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.RouterProps
+
+Router configuration properties.
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.Router.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.cloudNetwork.Router.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.Router.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.cloudNetwork.Router.isConstruct"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+cloudNetwork.Router.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.cloudNetwork.Router.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.Router.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.cloudNetwork.Router.property.cidrLookup">cidrLookup</a></code> | <code>aws-cdk-lib.CustomResource</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.Router.property.routerProvider">routerProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.Router.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.Router.property.firewallEndpoints">firewallEndpoints</a></code> | <code>raindancers-cdk.cloudNetwork.IFirewallEndpoints[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.Router.property.internetGateway">internetGateway</a></code> | <code>aws-cdk-lib.aws_ec2.CfnInternetGateway</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.Router.property.transitGatewayAttachmentId">transitGatewayAttachmentId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.Router.property.transitGatewayId">transitGatewayId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.Router.property.blackhole">blackhole</a></code> | <code>aws-cdk-lib.aws_ec2.CfnNetworkInterface</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.cloudNetwork.Router.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `cidrLookup`<sup>Required</sup> <a name="cidrLookup" id="raindancers-cdk.cloudNetwork.Router.property.cidrLookup"></a>
+
+```typescript
+public readonly cidrLookup: CustomResource;
+```
+
+- *Type:* aws-cdk-lib.CustomResource
+
+---
+
+##### `routerProvider`<sup>Required</sup> <a name="routerProvider" id="raindancers-cdk.cloudNetwork.Router.property.routerProvider"></a>
+
+```typescript
+public readonly routerProvider: Provider;
+```
+
+- *Type:* aws-cdk-lib.custom_resources.Provider
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.cloudNetwork.Router.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+##### `firewallEndpoints`<sup>Optional</sup> <a name="firewallEndpoints" id="raindancers-cdk.cloudNetwork.Router.property.firewallEndpoints"></a>
+
+```typescript
+public readonly firewallEndpoints: IFirewallEndpoints[];
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.IFirewallEndpoints[]
+
+---
+
+##### `internetGateway`<sup>Optional</sup> <a name="internetGateway" id="raindancers-cdk.cloudNetwork.Router.property.internetGateway"></a>
+
+```typescript
+public readonly internetGateway: CfnInternetGateway;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.CfnInternetGateway
+
+---
+
+##### `transitGatewayAttachmentId`<sup>Optional</sup> <a name="transitGatewayAttachmentId" id="raindancers-cdk.cloudNetwork.Router.property.transitGatewayAttachmentId"></a>
+
+```typescript
+public readonly transitGatewayAttachmentId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `transitGatewayId`<sup>Optional</sup> <a name="transitGatewayId" id="raindancers-cdk.cloudNetwork.Router.property.transitGatewayId"></a>
+
+```typescript
+public readonly transitGatewayId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `blackhole`<sup>Optional</sup> <a name="blackhole" id="raindancers-cdk.cloudNetwork.Router.property.blackhole"></a>
+
+```typescript
+public readonly blackhole: CfnNetworkInterface;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.CfnNetworkInterface
 
 ---
 
@@ -8164,6 +10181,78 @@ public readonly zone: HostedZone;
 
 ---
 
+### AddAwsServiceEndPointsProps <a name="AddAwsServiceEndPointsProps" id="raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const addAwsServiceEndPointsProps: cloudNetwork.AddAwsServiceEndPointsProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.services">services</a></code> | <code>aws-cdk-lib.aws_ec2.InterfaceVpcEndpointAwsService[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.subnetGroup">subnetGroup</a></code> | <code>raindancers-cdk.cloudNetwork.ISubnetGroup</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.dynamoDbGateway">dynamoDbGateway</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.s3GatewayInterface">s3GatewayInterface</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+
+---
+
+##### `services`<sup>Required</sup> <a name="services" id="raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.services"></a>
+
+```typescript
+public readonly services: InterfaceVpcEndpointAwsService[];
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.InterfaceVpcEndpointAwsService[]
+
+---
+
+##### `subnetGroup`<sup>Required</sup> <a name="subnetGroup" id="raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.subnetGroup"></a>
+
+```typescript
+public readonly subnetGroup: ISubnetGroup;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.ISubnetGroup
+
+---
+
+##### `dynamoDbGateway`<sup>Optional</sup> <a name="dynamoDbGateway" id="raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.dynamoDbGateway"></a>
+
+```typescript
+public readonly dynamoDbGateway: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `s3GatewayInterface`<sup>Optional</sup> <a name="s3GatewayInterface" id="raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.s3GatewayInterface"></a>
+
+```typescript
+public readonly s3GatewayInterface: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `vpc`<sup>Optional</sup> <a name="vpc" id="raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
 ### AddAwsServiceEndPointsProps <a name="AddAwsServiceEndPointsProps" id="raindancers-cdk.enterprisevpc.AddAwsServiceEndPointsProps"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.enterprisevpc.AddAwsServiceEndPointsProps.Initializer"></a>
@@ -8386,6 +10475,58 @@ public readonly isHubVpc: boolean;
 
 ---
 
+### AddNetworkFirewallEndpointProps <a name="AddNetworkFirewallEndpointProps" id="raindancers-cdk.cloudNetwork.AddNetworkFirewallEndpointProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.AddNetworkFirewallEndpointProps.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const addNetworkFirewallEndpointProps: cloudNetwork.AddNetworkFirewallEndpointProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.AddNetworkFirewallEndpointProps.property.firewallArn">firewallArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.AddNetworkFirewallEndpointProps.property.subnetGroup">subnetGroup</a></code> | <code>raindancers-cdk.cloudNetwork.ISubnetGroup</code> | default 'firewall'. |
+| <code><a href="#raindancers-cdk.cloudNetwork.AddNetworkFirewallEndpointProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+
+---
+
+##### `firewallArn`<sup>Required</sup> <a name="firewallArn" id="raindancers-cdk.cloudNetwork.AddNetworkFirewallEndpointProps.property.firewallArn"></a>
+
+```typescript
+public readonly firewallArn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `subnetGroup`<sup>Optional</sup> <a name="subnetGroup" id="raindancers-cdk.cloudNetwork.AddNetworkFirewallEndpointProps.property.subnetGroup"></a>
+
+```typescript
+public readonly subnetGroup: ISubnetGroup;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.ISubnetGroup
+
+default 'firewall'.
+
+---
+
+##### `vpc`<sup>Optional</sup> <a name="vpc" id="raindancers-cdk.cloudNetwork.AddNetworkFirewallEndpointProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
 ### AddR53ZoneProps <a name="AddR53ZoneProps" id="raindancers-cdk.enterprisevpc.AddR53ZoneProps"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.enterprisevpc.AddR53ZoneProps.Initializer"></a>
@@ -8422,6 +10563,45 @@ public readonly centralVpc: Vpc;
 ```
 
 - *Type:* aws-cdk-lib.aws_ec2.Vpc
+
+---
+
+### AddRoutesProps <a name="AddRoutesProps" id="raindancers-cdk.cloudNetwork.AddRoutesProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.AddRoutesProps.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const addRoutesProps: cloudNetwork.AddRoutesProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.AddRoutesProps.property.route">route</a></code> | <code>raindancers-cdk.cloudNetwork.Route</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.AddRoutesProps.property.subnetGroup">subnetGroup</a></code> | <code>raindancers-cdk.cloudNetwork.ISubnetGroup</code> | *No description.* |
+
+---
+
+##### `route`<sup>Required</sup> <a name="route" id="raindancers-cdk.cloudNetwork.AddRoutesProps.property.route"></a>
+
+```typescript
+public readonly route: Route;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.Route
+
+---
+
+##### `subnetGroup`<sup>Required</sup> <a name="subnetGroup" id="raindancers-cdk.cloudNetwork.AddRoutesProps.property.subnetGroup"></a>
+
+```typescript
+public readonly subnetGroup: ISubnetGroup;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.ISubnetGroup
 
 ---
 
@@ -9060,6 +11240,45 @@ The VPC which will be assocaited with the ResolverRules.
 
 ---
 
+### AssociateSharedResolverRulesProps <a name="AssociateSharedResolverRulesProps" id="raindancers-cdk.cloudNetwork.AssociateSharedResolverRulesProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.AssociateSharedResolverRulesProps.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const associateSharedResolverRulesProps: cloudNetwork.AssociateSharedResolverRulesProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.AssociateSharedResolverRulesProps.property.domainNames">domainNames</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.AssociateSharedResolverRulesProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+
+---
+
+##### `domainNames`<sup>Required</sup> <a name="domainNames" id="raindancers-cdk.cloudNetwork.AssociateSharedResolverRulesProps.property.domainNames"></a>
+
+```typescript
+public readonly domainNames: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `vpc`<sup>Optional</sup> <a name="vpc" id="raindancers-cdk.cloudNetwork.AssociateSharedResolverRulesProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
 ### AttachToCloudWanProps <a name="AttachToCloudWanProps" id="raindancers-cdk.enterprisevpc.AttachToCloudWanProps"></a>
 
 Propertys for Attaching to a Cloudwan Core Network.
@@ -9122,6 +11341,104 @@ public readonly attachmentSubnetGroup: string;
 ```
 
 - *Type:* string
+
+---
+
+### AttachToTransitGatewayProps <a name="AttachToTransitGatewayProps" id="raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const attachToTransitGatewayProps: cloudNetwork.AttachToTransitGatewayProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.routesToTransitGateway">routesToTransitGateway</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.transitGateway">transitGateway</a></code> | <code>raindancers-cdk.transitGateway.ITransitGateway</code> | the TransitGateway to connect to. |
+| <code><a href="#raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.applianceMode">applianceMode</a></code> | <code>raindancers-cdk.cloudNetwork.ApplianceMode</code> | Will this be connected in appliance mode ( used if you have Network Firewalls ). |
+| <code><a href="#raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.attachmentSubnetGroup">attachmentSubnetGroup</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.ipv6Support">ipv6Support</a></code> | <code>raindancers-cdk.cloudNetwork.IpV6Support</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.tgAttachmentSubnetGroup">tgAttachmentSubnetGroup</a></code> | <code>raindancers-cdk.cloudNetwork.ISubnetGroup</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+
+---
+
+##### `routesToTransitGateway`<sup>Required</sup> <a name="routesToTransitGateway" id="raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.routesToTransitGateway"></a>
+
+```typescript
+public readonly routesToTransitGateway: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `transitGateway`<sup>Required</sup> <a name="transitGateway" id="raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.transitGateway"></a>
+
+```typescript
+public readonly transitGateway: ITransitGateway;
+```
+
+- *Type:* raindancers-cdk.transitGateway.ITransitGateway
+
+the TransitGateway to connect to.
+
+---
+
+##### `applianceMode`<sup>Optional</sup> <a name="applianceMode" id="raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.applianceMode"></a>
+
+```typescript
+public readonly applianceMode: ApplianceMode;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.ApplianceMode
+
+Will this be connected in appliance mode ( used if you have Network Firewalls ).
+
+---
+
+##### `attachmentSubnetGroup`<sup>Optional</sup> <a name="attachmentSubnetGroup" id="raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.attachmentSubnetGroup"></a>
+
+```typescript
+public readonly attachmentSubnetGroup: string;
+```
+
+- *Type:* string
+
+---
+
+##### `ipv6Support`<sup>Optional</sup> <a name="ipv6Support" id="raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.ipv6Support"></a>
+
+```typescript
+public readonly ipv6Support: IpV6Support;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.IpV6Support
+
+---
+
+##### `tgAttachmentSubnetGroup`<sup>Optional</sup> <a name="tgAttachmentSubnetGroup" id="raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.tgAttachmentSubnetGroup"></a>
+
+```typescript
+public readonly tgAttachmentSubnetGroup: ISubnetGroup;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.ISubnetGroup
+
+---
+
+##### `vpc`<sup>Optional</sup> <a name="vpc" id="raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
 
 ---
 
@@ -9570,6 +11887,159 @@ public readonly unknownStatusAction: RevokedAction;
 ```
 
 - *Type:* raindancers-cdk.nwFirewall.RevokedAction
+
+---
+
+### CloudNetworkProps <a name="CloudNetworkProps" id="raindancers-cdk.cloudNetwork.CloudNetworkProps"></a>
+
+Properties for creating a dual-stack VPC with IPAM-managed IP addressing.
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.CloudNetworkProps.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const cloudNetworkProps: cloudNetwork.CloudNetworkProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetworkProps.property.availabilityZones">availabilityZones</a></code> | <code>string[]</code> | List of availability zones where subnets will be created. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetworkProps.property.ipamConfig">ipamConfig</a></code> | <code>raindancers-cdk.cloudNetwork.IpamConfig</code> | IPAM configuration for IPv4 and IPv6 address allocation. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetworkProps.property.subnetConfiguration">subnetConfiguration</a></code> | <code>raindancers-cdk.cloudNetwork.ISubnetGroup[]</code> | Configuration for subnet groups to be created in the VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetworkProps.property.vpcName">vpcName</a></code> | <code>string</code> | The name of the VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetworkProps.property.createInternetGateway">createInternetGateway</a></code> | <code>boolean</code> | Whether to create an Internet Gateway for the VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetworkProps.property.createNatGateways">createNatGateways</a></code> | <code>boolean</code> | Whether to create NAT Gateways in public subnets. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetworkProps.property.enableDnsHostNames">enableDnsHostNames</a></code> | <code>boolean</code> | enable DnsHostNames. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetworkProps.property.enableDnsSupport">enableDnsSupport</a></code> | <code>boolean</code> | enable dnsSupport. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetworkProps.property.ipv4NetmaskLength">ipv4NetmaskLength</a></code> | <code>number</code> | IPv4 netmask length for the VPC CIDR block. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetworkProps.property.ipv6NetmaskLength">ipv6NetmaskLength</a></code> | <code>number</code> | IPv6 netmask length for the VPC CIDR block. |
+
+---
+
+##### `availabilityZones`<sup>Required</sup> <a name="availabilityZones" id="raindancers-cdk.cloudNetwork.CloudNetworkProps.property.availabilityZones"></a>
+
+```typescript
+public readonly availabilityZones: string[];
+```
+
+- *Type:* string[]
+
+List of availability zones where subnets will be created.
+
+---
+
+##### `ipamConfig`<sup>Required</sup> <a name="ipamConfig" id="raindancers-cdk.cloudNetwork.CloudNetworkProps.property.ipamConfig"></a>
+
+```typescript
+public readonly ipamConfig: IpamConfig;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.IpamConfig
+
+IPAM configuration for IPv4 and IPv6 address allocation.
+
+---
+
+##### `subnetConfiguration`<sup>Required</sup> <a name="subnetConfiguration" id="raindancers-cdk.cloudNetwork.CloudNetworkProps.property.subnetConfiguration"></a>
+
+```typescript
+public readonly subnetConfiguration: ISubnetGroup[];
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.ISubnetGroup[]
+
+Configuration for subnet groups to be created in the VPC.
+
+---
+
+##### `vpcName`<sup>Required</sup> <a name="vpcName" id="raindancers-cdk.cloudNetwork.CloudNetworkProps.property.vpcName"></a>
+
+```typescript
+public readonly vpcName: string;
+```
+
+- *Type:* string
+
+The name of the VPC.
+
+---
+
+##### `createInternetGateway`<sup>Optional</sup> <a name="createInternetGateway" id="raindancers-cdk.cloudNetwork.CloudNetworkProps.property.createInternetGateway"></a>
+
+```typescript
+public readonly createInternetGateway: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Whether to create an Internet Gateway for the VPC.
+
+---
+
+##### `createNatGateways`<sup>Optional</sup> <a name="createNatGateways" id="raindancers-cdk.cloudNetwork.CloudNetworkProps.property.createNatGateways"></a>
+
+```typescript
+public readonly createNatGateways: boolean;
+```
+
+- *Type:* boolean
+- *Default:* undefined
+
+Whether to create NAT Gateways in public subnets.
+
+---
+
+##### `enableDnsHostNames`<sup>Optional</sup> <a name="enableDnsHostNames" id="raindancers-cdk.cloudNetwork.CloudNetworkProps.property.enableDnsHostNames"></a>
+
+```typescript
+public readonly enableDnsHostNames: boolean;
+```
+
+- *Type:* boolean
+
+enable DnsHostNames.
+
+---
+
+##### `enableDnsSupport`<sup>Optional</sup> <a name="enableDnsSupport" id="raindancers-cdk.cloudNetwork.CloudNetworkProps.property.enableDnsSupport"></a>
+
+```typescript
+public readonly enableDnsSupport: boolean;
+```
+
+- *Type:* boolean
+
+enable dnsSupport.
+
+---
+
+##### `ipv4NetmaskLength`<sup>Optional</sup> <a name="ipv4NetmaskLength" id="raindancers-cdk.cloudNetwork.CloudNetworkProps.property.ipv4NetmaskLength"></a>
+
+```typescript
+public readonly ipv4NetmaskLength: number;
+```
+
+- *Type:* number
+- *Default:* 19
+
+IPv4 netmask length for the VPC CIDR block.
+
+---
+
+##### `ipv6NetmaskLength`<sup>Optional</sup> <a name="ipv6NetmaskLength" id="raindancers-cdk.cloudNetwork.CloudNetworkProps.property.ipv6NetmaskLength"></a>
+
+```typescript
+public readonly ipv6NetmaskLength: number;
+```
+
+- *Type:* number
+- *Default:* 56
+
+IPv6 netmask length for the VPC CIDR block.
 
 ---
 
@@ -11433,6 +13903,73 @@ public readonly statefulEngineOptions: StatefulEngineOptionsProperty;
 
 ---
 
+### FlowLogProps <a name="FlowLogProps" id="raindancers-cdk.cloudNetwork.FlowLogProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.FlowLogProps.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const flowLogProps: cloudNetwork.FlowLogProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.FlowLogProps.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | the central s3 location for enterprise flow logs. |
+| <code><a href="#raindancers-cdk.cloudNetwork.FlowLogProps.property.localAthenaQuerys">localAthenaQuerys</a></code> | <code>boolean</code> | create in Account Athena Querys for flow logs. |
+| <code><a href="#raindancers-cdk.cloudNetwork.FlowLogProps.property.oneMinuteFlowLogs">oneMinuteFlowLogs</a></code> | <code>boolean</code> | 1 minute resolution. |
+| <code><a href="#raindancers-cdk.cloudNetwork.FlowLogProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+
+---
+
+##### `bucket`<sup>Optional</sup> <a name="bucket" id="raindancers-cdk.cloudNetwork.FlowLogProps.property.bucket"></a>
+
+```typescript
+public readonly bucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+the central s3 location for enterprise flow logs.
+
+---
+
+##### `localAthenaQuerys`<sup>Optional</sup> <a name="localAthenaQuerys" id="raindancers-cdk.cloudNetwork.FlowLogProps.property.localAthenaQuerys"></a>
+
+```typescript
+public readonly localAthenaQuerys: boolean;
+```
+
+- *Type:* boolean
+
+create in Account Athena Querys for flow logs.
+
+---
+
+##### `oneMinuteFlowLogs`<sup>Optional</sup> <a name="oneMinuteFlowLogs" id="raindancers-cdk.cloudNetwork.FlowLogProps.property.oneMinuteFlowLogs"></a>
+
+```typescript
+public readonly oneMinuteFlowLogs: boolean;
+```
+
+- *Type:* boolean
+
+1 minute resolution.
+
+---
+
+##### `vpc`<sup>Optional</sup> <a name="vpc" id="raindancers-cdk.cloudNetwork.FlowLogProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
 ### FlowLogProps <a name="FlowLogProps" id="raindancers-cdk.enterprisevpc.FlowLogProps"></a>
 
 Properties for flow logs *.
@@ -12008,6 +14545,160 @@ Store vulnerability scans through AWS Inpsector in ECR using these image tags (i
 
 ---
 
+### IpamConfig <a name="IpamConfig" id="raindancers-cdk.cloudNetwork.IpamConfig"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.IpamConfig.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const ipamConfig: cloudNetwork.IpamConfig = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamConfig.property.eipPool">eipPool</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamConfig.property.ipv4IpamPoolId">ipv4IpamPoolId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamConfig.property.ipv4IpamScope">ipv4IpamScope</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamConfig.property.ipv6PoolId">ipv6PoolId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamConfig.property.ipv6ScopeId">ipv6ScopeId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `eipPool`<sup>Required</sup> <a name="eipPool" id="raindancers-cdk.cloudNetwork.IpamConfig.property.eipPool"></a>
+
+```typescript
+public readonly eipPool: string;
+```
+
+- *Type:* string
+
+---
+
+##### `ipv4IpamPoolId`<sup>Required</sup> <a name="ipv4IpamPoolId" id="raindancers-cdk.cloudNetwork.IpamConfig.property.ipv4IpamPoolId"></a>
+
+```typescript
+public readonly ipv4IpamPoolId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `ipv4IpamScope`<sup>Required</sup> <a name="ipv4IpamScope" id="raindancers-cdk.cloudNetwork.IpamConfig.property.ipv4IpamScope"></a>
+
+```typescript
+public readonly ipv4IpamScope: string;
+```
+
+- *Type:* string
+
+---
+
+##### `ipv6PoolId`<sup>Required</sup> <a name="ipv6PoolId" id="raindancers-cdk.cloudNetwork.IpamConfig.property.ipv6PoolId"></a>
+
+```typescript
+public readonly ipv6PoolId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `ipv6ScopeId`<sup>Required</sup> <a name="ipv6ScopeId" id="raindancers-cdk.cloudNetwork.IpamConfig.property.ipv6ScopeId"></a>
+
+```typescript
+public readonly ipv6ScopeId: string;
+```
+
+- *Type:* string
+
+---
+
+### IpamPlanningTools <a name="IpamPlanningTools" id="raindancers-cdk.cloudNetwork.IpamPlanningTools"></a>
+
+Properties for IPAM VPC planning tools.
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.IpamPlanningTools.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const ipamPlanningTools: cloudNetwork.IpamPlanningTools = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamPlanningTools.property.ipamConfig">ipamConfig</a></code> | <code>raindancers-cdk.cloudNetwork.IpamConfig</code> | IPAM configuration for the VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamPlanningTools.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.CfnVPC</code> | The VPC ID for which planning pools are created. |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamPlanningTools.property.vpcName">vpcName</a></code> | <code>string</code> | The name of the VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamPlanningTools.property.defaultipv4allocation">defaultipv4allocation</a></code> | <code>number</code> | Default IPv4 allocation netmask length. |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamPlanningTools.property.ipv6NetmaskLength">ipv6NetmaskLength</a></code> | <code>number</code> | *No description.* |
+
+---
+
+##### `ipamConfig`<sup>Required</sup> <a name="ipamConfig" id="raindancers-cdk.cloudNetwork.IpamPlanningTools.property.ipamConfig"></a>
+
+```typescript
+public readonly ipamConfig: IpamConfig;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.IpamConfig
+
+IPAM configuration for the VPC.
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.cloudNetwork.IpamPlanningTools.property.vpc"></a>
+
+```typescript
+public readonly vpc: CfnVPC;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.CfnVPC
+
+The VPC ID for which planning pools are created.
+
+---
+
+##### `vpcName`<sup>Required</sup> <a name="vpcName" id="raindancers-cdk.cloudNetwork.IpamPlanningTools.property.vpcName"></a>
+
+```typescript
+public readonly vpcName: string;
+```
+
+- *Type:* string
+
+The name of the VPC.
+
+---
+
+##### `defaultipv4allocation`<sup>Optional</sup> <a name="defaultipv4allocation" id="raindancers-cdk.cloudNetwork.IpamPlanningTools.property.defaultipv4allocation"></a>
+
+```typescript
+public readonly defaultipv4allocation: number;
+```
+
+- *Type:* number
+
+Default IPv4 allocation netmask length.
+
+---
+
+##### `ipv6NetmaskLength`<sup>Optional</sup> <a name="ipv6NetmaskLength" id="raindancers-cdk.cloudNetwork.IpamPlanningTools.property.ipv6NetmaskLength"></a>
+
+```typescript
+public readonly ipv6NetmaskLength: number;
+```
+
+- *Type:* number
+
+---
+
 ### JoinActiveDirectoryAutomationProps <a name="JoinActiveDirectoryAutomationProps" id="raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.ssm.automation.JoinActiveDirectoryAutomationProps.Initializer"></a>
@@ -12282,6 +14973,204 @@ public readonly zone: LocalZones;
 ```
 
 - *Type:* raindancers-cdk.localzone.LocalZones
+
+---
+
+### NestedRouteStackProps <a name="NestedRouteStackProps" id="raindancers-cdk.cloudNetwork.NestedRouteStackProps"></a>
+
+Properties for creating a nested stack containing routing configurations.
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.NestedRouteStackProps.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const nestedRouteStackProps: cloudNetwork.NestedRouteStackProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.description">description</a></code> | <code>string</code> | A description of the stack. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.notificationArns">notificationArns</a></code> | <code>string[]</code> | The Simple Notification Service (SNS) topics to publish stack related events. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.parameters">parameters</a></code> | <code>{[ key: string ]: string}</code> | The set value pairs that represent the parameters passed to CloudFormation when this nested stack is created. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | Policy to apply when the nested stack is removed. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.timeout">timeout</a></code> | <code>aws-cdk-lib.Duration</code> | The length of time that CloudFormation waits for the nested stack to reach the CREATE_COMPLETE state. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.subnetRoutes">subnetRoutes</a></code> | <code>raindancers-cdk.cloudNetwork.RouterGroup[]</code> | Subnet-specific routing configurations. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | The VPC to configure routing for. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.firewallEndpoints">firewallEndpoints</a></code> | <code>raindancers-cdk.cloudNetwork.IFirewallEndpoints[]</code> | Network Firewall endpoints for traffic inspection. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.internetGateway">internetGateway</a></code> | <code>aws-cdk-lib.aws_ec2.CfnInternetGateway</code> | Internet Gateway for public subnet routing. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.internetGatewayRoutes">internetGatewayRoutes</a></code> | <code>raindancers-cdk.cloudNetwork.ISubnetGroup[]</code> | Subnet groups that should route via Internet Gateway. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.transitGatewayAttachmentId">transitGatewayAttachmentId</a></code> | <code>string</code> | Transit Gateway attachment ID for this VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.transitGatewayId">transitGatewayId</a></code> | <code>string</code> | Transit Gateway ID for inter-VPC routing. |
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+- *Default:* No description.
+
+A description of the stack.
+
+---
+
+##### `notificationArns`<sup>Optional</sup> <a name="notificationArns" id="raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.notificationArns"></a>
+
+```typescript
+public readonly notificationArns: string[];
+```
+
+- *Type:* string[]
+- *Default:* notifications are not sent for this stack.
+
+The Simple Notification Service (SNS) topics to publish stack related events.
+
+---
+
+##### `parameters`<sup>Optional</sup> <a name="parameters" id="raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.parameters"></a>
+
+```typescript
+public readonly parameters: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+- *Default:* no user-defined parameters are passed to the nested stack
+
+The set value pairs that represent the parameters passed to CloudFormation when this nested stack is created.
+
+Each parameter has a name corresponding
+to a parameter defined in the embedded template and a value representing
+the value that you want to set for the parameter.
+
+The nested stack construct will automatically synthesize parameters in order
+to bind references from the parent stack(s) into the nested stack.
+
+---
+
+##### `removalPolicy`<sup>Optional</sup> <a name="removalPolicy" id="raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.removalPolicy"></a>
+
+```typescript
+public readonly removalPolicy: RemovalPolicy;
+```
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+- *Default:* RemovalPolicy.DESTROY
+
+Policy to apply when the nested stack is removed.
+
+The default is `Destroy`, because all Removal Policies of resources inside the
+Nested Stack should already have been set correctly. You normally should
+not need to set this value.
+
+---
+
+##### `timeout`<sup>Optional</sup> <a name="timeout" id="raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.timeout"></a>
+
+```typescript
+public readonly timeout: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+- *Default:* no timeout
+
+The length of time that CloudFormation waits for the nested stack to reach the CREATE_COMPLETE state.
+
+When CloudFormation detects that the nested stack has reached the
+CREATE_COMPLETE state, it marks the nested stack resource as
+CREATE_COMPLETE in the parent stack and resumes creating the parent stack.
+If the timeout period expires before the nested stack reaches
+CREATE_COMPLETE, CloudFormation marks the nested stack as failed and rolls
+back both the nested stack and parent stack.
+
+---
+
+##### `subnetRoutes`<sup>Required</sup> <a name="subnetRoutes" id="raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.subnetRoutes"></a>
+
+```typescript
+public readonly subnetRoutes: RouterGroup[];
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.RouterGroup[]
+
+Subnet-specific routing configurations.
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+The VPC to configure routing for.
+
+---
+
+##### `firewallEndpoints`<sup>Optional</sup> <a name="firewallEndpoints" id="raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.firewallEndpoints"></a>
+
+```typescript
+public readonly firewallEndpoints: IFirewallEndpoints[];
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.IFirewallEndpoints[]
+
+Network Firewall endpoints for traffic inspection.
+
+---
+
+##### `internetGateway`<sup>Optional</sup> <a name="internetGateway" id="raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.internetGateway"></a>
+
+```typescript
+public readonly internetGateway: CfnInternetGateway;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.CfnInternetGateway
+
+Internet Gateway for public subnet routing.
+
+---
+
+##### `internetGatewayRoutes`<sup>Optional</sup> <a name="internetGatewayRoutes" id="raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.internetGatewayRoutes"></a>
+
+```typescript
+public readonly internetGatewayRoutes: ISubnetGroup[];
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.ISubnetGroup[]
+
+Subnet groups that should route via Internet Gateway.
+
+---
+
+##### `transitGatewayAttachmentId`<sup>Optional</sup> <a name="transitGatewayAttachmentId" id="raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.transitGatewayAttachmentId"></a>
+
+```typescript
+public readonly transitGatewayAttachmentId: string;
+```
+
+- *Type:* string
+
+Transit Gateway attachment ID for this VPC.
+
+---
+
+##### `transitGatewayId`<sup>Optional</sup> <a name="transitGatewayId" id="raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.transitGatewayId"></a>
+
+```typescript
+public readonly transitGatewayId: string;
+```
+
+- *Type:* string
+
+Transit Gateway ID for inter-VPC routing.
 
 ---
 
@@ -13108,6 +15997,111 @@ public readonly vpc: IVpc | Vpc;
 
 ---
 
+### Route <a name="Route" id="raindancers-cdk.cloudNetwork.Route"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.Route.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const route: cloudNetwork.Route = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.Route.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.Route.property.nextHop">nextHop</a></code> | <code>raindancers-cdk.cloudNetwork.NextHop</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.Route.property.cloudwanName">cloudwanName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.Route.property.destCidr">destCidr</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.Route.property.destSubnetGroup">destSubnetGroup</a></code> | <code>raindancers-cdk.cloudNetwork.ISubnetGroup</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.Route.property.ec2Instance">ec2Instance</a></code> | <code>aws-cdk-lib.aws_ec2.IInstance</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.Route.property.endpointTag">endpointTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.Route.property.networkFirewallArn">networkFirewallArn</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `description`<sup>Required</sup> <a name="description" id="raindancers-cdk.cloudNetwork.Route.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `nextHop`<sup>Required</sup> <a name="nextHop" id="raindancers-cdk.cloudNetwork.Route.property.nextHop"></a>
+
+```typescript
+public readonly nextHop: NextHop;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.NextHop
+
+---
+
+##### `cloudwanName`<sup>Optional</sup> <a name="cloudwanName" id="raindancers-cdk.cloudNetwork.Route.property.cloudwanName"></a>
+
+```typescript
+public readonly cloudwanName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `destCidr`<sup>Optional</sup> <a name="destCidr" id="raindancers-cdk.cloudNetwork.Route.property.destCidr"></a>
+
+```typescript
+public readonly destCidr: string;
+```
+
+- *Type:* string
+
+---
+
+##### `destSubnetGroup`<sup>Optional</sup> <a name="destSubnetGroup" id="raindancers-cdk.cloudNetwork.Route.property.destSubnetGroup"></a>
+
+```typescript
+public readonly destSubnetGroup: ISubnetGroup;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.ISubnetGroup
+
+---
+
+##### `ec2Instance`<sup>Optional</sup> <a name="ec2Instance" id="raindancers-cdk.cloudNetwork.Route.property.ec2Instance"></a>
+
+```typescript
+public readonly ec2Instance: IInstance;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IInstance
+
+---
+
+##### `endpointTag`<sup>Optional</sup> <a name="endpointTag" id="raindancers-cdk.cloudNetwork.Route.property.endpointTag"></a>
+
+```typescript
+public readonly endpointTag: string;
+```
+
+- *Type:* string
+
+---
+
+##### `networkFirewallArn`<sup>Optional</sup> <a name="networkFirewallArn" id="raindancers-cdk.cloudNetwork.Route.property.networkFirewallArn"></a>
+
+```typescript
+public readonly networkFirewallArn: string;
+```
+
+- *Type:* string
+
+---
+
 ### Route <a name="Route" id="raindancers-cdk.enterprisevpc.Route"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.enterprisevpc.Route.Initializer"></a>
@@ -13169,6 +16163,45 @@ public readonly ec2Instance: IInstance;
 
 ---
 
+### RouterGroup <a name="RouterGroup" id="raindancers-cdk.cloudNetwork.RouterGroup"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.RouterGroup.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const routerGroup: cloudNetwork.RouterGroup = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouterGroup.property.routes">routes</a></code> | <code>raindancers-cdk.cloudNetwork.Route[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouterGroup.property.subnetGroup">subnetGroup</a></code> | <code>raindancers-cdk.cloudNetwork.ISubnetGroup</code> | *No description.* |
+
+---
+
+##### `routes`<sup>Required</sup> <a name="routes" id="raindancers-cdk.cloudNetwork.RouterGroup.property.routes"></a>
+
+```typescript
+public readonly routes: Route[];
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.Route[]
+
+---
+
+##### `subnetGroup`<sup>Required</sup> <a name="subnetGroup" id="raindancers-cdk.cloudNetwork.RouterGroup.property.subnetGroup"></a>
+
+```typescript
+public readonly subnetGroup: ISubnetGroup;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.ISubnetGroup
+
+---
+
 ### RouterGroup <a name="RouterGroup" id="raindancers-cdk.enterprisevpc.RouterGroup"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.enterprisevpc.RouterGroup.Initializer"></a>
@@ -13205,6 +16238,100 @@ public readonly subnetGroup: SubnetGroup;
 ```
 
 - *Type:* raindancers-cdk.enterprisevpc.SubnetGroup
+
+---
+
+### RouterProps <a name="RouterProps" id="raindancers-cdk.cloudNetwork.RouterProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.RouterProps.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const routerProps: cloudNetwork.RouterProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouterProps.property.subnetRoutes">subnetRoutes</a></code> | <code>raindancers-cdk.cloudNetwork.RouterGroup[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouterProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouterProps.property.firewallEndPoints">firewallEndPoints</a></code> | <code>raindancers-cdk.cloudNetwork.IFirewallEndpoints[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouterProps.property.internetGateway">internetGateway</a></code> | <code>aws-cdk-lib.aws_ec2.CfnInternetGateway</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouterProps.property.internetGatewayRoutes">internetGatewayRoutes</a></code> | <code>raindancers-cdk.cloudNetwork.ISubnetGroup[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouterProps.property.transitGatewayAttachmentId">transitGatewayAttachmentId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouterProps.property.transitGatewayId">transitGatewayId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `subnetRoutes`<sup>Required</sup> <a name="subnetRoutes" id="raindancers-cdk.cloudNetwork.RouterProps.property.subnetRoutes"></a>
+
+```typescript
+public readonly subnetRoutes: RouterGroup[];
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.RouterGroup[]
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.cloudNetwork.RouterProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+##### `firewallEndPoints`<sup>Optional</sup> <a name="firewallEndPoints" id="raindancers-cdk.cloudNetwork.RouterProps.property.firewallEndPoints"></a>
+
+```typescript
+public readonly firewallEndPoints: IFirewallEndpoints[];
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.IFirewallEndpoints[]
+
+---
+
+##### `internetGateway`<sup>Optional</sup> <a name="internetGateway" id="raindancers-cdk.cloudNetwork.RouterProps.property.internetGateway"></a>
+
+```typescript
+public readonly internetGateway: CfnInternetGateway;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.CfnInternetGateway
+
+---
+
+##### `internetGatewayRoutes`<sup>Optional</sup> <a name="internetGatewayRoutes" id="raindancers-cdk.cloudNetwork.RouterProps.property.internetGatewayRoutes"></a>
+
+```typescript
+public readonly internetGatewayRoutes: ISubnetGroup[];
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.ISubnetGroup[]
+
+---
+
+##### `transitGatewayAttachmentId`<sup>Optional</sup> <a name="transitGatewayAttachmentId" id="raindancers-cdk.cloudNetwork.RouterProps.property.transitGatewayAttachmentId"></a>
+
+```typescript
+public readonly transitGatewayAttachmentId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `transitGatewayId`<sup>Optional</sup> <a name="transitGatewayId" id="raindancers-cdk.cloudNetwork.RouterProps.property.transitGatewayId"></a>
+
+```typescript
+public readonly transitGatewayId: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -13379,6 +16506,67 @@ public readonly groupName: string;
 
 ```typescript
 public readonly routeTableId: string;
+```
+
+- *Type:* string
+
+---
+
+### RouteTableMetaV2 <a name="RouteTableMetaV2" id="raindancers-cdk.cloudNetwork.RouteTableMetaV2"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.RouteTableMetaV2.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const routeTableMetaV2: cloudNetwork.RouteTableMetaV2 = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouteTableMetaV2.property.az">az</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouteTableMetaV2.property.groupName">groupName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouteTableMetaV2.property.routeTableId">routeTableId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouteTableMetaV2.property.subnetId">subnetId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `az`<sup>Required</sup> <a name="az" id="raindancers-cdk.cloudNetwork.RouteTableMetaV2.property.az"></a>
+
+```typescript
+public readonly az: string;
+```
+
+- *Type:* string
+
+---
+
+##### `groupName`<sup>Required</sup> <a name="groupName" id="raindancers-cdk.cloudNetwork.RouteTableMetaV2.property.groupName"></a>
+
+```typescript
+public readonly groupName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `routeTableId`<sup>Required</sup> <a name="routeTableId" id="raindancers-cdk.cloudNetwork.RouteTableMetaV2.property.routeTableId"></a>
+
+```typescript
+public readonly routeTableId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `subnetId`<sup>Required</sup> <a name="subnetId" id="raindancers-cdk.cloudNetwork.RouteTableMetaV2.property.subnetId"></a>
+
+```typescript
+public readonly subnetId: string;
 ```
 
 - *Type:* string
@@ -14083,6 +17271,91 @@ Note that low memory allocations may cause errors. (Default: 10240).
 
 ---
 
+### ShareSubnetGroupProps <a name="ShareSubnetGroupProps" id="raindancers-cdk.cloudNetwork.ShareSubnetGroupProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.ShareSubnetGroupProps.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const shareSubnetGroupProps: cloudNetwork.ShareSubnetGroupProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.ShareSubnetGroupProps.property.accounts">accounts</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.ShareSubnetGroupProps.property.cdkTagResourcesInSharedToAccountRoleName">cdkTagResourcesInSharedToAccountRoleName</a></code> | <code>string</code> | If Defined the method will attempt to use this role to Tag the shared resource in the remote account with cdkTags, so the normal ec2.Vpc methods can be used, such as subnetSelection. |
+| <code><a href="#raindancers-cdk.cloudNetwork.ShareSubnetGroupProps.property.shareName">shareName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.ShareSubnetGroupProps.property.subnetGroup">subnetGroup</a></code> | <code>raindancers-cdk.cloudNetwork.ISubnetGroup</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.ShareSubnetGroupProps.property.subnetGroups">subnetGroups</a></code> | <code>raindancers-cdk.cloudNetwork.ISubnetGroup[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.ShareSubnetGroupProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+
+---
+
+##### `accounts`<sup>Required</sup> <a name="accounts" id="raindancers-cdk.cloudNetwork.ShareSubnetGroupProps.property.accounts"></a>
+
+```typescript
+public readonly accounts: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `cdkTagResourcesInSharedToAccountRoleName`<sup>Optional</sup> <a name="cdkTagResourcesInSharedToAccountRoleName" id="raindancers-cdk.cloudNetwork.ShareSubnetGroupProps.property.cdkTagResourcesInSharedToAccountRoleName"></a>
+
+```typescript
+public readonly cdkTagResourcesInSharedToAccountRoleName: string;
+```
+
+- *Type:* string
+
+If Defined the method will attempt to use this role to Tag the shared resource in the remote account with cdkTags, so the normal ec2.Vpc methods can be used, such as subnetSelection.
+
+---
+
+##### `shareName`<sup>Optional</sup> <a name="shareName" id="raindancers-cdk.cloudNetwork.ShareSubnetGroupProps.property.shareName"></a>
+
+```typescript
+public readonly shareName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `subnetGroup`<sup>Optional</sup> <a name="subnetGroup" id="raindancers-cdk.cloudNetwork.ShareSubnetGroupProps.property.subnetGroup"></a>
+
+```typescript
+public readonly subnetGroup: ISubnetGroup;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.ISubnetGroup
+
+---
+
+##### `subnetGroups`<sup>Optional</sup> <a name="subnetGroups" id="raindancers-cdk.cloudNetwork.ShareSubnetGroupProps.property.subnetGroups"></a>
+
+```typescript
+public readonly subnetGroups: ISubnetGroup[];
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.ISubnetGroup[]
+
+---
+
+##### `vpc`<sup>Optional</sup> <a name="vpc" id="raindancers-cdk.cloudNetwork.ShareSubnetGroupProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
 ### ShareSubnetGroupProps <a name="ShareSubnetGroupProps" id="raindancers-cdk.enterprisevpc.ShareSubnetGroupProps"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.enterprisevpc.ShareSubnetGroupProps.Initializer"></a>
@@ -14425,6 +17698,67 @@ public readonly sitePath: string;
 ```
 
 - *Type:* string
+
+---
+
+### SubnetAndRoutingTable <a name="SubnetAndRoutingTable" id="raindancers-cdk.cloudNetwork.SubnetAndRoutingTable"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.SubnetAndRoutingTable.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const subnetAndRoutingTable: cloudNetwork.SubnetAndRoutingTable = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.SubnetAndRoutingTable.property.cfnSubnet">cfnSubnet</a></code> | <code>aws-cdk-lib.aws_ec2.CfnSubnet</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.SubnetAndRoutingTable.property.routeTable">routeTable</a></code> | <code>aws-cdk-lib.aws_ec2.CfnRouteTable</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.SubnetAndRoutingTable.property.subnet">subnet</a></code> | <code>aws-cdk-lib.aws_ec2.ISubnet</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.SubnetAndRoutingTable.property.subnetType">subnetType</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetType</code> | *No description.* |
+
+---
+
+##### `cfnSubnet`<sup>Required</sup> <a name="cfnSubnet" id="raindancers-cdk.cloudNetwork.SubnetAndRoutingTable.property.cfnSubnet"></a>
+
+```typescript
+public readonly cfnSubnet: CfnSubnet;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.CfnSubnet
+
+---
+
+##### `routeTable`<sup>Required</sup> <a name="routeTable" id="raindancers-cdk.cloudNetwork.SubnetAndRoutingTable.property.routeTable"></a>
+
+```typescript
+public readonly routeTable: CfnRouteTable;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.CfnRouteTable
+
+---
+
+##### `subnet`<sup>Required</sup> <a name="subnet" id="raindancers-cdk.cloudNetwork.SubnetAndRoutingTable.property.subnet"></a>
+
+```typescript
+public readonly subnet: ISubnet;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISubnet
+
+---
+
+##### `subnetType`<sup>Required</sup> <a name="subnetType" id="raindancers-cdk.cloudNetwork.SubnetAndRoutingTable.property.subnetType"></a>
+
+```typescript
+public readonly subnetType: SubnetType;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.SubnetType
 
 ---
 
@@ -15208,6 +18542,404 @@ If the Secret Is being called cross account, then you must also, provide the Kms
 ---
 
 ## Classes <a name="Classes" id="Classes"></a>
+
+### DualStackVpcMethods <a name="DualStackVpcMethods" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods"></a>
+
+In programming, a mixin is a class or module that provides a set of methods that can be included in other classes to add functionality without using inheritance.
+
+Mixins are a way to reuse code and share behavior between classes that may not have a direct hierarchical relationship.
+They are particularly useful when multiple classes need to share the same functionality but don't share a common parent class
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+new cloudNetwork.DualStackVpcMethods()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.DualStackVpcMethods.addNetworkFirewallEndpoint">addNetworkFirewallEndpoint</a></code> | Adds AWS Network Firewall endpoints to the VPC for traffic inspection. |
+| <code><a href="#raindancers-cdk.cloudNetwork.DualStackVpcMethods.addR53Resolvers">addR53Resolvers</a></code> | Creates Route 53 resolver endpoints for DNS resolution in the specified VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.DualStackVpcMethods.addServiceEndpoints">addServiceEndpoints</a></code> | Creates AWS service endpoints for the specified VPC and subnet group. |
+| <code><a href="#raindancers-cdk.cloudNetwork.DualStackVpcMethods.associateSharedResolverRules">associateSharedResolverRules</a></code> | Associates shared Route 53 resolver rules with the VPC for DNS resolution. |
+| <code><a href="#raindancers-cdk.cloudNetwork.DualStackVpcMethods.attachToTransitGateway">attachToTransitGateway</a></code> | Attaches a VPC to an AWS Transit Gateway for inter-VPC connectivity. |
+| <code><a href="#raindancers-cdk.cloudNetwork.DualStackVpcMethods.createFlowLogwithAnalysis">createFlowLogwithAnalysis</a></code> | Creates VPC Flow Logs with optional Athena analysis capabilities. |
+| <code><a href="#raindancers-cdk.cloudNetwork.DualStackVpcMethods.shareSubnetGroup">shareSubnetGroup</a></code> | Shares subnet groups with other AWS accounts using AWS Resource Access Manager (RAM). |
+
+---
+
+##### `addNetworkFirewallEndpoint` <a name="addNetworkFirewallEndpoint" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.addNetworkFirewallEndpoint"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+cloudNetwork.DualStackVpcMethods.addNetworkFirewallEndpoint(scope: Construct, id: string, props: AddNetworkFirewallEndpointProps)
+```
+
+Adds AWS Network Firewall endpoints to the VPC for traffic inspection.
+
+This static method creates Network Firewall VPC endpoint associations to enable
+traffic inspection and filtering. The firewall endpoints are deployed across
+multiple availability zones using subnets from the specified subnet group.
+
+*Example*
+
+```typescript
+const endpoints = DualStackVpcMethods.addNetworkFirewallEndpoint(this, 'FirewallEndpoints', {
+  vpc: myVpc,
+  firewallArn: 'arn:aws:network-firewall:region:account:firewall/my-firewall',
+  subnetGroup: firewallSubnetGroup
+});
+
+// Use endpoint IDs for route table configuration
+endpoints.forEach(endpoint => {
+  console.log(`Endpoint ${endpoint.endpointId} in AZ ${endpoint.az}`);
+});@remarks[object Object]
+```
+
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.addNetworkFirewallEndpoint.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The construct scope where the firewall endpoints will be created.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.addNetworkFirewallEndpoint.parameter.id"></a>
+
+- *Type:* string
+
+Unique identifier for the firewall endpoint associations.
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.addNetworkFirewallEndpoint.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.AddNetworkFirewallEndpointProps
+
+Configuration properties for the firewall endpoints.
+
+---
+
+##### `addR53Resolvers` <a name="addR53Resolvers" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.addR53Resolvers"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+cloudNetwork.DualStackVpcMethods.addR53Resolvers(scope: Construct, id: string, subnet: ISubnetGroup, vpc: IVpc)
+```
+
+Creates Route 53 resolver endpoints for DNS resolution in the specified VPC.
+
+This static method provides a convenient way to add Route 53 resolver endpoints
+to enable DNS resolution between on-premises networks and AWS VPC. The resolver
+endpoints are deployed in the specified subnet group to handle DNS queries.
+
+*Example*
+
+```typescript
+const resolvers = DualStackVpcMethods.addR53Resolvers(
+  this,
+  'DnsResolvers',
+  privateSubnetGroup,
+  myVpc
+);@remarks[object Object]
+```
+
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.addR53Resolvers.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The construct scope where the resolver endpoints will be created.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.addR53Resolvers.parameter.id"></a>
+
+- *Type:* string
+
+Unique identifier for the resolver endpoints construct.
+
+---
+
+###### `subnet`<sup>Required</sup> <a name="subnet" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.addR53Resolvers.parameter.subnet"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.ISubnetGroup
+
+Subnet group configuration where resolver endpoints will be deployed.
+
+---
+
+###### `vpc`<sup>Required</sup> <a name="vpc" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.addR53Resolvers.parameter.vpc"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+The VPC where resolver endpoints will be created.
+
+---
+
+##### `addServiceEndpoints` <a name="addServiceEndpoints" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.addServiceEndpoints"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+cloudNetwork.DualStackVpcMethods.addServiceEndpoints(scope: Construct, id: string, props: AddAwsServiceEndPointsProps)
+```
+
+Creates AWS service endpoints for the specified VPC and subnet group.
+
+This static method provides a convenient way to add multiple AWS service endpoints
+(both interface and gateway endpoints) to a VPC in a single operation. It validates
+the required VPC parameter and delegates to the AwsServiceEndPoints construct.
+
+*Example*
+
+```typescript
+const endpoints = DualStackVpcMethods.addServiceEndpoints(this, 'ServiceEndpoints', {
+  vpc: myVpc,
+  services: [AwsService.S3, AwsService.EC2],
+  subnetGroup: privateSubnetGroup,
+  s3GatewayInterface: true
+});
+```
+
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.addServiceEndpoints.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The construct scope where the endpoints will be created.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.addServiceEndpoints.parameter.id"></a>
+
+- *Type:* string
+
+Unique identifier for the endpoint construct.
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.addServiceEndpoints.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps
+
+Configuration properties for the service endpoints.
+
+---
+
+##### `associateSharedResolverRules` <a name="associateSharedResolverRules" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.associateSharedResolverRules"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+cloudNetwork.DualStackVpcMethods.associateSharedResolverRules(scope: Construct, id: string, props: AssociateSharedResolverRulesProps)
+```
+
+Associates shared Route 53 resolver rules with the VPC for DNS resolution.
+
+This static method creates associations between the VPC and shared Route 53 resolver
+rules for specified domain names. This enables the VPC to resolve DNS queries for
+domains that have been configured with shared resolver rules from other accounts.
+
+*Example*
+
+```typescript
+DualStackVpcMethods.associateSharedResolverRules(this, 'ResolverRules', {
+  vpc: myVpc,
+  domainNames: ['example.com', 'internal.corp']
+});@remarks[object Object]
+```
+
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.associateSharedResolverRules.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The construct scope where the resolver rule associations will be created.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.associateSharedResolverRules.parameter.id"></a>
+
+- *Type:* string
+
+Unique identifier for the resolver rule associations.
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.associateSharedResolverRules.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.AssociateSharedResolverRulesProps
+
+Configuration properties for associating resolver rules.
+
+---
+
+##### `attachToTransitGateway` <a name="attachToTransitGateway" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.attachToTransitGateway"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+cloudNetwork.DualStackVpcMethods.attachToTransitGateway(scope: Construct, id: string, props: AttachToTransitGatewayProps)
+```
+
+Attaches a VPC to an AWS Transit Gateway for inter-VPC connectivity.
+
+This static method creates a Transit Gateway VPC attachment to enable routing
+between the specified VPC and other resources connected to the Transit Gateway.
+The attachment is created using subnets from the specified subnet group.
+
+*Example*
+
+```typescript
+const attachmentId = DualStackVpcMethods.attachToTransitGateway(this, 'TgAttachment', {
+  vpc: myVpc,
+  transitGateway: transitGw,
+  attachmentSubnetGroup: 'private',
+  applianceMode: 'enable'
+});@remarks[object Object]
+```
+
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.attachToTransitGateway.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The construct scope where the attachment will be created.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.attachToTransitGateway.parameter.id"></a>
+
+- *Type:* string
+
+Unique identifier for the attachment construct.
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.attachToTransitGateway.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps
+
+Configuration properties for the Transit Gateway attachment.
+
+---
+
+##### `createFlowLogwithAnalysis` <a name="createFlowLogwithAnalysis" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.createFlowLogwithAnalysis"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+cloudNetwork.DualStackVpcMethods.createFlowLogwithAnalysis(scope: Construct, id: string, props: FlowLogProps)
+```
+
+Creates VPC Flow Logs with optional Athena analysis capabilities.
+
+This static method sets up comprehensive VPC Flow Log monitoring by creating flow logs
+stored in S3 with Parquet format for efficient querying. Optionally configures Athena
+integration for advanced log analysis and querying capabilities.
+
+*Example*
+
+```typescript
+DualStackVpcMethods.createFlowLogwithAnalysis(this, 'VpcFlowLogs', {
+  vpc: myVpc,
+  oneMinuteFlowLogs: true,
+  localAthenaQuerys: true,
+  bucket: existingLogBucket
+});@remarks[object Object]
+```
+
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.createFlowLogwithAnalysis.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The construct scope where the flow log resources will be created.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.createFlowLogwithAnalysis.parameter.id"></a>
+
+- *Type:* string
+
+Unique identifier used as prefix for all created resources.
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.createFlowLogwithAnalysis.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.FlowLogProps
+
+Configuration properties for the flow log setup.
+
+---
+
+##### `shareSubnetGroup` <a name="shareSubnetGroup" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.shareSubnetGroup"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+cloudNetwork.DualStackVpcMethods.shareSubnetGroup(scope: Construct, id: string, props: ShareSubnetGroupProps)
+```
+
+Shares subnet groups with other AWS accounts using AWS Resource Access Manager (RAM).
+
+This static method creates a RAM resource share to allow other AWS accounts to use
+subnets from the specified subnet groups. Optionally configures cross-account tagging
+of shared resources using a custom Lambda function.
+
+*Example*
+
+```typescript
+DualStackVpcMethods.shareSubnetGroup(this, 'SharePrivateSubnets', {
+  vpc: myVpc,
+  subnetGroup: privateSubnetGroup,
+  accounts: ['123456789012', '987654321098'],
+  shareName: 'PrivateSubnetShare',
+  cdkTagResourcesInSharedToAccountRoleName: 'CrossAccountTaggingRole'
+});@remarks[object Object]
+```
+
+
+###### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.shareSubnetGroup.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The construct scope where the resource share will be created.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.shareSubnetGroup.parameter.id"></a>
+
+- *Type:* string
+
+Unique identifier for the resource share.
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudNetwork.DualStackVpcMethods.shareSubnetGroup.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.ShareSubnetGroupProps
+
+Configuration properties for sharing subnet groups.
+
+---
+
+
 
 ### MonitoringRule <a name="MonitoringRule" id="raindancers-cdk.eventalerts.MonitoringRule"></a>
 
@@ -16094,6 +19826,40 @@ public readonly flowlogs: LogGroup;
 
 ---
 
+### IFirewallEndpoints <a name="IFirewallEndpoints" id="raindancers-cdk.cloudNetwork.IFirewallEndpoints"></a>
+
+- *Implemented By:* raindancers-cdk.cloudNetwork.IFirewallEndpoints
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.IFirewallEndpoints.property.az">az</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.IFirewallEndpoints.property.endpointId">endpointId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `az`<sup>Required</sup> <a name="az" id="raindancers-cdk.cloudNetwork.IFirewallEndpoints.property.az"></a>
+
+```typescript
+public readonly az: string;
+```
+
+- *Type:* string
+
+---
+
+##### `endpointId`<sup>Required</sup> <a name="endpointId" id="raindancers-cdk.cloudNetwork.IFirewallEndpoints.property.endpointId"></a>
+
+```typescript
+public readonly endpointId: string;
+```
+
+- *Type:* string
+
+---
+
 ### IFirewallEndpoints <a name="IFirewallEndpoints" id="raindancers-cdk.enterprisevpc.IFirewallEndpoints"></a>
 
 - *Implemented By:* raindancers-cdk.enterprisevpc.IFirewallEndpoints
@@ -16259,6 +20025,53 @@ public readonly tlsInspectionConfigurationArn: string;
 ```
 
 - *Type:* string
+
+---
+
+### IIpamPlanningTool <a name="IIpamPlanningTool" id="raindancers-cdk.cloudNetwork.IIpamPlanningTool"></a>
+
+- *Implemented By:* raindancers-cdk.cloudNetwork.IpamVPCPlanningTools, raindancers-cdk.cloudNetwork.IIpamPlanningTool
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.IIpamPlanningTool.property.ipv4PlanningPool">ipv4PlanningPool</a></code> | <code>aws-cdk-lib.aws_ec2.CfnIPAMPool</code> | IPv4 IPAM pool for subnet allocation. |
+| <code><a href="#raindancers-cdk.cloudNetwork.IIpamPlanningTool.property.ipv6PlanningPool">ipv6PlanningPool</a></code> | <code>aws-cdk-lib.aws_ec2.CfnIPAMPool</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.IIpamPlanningTool.property.waiter">waiter</a></code> | <code>aws-cdk-lib.CustomResource</code> | *No description.* |
+
+---
+
+##### `ipv4PlanningPool`<sup>Required</sup> <a name="ipv4PlanningPool" id="raindancers-cdk.cloudNetwork.IIpamPlanningTool.property.ipv4PlanningPool"></a>
+
+```typescript
+public readonly ipv4PlanningPool: CfnIPAMPool;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.CfnIPAMPool
+
+IPv4 IPAM pool for subnet allocation.
+
+---
+
+##### `ipv6PlanningPool`<sup>Required</sup> <a name="ipv6PlanningPool" id="raindancers-cdk.cloudNetwork.IIpamPlanningTool.property.ipv6PlanningPool"></a>
+
+```typescript
+public readonly ipv6PlanningPool: CfnIPAMPool;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.CfnIPAMPool
+
+---
+
+##### `waiter`<sup>Required</sup> <a name="waiter" id="raindancers-cdk.cloudNetwork.IIpamPlanningTool.property.waiter"></a>
+
+```typescript
+public readonly waiter: CustomResource;
+```
+
+- *Type:* aws-cdk-lib.CustomResource
 
 ---
 
@@ -16677,6 +20490,129 @@ The type of the principal.
 
 ---
 
+### ISubNetCidrLookup <a name="ISubNetCidrLookup" id="raindancers-cdk.cloudNetwork.ISubNetCidrLookup"></a>
+
+- *Implemented By:* raindancers-cdk.cloudNetwork.ISubNetCidrLookup
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.ISubNetCidrLookup.property.ipv4cidr">ipv4cidr</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.ISubNetCidrLookup.property.ipv6cidr">ipv6cidr</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.ISubNetCidrLookup.property.subnetId">subnetId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `ipv4cidr`<sup>Required</sup> <a name="ipv4cidr" id="raindancers-cdk.cloudNetwork.ISubNetCidrLookup.property.ipv4cidr"></a>
+
+```typescript
+public readonly ipv4cidr: string;
+```
+
+- *Type:* string
+
+---
+
+##### `ipv6cidr`<sup>Required</sup> <a name="ipv6cidr" id="raindancers-cdk.cloudNetwork.ISubNetCidrLookup.property.ipv6cidr"></a>
+
+```typescript
+public readonly ipv6cidr: string;
+```
+
+- *Type:* string
+
+---
+
+##### `subnetId`<sup>Required</sup> <a name="subnetId" id="raindancers-cdk.cloudNetwork.ISubNetCidrLookup.property.subnetId"></a>
+
+```typescript
+public readonly subnetId: string;
+```
+
+- *Type:* string
+
+---
+
+### ISubnetGroup <a name="ISubnetGroup" id="raindancers-cdk.cloudNetwork.ISubnetGroup"></a>
+
+- *Implemented By:* raindancers-cdk.cloudNetwork.ISubnetGroup
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.ISubnetGroup.property.ipv4mask">ipv4mask</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.ISubnetGroup.property.stack">stack</a></code> | <code>raindancers-cdk.cloudNetwork.StackType</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.ISubnetGroup.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.ISubnetGroup.property.personality">personality</a></code> | <code>raindancers-cdk.cloudNetwork.SubnetPersonality</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.ISubnetGroup.property.services">services</a></code> | <code>raindancers-cdk.cloudNetwork.Services[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.ISubnetGroup.property.subnetType">subnetType</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetType</code> | *No description.* |
+
+---
+
+##### `ipv4mask`<sup>Required</sup> <a name="ipv4mask" id="raindancers-cdk.cloudNetwork.ISubnetGroup.property.ipv4mask"></a>
+
+```typescript
+public readonly ipv4mask: number;
+```
+
+- *Type:* number
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="raindancers-cdk.cloudNetwork.ISubnetGroup.property.stack"></a>
+
+```typescript
+public readonly stack: StackType;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.StackType
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="raindancers-cdk.cloudNetwork.ISubnetGroup.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `personality`<sup>Optional</sup> <a name="personality" id="raindancers-cdk.cloudNetwork.ISubnetGroup.property.personality"></a>
+
+```typescript
+public readonly personality: SubnetPersonality;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.SubnetPersonality
+
+---
+
+##### `services`<sup>Optional</sup> <a name="services" id="raindancers-cdk.cloudNetwork.ISubnetGroup.property.services"></a>
+
+```typescript
+public readonly services: Services[];
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.Services[]
+
+---
+
+##### `subnetType`<sup>Optional</sup> <a name="subnetType" id="raindancers-cdk.cloudNetwork.ISubnetGroup.property.subnetType"></a>
+
+```typescript
+public readonly subnetType: SubnetType;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.SubnetType
+
+---
+
 ### ITLSInspectionConfiguration <a name="ITLSInspectionConfiguration" id="raindancers-cdk.nwFirewall.ITLSInspectionConfiguration"></a>
 
 - *Implemented By:* raindancers-cdk.nwFirewall.TLSInspectionConfiguration, raindancers-cdk.nwFirewall.ITLSInspectionConfiguration
@@ -16765,6 +20701,23 @@ The ID of the transit gateway.
 ---
 
 ## Enums <a name="Enums" id="Enums"></a>
+
+### ApplianceMode <a name="ApplianceMode" id="raindancers-cdk.cloudNetwork.ApplianceMode"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.ApplianceMode.ENABLED">ENABLED</a></code> | enable Connecting VPC to TransitGateway in Appliance Mode. |
+
+---
+
+##### `ENABLED` <a name="ENABLED" id="raindancers-cdk.cloudNetwork.ApplianceMode.ENABLED"></a>
+
+enable Connecting VPC to TransitGateway in Appliance Mode.
+
+---
+
 
 ### ApplianceMode <a name="ApplianceMode" id="raindancers-cdk.enterprisevpc.ApplianceMode"></a>
 
@@ -17121,6 +21074,33 @@ route to the transitGateway that the vpc is attached to.
 ---
 
 
+### FirewallSubnetMappingIPAddressType <a name="FirewallSubnetMappingIPAddressType" id="raindancers-cdk.cloudNetwork.FirewallSubnetMappingIPAddressType"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.FirewallSubnetMappingIPAddressType.DUALSTACK">DUALSTACK</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.FirewallSubnetMappingIPAddressType.IPV4">IPV4</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.FirewallSubnetMappingIPAddressType.IPV6">IPV6</a></code> | *No description.* |
+
+---
+
+##### `DUALSTACK` <a name="DUALSTACK" id="raindancers-cdk.cloudNetwork.FirewallSubnetMappingIPAddressType.DUALSTACK"></a>
+
+---
+
+
+##### `IPV4` <a name="IPV4" id="raindancers-cdk.cloudNetwork.FirewallSubnetMappingIPAddressType.IPV4"></a>
+
+---
+
+
+##### `IPV6` <a name="IPV6" id="raindancers-cdk.cloudNetwork.FirewallSubnetMappingIPAddressType.IPV6"></a>
+
+---
+
+
 ### FirewallSubnetMappingIPAddressType <a name="FirewallSubnetMappingIPAddressType" id="raindancers-cdk.nwFirewall.FirewallSubnetMappingIPAddressType"></a>
 
 #### Members <a name="Members" id="Members"></a>
@@ -17186,6 +21166,21 @@ route to the transitGateway that the vpc is attached to.
 
 
 ##### `DISABLE` <a name="DISABLE" id="raindancers-cdk.transitGateway.Ipv6Support.DISABLE"></a>
+
+---
+
+
+### IpV6Support <a name="IpV6Support" id="raindancers-cdk.cloudNetwork.IpV6Support"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpV6Support.ENABLED">ENABLED</a></code> | *No description.* |
+
+---
+
+##### `ENABLED` <a name="ENABLED" id="raindancers-cdk.cloudNetwork.IpV6Support.ENABLED"></a>
 
 ---
 
@@ -17366,6 +21361,75 @@ route to the transitGateway that the vpc is attached to.
 
 
 ##### `ENABLE` <a name="ENABLE" id="raindancers-cdk.transitGateway.MulticastSupport.ENABLE"></a>
+
+---
+
+
+### NextHop <a name="NextHop" id="raindancers-cdk.cloudNetwork.NextHop"></a>
+
+The Destinations for Adding Routes.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.NextHop.CLOUDWAN">CLOUDWAN</a></code> | route to the cloudwan that the vpc is alttached to. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NextHop.TRANSITGATEWAY">TRANSITGATEWAY</a></code> | route to the transitGateway that the vpc is attached to. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NextHop.NWFIREWALL">NWFIREWALL</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.NextHop.EC2_INSTANCE">EC2_INSTANCE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.NextHop.INTERNET_GATEWAY">INTERNET_GATEWAY</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.NextHop.IPV6_EGREGSS_ONLY">IPV6_EGREGSS_ONLY</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.NextHop.GLWB_ENDPOINT">GLWB_ENDPOINT</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.NextHop.FIREWALL_ENDPOINT">FIREWALL_ENDPOINT</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.NextHop.BLACKHOLE">BLACKHOLE</a></code> | *No description.* |
+
+---
+
+##### `CLOUDWAN` <a name="CLOUDWAN" id="raindancers-cdk.cloudNetwork.NextHop.CLOUDWAN"></a>
+
+route to the cloudwan that the vpc is alttached to.
+
+---
+
+
+##### `TRANSITGATEWAY` <a name="TRANSITGATEWAY" id="raindancers-cdk.cloudNetwork.NextHop.TRANSITGATEWAY"></a>
+
+route to the transitGateway that the vpc is attached to.
+
+---
+
+
+##### `NWFIREWALL` <a name="NWFIREWALL" id="raindancers-cdk.cloudNetwork.NextHop.NWFIREWALL"></a>
+
+---
+
+
+##### `EC2_INSTANCE` <a name="EC2_INSTANCE" id="raindancers-cdk.cloudNetwork.NextHop.EC2_INSTANCE"></a>
+
+---
+
+
+##### `INTERNET_GATEWAY` <a name="INTERNET_GATEWAY" id="raindancers-cdk.cloudNetwork.NextHop.INTERNET_GATEWAY"></a>
+
+---
+
+
+##### `IPV6_EGREGSS_ONLY` <a name="IPV6_EGREGSS_ONLY" id="raindancers-cdk.cloudNetwork.NextHop.IPV6_EGREGSS_ONLY"></a>
+
+---
+
+
+##### `GLWB_ENDPOINT` <a name="GLWB_ENDPOINT" id="raindancers-cdk.cloudNetwork.NextHop.GLWB_ENDPOINT"></a>
+
+---
+
+
+##### `FIREWALL_ENDPOINT` <a name="FIREWALL_ENDPOINT" id="raindancers-cdk.cloudNetwork.NextHop.FIREWALL_ENDPOINT"></a>
+
+---
+
+
+##### `BLACKHOLE` <a name="BLACKHOLE" id="raindancers-cdk.cloudNetwork.NextHop.BLACKHOLE"></a>
 
 ---
 
@@ -17625,6 +21689,33 @@ Resolver is outbound.
 ---
 
 
+### RouterFunctions <a name="RouterFunctions" id="raindancers-cdk.cloudNetwork.RouterFunctions"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouterFunctions.TGWAITER">TGWAITER</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouterFunctions.NWFIREWALL">NWFIREWALL</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouterFunctions.CIDR_LOOKUP">CIDR_LOOKUP</a></code> | *No description.* |
+
+---
+
+##### `TGWAITER` <a name="TGWAITER" id="raindancers-cdk.cloudNetwork.RouterFunctions.TGWAITER"></a>
+
+---
+
+
+##### `NWFIREWALL` <a name="NWFIREWALL" id="raindancers-cdk.cloudNetwork.RouterFunctions.NWFIREWALL"></a>
+
+---
+
+
+##### `CIDR_LOOKUP` <a name="CIDR_LOOKUP" id="raindancers-cdk.cloudNetwork.RouterFunctions.CIDR_LOOKUP"></a>
+
+---
+
+
 ### RuleGroupType <a name="RuleGroupType" id="raindancers-cdk.nwFirewall.RuleGroupType"></a>
 
 #### Members <a name="Members" id="Members"></a>
@@ -17718,6 +21809,27 @@ Resolver is outbound.
 ---
 
 
+### Services <a name="Services" id="raindancers-cdk.cloudNetwork.Services"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.Services.NWFIREWALL_ENDPOINT">NWFIREWALL_ENDPOINT</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.Services.NATGATEWAY">NATGATEWAY</a></code> | *No description.* |
+
+---
+
+##### `NWFIREWALL_ENDPOINT` <a name="NWFIREWALL_ENDPOINT" id="raindancers-cdk.cloudNetwork.Services.NWFIREWALL_ENDPOINT"></a>
+
+---
+
+
+##### `NATGATEWAY` <a name="NATGATEWAY" id="raindancers-cdk.cloudNetwork.Services.NATGATEWAY"></a>
+
+---
+
+
 ### SSOPrincipalType <a name="SSOPrincipalType" id="raindancers-cdk.sso.SSOPrincipalType"></a>
 
 #### Members <a name="Members" id="Members"></a>
@@ -17735,6 +21847,33 @@ Resolver is outbound.
 
 
 ##### `GROUP` <a name="GROUP" id="raindancers-cdk.sso.SSOPrincipalType.GROUP"></a>
+
+---
+
+
+### StackType <a name="StackType" id="raindancers-cdk.cloudNetwork.StackType"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.StackType.IPV4_ONLY">IPV4_ONLY</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.StackType.IPV6_ONLY">IPV6_ONLY</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.StackType.DUAL_STACK">DUAL_STACK</a></code> | *No description.* |
+
+---
+
+##### `IPV4_ONLY` <a name="IPV4_ONLY" id="raindancers-cdk.cloudNetwork.StackType.IPV4_ONLY"></a>
+
+---
+
+
+##### `IPV6_ONLY` <a name="IPV6_ONLY" id="raindancers-cdk.cloudNetwork.StackType.IPV6_ONLY"></a>
+
+---
+
+
+##### `DUAL_STACK` <a name="DUAL_STACK" id="raindancers-cdk.cloudNetwork.StackType.DUAL_STACK"></a>
 
 ---
 
@@ -17828,6 +21967,51 @@ Resolver is outbound.
 
 
 ##### `STATEFUL` <a name="STATEFUL" id="raindancers-cdk.nwFirewall.StatelessActions.STATEFUL"></a>
+
+---
+
+
+### SubnetPersonality <a name="SubnetPersonality" id="raindancers-cdk.cloudNetwork.SubnetPersonality"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.SubnetPersonality.PRIVATE">PRIVATE</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.SubnetPersonality.FIREWALL">FIREWALL</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.SubnetPersonality.DMZ">DMZ</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.SubnetPersonality.PUBLIC_INGRESS">PUBLIC_INGRESS</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.SubnetPersonality.PUBLIC_EGRESS">PUBLIC_EGRESS</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.SubnetPersonality.LINKNET">LINKNET</a></code> | *No description.* |
+
+---
+
+##### `PRIVATE` <a name="PRIVATE" id="raindancers-cdk.cloudNetwork.SubnetPersonality.PRIVATE"></a>
+
+---
+
+
+##### `FIREWALL` <a name="FIREWALL" id="raindancers-cdk.cloudNetwork.SubnetPersonality.FIREWALL"></a>
+
+---
+
+
+##### `DMZ` <a name="DMZ" id="raindancers-cdk.cloudNetwork.SubnetPersonality.DMZ"></a>
+
+---
+
+
+##### `PUBLIC_INGRESS` <a name="PUBLIC_INGRESS" id="raindancers-cdk.cloudNetwork.SubnetPersonality.PUBLIC_INGRESS"></a>
+
+---
+
+
+##### `PUBLIC_EGRESS` <a name="PUBLIC_EGRESS" id="raindancers-cdk.cloudNetwork.SubnetPersonality.PUBLIC_EGRESS"></a>
+
+---
+
+
+##### `LINKNET` <a name="LINKNET" id="raindancers-cdk.cloudNetwork.SubnetPersonality.LINKNET"></a>
 
 ---
 

@@ -22,3 +22,4 @@ export * as imagebuilder from './imagebuilder/index';
 export * as loadbalancer from './network/loadbalancers/loadbalancers';
 export * as securityLake from './securitylake/index';
 export * as localzone from './network/localzone';
+export * as cloudNetwork from './cloudNetwork';
