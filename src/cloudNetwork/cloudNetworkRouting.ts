@@ -171,7 +171,7 @@ export class Router extends constructs.Construct {
     const handler = new lambda.Function(scope, `${id}Handler`, {
       runtime: lambda.Runtime.PYTHON_3_13,
       handler: 'router.on_event',
-      code: lambda.Code.fromAsset(path.join(__dirname, './assets/lambda/router')),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/cloudNetwork/lambda/router/')),
       timeout: core.Duration.minutes(3),
       environment: envar,
     });

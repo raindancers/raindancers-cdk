@@ -176,7 +176,7 @@ export class DualStackVpcMethods {
 
       // set up athena querys with a custom resource
       const athenaLogsHandler = new lambda.Function(scope, `${id}Function`, {
-        code: lambda.Code.fromAsset(path.join(__dirname, './assets/lambda/flowlog')),
+        code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/cloudNetwork/lambda/flowlog/')),
         runtime: lambda.Runtime.PYTHON_3_13,
         handler: 'flowlogintegration.on_event',
         timeout: core.Duration.seconds(300),
@@ -369,7 +369,7 @@ export class DualStackVpcMethods {
       const tagResources = new lambda.SingletonFunction(scope, `tagRemoteResources${id}${props.shareName}`, {
         logRetention: logs.RetentionDays.FIVE_DAYS,
         uuid: '37FEAC0011422A0',
-        code: lambda.Code.fromAsset(path.join(__dirname, './assets/lambda/tagResources')),
+        code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/cloudNetwork/lambda/tagResources/')),
         timeout: core.Duration.seconds(180),
         runtime: lambda.Runtime.PYTHON_3_13,
         handler: 'tagResources.on_event',

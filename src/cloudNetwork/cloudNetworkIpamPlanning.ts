@@ -168,7 +168,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       runtime: lambda.Runtime.PYTHON_3_13,
       handler: 'ipv6ipam.handler',
       timeout: core.Duration.minutes(2),
-      code: lambda.Code.fromAsset(path.join(__dirname, './assets/lambda/ipam/')),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/cloudNetwork/lambda/ipam/')),
     });
 
     ipamWaiterFn.addToRolePolicy(new iam.PolicyStatement({
@@ -200,7 +200,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       runtime: lambda.Runtime.PYTHON_3_13,
       handler: 'poolready.handler',
       timeout: core.Duration.minutes(2),
-      code: lambda.Code.fromAsset(path.join(__dirname, './assets/lambda/ipam/')),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/cloudNetwork/lambda/ipam/')),
     });
 
     poolCidrWaiterFn.addToRolePolicy(new iam.PolicyStatement({
