@@ -1,8 +1,11 @@
-import * as cdk from 'aws-cdk-lib';
+import * as path from 'path';
+import * as core from 'aws-cdk-lib';
 import {
   aws_ec2 as ec2,
   aws_networkfirewall as firewall,
   aws_logs as logs,
+  custom_resources as cr,
+  aws_lambda as lambda,
 }
   from 'aws-cdk-lib';
 import * as constructs from 'constructs';
@@ -95,6 +98,8 @@ export class NetworkFirewall extends constructs.Construct implements INetworkFir
    */
   public readonly alertLogs: logs.LogGroup;
 
+  public readonly endpointsCr: cr.AwsCustomResource;
+
 
   /**
    *
@@ -106,7 +111,7 @@ export class NetworkFirewall extends constructs.Construct implements INetworkFir
     super(scope, id);
 
     let firewallSubnetList: firewall.CfnFirewall.SubnetMappingProperty[] = [];
-    	firewallSubnetList = props.vpc.selectSubnets({ subnetGroupName: 'firewall' }).subnets.map(subnet =>
+    	firewallSubnetList = props.vpc.selectSubnets({ subnetGroupName: props.subnetGroup }).subnets.map(subnet =>
       	(
         {
           subnetId: subnet.subnetId,
@@ -122,10 +127,36 @@ export class NetworkFirewall extends constructs.Construct implements INetworkFir
       vpcId: props.vpc.vpcId,
     });
 
+    //Custom resource removed to fix token resolution issue
+    const parserLambda = new lambda.Function(this, 'parseEndpoints', {
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../../lambda/nwfirewall/')),
+      handler: 'firewall_endpoints_parse',
+      runtime: lambda.Runtime.PYTHON_3_13,
+      timeout: core.Duration.seconds(15),
+    });
+
+    this.endpointsCr = new cr.AwsCustomResource(this, 'EndpointParser', {
+      onUpdate: {
+        service: 'Lambda',
+        action: 'invoke',
+        parameters: {
+          FunctionName: parserLambda.functionArn,
+          Payload: JSON.stringify({
+            endpoints: fw.attrEndpointIds,
+          }),
+        },
+        physicalResourceId: cr.PhysicalResourceId.of('endpoint-parser'),
+      },
+      policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
+        resources: [parserLambda.functionArn],
+      }),
+    });
+
+
     // CloudWatch Logs group to store Network Firewall flow logs
     const fwFlowLogsGroup = new logs.LogGroup(this, 'FWFlowLogsGroup', {
       logGroupName: `${props.firewallName}FlowLogs`,
-      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      removalPolicy: core.RemovalPolicy.DESTROY,
     });
 
     this.flowLogs = fwFlowLogsGroup;
@@ -133,7 +164,7 @@ export class NetworkFirewall extends constructs.Construct implements INetworkFir
     // CloudWatch Logs group to store Network Firewall alert logs
     const fwAlertLogsGroup = new logs.LogGroup(this, 'FWAlertLogsGroup', {
       logGroupName: `${props.firewallName}AlertLogs`,
-      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      removalPolicy: core.RemovalPolicy.DESTROY,
     });
 
     this.alertLogs = fwAlertLogsGroup;
@@ -163,6 +194,7 @@ export class NetworkFirewall extends constructs.Construct implements INetworkFir
     this.firewallId = fw.attrFirewallId;
     this.endPointIds = fw.attrEndpointIds;
 
-  } // endof connectToCloudWan
+
+  }
 }// end of class
 
