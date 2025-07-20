@@ -854,6 +854,7 @@ export interface NestedRouteStackProps extends core.NestedStackProps {
   /** Network Firewall endpoints for traffic inspection */
   readonly firewallEndpoints?: interfaces.IFirewallEndpoints[] | undefined;
   /** Internet Gateway for public subnet routing */
+  readonly nwfirewall?: firewall.NetworkFirewall | undefined;
   readonly internetGateway?: ec2.CfnInternetGateway | undefined;
   /** Subnet-specific routing configurations */
   readonly subnetRoutes: interfaces.RouterGroup[];
@@ -887,6 +888,7 @@ export class NestedRouteStack extends core.NestedStack {
       transitGatewayAttachmentId: props.transitGatewayAttachmentId,
       subnetRoutes: props.subnetRoutes,
       firewallEndPoints: props.firewallEndpoints,
+      firewall: props.nwfirewall,
       internetGateway: props.internetGateway,
       internetGatewayRoutes: props.internetGatewayRoutes,
     });

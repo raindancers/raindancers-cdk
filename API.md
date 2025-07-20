@@ -15064,8 +15064,9 @@ const nestedRouteStackProps: cloudNetwork.NestedRouteStackProps = { ... }
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.subnetRoutes">subnetRoutes</a></code> | <code>raindancers-cdk.cloudNetwork.RouterGroup[]</code> | Subnet-specific routing configurations. |
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | The VPC to configure routing for. |
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.firewallEndpoints">firewallEndpoints</a></code> | <code>raindancers-cdk.cloudNetwork.IFirewallEndpoints[]</code> | Network Firewall endpoints for traffic inspection. |
-| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.internetGateway">internetGateway</a></code> | <code>aws-cdk-lib.aws_ec2.CfnInternetGateway</code> | Internet Gateway for public subnet routing. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.internetGateway">internetGateway</a></code> | <code>aws-cdk-lib.aws_ec2.CfnInternetGateway</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.internetGatewayRoutes">internetGatewayRoutes</a></code> | <code>raindancers-cdk.cloudNetwork.ISubnetGroup[]</code> | Subnet groups that should route via Internet Gateway. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.nwfirewall">nwfirewall</a></code> | <code>raindancers-cdk.nwFirewall.NetworkFirewall</code> | Internet Gateway for public subnet routing. |
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.transitGatewayAttachmentId">transitGatewayAttachmentId</a></code> | <code>string</code> | Transit Gateway attachment ID for this VPC. |
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.transitGatewayId">transitGatewayId</a></code> | <code>string</code> | Transit Gateway ID for inter-VPC routing. |
 
@@ -15198,8 +15199,6 @@ public readonly internetGateway: CfnInternetGateway;
 
 - *Type:* aws-cdk-lib.aws_ec2.CfnInternetGateway
 
-Internet Gateway for public subnet routing.
-
 ---
 
 ##### `internetGatewayRoutes`<sup>Optional</sup> <a name="internetGatewayRoutes" id="raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.internetGatewayRoutes"></a>
@@ -15211,6 +15210,18 @@ public readonly internetGatewayRoutes: ISubnetGroup[];
 - *Type:* raindancers-cdk.cloudNetwork.ISubnetGroup[]
 
 Subnet groups that should route via Internet Gateway.
+
+---
+
+##### `nwfirewall`<sup>Optional</sup> <a name="nwfirewall" id="raindancers-cdk.cloudNetwork.NestedRouteStackProps.property.nwfirewall"></a>
+
+```typescript
+public readonly nwfirewall: NetworkFirewall;
+```
+
+- *Type:* raindancers-cdk.nwFirewall.NetworkFirewall
+
+Internet Gateway for public subnet routing.
 
 ---
 

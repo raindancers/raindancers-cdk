@@ -5,6 +5,15 @@ import * as s3 from 'aws-cdk-lib/aws-s3';
 import { StackType } from '../../src/cloudNetwork/cloudNetworkInterfaces';
 import { DualStackVpcMethods } from '../../src/cloudNetwork/cloudNetworkMixin';
 
+// Mock Lambda Code.fromAsset to avoid asset loading issues
+jest.mock('aws-cdk-lib/aws-lambda', () => ({
+  ...jest.requireActual('aws-cdk-lib/aws-lambda'),
+  Code: {
+    ...jest.requireActual('aws-cdk-lib/aws-lambda').Code,
+    fromAsset: jest.fn(() => jest.requireActual('aws-cdk-lib/aws-lambda').Code.fromInline('mock code')),
+  },
+}));
+
 describe('DualStackVpcMethods', () => {
   let stack: Stack;
   let vpc: ec2.Vpc;
@@ -208,5 +217,127 @@ describe('DualStackVpcMethods', () => {
     );
 
     expect(resolvers).toBeDefined();
+  });
+
+  test('addServiceEndpoints creates service endpoints successfully', () => {
+    // Create a stack with explicit environment to avoid VPC endpoint lookup issues
+    const envStack = new Stack(undefined, 'EnvStack', {
+      env: { account: '123456789012', region: 'us-east-1' },
+    });
+    const envVpc = new ec2.Vpc(envStack, 'TestVpc', {
+      ipAddresses: ec2.IpAddresses.cidr('10.0.0.0/16'),
+      maxAzs: 2,
+      subnetConfiguration: [
+        {
+          name: 'public',
+          subnetType: ec2.SubnetType.PUBLIC,
+        },
+        {
+          name: 'private',
+          subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
+        },
+      ],
+    });
+
+    const endpoints = DualStackVpcMethods.addServiceEndpoints(envStack, 'TestEndpoints', {
+      vpc: envVpc,
+      services: [ec2.InterfaceVpcEndpointAwsService.S3],
+      subnetGroup: {
+        name: 'private',
+        stack: StackType.DUAL_STACK,
+        ipv4mask: 24,
+      },
+      dynamoDbGateway: true,
+      s3GatewayInterface: true,
+    });
+
+    expect(endpoints).toBeDefined();
+  });
+
+  test('createFlowLogwithAnalysis creates default bucket when none provided', () => {
+    DualStackVpcMethods.createFlowLogwithAnalysis(stack, 'TestFlowLogDefault', {
+      vpc,
+      oneMinuteFlowLogs: false,
+      localAthenaQuerys: false,
+    });
+
+    const template = Template.fromStack(stack);
+    template.hasResource('AWS::S3::Bucket', {
+      DeletionPolicy: 'Delete',
+      UpdateReplacePolicy: 'Delete',
+    });
+  });
+
+  test('attachToTransitGateway uses default subnet group', () => {
+    // Create VPC with linknet subnet group
+    const tgStack = new Stack();
+    const tgVpc = new ec2.Vpc(tgStack, 'TestVpc', {
+      ipAddresses: ec2.IpAddresses.cidr('10.0.0.0/16'),
+      maxAzs: 2,
+      subnetConfiguration: [
+        {
+          name: 'linknet',
+          subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
+        },
+      ],
+    });
+
+    const attachmentId = DualStackVpcMethods.attachToTransitGateway(tgStack, 'TestAttachmentDefault', {
+      vpc: tgVpc,
+      transitGateway: { id: 'tgw-123' } as any,
+      routesToTransitGateway: ['10.0.0.0/8'],
+    });
+
+    expect(attachmentId).toBeDefined();
+    const template = Template.fromStack(tgStack);
+    template.hasResourceProperties('AWS::EC2::TransitGatewayAttachment', {
+      TransitGatewayId: 'tgw-123',
+    });
+  });
+
+  test('shareSubnetGroup with cross-account tagging', () => {
+    DualStackVpcMethods.shareSubnetGroup(stack, 'TestShareTagging', {
+      vpc,
+      subnetGroup: {
+        name: 'private',
+        stack: StackType.DUAL_STACK,
+        ipv4mask: 24,
+      },
+      accounts: ['123456789012'],
+      shareName: 'TaggedShare',
+      cdkTagResourcesInSharedToAccountRoleName: 'CrossAccountRole',
+    });
+
+    const template = Template.fromStack(stack);
+    template.hasResourceProperties('AWS::Lambda::Function', {
+      Handler: 'tagResources.on_event',
+    });
+    template.hasResourceProperties('AWS::IAM::Policy', {
+      PolicyDocument: {
+        Statement: [
+          {
+            Effect: 'Allow',
+            Action: 'sts:AssumeRole',
+            Resource: 'arn:aws:iam::*:role/CrossAccountRole',
+          },
+          {
+            Effect: 'Allow',
+            Action: 'ec2:DescribeTags',
+            Resource: '*',
+          },
+        ],
+      },
+    });
+  });
+
+  test('associateSharedResolverRules creates resolver rule associations', () => {
+    DualStackVpcMethods.associateSharedResolverRules(stack, 'TestResolverAssoc', {
+      vpc,
+      domainNames: ['example.com', 'internal.corp'],
+    });
+
+    // The method creates an AssociateSharedResolverRule construct
+    // We can verify it doesn't throw and completes successfully
+    expect(stack.node.children.length).toBeGreaterThan(0);
   });
 });
