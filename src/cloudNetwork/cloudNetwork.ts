@@ -1,6 +1,7 @@
 import * as core from 'aws-cdk-lib';
 import {
   aws_ec2 as ec2,
+  aws_networkfirewall as nwfw,
 }
   from 'aws-cdk-lib';
 import * as constructs from 'constructs';
@@ -8,6 +9,7 @@ import * as interfaces from './cloudNetworkInterfaces';
 import * as ipamPlanning from './cloudNetworkIpamPlanning';
 import * as mixins from './cloudNetworkMixin';
 import * as routing from './cloudNetworkRouting';
+import * as firewall from '../network/nwfirewall';
 
 
 const DEFAULT_IPV6_SUBNET_MASK = 64;
@@ -517,7 +519,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
     let routerGroups: interfaces.RouterGroup[] = [];
 
     // amazonq-ignore-next-line
-    const firewall = this.subnetConfigurations.find(config => config.personality === interfaces.SubnetPersonality.FIREWALL );
+    const firewallSubnet = this.subnetConfigurations.find(config => config.personality === interfaces.SubnetPersonality.FIREWALL );
     // // amazonq-ignore-next-line
     const dmz = this.subnetConfigurations.find(config => config.personality === interfaces.SubnetPersonality.DMZ);
     // // amazonq-ignore-next-line
@@ -550,7 +552,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
                 // if firewallSubnetGroup is defined, we need to add a route to the blackhole for the firewall subnet
 
                 ...(linknet ? [{ destSubnetGroup: linknet, description: `${subnetConfig.name} to  ${linknet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
-                ...(firewall ? [{ destSubnetGroup: firewall, description: `${subnetConfig.name} to  ${firewall.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
+                ...(firewallSubnet ? [{ destSubnetGroup: firewallSubnet, description: `${subnetConfig.name} to  ${firewallSubnet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 //if dmz is defined, we add a route via the FIREWALL_ENDPOINT
                 ...(dmz ? [{ destSubnetGroup: dmz, description: `${subnetConfig.name} to  ${dmz.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }] : []),
                 ...(egress ? [{ destSubnetGroup: egress, description: `${subnetConfig.name} to  ${egress.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }] : []),
@@ -596,7 +598,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
               subnetGroup: subnetConfig,
               routes: [
                 ...(egress ? [{ destSubnetGroup: egress, description: `${subnetConfig.name} to  ${egress.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
-                ...(firewall ? [{ destSubnetGroup: firewall, description: `${subnetConfig.name} to  ${firewall.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
+                ...(firewallSubnet ? [{ destSubnetGroup: firewallSubnet, description: `${subnetConfig.name} to  ${firewallSubnet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(dmz ? [{ destSubnetGroup: dmz, description: `${subnetConfig.name} to  ${dmz.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(linknet ? [{ destSubnetGroup: linknet, description: `${subnetConfig.name} to  ${linknet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 // internal routes should be sent via the Transit Gateway, ( note not via Firewall!)
@@ -614,7 +616,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
               // routes to internet are allready established becuase Firewall is a Private with Egress Subnet
               routes: [
                 ...(ingress ? [{ destSubnetGroup: ingress, description: `${subnetConfig.name} to  ${ingress.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
-                ...(firewall ? [{ destSubnetGroup: firewall, description: `${subnetConfig.name} to  ${firewall.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
+                ...(firewallSubnet ? [{ destSubnetGroup: firewallSubnet, description: `${subnetConfig.name} to  ${firewallSubnet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(linknet ? [{ destSubnetGroup: linknet, description: `${subnetConfig.name} to  ${linknet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(dmz ? [{ destSubnetGroup: dmz, description: `${subnetConfig.name} to  ${dmz.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }] : []),
                 // all private subnets shoudl be via the firewall
@@ -629,7 +631,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
               subnetGroup: subnetConfig,
               routes: [
                 ...(this.tgRoutes ? this.tgRoutes.map(destCidr => ({ destCidr, description: `l-Route to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
-                ...(firewall ? [{ destSubnetGroup: firewall, description: `${subnetConfig.name} to  ${firewall.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
+                ...(firewallSubnet ? [{ destSubnetGroup: firewallSubnet, description: `${subnetConfig.name} to  ${firewallSubnet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(egress ? [{ destSubnetGroup: egress, description: `${subnetConfig.name} to  ${egress.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }] : []),
                 ...(dmz ? [{ destSubnetGroup: dmz, description: `${subnetConfig.name} to  ${dmz.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }] : []),
               ],
@@ -817,6 +819,30 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
 
     return this.networkFirewallEndpoints;
 
+  }
+
+  public addNetworkFirewall(
+    firewallName: string,
+    firewallPolicy: nwfw.CfnFirewallPolicy,
+    subnet: interfaces.ISubnetGroup,
+    ipStackMode?: firewall.FirewallSubnetMappingIPAddressType | undefined,
+  ): firewall.INetworkFirewall {
+
+    const networkFirewall = new firewall.NetworkFirewall(this, 'NetworkFirewall', {
+      firewallName: firewallName,
+      firewallPolicy: firewallPolicy,
+      subnetGroup: subnet.name!,
+      iPStackMode: ipStackMode ?? firewall.FirewallSubnetMappingIPAddressType.DUALSTACK,
+      vpc: this._vpc,
+    });
+
+    return {
+      flowLogs: networkFirewall.flowLogs,
+      alertLogs: networkFirewall.alertLogs,
+      firewallArn: networkFirewall.firewallArn,
+      firewallId: networkFirewall.firewallId,
+      endPointIds: networkFirewall.endPointIds,
+    };
   }
 
 }

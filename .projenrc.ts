@@ -7,6 +7,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   jsiiVersion: '~5.8.0',
   name: 'raindancers-cdk',
   projenrcTs: true,
+
   repositoryUrl: 'https://github.com/raindancers/raindancers-cdk',
 
   /* Runtime dependencies of this module. */
@@ -14,6 +15,36 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // devDeps: [],             /* Build dependencies for this module. */
   // packageName: undefined,  /* The "name" in package.json. */
 });
+
+// project.package.addField('jest.coverageThreshold', {
+//   global: {
+//     statements: 80,
+//     branches: 80,
+//     functions: 80,
+//     lines: 80,
+//   },
+// });
+
+if (project.jest) {
+  project.jest.config.coverageThreshold = {
+    global: {
+      statements: 80,
+      branches: 80,
+      functions: 80,
+      lines: 80,
+    },
+  };
+}
+
+// project.jest?.config.coverageThreshold = {
+//   global: {
+//     statements: 80,
+//     branches: 80,
+//     functions: 80,
+//     lines: 80
+//   }
+// };
+
 
 // project.deps.addDependency('@aws-cdk/integ-runner@latest', DependencyType.DEVENV);
 // project.deps.addDependency('@aws-cdk/integ-tests-alpha@latest', DependencyType.DEVENV);

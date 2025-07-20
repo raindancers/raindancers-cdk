@@ -1722,6 +1722,7 @@ Configuration properties for the VPC.
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.addFlowLog">addFlowLog</a></code> | Adds a new Flow Log to this VPC. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.addGatewayEndpoint">addGatewayEndpoint</a></code> | Adds a new gateway endpoint to this VPC for AWS service access. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.addInterfaceEndpoint">addInterfaceEndpoint</a></code> | Adds a new interface endpoint to this VPC for private AWS service access. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.addNetworkFirewall">addNetworkFirewall</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.addNetworkFirewallEndpoint">addNetworkFirewallEndpoint</a></code> | Adds AWS Network Firewall endpoints to this VPC for traffic inspection. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.addPersonalityRoutes">addPersonalityRoutes</a></code> | Generates routing configurations based on subnet personalities. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.addServiceEndpoints">addServiceEndpoints</a></code> | Adds multiple AWS service endpoints to the VPC in a single operation. |
@@ -1833,6 +1834,36 @@ Unique identifier for the interface endpoint.
 - *Type:* aws-cdk-lib.aws_ec2.InterfaceVpcEndpointOptions
 
 Configuration options for the interface endpoint.
+
+---
+
+##### `addNetworkFirewall` <a name="addNetworkFirewall" id="raindancers-cdk.cloudNetwork.CloudNetwork.addNetworkFirewall"></a>
+
+```typescript
+public addNetworkFirewall(firewallName: string, firewallPolicy: CfnFirewallPolicy, subnet: ISubnetGroup, ipStackMode?: FirewallSubnetMappingIPAddressType): INetworkFirewall
+```
+
+###### `firewallName`<sup>Required</sup> <a name="firewallName" id="raindancers-cdk.cloudNetwork.CloudNetwork.addNetworkFirewall.parameter.firewallName"></a>
+
+- *Type:* string
+
+---
+
+###### `firewallPolicy`<sup>Required</sup> <a name="firewallPolicy" id="raindancers-cdk.cloudNetwork.CloudNetwork.addNetworkFirewall.parameter.firewallPolicy"></a>
+
+- *Type:* aws-cdk-lib.aws_networkfirewall.CfnFirewallPolicy
+
+---
+
+###### `subnet`<sup>Required</sup> <a name="subnet" id="raindancers-cdk.cloudNetwork.CloudNetwork.addNetworkFirewall.parameter.subnet"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.ISubnetGroup
+
+---
+
+###### `ipStackMode`<sup>Optional</sup> <a name="ipStackMode" id="raindancers-cdk.cloudNetwork.CloudNetwork.addNetworkFirewall.parameter.ipStackMode"></a>
+
+- *Type:* raindancers-cdk.nwFirewall.FirewallSubnetMappingIPAddressType
 
 ---
 
