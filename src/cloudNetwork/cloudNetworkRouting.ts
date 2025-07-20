@@ -10,6 +10,8 @@ import {
 import * as constructs from 'constructs';
 
 import * as interfaces from './cloudNetworkInterfaces';
+import * as firewall from '../network/nwfirewall';
+
 
 /**
  * Router construct that manages routing configuration for VPC subnets.
@@ -21,10 +23,11 @@ export class Router extends constructs.Construct {
   readonly transitGatewayId: string | undefined;
   readonly transitGatewayAttachmentId: string | undefined;
   readonly firewallEndpoints: interfaces.IFirewallEndpoints[] | undefined;
+  readonly firewall: firewall.NetworkFirewall | undefined;
   readonly internetGateway?: ec2.CfnInternetGateway | undefined;
-  blackhole?: ec2.CfnNetworkInterface | undefined;
   readonly cidrLookup: core.CustomResource;
   readonly routerProvider: cr.Provider;
+  blackhole?: ec2.CfnNetworkInterface | undefined;
 
   /**
    * Creates a new Router construct.
@@ -153,6 +156,7 @@ export class Router extends constructs.Construct {
       internetGateway: this.internetGateway,
       transitGatewayId: this.transitGatewayId,
       firewallEndpoints: this.firewallEndpoints,
+      firewall: this.firewall,
       blackhole: this.blackhole,
     });
 
@@ -318,6 +322,7 @@ interface SubnetRoutesProps extends core.NestedStackProps {
   /** Optional firewall endpoints for firewall routes */
   firewallEndpoints?: interfaces.IFirewallEndpoints[] | undefined;
   /** Optional blackhole network interface for blackhole routes */
+  firewall?: firewall.NetworkFirewall | undefined;
   blackhole?: ec2.CfnNetworkInterface | undefined;
 }
 
@@ -328,6 +333,9 @@ interface SubnetRoutesProps extends core.NestedStackProps {
  */
 class SubnetRoutes extends core.NestedStack {
 
+
+  firewallDescription: cr.AwsCustomResource | undefined;
+
   /**
    * Creates routes for a subnet group based on the router group configuration.
    *
@@ -337,6 +345,32 @@ class SubnetRoutes extends core.NestedStack {
    */
   constructor(scope: constructs.Construct, id: string, props: SubnetRoutesProps) {
     super(scope, id, props);
+
+
+    if (props.firewall) {
+      const outputPaths: string[] = [];
+      const azlist = core.Stack.of(this).availabilityZones;
+      azlist.forEach ((az) => {
+        outputPaths.push(`FirewallStatus.SyncStates.${az}.Attachment.EndpointId`);
+      });
+
+      this.firewallDescription = new cr.AwsCustomResource(this, 'DescribeFirewall', {
+        onCreate: {
+          service: 'NetworkFirewall',
+          action: 'describeFirewall',
+          parameters: {
+            FirewallArn: props.firewall.firewallArn,
+          },
+          region: core.Aws.REGION,
+          physicalResourceId: cr.PhysicalResourceId.of('DescribeFirewall'),
+          outputPaths: outputPaths,
+        },
+        logRetention: logs.RetentionDays.FIVE_DAYS,
+        policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
+          resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
+        }),
+      });
+    }
 
 
     props.routerGroup.routes.forEach((route) => {
@@ -439,22 +473,37 @@ class SubnetRoutes extends core.NestedStack {
 
           case interfaces.NextHop.FIREWALL_ENDPOINT: {
 
+            // we need to handle either, being a firewall, or firewall endpoints.
+            // first check that both firewalEndpoints and Firewall have not been provided.
 
-            if (!props.firewallEndpoints) {
-              throw new Error('fwEndpoints must be supplied');
+            if (props.firewallEndpoints && props.firewall) {
+              throw Error('Can not providfe both endpoints and a firewall in the same stack');
             }
-            const matchingEndpoint = props.firewallEndpoints!.find((endpoint: { az: string }) => endpoint.az === routeTable.az);
+            if (!props.firewallEndpoints || !props.firewall ) {
+              throw new Error('At least one of fwEndpoints or Firewall must be supplied to route to Firewalls');
+            }
+
+            let matchingEndpoint: interfaces.IFirewallEndpoints | undefined;
+
+            if (props.firewallEndpoints) {
+              matchingEndpoint = props.firewallEndpoints.find((endpoint: { az: string }) => endpoint.az === routeTable.az)!;
+            } else if (this.firewallDescription) {
+              matchingEndpoint = {
+                az: routeTable.az,
+                endpointId: this.firewallDescription.getResponseField(`FirewallStatus.SyncStates.${routeTable.az}.Attachment.EndpointId`),
+              };
+            }
             if (!matchingEndpoint) {
               throw new Error(`No firewall endpoint found for availability zone: ${routeTable.az}`);
             }
 
-            if (route.destCidr) {
 
+            if (route.destCidr) {
 
               new ec2.CfnRoute(this, 'FWCidr' + route.description + index + routeTable.az, {
                 ...(route.destCidr.includes('::/') ? { destinationIpv6CidrBlock: route.destCidr } : { destinationCidrBlock: route.destCidr }),
                 routeTableId: routeTable.routeTableId,
-                vpcEndpointId: matchingEndpoint.endpointId,
+                vpcEndpointId: matchingEndpoint!.endpointId,
               });
 
             } else {

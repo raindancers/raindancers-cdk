@@ -1840,7 +1840,7 @@ Configuration options for the interface endpoint.
 ##### `addNetworkFirewall` <a name="addNetworkFirewall" id="raindancers-cdk.cloudNetwork.CloudNetwork.addNetworkFirewall"></a>
 
 ```typescript
-public addNetworkFirewall(firewallName: string, firewallPolicy: CfnFirewallPolicy, subnet: ISubnetGroup, ipStackMode?: FirewallSubnetMappingIPAddressType): IFirewallEndpoints[]
+public addNetworkFirewall(firewallName: string, firewallPolicy: CfnFirewallPolicy, subnet: ISubnetGroup, ipStackMode?: FirewallSubnetMappingIPAddressType): void
 ```
 
 ###### `firewallName`<sup>Required</sup> <a name="firewallName" id="raindancers-cdk.cloudNetwork.CloudNetwork.addNetworkFirewall.parameter.firewallName"></a>
@@ -2142,6 +2142,7 @@ Any object.
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.ipamConfig">ipamConfig</a></code> | <code>raindancers-cdk.cloudNetwork.IpamConfig</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.subnetCidrLookup">subnetCidrLookup</a></code> | <code>raindancers-cdk.cloudNetwork.ISubNetCidrLookup[]</code> | The IPv6 CIDR block assigned to the VPC. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.igw">igw</a></code> | <code>aws-cdk-lib.aws_ec2.CfnInternetGateway</code> | The Internet Gateway attached to the VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.networkFirewall">networkFirewall</a></code> | <code>raindancers-cdk.nwFirewall.NetworkFirewall</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.networkFirewallEndpoints">networkFirewallEndpoints</a></code> | <code>raindancers-cdk.cloudNetwork.IFirewallEndpoints[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.tgRoutes">tgRoutes</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.transitGatewayAttachment">transitGatewayAttachment</a></code> | <code>string</code> | *No description.* |
@@ -2379,6 +2380,16 @@ public readonly igw: CfnInternetGateway;
 - *Type:* aws-cdk-lib.aws_ec2.CfnInternetGateway
 
 The Internet Gateway attached to the VPC.
+
+---
+
+##### `networkFirewall`<sup>Optional</sup> <a name="networkFirewall" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.networkFirewall"></a>
+
+```typescript
+public readonly networkFirewall: NetworkFirewall;
+```
+
+- *Type:* raindancers-cdk.nwFirewall.NetworkFirewall
 
 ---
 
@@ -7043,6 +7054,7 @@ Any object.
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.alertLogs">alertLogs</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | alert log. |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.endPointIds">endPointIds</a></code> | <code>string[]</code> | Gateway Endpoints for the Firewalls. |
+| <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.endpointsCr">endpointsCr</a></code> | <code>aws-cdk-lib.custom_resources.AwsCustomResource</code> | *No description.* |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.firewallArn">firewallArn</a></code> | <code>string</code> | Arn of the firewall. |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.firewallId">firewallId</a></code> | <code>string</code> | Firewall ID. |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.flowLogs">flowLogs</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | flow log. |
@@ -7082,6 +7094,16 @@ public readonly endPointIds: string[];
 - *Type:* string[]
 
 Gateway Endpoints for the Firewalls.
+
+---
+
+##### `endpointsCr`<sup>Required</sup> <a name="endpointsCr" id="raindancers-cdk.nwFirewall.NetworkFirewall.property.endpointsCr"></a>
+
+```typescript
+public readonly endpointsCr: AwsCustomResource;
+```
+
+- *Type:* aws-cdk-lib.custom_resources.AwsCustomResource
 
 ---
 
@@ -8221,6 +8243,7 @@ Any object.
 | <code><a href="#raindancers-cdk.cloudNetwork.Router.property.cidrLookup">cidrLookup</a></code> | <code>aws-cdk-lib.CustomResource</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.Router.property.routerProvider">routerProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.Router.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.Router.property.firewall">firewall</a></code> | <code>raindancers-cdk.nwFirewall.NetworkFirewall</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.Router.property.firewallEndpoints">firewallEndpoints</a></code> | <code>raindancers-cdk.cloudNetwork.IFirewallEndpoints[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.Router.property.internetGateway">internetGateway</a></code> | <code>aws-cdk-lib.aws_ec2.CfnInternetGateway</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.Router.property.transitGatewayAttachmentId">transitGatewayAttachmentId</a></code> | <code>string</code> | *No description.* |
@@ -8268,6 +8291,16 @@ public readonly vpc: IVpc;
 ```
 
 - *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+##### `firewall`<sup>Optional</sup> <a name="firewall" id="raindancers-cdk.cloudNetwork.Router.property.firewall"></a>
+
+```typescript
+public readonly firewall: NetworkFirewall;
+```
+
+- *Type:* raindancers-cdk.nwFirewall.NetworkFirewall
 
 ---
 
@@ -16288,6 +16321,7 @@ const routerProps: cloudNetwork.RouterProps = { ... }
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.cloudNetwork.RouterProps.property.subnetRoutes">subnetRoutes</a></code> | <code>raindancers-cdk.cloudNetwork.RouterGroup[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.RouterProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouterProps.property.firewall">firewall</a></code> | <code>raindancers-cdk.nwFirewall.NetworkFirewall</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.RouterProps.property.firewallEndPoints">firewallEndPoints</a></code> | <code>raindancers-cdk.cloudNetwork.IFirewallEndpoints[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.RouterProps.property.internetGateway">internetGateway</a></code> | <code>aws-cdk-lib.aws_ec2.CfnInternetGateway</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.RouterProps.property.internetGatewayRoutes">internetGatewayRoutes</a></code> | <code>raindancers-cdk.cloudNetwork.ISubnetGroup[]</code> | *No description.* |
@@ -16313,6 +16347,16 @@ public readonly vpc: IVpc;
 ```
 
 - *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+---
+
+##### `firewall`<sup>Optional</sup> <a name="firewall" id="raindancers-cdk.cloudNetwork.RouterProps.property.firewall"></a>
+
+```typescript
+public readonly firewall: NetworkFirewall;
+```
+
+- *Type:* raindancers-cdk.nwFirewall.NetworkFirewall
 
 ---
 

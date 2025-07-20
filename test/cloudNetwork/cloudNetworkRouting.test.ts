@@ -360,7 +360,7 @@ describe('Router', () => {
         firewallEndPoints: firewallEndpoints,
         internetGatewayRoutes: undefined,
       });
-    }).toThrow('No firewall endpoint found for availability zone');
+    }).toThrow('At least one of fwEndpoints or Firewall must be supplied to route to Firewalls');
   });
 
   test('throws error for missing firewall endpoints', () => {
@@ -384,7 +384,7 @@ describe('Router', () => {
         subnetRoutes: [routerGroup],
         internetGatewayRoutes: undefined,
       });
-    }).toThrow('fwEndpoints must be supplied');
+    }).toThrow('At least one of fwEndpoints or Firewall must be supplied to route to Firewalls');
   });
 
   test('creates blackhole with subnet group', () => {

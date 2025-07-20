@@ -3,6 +3,7 @@ import {
   aws_s3 as s3,
 } from 'aws-cdk-lib';
 
+import * as firewall from '../network/nwfirewall';
 import * as transitGateway from '../network/transitGateway/transitGateway';
 
 export enum StackType {
@@ -219,6 +220,7 @@ export interface RouterProps {
   readonly transitGatewayId?: string | undefined;
   readonly transitGatewayAttachmentId?: string | undefined;
   readonly firewallEndPoints?: IFirewallEndpoints[] | undefined;
+  readonly firewall?: firewall.NetworkFirewall | undefined;
   readonly internetGateway?: ec2.CfnInternetGateway | undefined;
   readonly subnetRoutes: RouterGroup[];
   readonly internetGatewayRoutes: ISubnetGroup[] | undefined;
