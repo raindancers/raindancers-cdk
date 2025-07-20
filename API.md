@@ -3077,6 +3077,120 @@ public readonly name: string;
 ---
 
 
+### EastWestFirewallOnTg <a name="EastWestFirewallOnTg" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTg"></a>
+
+Router construct that manages routing configuration for VPC subnets.
+
+Handles routing to Transit Gateway, Internet Gateway, Firewall Endpoints, and other destinations.
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+new cloudNetwork.EastWestFirewallOnTg(scope: Construct, id: string, props: EastWestFirewallOnTgProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.isConstruct"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+cloudNetwork.EastWestFirewallOnTg.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.property.firewall">firewall</a></code> | <code>raindancers-cdk.nwFirewall.NetworkFirewall</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `firewall`<sup>Optional</sup> <a name="firewall" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.property.firewall"></a>
+
+```typescript
+public readonly firewall: NetworkFirewall;
+```
+
+- *Type:* raindancers-cdk.nwFirewall.NetworkFirewall
+
+---
+
+
 ### EnableEnterpriseSupport <a name="EnableEnterpriseSupport" id="raindancers-cdk.enterpriseSupport.EnableEnterpriseSupport"></a>
 
 Creates A support case to enable Enterprise Support, when a new account is created with Control Tower A Lambda is listening to event bridge.
@@ -7054,7 +7168,6 @@ Any object.
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.alertLogs">alertLogs</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | alert log. |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.endPointIds">endPointIds</a></code> | <code>string[]</code> | Gateway Endpoints for the Firewalls. |
-| <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.endpointsCr">endpointsCr</a></code> | <code>aws-cdk-lib.custom_resources.AwsCustomResource</code> | *No description.* |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.firewallArn">firewallArn</a></code> | <code>string</code> | Arn of the firewall. |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.firewallId">firewallId</a></code> | <code>string</code> | Firewall ID. |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.flowLogs">flowLogs</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | flow log. |
@@ -7094,16 +7207,6 @@ public readonly endPointIds: string[];
 - *Type:* string[]
 
 Gateway Endpoints for the Firewalls.
-
----
-
-##### `endpointsCr`<sup>Required</sup> <a name="endpointsCr" id="raindancers-cdk.nwFirewall.NetworkFirewall.property.endpointsCr"></a>
-
-```typescript
-public readonly endpointsCr: AwsCustomResource;
-```
-
-- *Type:* aws-cdk-lib.custom_resources.AwsCustomResource
 
 ---
 
@@ -12865,6 +12968,45 @@ public readonly name: string;
 ```
 
 - *Type:* string
+
+---
+
+### EastWestFirewallOnTgProps <a name="EastWestFirewallOnTgProps" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const eastWestFirewallOnTgProps: cloudNetwork.EastWestFirewallOnTgProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps.property.ipamConfig">ipamConfig</a></code> | <code>raindancers-cdk.cloudNetwork.IpamConfig</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps.property.transitGateway">transitGateway</a></code> | <code>raindancers-cdk.transitGateway.TransitGateway</code> | *No description.* |
+
+---
+
+##### `ipamConfig`<sup>Required</sup> <a name="ipamConfig" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps.property.ipamConfig"></a>
+
+```typescript
+public readonly ipamConfig: IpamConfig;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.IpamConfig
+
+---
+
+##### `transitGateway`<sup>Required</sup> <a name="transitGateway" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps.property.transitGateway"></a>
+
+```typescript
+public readonly transitGateway: TransitGateway;
+```
+
+- *Type:* raindancers-cdk.transitGateway.TransitGateway
 
 ---
 
