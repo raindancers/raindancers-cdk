@@ -1840,7 +1840,7 @@ Configuration options for the interface endpoint.
 ##### `addNetworkFirewall` <a name="addNetworkFirewall" id="raindancers-cdk.cloudNetwork.CloudNetwork.addNetworkFirewall"></a>
 
 ```typescript
-public addNetworkFirewall(firewallName: string, firewallPolicy: CfnFirewallPolicy, subnet: ISubnetGroup, ipStackMode?: FirewallSubnetMappingIPAddressType): INetworkFirewall
+public addNetworkFirewall(firewallName: string, firewallPolicy: CfnFirewallPolicy, subnet: ISubnetGroup, ipStackMode?: FirewallSubnetMappingIPAddressType): IFirewallEndpoints[]
 ```
 
 ###### `firewallName`<sup>Required</sup> <a name="firewallName" id="raindancers-cdk.cloudNetwork.CloudNetwork.addNetworkFirewall.parameter.firewallName"></a>

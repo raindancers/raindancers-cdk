@@ -826,7 +826,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
     firewallPolicy: nwfw.CfnFirewallPolicy,
     subnet: interfaces.ISubnetGroup,
     ipStackMode?: firewall.FirewallSubnetMappingIPAddressType | undefined,
-  ): firewall.INetworkFirewall {
+  ): interfaces.IFirewallEndpoints[] {
 
     const networkFirewall = new firewall.NetworkFirewall(this, 'NetworkFirewall', {
       firewallName: firewallName,
@@ -836,13 +836,26 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
       vpc: this._vpc,
     });
 
-    return {
-      flowLogs: networkFirewall.flowLogs,
-      alertLogs: networkFirewall.alertLogs,
-      firewallArn: networkFirewall.firewallArn,
-      firewallId: networkFirewall.firewallId,
-      endPointIds: networkFirewall.endPointIds,
-    };
+    //networkFirewall.endPointIds are a string[]
+    /**
+     * The unique IDs of the firewall endpoints for all of the subnets that you attached to the firewall.
+     * The subnets are not listed in any particular order. For example:
+     * ["us-west-2c:vpce-111122223333", "us-west-2a:vpce-987654321098", "us-west-2b:vpce-012345678901"] .
+     *
+     *
+     * IFirewallEndpoints are
+     * export interface IFirewallEndpoints {
+    * endpointId: string;
+    * az: string;
+    }
+    **/
+
+    const endPoints: interfaces.IFirewallEndpoints[] = this.availabilityZones.map((_, index) => ({
+      az: core.Fn.select(0, core.Fn.split(':', core.Fn.select(index, networkFirewall.endPointIds))),
+      endpointId: core.Fn.select(1, core.Fn.split(':', core.Fn.select(index, networkFirewall.endPointIds))),
+    }));
+
+    return endPoints;
   }
 
 }

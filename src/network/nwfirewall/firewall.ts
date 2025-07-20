@@ -7,7 +7,6 @@ import {
   from 'aws-cdk-lib';
 import * as constructs from 'constructs';
 
-
 export enum FirewallSubnetMappingIPAddressType {
   DUALSTACK = 'DUALSTACK',
   IPV4 = 'IPV4',
