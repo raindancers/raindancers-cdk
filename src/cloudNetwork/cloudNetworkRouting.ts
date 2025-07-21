@@ -58,6 +58,10 @@ export class Router extends constructs.Construct {
       this.firewallEndpoints = props.firewallEndPoints;
     }
 
+    if (props.firewall) {
+      this.firewall = props.firewall;
+    }
+
 
     let environmentVariables: { [key: string]: string } = {};
     if (props.transitGatewayId) {

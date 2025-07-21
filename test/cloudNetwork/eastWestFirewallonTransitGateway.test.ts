@@ -36,13 +36,14 @@ describe('EastWestFirewallOnTg', () => {
     };
   });
 
-  test('construct throws expected error for routing validation', () => {
-    expect(() => {
-      new EastWestFirewallOnTg(stack, 'TestFirewall', {
-        transitGateway,
-        ipamConfig,
-      });
-    }).toThrow('At least one of fwEndpoints or Firewall must be supplied to route to Firewalls');
+  test('construct creates successfully with firewall', () => {
+    const firewall = new EastWestFirewallOnTg(stack, 'TestFirewall', {
+      transitGateway,
+      ipamConfig,
+    });
+
+    expect(firewall).toBeDefined();
+    expect(firewall.firewall).toBeDefined();
   });
 
   test('validates required props are provided', () => {
@@ -75,19 +76,13 @@ describe('EastWestFirewallOnTg', () => {
     expect(classString).toContain('firewall');
   });
 
-  test('error message is descriptive for routing failure', () => {
-    let errorMessage = '';
-    try {
-      new EastWestFirewallOnTg(stack, 'TestFirewall', {
-        transitGateway,
-        ipamConfig,
-      });
-    } catch (error) {
-      errorMessage = (error as Error).message;
-    }
+  test('construct creates firewall successfully', () => {
+    const firewallConstruct = new EastWestFirewallOnTg(stack, 'TestFirewall', {
+      transitGateway,
+      ipamConfig,
+    });
 
-    expect(errorMessage).toContain('fwEndpoints');
-    expect(errorMessage).toContain('Firewall');
-    expect(errorMessage).toContain('route to Firewalls');
+    expect(firewallConstruct.firewall).toBeDefined();
+    expect(firewallConstruct.firewall?.firewallArn).toBeDefined();
   });
 });
