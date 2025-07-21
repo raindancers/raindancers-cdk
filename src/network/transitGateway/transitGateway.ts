@@ -53,6 +53,12 @@ export enum SecurityGroupReferencingSupport {
   DISABLE = 'disable'
 }
 
+export interface ITransitGatewayRouteTable {
+  transitGatewayRouteTableId: string;
+  transitGatewayId: string;
+  name: string;
+}
+
 export interface TransitGatewayAttachmentOptions {
   readonly applianceModeSupport?: ApplianceModeSupport | undefined;
   readonly dnsSupport?: DnsSupport | undefined;
@@ -212,6 +218,7 @@ export class TransitGateway extends constructs.Construct implements ITransitGate
       transitGatewayCidrBlocks: props.transitGatewayCidrBlocks,
     });
 
+
     this.defaultRoutingTableId = transitGateway.associationDefaultRouteTableId!;
 
 
@@ -253,6 +260,20 @@ export class TransitGateway extends constructs.Construct implements ITransitGate
         value: 'cloudsink.net',
       }],
     });
+  }
+
+  public addRoutingTable(name: string): ITransitGatewayRouteTable {
+
+    const rt = new ec2.CfnTransitGatewayRouteTable(this, 'sdwanRouteTable', {
+      transitGatewayId: this.id,
+      tags: [{ key: 'name', value: name }],
+    });
+
+    return {
+      transitGatewayId: this.id,
+      name: name,
+      transitGatewayRouteTableId: rt.attrTransitGatewayRouteTableId,
+    };
   }
 
   public attachVpc(vpc: ec2.IVpc, subnets: ec2.SubnetSelection, options?: TransitGatewayAttachmentOptions ): ec2.CfnTransitGatewayAttachment {

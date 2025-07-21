@@ -247,7 +247,6 @@ export class DualStackVpcMethods {
       throw Error('Must supply a VPC');
     }
 
-
     const attachmentSubnetName = props.attachmentSubnetGroup ?? 'linknet';
 
     const tgAttachment = new ec2.CfnTransitGatewayAttachment(scope, `${id}tgAttach`, {
@@ -259,6 +258,14 @@ export class DualStackVpcMethods {
         IpV6Support: props.attachmentSubnetGroup,
       },
     });
+
+    if (props.transitGatewayRoutingTable) {
+      new ec2.CfnTransitGatewayRouteTableAssociation(scope, 'AssociateWithRoutingTable', {
+        transitGatewayAttachmentId: tgAttachment.attrId,
+        transitGatewayRouteTableId: props.transitGatewayRoutingTable.transitGatewayId,
+      });
+    }
+
 
     return tgAttachment.attrId;
 

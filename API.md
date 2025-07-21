@@ -9601,6 +9601,7 @@ The ID of the transit gateway.
 | --- | --- |
 | <code><a href="#raindancers-cdk.transitGateway.TransitGateway.toString">toString</a></code> | Returns a string representation of this construct. |
 | <code><a href="#raindancers-cdk.transitGateway.TransitGateway.addRouteToRoutingTable">addRouteToRoutingTable</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.transitGateway.TransitGateway.addRoutingTable">addRoutingTable</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.transitGateway.TransitGateway.attachVpc">attachVpc</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.transitGateway.TransitGateway.createDirectConnectGatewayAssociation">createDirectConnectGatewayAssociation</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.transitGateway.TransitGateway.shareTransitGateway">shareTransitGateway</a></code> | *No description.* |
@@ -9624,6 +9625,18 @@ public addRouteToRoutingTable(route: TransitGatewayRoute): void
 ###### `route`<sup>Required</sup> <a name="route" id="raindancers-cdk.transitGateway.TransitGateway.addRouteToRoutingTable.parameter.route"></a>
 
 - *Type:* raindancers-cdk.transitGateway.TransitGatewayRoute
+
+---
+
+##### `addRoutingTable` <a name="addRoutingTable" id="raindancers-cdk.transitGateway.TransitGateway.addRoutingTable"></a>
+
+```typescript
+public addRoutingTable(name: string): ITransitGatewayRouteTable
+```
+
+###### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.transitGateway.TransitGateway.addRoutingTable.parameter.name"></a>
+
+- *Type:* string
 
 ---
 
@@ -11531,6 +11544,7 @@ const attachToTransitGatewayProps: cloudNetwork.AttachToTransitGatewayProps = { 
 | <code><a href="#raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.attachmentSubnetGroup">attachmentSubnetGroup</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.ipv6Support">ipv6Support</a></code> | <code>raindancers-cdk.cloudNetwork.IpV6Support</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.tgAttachmentSubnetGroup">tgAttachmentSubnetGroup</a></code> | <code>raindancers-cdk.cloudNetwork.ISubnetGroup</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.transitGatewayRoutingTable">transitGatewayRoutingTable</a></code> | <code>raindancers-cdk.transitGateway.ITransitGatewayRouteTable</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
 
 ---
@@ -11596,6 +11610,16 @@ public readonly tgAttachmentSubnetGroup: ISubnetGroup;
 ```
 
 - *Type:* raindancers-cdk.cloudNetwork.ISubnetGroup
+
+---
+
+##### `transitGatewayRoutingTable`<sup>Optional</sup> <a name="transitGatewayRoutingTable" id="raindancers-cdk.cloudNetwork.AttachToTransitGatewayProps.property.transitGatewayRoutingTable"></a>
+
+```typescript
+public readonly transitGatewayRoutingTable: ITransitGatewayRouteTable;
+```
+
+- *Type:* raindancers-cdk.transitGateway.ITransitGatewayRouteTable
 
 ---
 
@@ -20936,6 +20960,85 @@ public readonly id: string;
 - *Type:* string
 
 The ID of the transit gateway.
+
+---
+
+### ITransitGatewayRouteTable <a name="ITransitGatewayRouteTable" id="raindancers-cdk.cloudNetwork.ITransitGatewayRouteTable"></a>
+
+- *Implemented By:* raindancers-cdk.cloudNetwork.ITransitGatewayRouteTable
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.ITransitGatewayRouteTable.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.ITransitGatewayRouteTable.property.transitGatewayId">transitGatewayId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.cloudNetwork.ITransitGatewayRouteTable.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `transitGatewayId`<sup>Required</sup> <a name="transitGatewayId" id="raindancers-cdk.cloudNetwork.ITransitGatewayRouteTable.property.transitGatewayId"></a>
+
+```typescript
+public readonly transitGatewayId: string;
+```
+
+- *Type:* string
+
+---
+
+### ITransitGatewayRouteTable <a name="ITransitGatewayRouteTable" id="raindancers-cdk.transitGateway.ITransitGatewayRouteTable"></a>
+
+- *Implemented By:* raindancers-cdk.transitGateway.ITransitGatewayRouteTable
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.transitGateway.ITransitGatewayRouteTable.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transitGateway.ITransitGatewayRouteTable.property.transitGatewayId">transitGatewayId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.transitGateway.ITransitGatewayRouteTable.property.transitGatewayRouteTableId">transitGatewayRouteTableId</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.transitGateway.ITransitGatewayRouteTable.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `transitGatewayId`<sup>Required</sup> <a name="transitGatewayId" id="raindancers-cdk.transitGateway.ITransitGatewayRouteTable.property.transitGatewayId"></a>
+
+```typescript
+public readonly transitGatewayId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `transitGatewayRouteTableId`<sup>Required</sup> <a name="transitGatewayRouteTableId" id="raindancers-cdk.transitGateway.ITransitGatewayRouteTable.property.transitGatewayRouteTableId"></a>
+
+```typescript
+public readonly transitGatewayRouteTableId: string;
+```
+
+- *Type:* string
 
 ---
 

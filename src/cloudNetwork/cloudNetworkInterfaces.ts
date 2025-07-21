@@ -67,6 +67,8 @@ export interface AttachToTransitGatewayProps {
   readonly tgAttachmentSubnetGroup?: ISubnetGroup | undefined;
 
   readonly routesToTransitGateway: string[];
+
+  readonly transitGatewayRoutingTable?: transitGateway.ITransitGatewayRouteTable | undefined;
 }
 
 export interface AddAwsServiceEndPointsProps {
@@ -93,6 +95,11 @@ export interface FlowLogProps {
 export interface IFirewallEndpoints {
   endpointId: string;
   az: string;
+}
+
+export interface ITransitGatewayRouteTable {
+  transitGatewayId: string;
+  name: string;
 }
 
 
