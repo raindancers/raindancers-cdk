@@ -2138,9 +2138,10 @@ Any object.
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcArn">vpcArn</a></code> | <code>string</code> | The VPC ARN. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcCidrBlock">vpcCidrBlock</a></code> | <code>string</code> | The IPv4 CIDR block assigned to the VPC. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcId">vpcId</a></code> | <code>string</code> | The VPC ID. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.ipv6CidrBlock">ipv6CidrBlock</a></code> | <code>string</code> | The IPv6 CIDR block assigned to the VPC. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpnGatewayId">vpnGatewayId</a></code> | <code>string</code> | VPN Gateway ID if one is attached. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.ipamConfig">ipamConfig</a></code> | <code>raindancers-cdk.cloudNetwork.IpamConfig</code> | *No description.* |
-| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.subnetCidrLookup">subnetCidrLookup</a></code> | <code>raindancers-cdk.cloudNetwork.ISubNetCidrLookup[]</code> | The IPv6 CIDR block assigned to the VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.subnetCidrLookup">subnetCidrLookup</a></code> | <code>raindancers-cdk.cloudNetwork.ISubNetCidrLookup[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.igw">igw</a></code> | <code>aws-cdk-lib.aws_ec2.CfnInternetGateway</code> | The Internet Gateway attached to the VPC. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.networkFirewall">networkFirewall</a></code> | <code>raindancers-cdk.nwFirewall.NetworkFirewall</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.networkFirewallEndpoints">networkFirewallEndpoints</a></code> | <code>raindancers-cdk.cloudNetwork.IFirewallEndpoints[]</code> | *No description.* |
@@ -2337,6 +2338,18 @@ The VPC ID.
 
 ---
 
+##### `ipv6CidrBlock`<sup>Optional</sup> <a name="ipv6CidrBlock" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.ipv6CidrBlock"></a>
+
+```typescript
+public readonly ipv6CidrBlock: string;
+```
+
+- *Type:* string
+
+The IPv6 CIDR block assigned to the VPC.
+
+---
+
 ##### `vpnGatewayId`<sup>Optional</sup> <a name="vpnGatewayId" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.vpnGatewayId"></a>
 
 ```typescript
@@ -2366,8 +2379,6 @@ public readonly subnetCidrLookup: ISubNetCidrLookup[];
 ```
 
 - *Type:* raindancers-cdk.cloudNetwork.ISubNetCidrLookup[]
-
-The IPv6 CIDR block assigned to the VPC.
 
 ---
 
@@ -5787,6 +5798,105 @@ public readonly imageRecipeComponents: ComponentConfigurationProperty[];
 ```
 
 - *Type:* aws-cdk-lib.aws_imagebuilder.CfnImageRecipe.ComponentConfigurationProperty[]
+
+---
+
+
+### InspectionRoutes <a name="InspectionRoutes" id="raindancers-cdk.cloudNetwork.InspectionRoutes"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.cloudNetwork.InspectionRoutes.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+new cloudNetwork.InspectionRoutes(scope: Construct, id: string, props: InspectionRoutesProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.InspectionRoutes.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.InspectionRoutes.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.InspectionRoutes.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.cloudNetwork.InspectionRoutesProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.cloudNetwork.InspectionRoutes.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.InspectionRoutes.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudNetwork.InspectionRoutes.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.InspectionRoutesProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.InspectionRoutes.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.cloudNetwork.InspectionRoutes.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.InspectionRoutes.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.cloudNetwork.InspectionRoutes.isConstruct"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+cloudNetwork.InspectionRoutes.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.cloudNetwork.InspectionRoutes.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.InspectionRoutes.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.cloudNetwork.InspectionRoutes.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
 
 ---
 
@@ -14816,6 +14926,100 @@ public readonly vulnScansRepoTags: string[];
 - *Type:* string[]
 
 Store vulnerability scans through AWS Inpsector in ECR using these image tags (if option is enabled).
+
+---
+
+### InspectionRoutesProps <a name="InspectionRoutesProps" id="raindancers-cdk.cloudNetwork.InspectionRoutesProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudNetwork.InspectionRoutesProps.Initializer"></a>
+
+```typescript
+import { cloudNetwork } from 'raindancers-cdk'
+
+const inspectionRoutesProps: cloudNetwork.InspectionRoutesProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.InspectionRoutesProps.property.firewallAttachmentId">firewallAttachmentId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.InspectionRoutesProps.property.inspectionRoutes">inspectionRoutes</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.InspectionRoutesProps.property.inspectionTgRouteTable">inspectionTgRouteTable</a></code> | <code>raindancers-cdk.transitGateway.ITransitGatewayRouteTable</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.InspectionRoutesProps.property.localAttachmentId">localAttachmentId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.InspectionRoutesProps.property.localTgRouteTable">localTgRouteTable</a></code> | <code>raindancers-cdk.transitGateway.ITransitGatewayRouteTable</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.InspectionRoutesProps.property.vpcIpv4Cidr">vpcIpv4Cidr</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.InspectionRoutesProps.property.vpcIpv6Cidr">vpcIpv6Cidr</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `firewallAttachmentId`<sup>Required</sup> <a name="firewallAttachmentId" id="raindancers-cdk.cloudNetwork.InspectionRoutesProps.property.firewallAttachmentId"></a>
+
+```typescript
+public readonly firewallAttachmentId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `inspectionRoutes`<sup>Required</sup> <a name="inspectionRoutes" id="raindancers-cdk.cloudNetwork.InspectionRoutesProps.property.inspectionRoutes"></a>
+
+```typescript
+public readonly inspectionRoutes: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `inspectionTgRouteTable`<sup>Required</sup> <a name="inspectionTgRouteTable" id="raindancers-cdk.cloudNetwork.InspectionRoutesProps.property.inspectionTgRouteTable"></a>
+
+```typescript
+public readonly inspectionTgRouteTable: ITransitGatewayRouteTable;
+```
+
+- *Type:* raindancers-cdk.transitGateway.ITransitGatewayRouteTable
+
+---
+
+##### `localAttachmentId`<sup>Required</sup> <a name="localAttachmentId" id="raindancers-cdk.cloudNetwork.InspectionRoutesProps.property.localAttachmentId"></a>
+
+```typescript
+public readonly localAttachmentId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `localTgRouteTable`<sup>Required</sup> <a name="localTgRouteTable" id="raindancers-cdk.cloudNetwork.InspectionRoutesProps.property.localTgRouteTable"></a>
+
+```typescript
+public readonly localTgRouteTable: ITransitGatewayRouteTable;
+```
+
+- *Type:* raindancers-cdk.transitGateway.ITransitGatewayRouteTable
+
+---
+
+##### `vpcIpv4Cidr`<sup>Required</sup> <a name="vpcIpv4Cidr" id="raindancers-cdk.cloudNetwork.InspectionRoutesProps.property.vpcIpv4Cidr"></a>
+
+```typescript
+public readonly vpcIpv4Cidr: string;
+```
+
+- *Type:* string
+
+---
+
+##### `vpcIpv6Cidr`<sup>Required</sup> <a name="vpcIpv6Cidr" id="raindancers-cdk.cloudNetwork.InspectionRoutesProps.property.vpcIpv6Cidr"></a>
+
+```typescript
+public readonly vpcIpv6Cidr: string;
+```
+
+- *Type:* string
 
 ---
 

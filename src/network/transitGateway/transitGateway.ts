@@ -307,8 +307,6 @@ export class TransitGateway extends constructs.Construct implements ITransitGate
       destinationCidrBlock: route.destinationCidrBlock,
       transitGatewayAttachmentId: route.transitGatewayAttachmentId,
     });
-
-
   };
 
   public createDirectConnectGatewayAssociation(dxGatewayId: string, allowedPrefixes: AllowedPrefixes[]): void {

@@ -80,6 +80,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
   /** The IPv4 CIDR block assigned to the VPC */
   readonly vpcCidrBlock: string;
   /** List of public subnets in the VPC */
+
   readonly publicSubnets: ec2.ISubnet[] = [];
   /** List of isolated subnets in the VPC */
   readonly isolatedSubnets: ec2.ISubnet[] = [];
@@ -102,7 +103,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
   /** VPN Gateway ID if one is attached */
   readonly vpnGatewayId?: string;
   /** The IPv6 CIDR block assigned to the VPC */
-  //ipv6CidrBlock: string = ''
+  readonly ipv6CidrBlock: string | undefined;
 
   subnetCidrLookup: interfaces.ISubNetCidrLookup[] = [];
 
@@ -169,6 +170,10 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
       vpc: this.vpc,
       vpcName: props.vpcName,
     });
+
+    if (ipamPools.ipv6CidrBlock) {
+      this.ipv6CidrBlock = ipamPools.ipv6CidrBlock;
+    }
 
 
     this.processSubnetConfigurations(props.subnetConfiguration);
@@ -418,6 +423,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
         value: subnetType,
       }],
     });
+
 
     subnet.node.addDependency(ipamPools.waiter);
 
