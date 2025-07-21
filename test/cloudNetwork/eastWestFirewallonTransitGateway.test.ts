@@ -41,6 +41,12 @@ describe('EastWestFirewallOnTg', () => {
       transitGateway,
       ipamConfig,
       firewallName: 'test-firewall',
+      availabilityZones: ['ap-southeast-2a', 'ap-southeast-2b'],
+      transitGatewayRoutingTable: {
+        transitGatewayRouteTableId: 'tgw-rtb-123',
+        transitGatewayId: 'tgw-123',
+        name: 'test-route-table',
+      },
     });
 
     expect(firewall).toBeDefined();
@@ -60,14 +66,23 @@ describe('EastWestFirewallOnTg', () => {
       transitGateway,
       ipamConfig,
       firewallName: 'test-firewall',
+      availabilityZones: ['ap-southeast-2a', 'ap-southeast-2b'],
+      transitGatewayRoutingTable: {
+        transitGatewayRouteTableId: 'tgw-rtb-123',
+        transitGatewayId: 'tgw-123',
+        name: 'test-route-table',
+      },
     };
 
     expect(props.transitGateway).toBe(transitGateway);
     expect(props.ipamConfig).toBe(ipamConfig);
     expect(props.firewallName).toBe('test-firewall');
+    expect(props.availabilityZones).toEqual(['ap-southeast-2a', 'ap-southeast-2b']);
+    expect(props.transitGatewayRoutingTable.name).toBe('test-route-table');
     expect(typeof props.transitGateway.id).toBe('string');
     expect(typeof props.ipamConfig.ipv6ScopeId).toBe('string');
     expect(typeof props.firewallName).toBe('string');
+    expect(Array.isArray(props.availabilityZones)).toBe(true);
   });
 
   test('validates firewallName property is required', () => {
@@ -90,6 +105,12 @@ describe('EastWestFirewallOnTg', () => {
       transitGateway,
       ipamConfig,
       firewallName: 'test-firewall',
+      availabilityZones: ['ap-southeast-2a', 'ap-southeast-2b'],
+      transitGatewayRoutingTable: {
+        transitGatewayRouteTableId: 'tgw-rtb-123',
+        transitGatewayId: 'tgw-123',
+        name: 'test-route-table',
+      },
     });
 
     expect(firewallConstruct.firewall).toBeDefined();

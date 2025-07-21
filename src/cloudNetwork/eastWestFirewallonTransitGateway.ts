@@ -12,6 +12,8 @@ export interface EastWestFirewallOnTgProps {
   readonly transitGateway: transitGateway.TransitGateway;
   readonly ipamConfig: cloudNetwork.IpamConfig;
   readonly firewallName: string;
+  readonly availabilityZones: string[];
+  readonly transitGatewayRoutingTable: transitGateway.ITransitGatewayRouteTable;
 }
 
 /**
@@ -45,10 +47,7 @@ export class EastWestFirewallOnTg extends constructs.Construct {
         linknet,
         firewall,
       ],
-      availabilityZones: [
-        'ap-southeast-2a',
-        'ap-southeast-2b',
-      ],
+      availabilityZones: props.availabilityZones,
       ipamConfig: props.ipamConfig,
     });
 
@@ -66,6 +65,7 @@ export class EastWestFirewallOnTg extends constructs.Construct {
         '0.0.0.0/0',
         '::/0',
       ],
+      transitGatewayRoutingTable: props.transitGatewayRoutingTable,
     });
 
     // need to create a firewall and place it in this vpc.

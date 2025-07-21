@@ -13009,9 +13009,21 @@ const eastWestFirewallOnTgProps: cloudNetwork.EastWestFirewallOnTgProps = { ... 
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps.property.availabilityZones">availabilityZones</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps.property.firewallName">firewallName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps.property.ipamConfig">ipamConfig</a></code> | <code>raindancers-cdk.cloudNetwork.IpamConfig</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps.property.transitGateway">transitGateway</a></code> | <code>raindancers-cdk.transitGateway.TransitGateway</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps.property.transitGatewayRoutingTable">transitGatewayRoutingTable</a></code> | <code>raindancers-cdk.transitGateway.ITransitGatewayRouteTable</code> | *No description.* |
+
+---
+
+##### `availabilityZones`<sup>Required</sup> <a name="availabilityZones" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps.property.availabilityZones"></a>
+
+```typescript
+public readonly availabilityZones: string[];
+```
+
+- *Type:* string[]
 
 ---
 
@@ -13042,6 +13054,16 @@ public readonly transitGateway: TransitGateway;
 ```
 
 - *Type:* raindancers-cdk.transitGateway.TransitGateway
+
+---
+
+##### `transitGatewayRoutingTable`<sup>Required</sup> <a name="transitGatewayRoutingTable" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps.property.transitGatewayRoutingTable"></a>
+
+```typescript
+public readonly transitGatewayRoutingTable: ITransitGatewayRouteTable;
+```
+
+- *Type:* raindancers-cdk.transitGateway.ITransitGatewayRouteTable
 
 ---
 
