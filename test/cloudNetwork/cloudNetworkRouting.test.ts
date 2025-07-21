@@ -360,7 +360,7 @@ describe('Router', () => {
         firewallEndPoints: firewallEndpoints,
         internetGatewayRoutes: undefined,
       });
-    }).toThrow('At least one of fwEndpoints or Firewall must be supplied to route to Firewalls');
+    }).toThrow('No firewall endpoint found for availability zone:');
   });
 
   test('throws error for missing firewall endpoints', () => {
