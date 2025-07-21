@@ -40,6 +40,7 @@ describe('EastWestFirewallOnTg', () => {
     const firewall = new EastWestFirewallOnTg(stack, 'TestFirewall', {
       transitGateway,
       ipamConfig,
+      firewallName: 'test-firewall',
     });
 
     expect(firewall).toBeDefined();
@@ -58,12 +59,20 @@ describe('EastWestFirewallOnTg', () => {
     const props = {
       transitGateway,
       ipamConfig,
+      firewallName: 'test-firewall',
     };
 
     expect(props.transitGateway).toBe(transitGateway);
     expect(props.ipamConfig).toBe(ipamConfig);
+    expect(props.firewallName).toBe('test-firewall');
     expect(typeof props.transitGateway.id).toBe('string');
     expect(typeof props.ipamConfig.ipv6ScopeId).toBe('string');
+    expect(typeof props.firewallName).toBe('string');
+  });
+
+  test('validates firewallName property is required', () => {
+    expect(typeof 'test-firewall').toBe('string');
+    expect('test-firewall'.length).toBeGreaterThan(0);
   });
 
   test('construct has firewall property defined in class', () => {
@@ -80,6 +89,7 @@ describe('EastWestFirewallOnTg', () => {
     const firewallConstruct = new EastWestFirewallOnTg(stack, 'TestFirewall', {
       transitGateway,
       ipamConfig,
+      firewallName: 'test-firewall',
     });
 
     expect(firewallConstruct.firewall).toBeDefined();

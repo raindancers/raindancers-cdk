@@ -11,6 +11,7 @@ import * as transitGateway from '../network/transitGateway';
 export interface EastWestFirewallOnTgProps {
   readonly transitGateway: transitGateway.TransitGateway;
   readonly ipamConfig: cloudNetwork.IpamConfig;
+  readonly firewallName: string;
 }
 
 /**
@@ -70,7 +71,7 @@ export class EastWestFirewallOnTg extends constructs.Construct {
     // need to create a firewall and place it in this vpc.
 
     const policy = new nwFirewall.FirewallPolicy(this, 'policy', {
-      policyName: 'test',
+      policyName: `${props.firewallName}-policy`,
       statelessDefaultActions: [
         nwFirewall.StatelessActions.PASS,
       ],
@@ -80,7 +81,7 @@ export class EastWestFirewallOnTg extends constructs.Construct {
     });
 
     network.addNetworkFirewall(
-      'testFW',
+      props.firewallName,
       policy.firewallpolicy,
       firewall,
     );

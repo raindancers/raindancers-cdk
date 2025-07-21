@@ -12985,8 +12985,19 @@ const eastWestFirewallOnTgProps: cloudNetwork.EastWestFirewallOnTgProps = { ... 
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps.property.firewallName">firewallName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps.property.ipamConfig">ipamConfig</a></code> | <code>raindancers-cdk.cloudNetwork.IpamConfig</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps.property.transitGateway">transitGateway</a></code> | <code>raindancers-cdk.transitGateway.TransitGateway</code> | *No description.* |
+
+---
+
+##### `firewallName`<sup>Required</sup> <a name="firewallName" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTgProps.property.firewallName"></a>
+
+```typescript
+public readonly firewallName: string;
+```
+
+- *Type:* string
 
 ---
 
