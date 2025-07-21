@@ -1991,7 +1991,7 @@ Configuration properties for associating resolver rules.
 ##### `attachToTransitGateway` <a name="attachToTransitGateway" id="raindancers-cdk.cloudNetwork.CloudNetwork.attachToTransitGateway"></a>
 
 ```typescript
-public attachToTransitGateway(id: string, props: AttachToTransitGatewayProps): void
+public attachToTransitGateway(id: string, props: AttachToTransitGatewayProps): string
 ```
 
 Attaches this VPC to a Transit Gateway for inter-VPC connectivity.
@@ -3164,6 +3164,7 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.property.attachmentId">attachmentId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.property.firewall">firewall</a></code> | <code>raindancers-cdk.nwFirewall.NetworkFirewall</code> | *No description.* |
 
 ---
@@ -3177,6 +3178,16 @@ public readonly node: Node;
 - *Type:* constructs.Node
 
 The tree node.
+
+---
+
+##### `attachmentId`<sup>Required</sup> <a name="attachmentId" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.property.attachmentId"></a>
+
+```typescript
+public readonly attachmentId: string;
+```
+
+- *Type:* string
 
 ---
 

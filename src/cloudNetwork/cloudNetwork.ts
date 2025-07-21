@@ -768,7 +768,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
    * @param id - Unique identifier for the Transit Gateway attachment
    * @param props - Configuration properties for the attachment
    */
-  public attachToTransitGateway(id: string, props: interfaces.AttachToTransitGatewayProps): void {
+  public attachToTransitGateway(id: string, props: interfaces.AttachToTransitGatewayProps): string {
 
     this.transitGatewayAttachment = mixins.DualStackVpcMethods.attachToTransitGateway(this, id, {
       ...props,
@@ -776,6 +776,8 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
     });
 
     this.tgRoutes = props.routesToTransitGateway;
+
+    return this.transitGatewayAttachment;
   }
 
   /**

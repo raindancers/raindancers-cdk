@@ -23,6 +23,7 @@ export interface EastWestFirewallOnTgProps {
 export class EastWestFirewallOnTg extends constructs.Construct {
 
   firewall: nwFirewall.NetworkFirewall | undefined;
+  attachmentId: string;
 
   constructor(scope: constructs.Construct, id: string, props: EastWestFirewallOnTgProps) {
     super(scope, id);
@@ -57,7 +58,7 @@ export class EastWestFirewallOnTg extends constructs.Construct {
     });
 
 
-    network.attachToTransitGateway('tgattach', {
+    const attachment = network.attachToTransitGateway('tgattach', {
       transitGateway: props.transitGateway,
       applianceMode: cloudNetwork.ApplianceMode.ENABLED,
       ipv6Support: cloudNetwork.IpV6Support.ENABLED,
@@ -67,6 +68,8 @@ export class EastWestFirewallOnTg extends constructs.Construct {
       ],
       transitGatewayRoutingTable: props.transitGatewayRoutingTable,
     });
+
+    this.attachmentId = attachment;
 
     // need to create a firewall and place it in this vpc.
 
