@@ -1,7 +1,11 @@
+import * as path from 'path';
 import * as core from 'aws-cdk-lib';
 import {
   aws_ec2 as ec2,
   aws_networkfirewall as nwfw,
+  custom_resources as cr,
+  aws_lambda as lambda,
+  aws_logs as logs,
 }
   from 'aws-cdk-lib';
 import * as constructs from 'constructs';
@@ -56,6 +60,8 @@ export interface CloudNetworkProps {
    * enable DnsHostNames
    */
   readonly enableDnsHostNames?: boolean | undefined;
+
+  readonly waitDuration?: core.Duration | undefined;
 }
 
 /**
@@ -129,6 +135,8 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
 
   ipamConfig: interfaces.IpamConfig;
 
+  readonly implementBigWait: core.CustomResource | undefined;
+
 
   /**
    * Creates a new dual-stack VPC with IPAM-managed addressing.
@@ -176,7 +184,10 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
 
     this.processSubnetConfigurations(props.subnetConfiguration);
 
-    this.createSubnetsAndRoutes(props.subnetConfiguration, props.availabilityZones, ipamPools);
+    if (props.waitDuration) {
+      this.implementBigWait = this.bigWait(props.waitDuration);
+    }
+    this.createSubnetsAndRoutes(props.subnetConfiguration, props.availabilityZones, ipamPools, this.implementBigWait);
 
 
     this._vpc = ec2.Vpc.fromVpcAttributes(this, 'ImportedVpc', {
@@ -206,6 +217,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
     subnetConfigurations: interfaces.ISubnetGroup[],
     availabilityZones: string[],
     ipamPools: ipamPlanning.IIpamPlanningTool,
+    wait?: core.CustomResource | undefined,
   ): void {
     const sortedSubnetConfig = [...subnetConfigurations].sort((a, b) => {
       if (a.subnetType === ec2.SubnetType.PUBLIC) return -1;
@@ -215,7 +227,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
 
     sortedSubnetConfig.forEach((subnetConfig) => {
       availabilityZones.forEach((zone) => {
-        const subnetRT = this.createSubnetAndRoutingTable(subnetConfig, zone, ipamPools);
+        const subnetRT = this.createSubnetAndRoutingTable(subnetConfig, zone, ipamPools, wait);
 
         this.subnetCidrLookup.push({
           ipv6cidr: subnetRT.cfnSubnet.ipv6CidrBlock!,
@@ -372,6 +384,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
     subnetConfig: interfaces.ISubnetGroup,
     zone: string,
     ipamPools: ipamPlanning.IIpamPlanningTool,
+    wait: core.CustomResource | undefined,
   ): interfaces.SubnetAndRoutingTable {
 
 
@@ -422,7 +435,9 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
       }],
     });
 
-
+    if (wait) {
+      subnet.node.addDependency(wait);
+    };
     subnet.node.addDependency(ipamPools.waiter);
 
     // create a route table
@@ -842,6 +857,35 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
       subnetGroup: subnet.name!,
       iPStackMode: ipStackMode ?? firewall.FirewallSubnetMappingIPAddressType.DUALSTACK,
       vpc: this._vpc,
+    });
+  }
+
+  private bigWait(duration: core.Duration): core.CustomResource {
+
+    const poolCidrWaiterFn = new lambda.Function(this, 'poolCidrWaiterFn', {
+      // amazonq-ignore-next-line
+      runtime: lambda.Runtime.PYTHON_3_13,
+      handler: 'bigwait.handler',
+      timeout: core.Duration.minutes(2),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/cloudNetwork/lambda/ipam/')),
+      logGroup: new logs.LogGroup(this, 'poolCidrWaiterLogGroup', {
+        retention: logs.RetentionDays.ONE_WEEK,
+      }),
+    });
+
+    const provider = new cr.Provider(this, 'poolCidrWaiterProvider', {
+      onEventHandler: poolCidrWaiterFn,
+      isCompleteHandler: poolCidrWaiterFn,
+      queryInterval: core.Duration.seconds(30),
+      totalTimeout: core.Duration.minutes(30),
+    });
+
+    return new core.CustomResource(this, 'bigWait', {
+      serviceToken: provider.serviceToken,
+      properties: {
+        TimerDuration: duration.toSeconds(),
+        StartTimer: new Date().toISOString(),
+      },
     });
   }
 

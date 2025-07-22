@@ -2138,6 +2138,7 @@ Any object.
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcArn">vpcArn</a></code> | <code>string</code> | The VPC ARN. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcCidrBlock">vpcCidrBlock</a></code> | <code>string</code> | The IPv4 CIDR block assigned to the VPC. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcId">vpcId</a></code> | <code>string</code> | The VPC ID. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.implementBigWait">implementBigWait</a></code> | <code>aws-cdk-lib.CustomResource</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.ipv6CidrBlock">ipv6CidrBlock</a></code> | <code>string</code> | The IPv6 CIDR block assigned to the VPC. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpnGatewayId">vpnGatewayId</a></code> | <code>string</code> | VPN Gateway ID if one is attached. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.ipamConfig">ipamConfig</a></code> | <code>raindancers-cdk.cloudNetwork.IpamConfig</code> | *No description.* |
@@ -2335,6 +2336,16 @@ public readonly vpcId: string;
 - *Type:* string
 
 The VPC ID.
+
+---
+
+##### `implementBigWait`<sup>Optional</sup> <a name="implementBigWait" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.implementBigWait"></a>
+
+```typescript
+public readonly implementBigWait: CustomResource;
+```
+
+- *Type:* aws-cdk-lib.CustomResource
 
 ---
 
@@ -12228,6 +12239,7 @@ const cloudNetworkProps: cloudNetwork.CloudNetworkProps = { ... }
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetworkProps.property.enableDnsSupport">enableDnsSupport</a></code> | <code>boolean</code> | enable dnsSupport. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetworkProps.property.ipv4NetmaskLength">ipv4NetmaskLength</a></code> | <code>number</code> | IPv4 netmask length for the VPC CIDR block. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetworkProps.property.ipv6NetmaskLength">ipv6NetmaskLength</a></code> | <code>number</code> | IPv6 netmask length for the VPC CIDR block. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetworkProps.property.waitDuration">waitDuration</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
 
 ---
 
@@ -12352,6 +12364,16 @@ public readonly ipv6NetmaskLength: number;
 - *Default:* 56
 
 IPv6 netmask length for the VPC CIDR block.
+
+---
+
+##### `waitDuration`<sup>Optional</sup> <a name="waitDuration" id="raindancers-cdk.cloudNetwork.CloudNetworkProps.property.waitDuration"></a>
+
+```typescript
+public readonly waitDuration: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
 
 ---
 

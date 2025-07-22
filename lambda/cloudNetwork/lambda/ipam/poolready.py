@@ -21,7 +21,6 @@ def handler(event, context):
     ipv4_pool_id = event['ResourceProperties']['Ipv4PoolId']
     ipv6_pool_id = event['ResourceProperties']['Ipv6PoolId']
     
-    time.sleep(15)
     
     if request_type == 'Create' or request_type == 'Update':
         # Check if both pools have CIDRs allocated
