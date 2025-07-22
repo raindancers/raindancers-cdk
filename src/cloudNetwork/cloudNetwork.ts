@@ -225,16 +225,24 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
       return 0;
     });
 
+    let lastSubnet: ec2.CfnSubnet | undefined;
+
     sortedSubnetConfig.forEach((subnetConfig) => {
       availabilityZones.forEach((zone) => {
-        const subnetRT = this.createSubnetAndRoutingTable(subnetConfig, zone, ipamPools, wait);
+        const subnetRT = this.createSubnetAndRoutingTable(subnetConfig, zone, ipamPools, wait, lastSubnet);
+
+        lastSubnet = subnetRT.cfnSubnet;
 
         this.subnetCidrLookup.push({
           ipv6cidr: subnetRT.cfnSubnet.ipv6CidrBlock!,
           ipv4cidr: subnetRT.cfnSubnet.cidrBlock!,
           subnetId: subnetRT.cfnSubnet.attrSubnetId,
         });
+
+
         this.addTypeRoutes(subnetConfig, subnetRT, zone);
+
+
       });
     });
   }
@@ -385,6 +393,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
     zone: string,
     ipamPools: ipamPlanning.IIpamPlanningTool,
     wait: core.CustomResource | undefined,
+    lastSubnet: ec2.CfnSubnet | undefined,
   ): interfaces.SubnetAndRoutingTable {
 
 
@@ -434,6 +443,10 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
         value: subnetType,
       }],
     });
+
+    if (lastSubnet) {
+      subnet.node.addDependency(lastSubnet);
+git    }
 
     if (wait) {
       subnet.node.addDependency(wait);
