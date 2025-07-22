@@ -171,9 +171,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
       vpcName: props.vpcName,
     });
 
-    if (ipamPools.ipv6CidrBlock) {
-      this.ipv6CidrBlock = ipamPools.ipv6CidrBlock;
-    }
+    this.ipv6CidrBlock = ipamPools.ipv6CidrBlock;
 
 
     this.processSubnetConfigurations(props.subnetConfiguration);

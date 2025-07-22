@@ -5999,10 +5999,10 @@ Any object.
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv4PlanningPool">ipv4PlanningPool</a></code> | <code>aws-cdk-lib.aws_ec2.CfnIPAMPool</code> | IPv4 IPAM pool for subnet allocation. |
-| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv6PlanningPool">ipv6PlanningPool</a></code> | <code>aws-cdk-lib.aws_ec2.CfnIPAMPool</code> | IPv6 IPAM pool for subnet allocation. |
-| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.waiter">waiter</a></code> | <code>aws-cdk-lib.CustomResource</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv6CidrBlock">ipv6CidrBlock</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv6PlanningPool">ipv6PlanningPool</a></code> | <code>aws-cdk-lib.aws_ec2.CfnIPAMPool</code> | IPv6 IPAM pool for subnet allocation. |
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.vpcCidrBlock">vpcCidrBlock</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.waiter">waiter</a></code> | <code>aws-cdk-lib.CustomResource</code> | *No description.* |
 
 ---
 
@@ -6030,6 +6030,16 @@ IPv4 IPAM pool for subnet allocation.
 
 ---
 
+##### `ipv6CidrBlock`<sup>Required</sup> <a name="ipv6CidrBlock" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv6CidrBlock"></a>
+
+```typescript
+public readonly ipv6CidrBlock: string;
+```
+
+- *Type:* string
+
+---
+
 ##### `ipv6PlanningPool`<sup>Required</sup> <a name="ipv6PlanningPool" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv6PlanningPool"></a>
 
 ```typescript
@@ -6042,6 +6052,16 @@ IPv6 IPAM pool for subnet allocation.
 
 ---
 
+##### `vpcCidrBlock`<sup>Required</sup> <a name="vpcCidrBlock" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.vpcCidrBlock"></a>
+
+```typescript
+public readonly vpcCidrBlock: string;
+```
+
+- *Type:* string
+
+---
+
 ##### `waiter`<sup>Required</sup> <a name="waiter" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.waiter"></a>
 
 ```typescript
@@ -6049,26 +6069,6 @@ public readonly waiter: CustomResource;
 ```
 
 - *Type:* aws-cdk-lib.CustomResource
-
----
-
-##### `ipv6CidrBlock`<sup>Optional</sup> <a name="ipv6CidrBlock" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv6CidrBlock"></a>
-
-```typescript
-public readonly ipv6CidrBlock: string;
-```
-
-- *Type:* string
-
----
-
-##### `vpcCidrBlock`<sup>Optional</sup> <a name="vpcCidrBlock" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.vpcCidrBlock"></a>
-
-```typescript
-public readonly vpcCidrBlock: string;
-```
-
-- *Type:* string
 
 ---
 

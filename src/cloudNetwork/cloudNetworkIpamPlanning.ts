@@ -59,8 +59,8 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
   /** IPv4 IPAM pool for subnet allocation */
   ipv4PlanningPool: ec2.CfnIPAMPool;
   waiter: core.CustomResource;
-  vpcCidrBlock: string | undefined;
-  ipv6CidrBlock: string | undefined;
+  vpcCidrBlock: string;
+  ipv6CidrBlock: string;
 
 
   /**
@@ -142,6 +142,8 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       },
     });
 
+    this.ipv6CidrBlock = vpcCidrLookup.getResponseField('Vpcs.0.Ipv6CidrBlockAssociationSet.0.Ipv6CidrBlock');
+    this.vpcCidrBlock = vpcCidrLookup.getResponseField('Vpcs.0.CidrBlockAssociationSet.0.CidrBlock');
 
     const ipv6PoolCidr = new ec2.CfnIPAMPoolCidr(this, 'IPAMPoolCidrV6', {
       ipamPoolId: this.ipv6PlanningPool.attrIpamPoolId,
