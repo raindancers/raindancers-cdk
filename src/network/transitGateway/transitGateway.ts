@@ -264,7 +264,7 @@ export class TransitGateway extends constructs.Construct implements ITransitGate
 
   public addRoutingTable(name: string): ITransitGatewayRouteTable {
 
-    const rt = new ec2.CfnTransitGatewayRouteTable(this, 'sdwanRouteTable', {
+    const rt = new ec2.CfnTransitGatewayRouteTable(this, `${name}TGRouteTable`, {
       transitGatewayId: this.id,
       tags: [{ key: 'name', value: name }],
     });
