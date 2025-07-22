@@ -17,7 +17,7 @@ def handler(event, context):
     if request_type == 'Create':
         
         props = event['ResourceProperties']
-        start_time_str = props['StartTime']
+        start_time_str = props['StartTimer']
         timer_duration = int(props['TimerDuration'])
         
         # Parse the ISO string to datetime
