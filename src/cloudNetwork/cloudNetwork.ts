@@ -446,7 +446,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
 
     if (lastSubnet) {
       subnet.node.addDependency(lastSubnet);
-git    }
+    }
 
     if (wait) {
       subnet.node.addDependency(wait);
