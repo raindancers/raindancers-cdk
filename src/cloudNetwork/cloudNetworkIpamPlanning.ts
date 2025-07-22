@@ -4,6 +4,7 @@ import {
   aws_ec2 as ec2,
   aws_iam as iam,
   aws_lambda as lambda,
+  aws_logs as logs,
   custom_resources as cr,
 }
   from 'aws-cdk-lib';
@@ -171,6 +172,9 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       handler: 'ipv6ipam.handler',
       timeout: core.Duration.minutes(2),
       code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/cloudNetwork/lambda/ipam/')),
+      logGroup: new logs.LogGroup(this, 'ipv6ipam', {
+        retention: logs.RetentionDays.ONE_WEEK,
+      }),
     });
 
     ipamWaiterFn.addToRolePolicy(new iam.PolicyStatement({
@@ -203,6 +207,10 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       handler: 'poolready.handler',
       timeout: core.Duration.minutes(2),
       code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/cloudNetwork/lambda/ipam/')),
+      logGroup: new logs.LogGroup(this, 'poolCidrWaiterLogGroup', {
+        retention: logs.RetentionDays.ONE_WEEK,
+      }),
+
     });
 
     poolCidrWaiterFn.addToRolePolicy(new iam.PolicyStatement({

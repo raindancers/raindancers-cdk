@@ -13,6 +13,8 @@ def handler(event, context):
         'IsComplete': True,
     }
         
+    print(event)
+
     try:
         response = ec2.get_ipam_resource_cidrs(
             IpamScopeId=scope_id,

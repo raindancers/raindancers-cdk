@@ -8,6 +8,8 @@ def handler(event, context):
     # session = boto3.Session(region_name='ap-southeast-2', profile_name='network')
     # ec2 = session.client('ec2')
 
+    print(event)
+
     request_type = event['RequestType']
     
     if request_type == 'Delete':
