@@ -262,7 +262,7 @@ export class DualStackVpcMethods {
     if (props.transitGatewayRoutingTable) {
       new ec2.CfnTransitGatewayRouteTableAssociation(scope, 'AssociateWithRoutingTable', {
         transitGatewayAttachmentId: tgAttachment.attrId,
-        transitGatewayRouteTableId: props.transitGatewayRoutingTable.transitGatewayId,
+        transitGatewayRouteTableId: props.transitGatewayRoutingTable.transitGatewayRouteTableId,
       });
     }
 
