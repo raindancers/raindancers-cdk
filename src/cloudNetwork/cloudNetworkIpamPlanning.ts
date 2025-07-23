@@ -141,14 +141,12 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         },
         physicalResourceId: cr.PhysicalResourceId.of('VpcCidrLookup'),
         outputPaths: [
+
           'Vpcs.0.CidrBlockAssociationSet.0.CidrBlock',
           'Vpcs.0.Ipv6CidrBlockAssociationSet.0.Ipv6CidrBlock',
         ],
       },
     });
-
-    this.ipv6CidrBlock = vpcCidrLookup.getResponseField('Vpcs.0.Ipv6CidrBlockAssociationSet.0.Ipv6CidrBlock');
-    this.vpcCidrBlock = vpcCidrLookup.getResponseField('Vpcs.0.CidrBlockAssociationSet.0.CidrBlock');
 
     const ipv6PoolCidr = new ec2.CfnIPAMPoolCidr(this, 'IPAMPoolCidrV6', {
       ipamPoolId: this.ipv6PlanningPool.attrIpamPoolId,
@@ -160,13 +158,14 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       cidr: vpcCidrLookup.getResponseField('Vpcs.0.CidrBlockAssociationSet.0.CidrBlock'),
     });
 
-
     // Wait for pool CIDRs before starting the waiter.
     this.waiter = this.createPoolCidrWaiter(this.ipv4PlanningPool.attrIpamPoolId, this.ipv6PlanningPool.attrIpamPoolId);
 
     this.waiter.node.addDependency(ipv4PoolCidr);
     this.waiter.node.addDependency(ipv6PoolCidr);
 
+    this.ipv6CidrBlock = ipv6PoolCidr.cidr!; //vpcCidrLookup.getResponseField('Vpcs.0.Ipv6CidrBlockAssociationSet.0.Ipv6CidrBlock');
+    this.vpcCidrBlock = ipv4PoolCidr.cidr!; //vpcCidrLookup.getResponseField('Vpcs.0.CidrBlockAssociationSet.0.CidrBlock');
   }
 
   private createIpamWaiter(vpcId: string, scopeId: string): core.CustomResource {
