@@ -9,7 +9,6 @@ import {
 }
   from 'aws-cdk-lib';
 
-
 import * as constructs from 'constructs';
 import * as interfaces from './cloudNetworkInterfaces';
 
@@ -60,8 +59,8 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
   /** IPv4 IPAM pool for subnet allocation */
   ipv4PlanningPool: ec2.CfnIPAMPool;
   waiter: core.CustomResource;
-  vpcCidrBlock: string;
-  ipv6CidrBlock: string;
+  // vpcCidrBlock: string;
+  // ipv6CidrBlock: string;
 
 
   /**
@@ -123,49 +122,50 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
 
     this.ipv4PlanningPool.node.addDependency(ipamWaiter);
 
-
     // Allocate VPC CIDR blocks to the planning pools
 
 
     // need to get the ipblocks.
 
-    const vpcCidrLookup = new cr.AwsCustomResource(this, 'vpcCidrLookup', {
-      policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
-        resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
-      }),
-      onCreate: {
-        service: 'EC2',
-        action: 'describeVpcs',
-        parameters: {
-          VpcIds: [props.vpc.attrVpcId],
-        },
-        physicalResourceId: cr.PhysicalResourceId.of('VpcCidrLookup'),
-        outputPaths: [
+    // const vpcCidrLookup = new cr.AwsCustomResource(this, 'vpcCidrLookup', {
+    //   policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
+    //     resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
+    //   }),
+    //   onCreate: {
+    //     service: 'EC2',
+    //     action: 'describeVpcs',
+    //     parameters: {
+    //       VpcIds: [props.vpc.attrVpcId],
+    //     },
+    //     physicalResourceId: cr.PhysicalResourceId.of('VpcCidrLookup'),
+    //     outputPaths: [
 
-          'Vpcs.0.CidrBlockAssociationSet.0.CidrBlock',
-          'Vpcs.0.Ipv6CidrBlockAssociationSet.0.Ipv6CidrBlock',
-        ],
-      },
-    });
+    //       'Vpcs.0.CidrBlockAssociationSet.0.CidrBlock',
+    //       'Vpcs.0.Ipv6CidrBlockAssociationSet.0.Ipv6CidrBlock',
+    //     ],
+    //   },
+    // });
 
-    const ipv6PoolCidr = new ec2.CfnIPAMPoolCidr(this, 'IPAMPoolCidrV6', {
-      ipamPoolId: this.ipv6PlanningPool.attrIpamPoolId,
-      cidr: vpcCidrLookup.getResponseField('Vpcs.0.Ipv6CidrBlockAssociationSet.0.Ipv6CidrBlock'),
-    });
+    // vpcCidrLookup.node.addDependency(ipv6)
 
-    const ipv4PoolCidr = new ec2.CfnIPAMPoolCidr(this, 'IPAMPoolCidrV4', {
-      ipamPoolId: this.ipv4PlanningPool.attrIpamPoolId,
-      cidr: vpcCidrLookup.getResponseField('Vpcs.0.CidrBlockAssociationSet.0.CidrBlock'),
-    });
+    // const ipv6PoolCidr = new ec2.CfnIPAMPoolCidr(this, 'IPAMPoolCidrV6', {
+    //   ipamPoolId: this.ipv6PlanningPool.attrIpamPoolId,
+    //   cidr: vpcCidrLookup.getResponseField('Vpcs.0.Ipv6CidrBlockAssociationSet.0.Ipv6CidrBlock'),
+    // });
+
+    // const ipv4PoolCidr = new ec2.CfnIPAMPoolCidr(this, 'IPAMPoolCidrV4', {
+    //   ipamPoolId: this.ipv4PlanningPool.attrIpamPoolId,
+    //   cidr: vpcCidrLookup.getResponseField('Vpcs.0.CidrBlockAssociationSet.0.CidrBlock'),
+    // });
 
     // Wait for pool CIDRs before starting the waiter.
     this.waiter = this.createPoolCidrWaiter(this.ipv4PlanningPool.attrIpamPoolId, this.ipv6PlanningPool.attrIpamPoolId);
 
-    this.waiter.node.addDependency(ipv4PoolCidr);
-    this.waiter.node.addDependency(ipv6PoolCidr);
+    // this.waiter.node.addDependency(ipv4PoolCidr);
+    // this.waiter.node.addDependency(ipv6PoolCidr);
 
-    this.ipv6CidrBlock = ipv6PoolCidr.cidr!; //vpcCidrLookup.getResponseField('Vpcs.0.Ipv6CidrBlockAssociationSet.0.Ipv6CidrBlock');
-    this.vpcCidrBlock = ipv4PoolCidr.cidr!; //vpcCidrLookup.getResponseField('Vpcs.0.CidrBlockAssociationSet.0.CidrBlock');
+    // this.ipv6CidrBlock = props.vpc.attrIpv6CidrBlocks[0]; //vpcCidrLookup.getResponseField('Vpcs.0.Ipv6CidrBlockAssociationSet.0.Ipv6CidrBlock');
+    // this.vpcCidrBlock = props.vpc.attrCidrBlock; //vpcCidrLookup.getResponseField('Vpcs.0.CidrBlockAssociationSet.0.CidrBlock');
   }
 
   private createIpamWaiter(vpcId: string, scopeId: string): core.CustomResource {
