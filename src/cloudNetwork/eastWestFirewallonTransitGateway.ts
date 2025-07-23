@@ -43,7 +43,7 @@ export class EastWestFirewallOnTg extends constructs.Construct {
     };
 
     const network = new cloudNetwork.CloudNetwork(this, 'vpc', {
-      vpcName: 'dualstackTest',
+      vpcName: `${props.firewallName}-EastWestInSpector`,
       subnetConfiguration: [
         linknet,
         firewall,
