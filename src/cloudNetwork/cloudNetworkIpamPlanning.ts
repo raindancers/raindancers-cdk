@@ -140,6 +140,10 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
           VpcIds: [props.vpc.attrVpcId],
         },
         physicalResourceId: cr.PhysicalResourceId.of('VpcCidrLookup'),
+        outputPaths: [
+          'Vpcs.0.CidrBlockAssociationSet.0.CidrBlock',
+          'Vpcs.0.Ipv6CidrBlockAssociationSet.0.Ipv6CidrBlock',
+        ],
       },
     });
 

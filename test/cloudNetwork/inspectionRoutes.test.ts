@@ -65,7 +65,7 @@ describe('InspectionRoutes', () => {
     });
   });
 
-  test('creates IPv4 and IPv6 routes in inspection route table', () => {
+  test('creates route table propagation to inspection route table', () => {
     new InspectionRoutes(stack, 'TestInspectionRoutes', {
       firewallAttachmentId: 'tgw-attach-firewall-123',
       localAttachmentId: 'tgw-attach-local-456',
@@ -78,17 +78,9 @@ describe('InspectionRoutes', () => {
 
     const template = Template.fromStack(stack);
 
-    // Check IPv4 route
-    template.hasResourceProperties('AWS::EC2::TransitGatewayRoute', {
+    // Check route table propagation
+    template.hasResourceProperties('AWS::EC2::TransitGatewayRouteTablePropagation', {
       TransitGatewayRouteTableId: 'tgw-rtb-inspection-456',
-      DestinationCidrBlock: '10.0.0.0/16',
-      TransitGatewayAttachmentId: 'tgw-attach-local-456',
-    });
-
-    // Check IPv6 route
-    template.hasResourceProperties('AWS::EC2::TransitGatewayRoute', {
-      TransitGatewayRouteTableId: 'tgw-rtb-inspection-456',
-      DestinationCidrBlock: '2001:db8::/32',
       TransitGatewayAttachmentId: 'tgw-attach-local-456',
     });
   });
@@ -126,8 +118,9 @@ describe('InspectionRoutes', () => {
 
     const template = Template.fromStack(stack);
 
-    // Should create 5 total routes: 3 inspection + 1 IPv4 + 1 IPv6
-    template.resourceCountIs('AWS::EC2::TransitGatewayRoute', 5);
+    // Should create 3 inspection routes + 1 propagation
+    template.resourceCountIs('AWS::EC2::TransitGatewayRoute', 3);
+    template.resourceCountIs('AWS::EC2::TransitGatewayRouteTablePropagation', 1);
   });
 
   test('handles empty inspection routes array', () => {
@@ -143,8 +136,9 @@ describe('InspectionRoutes', () => {
 
     const template = Template.fromStack(stack);
 
-    // Should create only 2 routes: 1 IPv4 + 1 IPv6
-    template.resourceCountIs('AWS::EC2::TransitGatewayRoute', 2);
+    // Should create only 1 propagation, no routes
+    template.resourceCountIs('AWS::EC2::TransitGatewayRoute', 0);
+    template.resourceCountIs('AWS::EC2::TransitGatewayRouteTablePropagation', 1);
   });
 
   test('validates all required properties are used', () => {
@@ -182,8 +176,11 @@ describe('InspectionRoutes', () => {
     const routes = template.findResources('AWS::EC2::TransitGatewayRoute');
 
     // Verify we have unique resource IDs
-    const resourceIds = Object.keys(routes);
-    expect(resourceIds.length).toBe(4); // 2 inspection + 1 IPv4 + 1 IPv6
-    expect(new Set(resourceIds).size).toBe(resourceIds.length); // All unique
+    const propagations = template.findResources('AWS::EC2::TransitGatewayRouteTablePropagation');
+    const routeIds = Object.keys(routes);
+    const propagationIds = Object.keys(propagations);
+    expect(routeIds.length).toBe(2); // 2 inspection routes
+    expect(propagationIds.length).toBe(1); // 1 propagation
+    expect(new Set([...routeIds, ...propagationIds]).size).toBe(routeIds.length + propagationIds.length); // All unique
   });
 });
