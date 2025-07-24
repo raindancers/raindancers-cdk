@@ -2,7 +2,7 @@ import boto3
 import json
 
 def handler(event, context):
-    ec2 = boto.client('ec2')
+    ec2 = boto3.client('ec2')
     
     request_type = event['RequestType']
     
