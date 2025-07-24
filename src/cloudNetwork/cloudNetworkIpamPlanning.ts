@@ -94,6 +94,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       sourceIpamPoolId: props.ipamConfig.ipv6PoolId,
       description: `IPv6 planning pool for vpc ${props.vpcName} | ${props.vpc.attrVpcId}`,
       allocationDefaultNetmaskLength: DEFAULT_IPV6_SUBNET_MASK,
+      autoImport: true,
       sourceResource: {
         resourceId: props.vpc.attrVpcId,
         resourceOwner: core.Stack.of(this).account,
@@ -112,6 +113,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       sourceIpamPoolId: props.ipamConfig.ipv4IpamPoolId,
       description: `IPv6 planning pool for vpc ${props.vpcName} | ${props.vpc.attrVpcId}`,
       allocationDefaultNetmaskLength: props.defaultipv4allocation ?? 24,
+      autoImport: true,
       sourceResource: {
         resourceId: props.vpc.attrVpcId,
         resourceOwner: core.Stack.of(this).account,
