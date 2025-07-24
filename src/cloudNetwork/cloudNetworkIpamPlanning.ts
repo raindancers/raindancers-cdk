@@ -177,7 +177,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
     });
 
     poolCidrWaiterFn.addToRolePolicy(new iam.PolicyStatement({
-      actions: ['ec2:GetIpamPoolCidrs'],
+      actions: ['ec2:DescribeIpamPools'],
       resources: ['*'],
     }));
 
