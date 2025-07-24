@@ -25,13 +25,11 @@ def handler(event, context):
     if request_type == 'Create' or request_type == 'Update':
         # Check if both pools have CIDRs allocated
         try:
-            ipv4_cidrs = ec2.get_ipam_pool_cidrs(IpamPoolId=ipv4_pool_id)
-            ipv6_cidrs = ec2.get_ipam_pool_cidrs(IpamPoolId=ipv6_pool_id)
+
+            ipv4_pool = ec2.describe_ipam_pools(IpamPoolIds=[ipv4_pool_id])['IpamPools'][0]['State']
+            ipv6_pool = ec2.describe_ipam_pools(IpamPoolIds=[ipv6_pool_id])['IpamPools'][0]['State']
             
-            ipv4_ready = len(ipv4_cidrs['IpamPoolCidrs']) > 0 and ipv4_cidrs['IpamPoolCidrs'][0]['State'] == 'provisioned'
-            ipv6_ready = len(ipv6_cidrs['IpamPoolCidrs']) > 0 and ipv6_cidrs['IpamPoolCidrs'][0]['State'] == 'provisioned'
-            
-            if ipv4_ready and ipv6_ready:
+            if ipv4_pool == 'create-complete' and ipv6_pool == 'create-complete':
                 return {
                     'PhysicalResourceId': 'poolcidr-waiter',
                     'IsComplete': True
@@ -46,3 +44,5 @@ def handler(event, context):
                 'PhysicalResourceId': 'poolcidr-waiter',
                 'IsComplete': False
             }
+
+

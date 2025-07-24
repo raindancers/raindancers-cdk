@@ -6323,12 +6323,14 @@ Configuration properties for the routing stack.
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.toString">toString</a></code> | Returns a string representation of this construct. |
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.addDependency">addDependency</a></code> | Add a dependency between this stack and another stack. |
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.addMetadata">addMetadata</a></code> | Adds an arbitrary key-value pair, with information you want to record about the stack. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.addStackTag">addStackTag</a></code> | Configure a stack tag. |
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.addTransform">addTransform</a></code> | Add a Transform to this stack. A Transform is a macro that AWS CloudFormation uses to process your template. |
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.exportStringListValue">exportStringListValue</a></code> | Create a CloudFormation Export for a string list value. |
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.exportValue">exportValue</a></code> | Create a CloudFormation Export for a string value. |
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.formatArn">formatArn</a></code> | Creates an ARN from components. |
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.getLogicalId">getLogicalId</a></code> | Allocates a stack-unique CloudFormation-compatible logical identity for a specific resource. |
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.regionalFact">regionalFact</a></code> | Look up a fact value for the given fact for the region of this stack. |
+| <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.removeStackTag">removeStackTag</a></code> | Remove a stack tag. |
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.renameLogicalId">renameLogicalId</a></code> | Rename a generated logical identities. |
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.reportMissingContextKey">reportMissingContextKey</a></code> | Indicate that a context key was expected. |
 | <code><a href="#raindancers-cdk.cloudNetwork.NestedRouteStack.resolve">resolve</a></code> | Resolve a tokenized value in the context of the current stack. |
@@ -6391,6 +6393,28 @@ These get translated to the Metadata section of the generated template.
 ###### `value`<sup>Required</sup> <a name="value" id="raindancers-cdk.cloudNetwork.NestedRouteStack.addMetadata.parameter.value"></a>
 
 - *Type:* any
+
+---
+
+##### `addStackTag` <a name="addStackTag" id="raindancers-cdk.cloudNetwork.NestedRouteStack.addStackTag"></a>
+
+```typescript
+public addStackTag(tagName: string, tagValue: string): void
+```
+
+Configure a stack tag.
+
+At deploy time, CloudFormation will automatically apply all stack tags to all resources in the stack.
+
+###### `tagName`<sup>Required</sup> <a name="tagName" id="raindancers-cdk.cloudNetwork.NestedRouteStack.addStackTag.parameter.tagName"></a>
+
+- *Type:* string
+
+---
+
+###### `tagValue`<sup>Required</sup> <a name="tagValue" id="raindancers-cdk.cloudNetwork.NestedRouteStack.addStackTag.parameter.tagValue"></a>
+
+- *Type:* string
 
 ---
 
@@ -6605,6 +6629,22 @@ the given region.
 ---
 
 ###### `defaultValue`<sup>Optional</sup> <a name="defaultValue" id="raindancers-cdk.cloudNetwork.NestedRouteStack.regionalFact.parameter.defaultValue"></a>
+
+- *Type:* string
+
+---
+
+##### `removeStackTag` <a name="removeStackTag" id="raindancers-cdk.cloudNetwork.NestedRouteStack.removeStackTag"></a>
+
+```typescript
+public removeStackTag(tagName: string): void
+```
+
+Remove a stack tag.
+
+At deploy time, CloudFormation will automatically apply all stack tags to all resources in the stack.
+
+###### `tagName`<sup>Required</sup> <a name="tagName" id="raindancers-cdk.cloudNetwork.NestedRouteStack.removeStackTag.parameter.tagName"></a>
 
 - *Type:* string
 
@@ -12386,7 +12426,7 @@ const cloudTrailAlarmsProps: orgTools.CloudTrailAlarmsProps = { ... }
 | <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.stackName">stackName</a></code> | <code>string</code> | Name to deploy the stack with. |
 | <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.suppressTemplateIndentation">suppressTemplateIndentation</a></code> | <code>boolean</code> | Enable this flag to suppress indentation in generated CloudFormation templates. |
 | <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
-| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
+| <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Tags that will be applied to the Stack. |
 | <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
 | <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.alarms">alarms</a></code> | <code>raindancers-cdk.orgTools.OrgAlarms[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.orgTools.CloudTrailAlarmsProps.property.logGroup">logGroup</a></code> | <code>aws-cdk-lib.aws_logs.ILogGroup</code> | *No description.* |
@@ -12614,7 +12654,15 @@ public readonly tags: {[ key: string ]: string};
 - *Type:* {[ key: string ]: string}
 - *Default:* {}
 
-Stack tags that will be applied to all the taggable resources and the stack itself.
+Tags that will be applied to the Stack.
+
+These tags are applied to the CloudFormation Stack itself. They will not
+appear in the CloudFormation template.
+
+However, at deployment time, CloudFormation will apply these tags to all
+resources in the stack that support tagging. You will not be able to exempt
+resources from tagging (using the `excludeResourceTypes` property of
+`Tags.of(...).add()`) for tags applied in this way.
 
 ---
 
@@ -17242,7 +17290,7 @@ const securityLakeProps: securityLake.SecurityLakeProps = { ... }
 | <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.stackName">stackName</a></code> | <code>string</code> | Name to deploy the stack with. |
 | <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.suppressTemplateIndentation">suppressTemplateIndentation</a></code> | <code>boolean</code> | Enable this flag to suppress indentation in generated CloudFormation templates. |
 | <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
-| <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
+| <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Tags that will be applied to the Stack. |
 | <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
 | <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.key">key</a></code> | <code>aws-cdk-lib.aws_kms.IKey</code> | *No description.* |
 | <code><a href="#raindancers-cdk.securityLake.SecurityLakeProps.property.lifecycle">lifecycle</a></code> | <code>string</code> | *No description.* |
@@ -17468,7 +17516,15 @@ public readonly tags: {[ key: string ]: string};
 - *Type:* {[ key: string ]: string}
 - *Default:* {}
 
-Stack tags that will be applied to all the taggable resources and the stack itself.
+Tags that will be applied to the Stack.
+
+These tags are applied to the CloudFormation Stack itself. They will not
+appear in the CloudFormation template.
+
+However, at deployment time, CloudFormation will apply these tags to all
+resources in the stack that support tagging. You will not be able to exempt
+resources from tagging (using the `excludeResourceTypes` property of
+`Tags.of(...).add()`) for tags applied in this way.
 
 ---
 

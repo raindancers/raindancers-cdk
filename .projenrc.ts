@@ -2,7 +2,7 @@ import { awscdk, DependencyType } from 'projen';
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'mrpackethead',
   authorAddress: 'andrew.frazer@raindancers.cloud',
-  cdkVersion: '2.201.0',
+  cdkVersion: '2.206.0',
   defaultReleaseBranch: 'main',
   jsiiVersion: '~5.8.0',
   name: 'raindancers-cdk',
