@@ -16,22 +16,21 @@ def handler(event, context):
     ipv6_pool_id = event['ResourceProperties']['Ipv6PoolId']
     
     
-    if request_type == 'Create' or request_type == 'Update':
         
-        ipv4_pool = ec2.describe_ipam_pools(IpamPoolIds=[ipv4_pool_id])['IpamPools'][0]['State']
-        ipv6_pool = ec2.describe_ipam_pools(IpamPoolIds=[ipv6_pool_id])['IpamPools'][0]['State']
-        
-        print("ipv4:",ipv4_pool)
-        print("ipv6:",ipv6_pool)
+    ipv4_pool = ec2.describe_ipam_pools(IpamPoolIds=[ipv4_pool_id])['IpamPools'][0]['State']
+    ipv6_pool = ec2.describe_ipam_pools(IpamPoolIds=[ipv6_pool_id])['IpamPools'][0]['State']
+    
+    print("ipv4:",ipv4_pool)
+    print("ipv6:",ipv6_pool)
 
-        if ipv4_pool == 'create-complete' and ipv6_pool == 'create-complete':
-            return {
-                'PhysicalResourceId': 'poolcidr-waiter',
-                
-                'IsComplete': True
-            }
-        else:
-            return {
-                'PhysicalResourceId': 'poolcidr-waiter',
-                'IsComplete': False
-            }
+    if ipv4_pool == 'create-complete' and ipv6_pool == 'create-complete':
+        return {
+            'PhysicalResourceId': 'poolcidr-waiter',
+            
+            'IsComplete': True
+        }
+    else:
+        return {
+            'PhysicalResourceId': 'poolcidr-waiter',
+            'IsComplete': False
+        }
