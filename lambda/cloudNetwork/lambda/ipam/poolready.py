@@ -1,15 +1,9 @@
 import boto3
 import json
-import time
 
 def handler(event, context):
-    ec2 = boto3.client('ec2')
+    ec2 = boto.client('ec2')
     
-    # session = boto3.Session(region_name='ap-southeast-2', profile_name='network')
-    # ec2 = session.client('ec2')
-
-    print(event)
-
     request_type = event['RequestType']
     
     if request_type == 'Delete':
@@ -23,26 +17,21 @@ def handler(event, context):
     
     
     if request_type == 'Create' or request_type == 'Update':
-        # Check if both pools have CIDRs allocated
-        try:
+        
+        ipv4_pool = ec2.describe_ipam_pools(IpamPoolIds=[ipv4_pool_id])['IpamPools'][0]['State']
+        ipv6_pool = ec2.describe_ipam_pools(IpamPoolIds=[ipv6_pool_id])['IpamPools'][0]['State']
+        
+        print("ipv4:",ipv4_pool)
+        print("ipv6:",ipv6_pool)
 
-            ipv4_pool = ec2.describe_ipam_pools(IpamPoolIds=[ipv4_pool_id])['IpamPools'][0]['State']
-            ipv6_pool = ec2.describe_ipam_pools(IpamPoolIds=[ipv6_pool_id])['IpamPools'][0]['State']
-            
-            if ipv4_pool == 'create-complete' and ipv6_pool == 'create-complete':
-                return {
-                    'PhysicalResourceId': 'poolcidr-waiter',
-                    'IsComplete': True
-                }
-            else:
-                return {
-                    'PhysicalResourceId': 'poolcidr-waiter',
-                    'IsComplete': False
-                }
-        except Exception as e:
+        if ipv4_pool == 'create-complete' and ipv6_pool == 'create-complete':
+            return {
+                'PhysicalResourceId': 'poolcidr-waiter',
+                
+                'IsComplete': True
+            }
+        else:
             return {
                 'PhysicalResourceId': 'poolcidr-waiter',
                 'IsComplete': False
             }
-
-
