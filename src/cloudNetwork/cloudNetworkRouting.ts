@@ -147,6 +147,10 @@ export class Router extends constructs.Construct {
         this.blackhole = new ec2.CfnNetworkInterface(this, 'blackhole', {
           description: 'blackhole',
           subnetId: this.vpc.selectSubnets({ subnetGroupName: routerGroup.subnetGroup.name }).subnetIds[0],
+          tags: [{
+            key: 'Name',
+            value: 'BlackHoleWherePacketsAreNeverSeenAgain',
+          }],
         });
       }
 

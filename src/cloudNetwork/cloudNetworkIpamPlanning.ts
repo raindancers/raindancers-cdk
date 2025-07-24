@@ -177,15 +177,20 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
     });
 
     poolCidrWaiterFn.addToRolePolicy(new iam.PolicyStatement({
-      actions: ['ec2:DescribeIpamPools'],
+      actions: ['ec2:GetIpamPoolCidrs'],
       resources: ['*'],
     }));
+
+    // When IPAM pools are configured with a VPC as sourceResource, they automatically
+    // inherit the VPC's CIDR blocks, but this happens asynchronously.
+    //  The waiter now uses get_ipam_pool_cidrs to verify that both pools actually have CIDRs available
+    //  before allowing subnet creation to proceed.
 
     const provider = new cr.Provider(this, 'poolCidrWaiterProvider', {
       onEventHandler: poolCidrWaiterFn,
       isCompleteHandler: poolCidrWaiterFn,
       queryInterval: core.Duration.seconds(30),
-      totalTimeout: core.Duration.minutes(10),
+      totalTimeout: core.Duration.minutes(30),
     });
 
     return new core.CustomResource(this, 'poolCidrWaiterResource', {

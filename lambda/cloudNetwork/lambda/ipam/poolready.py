@@ -17,19 +17,29 @@ def handler(event, context):
     
     
         
-    ipv4_pool = ec2.describe_ipam_pools(IpamPoolIds=[ipv4_pool_id])['IpamPools'][0]['State']
-    ipv6_pool = ec2.describe_ipam_pools(IpamPoolIds=[ipv6_pool_id])['IpamPools'][0]['State']
-    
-    print("ipv4:",ipv4_pool)
-    print("ipv6:",ipv6_pool)
-
-    if ipv4_pool == 'create-complete' and ipv6_pool == 'create-complete':
-        return {
-            'PhysicalResourceId': 'poolcidr-waiter',
-            
-            'IsComplete': True
-        }
-    else:
+    try:
+        # Check if pools have CIDRs available
+        ipv4_cidrs = ec2.get_ipam_pool_cidrs(IpamPoolId=ipv4_pool_id)
+        ipv6_cidrs = ec2.get_ipam_pool_cidrs(IpamPoolId=ipv6_pool_id)
+        
+        # Pools are ready when they have at least one CIDR
+        ipv4_ready = len(ipv4_cidrs['IpamPoolCidrs']) > 0
+        ipv6_ready = len(ipv6_cidrs['IpamPoolCidrs']) > 0
+        
+        print(f"IPv4 CIDRs: {len(ipv4_cidrs['IpamPoolCidrs'])}, IPv6 CIDRs: {len(ipv6_cidrs['IpamPoolCidrs'])}")
+        
+        if ipv4_ready and ipv6_ready:
+            return {
+                'PhysicalResourceId': 'poolcidr-waiter',
+                'IsComplete': True
+            }
+        else:
+            return {
+                'PhysicalResourceId': 'poolcidr-waiter',
+                'IsComplete': False
+            }
+    except Exception as e:
+        print(f"Error checking pool CIDRs: {e}")
         return {
             'PhysicalResourceId': 'poolcidr-waiter',
             'IsComplete': False
