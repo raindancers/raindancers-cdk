@@ -289,6 +289,10 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
             subnetType = ec2.SubnetType.PRIVATE_WITH_EGRESS;
             subnetName = 'firewall';
             break;
+          case interfaces.SubnetPersonality.ZEROTRUST_INGRESS:
+            subnetType = ec2.SubnetType.PUBLIC;
+            subnetName = 'ztn';
+            break;
           default:
             throw new Error(`Subnet ${subnetConfig.name} has an invalid personality property: ${subnetConfig.personality}`);
         }
