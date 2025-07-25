@@ -74,7 +74,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
     super(scope, id);
 
 
-    new ec2.CfnVPCCidrBlock(this, 'vpcIpv6Cidr', {
+    const ipv6Cidr = new ec2.CfnVPCCidrBlock(this, 'vpcIpv6Cidr', {
       vpcId: props.vpc.attrVpcId,
       ipv6IpamPoolId: props.ipamConfig.ipv6PoolId,
       ipv6NetmaskLength: props.ipv6NetmaskLength ?? DEFAULT_IPV6_VPC_MASK,
@@ -103,7 +103,15 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       },
     });
 
+    this.ipv6PlanningPool.node.addDependency(props.vpc);
     this.ipv6PlanningPool.node.addDependency(ipamWaiter);
+
+    // Provision the VPC's IPv6 CIDR block to the planning pool
+    const ipv6PoolCidr = new ec2.CfnIPAMPoolCidr(this, 'ipv6PoolCidr', {
+      ipamPoolId: this.ipv6PlanningPool.attrIpamPoolId,
+      cidr: core.Fn.select(0, props.vpc.attrIpv6CidrBlocks),
+    });
+    ipv6PoolCidr.node.addDependency(ipv6Cidr);
 
     // Create IPv4 IPAM planning pool for subnet allocation
     this.ipv4PlanningPool = new ec2.CfnIPAMPool(this, 'ipv4Ipam', {
@@ -111,9 +119,8 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       ipamScopeId: props.ipamConfig.ipv4IpamScope,
       locale: core.Stack.of(this).region,
       sourceIpamPoolId: props.ipamConfig.ipv4IpamPoolId,
-      description: `IPv6 planning pool for vpc ${props.vpcName} | ${props.vpc.attrVpcId}`,
+      description: `IPv4 planning pool for vpc ${props.vpcName} | ${props.vpc.attrVpcId}`,
       allocationDefaultNetmaskLength: props.defaultipv4allocation ?? 24,
-      autoImport: true,
       sourceResource: {
         resourceId: props.vpc.attrVpcId,
         resourceOwner: core.Stack.of(this).account,
@@ -123,6 +130,12 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
     });
 
     this.ipv4PlanningPool.node.addDependency(ipamWaiter);
+
+    // Provision the VPC's IPv4 CIDR block to the planning pool
+    new ec2.CfnIPAMPoolCidr(this, 'ipv4PoolCidr', {
+      ipamPoolId: this.ipv4PlanningPool.attrIpamPoolId,
+      cidr: props.vpc.attrCidrBlock,
+    });
 
 
     // Wait for pool CIDRs before starting the waiter.
