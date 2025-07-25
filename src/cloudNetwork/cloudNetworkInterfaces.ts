@@ -23,7 +23,8 @@ export enum SubnetPersonality {
   DMZ = 'DMZ',
   PUBLIC_INGRESS = 'PUBLIC_INGRESS',
   PUBLIC_EGRESS = 'PUBLIC_EGRESS',
-  LINKNET = 'LINKNET'
+  LINKNET = 'LINKNET',
+  ZEROTRUST_INGRESS = 'ZERO_TRUST'
 }
 
 export interface ISubnetGroup {

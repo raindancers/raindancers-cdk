@@ -22625,6 +22625,7 @@ Resolver is outbound.
 | <code><a href="#raindancers-cdk.cloudNetwork.SubnetPersonality.PUBLIC_INGRESS">PUBLIC_INGRESS</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.SubnetPersonality.PUBLIC_EGRESS">PUBLIC_EGRESS</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.SubnetPersonality.LINKNET">LINKNET</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.SubnetPersonality.ZEROTRUST_INGRESS">ZEROTRUST_INGRESS</a></code> | *No description.* |
 
 ---
 
@@ -22654,6 +22655,11 @@ Resolver is outbound.
 
 
 ##### `LINKNET` <a name="LINKNET" id="raindancers-cdk.cloudNetwork.SubnetPersonality.LINKNET"></a>
+
+---
+
+
+##### `ZEROTRUST_INGRESS` <a name="ZEROTRUST_INGRESS" id="raindancers-cdk.cloudNetwork.SubnetPersonality.ZEROTRUST_INGRESS"></a>
 
 ---
 

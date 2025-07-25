@@ -15,7 +15,6 @@ import * as mixins from './cloudNetworkMixin';
 import * as routing from './cloudNetworkRouting';
 import * as firewall from '../network/nwfirewall';
 
-
 const DEFAULT_IPV6_SUBNET_MASK = 64;
 const DEFAULT_IPV4_VPC_MASK = 19;
 
@@ -421,6 +420,9 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
         case interfaces.SubnetPersonality.LINKNET:
           subnetType = ec2.SubnetType.PRIVATE_ISOLATED;
           break;
+        case interfaces.SubnetPersonality.ZEROTRUST_INGRESS:
+          subnetType = ec2.SubnetType.PUBLIC;
+          break;
         default:
           throw new Error(`Subnet ${subnetConfig.name} has an invalid personality property: ${subnetConfig.personality}`);
       }
@@ -520,6 +522,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
       interfaces.SubnetPersonality.PUBLIC_INGRESS,
       interfaces.SubnetPersonality.PUBLIC_EGRESS,
       interfaces.SubnetPersonality.LINKNET,
+      interfaces.SubnetPersonality.ZEROTRUST_INGRESS,
     ];
     uniquePersonalities.forEach(personality => {
       if (props.subnetConfiguration.filter(subnet => subnet.personality === personality).length > 1) {
@@ -564,6 +567,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
     const linknet = this.subnetConfigurations.find(config => config.personality === interfaces.SubnetPersonality.LINKNET);
     const privateSubnets = this.subnetConfigurations.filter(config => config.personality === interfaces.SubnetPersonality.PRIVATE);
 
+    const ztn = this.subnetConfigurations.find(config => config.personality === interfaces.SubnetPersonality.ZEROTRUST_INGRESS);
 
     this.subnetConfigurations.forEach((subnetConfig) => {
 
@@ -584,7 +588,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
                 //Add Routes to the TransitGateway if they exist
                 ...(this.tgRoutes ? this.tgRoutes.map(destCidr => ({ destCidr, description: `${subnetConfig.name} to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
                 // if firewallSubnetGroup is defined, we need to add a route to the blackhole for the firewall subnet
-
+                ...(ztn ? [{ destSubnetGroup: linknet, description: `${subnetConfig.name} to  ${ztn.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }] : []),
                 ...(linknet ? [{ destSubnetGroup: linknet, description: `${subnetConfig.name} to  ${linknet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(firewallSubnet ? [{ destSubnetGroup: firewallSubnet, description: `${subnetConfig.name} to  ${firewallSubnet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 //if dmz is defined, we add a route via the FIREWALL_ENDPOINT
@@ -649,6 +653,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
               // routes to all subnets are via local, does not need to reach ingress or linknet
               // routes to internet are allready established becuase Firewall is a Private with Egress Subnet
               routes: [
+                ...(ztn ? [{ destSubnetGroup: linknet, description: `${subnetConfig.name} to  ${ztn.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(ingress ? [{ destSubnetGroup: ingress, description: `${subnetConfig.name} to  ${ingress.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(firewallSubnet ? [{ destSubnetGroup: firewallSubnet, description: `${subnetConfig.name} to  ${firewallSubnet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(linknet ? [{ destSubnetGroup: linknet, description: `${subnetConfig.name} to  ${linknet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
@@ -672,6 +677,23 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
             });
             break;
           }
+
+          case interfaces.SubnetPersonality.ZEROTRUST_INGRESS: {
+            routerGroups.push({
+              subnetGroup: subnetConfig,
+              routes: [
+                ...(this.tgRoutes ? this.tgRoutes.map(destCidr => ({ destCidr, description: `l-Route to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
+                ...(firewallSubnet ? [{ destSubnetGroup: firewallSubnet, description: `${subnetConfig.name} to  ${firewallSubnet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
+                ...(egress ? [{ destSubnetGroup: firewallSubnet, description: `${subnetConfig.name} to  ${egress.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
+                ...(linknet ? [{ destSubnetGroup: linknet, description: `${subnetConfig.name} to  ${linknet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
+                ...(dmz ? [{ destSubnetGroup: dmz, description: `${subnetConfig.name} to  ${dmz.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }] : []),
+                // all private subnets shoudl be via the firewall
+                ...(privateSubnets.map(destSubnetGroup => ({ destSubnetGroup, description: `${subnetConfig.name} to  ${destSubnetGroup.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }))),
+              ],
+            });
+            break;
+          }
+
 
           default:
             throw new Error(`Subnet ${subnetConfig.name} has an invalid personality property: ${subnetConfig.personality}`);
