@@ -550,6 +550,25 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
     if (duplicateNames.length > 0) {
       throw new Error(`Duplicate subnet names found: ${duplicateNames.join(', ')}`);
     }
+
+    // Count characters in subnet names
+
+    let namecount: number = 0;
+    names.forEach(name => {
+      if (name && name.length > 16) {
+        throw new Error(`Subnet name '${name}' exceeds 12 character limit (${name.length} characters)`);
+      }
+      if (name) {
+        namecount = namecount + name.length;
+      }
+    });
+    if (namecount > 600) {
+      console.warn(`Warning: The total of all subnet name characters (${namecount}) exceeds 600, if you have a large number of subnets
+        consider making subnet names as short as possible. You may have issues with the creation of routes as 
+        there is a cloudformation limit of 4000 bytes for the subnet Lookups`);
+    }
+
+
   }
 
 
@@ -926,6 +945,9 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
       logGroup: new logs.LogGroup(this, 'poolCidrWaiterLogGroup', {
         retention: logs.RetentionDays.ONE_WEEK,
       }),
+      loggingFormat: lambda.LoggingFormat.JSON,
+      systemLogLevelV2: lambda.SystemLogLevel.INFO,
+      applicationLogLevelV2: lambda.ApplicationLogLevel.INFO,
     });
 
     const provider = new cr.Provider(this, 'poolCidrWaiterProvider', {

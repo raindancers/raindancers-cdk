@@ -201,6 +201,9 @@ export class Router extends constructs.Construct {
       code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/cloudNetwork/lambda/router/')),
       timeout: core.Duration.minutes(3),
       environment: envar,
+      loggingFormat: lambda.LoggingFormat.JSON,
+      systemLogLevelV2: lambda.SystemLogLevel.INFO,
+      applicationLogLevelV2: lambda.ApplicationLogLevel.INFO,
     });
 
 

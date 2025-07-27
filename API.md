@@ -1729,7 +1729,7 @@ Configuration properties for the VPC.
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.addVpnConnection">addVpnConnection</a></code> | Adds a new VPN connection to this VPC for site-to-site connectivity. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.applyRemovalPolicy">applyRemovalPolicy</a></code> | Applies a removal policy to the VPC resources. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.associateSharedResolverRules">associateSharedResolverRules</a></code> | Associates shared Route 53 resolver rules with this VPC for DNS resolution. |
-| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.attachToTransitGateway">attachToTransitGateway</a></code> | Attaches this VPC to a Transit Gateway for inter-VPC connectivity. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.attachToTransitGateway">attachToTransitGateway</a></code> | ToAttaches this VPC to a Transit Gateway for inter-VPC connectivity. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.createFlowLogwithAnalysis">createFlowLogwithAnalysis</a></code> | Creates VPC Flow Logs with optional Athena analysis capabilities. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.enableVpnGateway">enableVpnGateway</a></code> | Adds a VPN Gateway to this VPC for site-to-site connectivity. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.selectSubnets">selectSubnets</a></code> | Selects subnets from the VPC based on the provided criteria. |
@@ -1994,7 +1994,7 @@ Configuration properties for associating resolver rules.
 public attachToTransitGateway(id: string, props: AttachToTransitGatewayProps): string
 ```
 
-Attaches this VPC to a Transit Gateway for inter-VPC connectivity.
+ToAttaches this VPC to a Transit Gateway for inter-VPC connectivity.
 
 ###### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudNetwork.CloudNetwork.attachToTransitGateway.parameter.id"></a>
 
