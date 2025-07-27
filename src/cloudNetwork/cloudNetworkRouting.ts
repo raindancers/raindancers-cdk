@@ -312,7 +312,7 @@ class InternetGatewayRoutes extends core.NestedStack {
 
           new ec2.CfnRoute(this, `ipv4${route.name}-${endpoint.az}-${index}`, {
             routeTableId: routeTable.attrRouteTableId,
-            destinationCidrBlock: `${props.ipV4CidrLookup.getAttString('VpcIpv4Prefix')}.${props.cidrLookup.getAttString(key)}/${route.ipv4mask}`,
+            destinationCidrBlock: `${props.ipV4CidrLookup.getAttString('VpcIpv4Prefix')}.${props.ipV4CidrLookup.getAttString(key)}/${route.ipv4mask}`,
             vpcEndpointId: endpoint.endpointId,
           });
 
@@ -435,7 +435,7 @@ class SubnetRoutes extends core.NestedStack {
             const key = `${route.destSubnetGroup!.name}${subnet.availabilityZone.slice(-1)}`;
             //ipV4subnetCidrs.push(subnet.ipv4CidrBlock);
 
-            ipV4subnetCidrs.push(`${props.ipV4CidrLookup.getAttString('VpcIpv4Prefix')}.${props.cidrLookup.getAttString(key)}/${route.destSubnetGroup!.ipv4mask}`);
+            ipV4subnetCidrs.push(`${props.ipV4CidrLookup.getAttString('VpcIpv4Prefix')}.${props.ipV4CidrLookup.getAttString(key)}/${route.destSubnetGroup!.ipv4mask}`);
             ipV6subnetCidrs.push(`${props.cidrLookup.getAttString('VpcCidr')}:${props.cidrLookup.getAttString(key)}::/64`);
 
           });

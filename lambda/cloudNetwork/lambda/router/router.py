@@ -43,7 +43,7 @@ def vpc_ipv4_subnet_lookup(event, request_type):
                 
                 # Extract variable part and mask
                 # Extract variable part (3rd and 4th octets) and mask
-                subnet_cidr = subnet['CidrBlock']
+                subnet_cidr = subnet['CidrBlock'] 
                 subnet_parts = subnet_cidr.split('/')[0].split('.')
                 third_fourth = f"{subnet_parts[2]}.{subnet_parts[3]}"
                 data[key_ipv4] = f"{third_fourth}"  # e.g., "0.0" or "1.128"
