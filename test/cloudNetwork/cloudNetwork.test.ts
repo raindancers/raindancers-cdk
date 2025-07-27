@@ -1,5 +1,5 @@
 import { Stack } from 'aws-cdk-lib';
-import { Template } from 'aws-cdk-lib/assertions';
+import { Template, Match } from 'aws-cdk-lib/assertions';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import { CloudNetwork, NestedRouteStack } from '../../src/cloudNetwork/cloudNetwork';
 import { SubnetPersonality, StackType, Services } from '../../src/cloudNetwork/cloudNetworkInterfaces';
@@ -79,10 +79,10 @@ describe('CloudNetwork', () => {
 
     const template = Template.fromStack(stack);
     template.hasResourceProperties('AWS::EC2::Subnet', {
-      Tags: [
+      Tags: Match.arrayWith([
         { Key: 'aws-cdk:subnet-name', Value: 'private-subnet' },
         { Key: 'aws-cdk:subnet-type', Value: 'Isolated' },
-      ],
+      ]),
     });
   });
 

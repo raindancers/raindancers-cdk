@@ -451,13 +451,20 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
       assignIpv6AddressOnCreation: true,
       ipv4IpamPoolId: ipamPools.ipv4PlanningPool.attrIpamPoolId,
       ipv4NetmaskLength: subnetConfig.ipv4mask,
-      tags: [{
-        key: 'aws-cdk:subnet-name',
-        value: subnetConfig.name!,
-      }, {
-        key: 'aws-cdk:subnet-type',
-        value: subnetType,
-      }],
+      tags: [
+        {
+          key: 'Name',
+          value: subnetConfig.name!,
+        },
+        {
+          key: 'aws-cdk:subnet-name',
+          value: subnetConfig.name!,
+        },
+        {
+          key: 'aws-cdk:subnet-type',
+          value: subnetType,
+        },
+      ],
     });
 
     if (lastSubnet) {

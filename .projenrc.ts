@@ -2,7 +2,7 @@ import { awscdk, DependencyType } from 'projen';
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'mrpackethead',
   authorAddress: 'andrew.frazer@raindancers.cloud',
-  cdkVersion: '2.206.0',
+  cdkVersion: '2.207.0',
   defaultReleaseBranch: 'main',
   jsiiVersion: '~5.8.0',
   name: 'raindancers-cdk',
@@ -36,21 +36,10 @@ if (project.jest) {
     },
   };
 }
-
-// project.jest?.config.coverageThreshold = {
-//   global: {
-//     statements: 80,
-//     branches: 80,
-//     functions: 80,
-//     lines: 80
-//   }
-// };
-
-
-// project.deps.addDependency('@aws-cdk/integ-runner@latest', DependencyType.DEVENV);
-// project.deps.addDependency('@aws-cdk/integ-tests-alpha@latest', DependencyType.DEVENV);
-// project.deps.addDependency('@aws-cdk/integ-runner@^2.201.0-alpha.0', DependencyType.DEVENV);
-// project.deps.addDependency('@aws-cdk/integ-tests-alpha@^2.201.0-alpha.0', DependencyType.DEVENV);
+// form data was
+project.package.addField('resolutions', {
+  'form-data': '>=4.0.4',
+});
 
 project.deps.addDependency('cdk-serverless-clamscan', DependencyType.RUNTIME);
 
