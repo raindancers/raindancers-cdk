@@ -90,7 +90,7 @@ export class Router extends constructs.Construct {
     this.ipV4CidrLookup = new core.CustomResource(this, 'ipv4cidrLookup', {
       serviceToken: this.routerProvider.serviceToken,
       properties: {
-        Function: interfaces.RouterFunctions.CIDR_LOOKUP,
+        Function: interfaces.RouterFunctions.IPV4_LOOKUP,
         // this will force the custom resource to update every time CF executes. This
         // is important because the underlying subnets may change, but the properties
         //otherwise have not changed.
