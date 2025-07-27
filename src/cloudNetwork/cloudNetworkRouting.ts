@@ -26,6 +26,7 @@ export class Router extends constructs.Construct {
   readonly firewall: firewall.NetworkFirewall | undefined;
   readonly internetGateway?: ec2.CfnInternetGateway | undefined;
   readonly cidrLookup: core.CustomResource;
+  readonly ipV4CidrLookup: core.CustomResource;
   readonly routerProvider: cr.Provider;
   blackhole?: ec2.CfnNetworkInterface | undefined;
 
@@ -86,6 +87,18 @@ export class Router extends constructs.Construct {
       },
     });
 
+    this.ipV4CidrLookup = new core.CustomResource(this, 'ipv4cidrLookup', {
+      serviceToken: this.routerProvider.serviceToken,
+      properties: {
+        Function: interfaces.RouterFunctions.CIDR_LOOKUP,
+        // this will force the custom resource to update every time CF executes. This
+        // is important because the underlying subnets may change, but the properties
+        //otherwise have not changed.
+        Timestamp: Date.now().toString(),
+      },
+    });
+
+
     // for each Group create a stack
     props.subnetRoutes.forEach((routerGroup) => {
       this.subnetRoutes(routerGroup);
@@ -118,6 +131,7 @@ export class Router extends constructs.Construct {
       firewallEndpoints: this.firewallEndpoints,
       routes: routes,
       cidrLookup: this.cidrLookup,
+      ipV4CidrLookup: this.ipV4CidrLookup,
       internetGateway: this.internetGateway,
     });
   }
@@ -160,6 +174,7 @@ export class Router extends constructs.Construct {
       routerGroup: routerGroup,
       vpc: this.vpc,
       cidrLookup: this.cidrLookup,
+      ipV4CidrLookup: this.ipV4CidrLookup,
       routerProvider: this.routerProvider,
       internetGateway: this.internetGateway,
       transitGatewayId: this.transitGatewayId,
@@ -206,6 +221,7 @@ export class Router extends constructs.Construct {
     });
   }
 
+
   /**
    * Validates IPv4 and IPv6 CIDR notation.
    *
@@ -238,6 +254,7 @@ interface InternetGatewayRoutesProps extends core.NestedStackProps {
   firewallEndpoints: interfaces.IFirewallEndpoints[];
   /** Custom resource for CIDR lookups */
   cidrLookup: core.CustomResource;
+  ipV4CidrLookup: core.CustomResource;
 }
 
 /**
@@ -288,18 +305,21 @@ class InternetGatewayRoutes extends core.NestedStack {
 
         destSubnetGroup.subnets.forEach((subnet, index) => {
 
-          const ipv4Key = `${route.name}_${subnet.availabilityZone}_ipv4`;
-          const ipv6Key = `${route.name}_${subnet.availabilityZone}_ipv6`;
+          const key = `${route.name}${subnet.availabilityZone.slice(-1)}`;
 
           new ec2.CfnRoute(this, `ipv4${route.name}-${endpoint.az}-${index}`, {
             routeTableId: routeTable.attrRouteTableId,
-            destinationCidrBlock: props.cidrLookup.getAttString(ipv4Key),
+            destinationCidrBlock: `${props.ipV4CidrLookup.getAttString('CidrBlock')}.${props.cidrLookup.getAttString(key)}/${route.ipv4mask}`,
             vpcEndpointId: endpoint.endpointId,
           });
 
+          // ec2.Isubnet does not carry the Ipv6 subnet
+          /**
+           * Some optimization is required to get 200 Subnets into the Cloudformation limit of 4000 bytes.
+           */
           new ec2.CfnRoute(this, `ipv6${route.name}-${endpoint.az}-${index}`, {
             routeTableId: routeTable.attrRouteTableId,
-            destinationIpv6CidrBlock: props.cidrLookup.getAttString(ipv6Key),
+            destinationIpv6CidrBlock: `${props.cidrLookup.getAttString('VpcCidr')}:${props.cidrLookup.getAttString(key)}::/64`,
             vpcEndpointId: endpoint.endpointId,
           });
 
@@ -321,6 +341,7 @@ interface SubnetRoutesProps extends core.NestedStackProps {
   vpc: ec2.IVpc;
   /** Custom resource for CIDR lookups */
   cidrLookup: core.CustomResource;
+  ipV4CidrLookup: core.CustomResource;
   /** Custom resource provider for routing operations */
   routerProvider: cr.Provider;
   /** Optional Internet Gateway for IGW routes */
@@ -407,11 +428,13 @@ class SubnetRoutes extends core.NestedStack {
           const destSubnetGroup = props.vpc.selectSubnets({ subnetGroupName: route.destSubnetGroup.name });
 
           destSubnetGroup.subnets.forEach((subnet) => {
-            const ipv4Key = `${route.destSubnetGroup!.name}_${subnet.availabilityZone}_ipv4`;
-            const ipv6Key = `${route.destSubnetGroup!.name}_${subnet.availabilityZone}_ipv6`;
 
-            ipV4subnetCidrs.push(props.cidrLookup.getAttString(ipv4Key));
-            ipV6subnetCidrs.push(props.cidrLookup.getAttString(ipv6Key));
+            const key = `${route.destSubnetGroup!.name}${subnet.availabilityZone.slice(-1)}`;
+            //ipV4subnetCidrs.push(subnet.ipv4CidrBlock);
+
+            ipV4subnetCidrs.push(`${props.ipV4CidrLookup.getAttString('CidrBlock')}.${props.cidrLookup.getAttString(key)}/${route.destSubnetGroup!.ipv4mask}`);
+            ipV6subnetCidrs.push(`${props.cidrLookup.getAttString('VpcCidr')}:${props.cidrLookup.getAttString(key)}::/64`);
+
           });
         }
 

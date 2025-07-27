@@ -226,8 +226,13 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
 
     let lastSubnet: ec2.CfnSubnet | undefined;
 
+    let subnetCount: number = 0;
+
     sortedSubnetConfig.forEach((subnetConfig) => {
       availabilityZones.forEach((zone) => {
+
+        subnetCount += 1;
+
         const subnetRT = this.createSubnetAndRoutingTable(subnetConfig, zone, ipamPools, wait, lastSubnet);
 
         lastSubnet = subnetRT.cfnSubnet;
@@ -244,6 +249,11 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
 
       });
     });
+
+    if (subnetCount > 200) {
+      throw Error(`maximum number of subnets per Vpc is 200, you have ${subnetCount}`);
+    }
+
   }
 
   private processSubnetConfigurations(subnetConfigurations: interfaces.ISubnetGroup[]): void {
@@ -533,6 +543,13 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
         throw new Error(`Only one subnet with personality ${personality} is allowed`);
       }
     });
+
+    // Check for unique subnet names
+    const names = props.subnetConfiguration.map(subnet => subnet.name).filter(name => name);
+    const duplicateNames = names.filter((name, index) => names.indexOf(name) !== index);
+    if (duplicateNames.length > 0) {
+      throw new Error(`Duplicate subnet names found: ${duplicateNames.join(', ')}`);
+    }
   }
 
 
@@ -820,8 +837,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
     });
   }
 
-  /**
-   * Attaches this VPC to a Transit Gateway for inter-VPC connectivity.
+  /**ToAttaches this VPC to a Transit Gateway for inter-VPC connectivity.
    *
    * @param id - Unique identifier for the Transit Gateway attachment
    * @param props - Configuration properties for the attachment

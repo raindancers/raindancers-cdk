@@ -237,5 +237,6 @@ export interface RouterProps {
 export enum RouterFunctions {
   TGWAITER = 'TGWaiter',
   NWFIREWALL = 'NetworkFirewall',
-  CIDR_LOOKUP = 'CidrLookup'
+  CIDR_LOOKUP = 'CidrLookup',
+  IPV4_LOOKUP = 'Ipv4CidrLookup'
 }

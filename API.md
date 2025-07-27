@@ -8501,6 +8501,7 @@ Any object.
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.cloudNetwork.Router.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#raindancers-cdk.cloudNetwork.Router.property.cidrLookup">cidrLookup</a></code> | <code>aws-cdk-lib.CustomResource</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.Router.property.ipV4CidrLookup">ipV4CidrLookup</a></code> | <code>aws-cdk-lib.CustomResource</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.Router.property.routerProvider">routerProvider</a></code> | <code>aws-cdk-lib.custom_resources.Provider</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.Router.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.Router.property.firewall">firewall</a></code> | <code>raindancers-cdk.nwFirewall.NetworkFirewall</code> | *No description.* |
@@ -8528,6 +8529,16 @@ The tree node.
 
 ```typescript
 public readonly cidrLookup: CustomResource;
+```
+
+- *Type:* aws-cdk-lib.CustomResource
+
+---
+
+##### `ipV4CidrLookup`<sup>Required</sup> <a name="ipV4CidrLookup" id="raindancers-cdk.cloudNetwork.Router.property.ipV4CidrLookup"></a>
+
+```typescript
+public readonly ipV4CidrLookup: CustomResource;
 ```
 
 - *Type:* aws-cdk-lib.CustomResource
@@ -22340,6 +22351,7 @@ Resolver is outbound.
 | <code><a href="#raindancers-cdk.cloudNetwork.RouterFunctions.TGWAITER">TGWAITER</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.RouterFunctions.NWFIREWALL">NWFIREWALL</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.RouterFunctions.CIDR_LOOKUP">CIDR_LOOKUP</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.RouterFunctions.IPV4_LOOKUP">IPV4_LOOKUP</a></code> | *No description.* |
 
 ---
 
@@ -22354,6 +22366,11 @@ Resolver is outbound.
 
 
 ##### `CIDR_LOOKUP` <a name="CIDR_LOOKUP" id="raindancers-cdk.cloudNetwork.RouterFunctions.CIDR_LOOKUP"></a>
+
+---
+
+
+##### `IPV4_LOOKUP` <a name="IPV4_LOOKUP" id="raindancers-cdk.cloudNetwork.RouterFunctions.IPV4_LOOKUP"></a>
 
 ---
 
