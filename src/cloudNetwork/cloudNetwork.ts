@@ -649,6 +649,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
           case interfaces.SubnetPersonality.FIREWALL: {
             routerGroups.push({
               subnetGroup: subnetConfig,
+
               // routes to all subnets are via local, does not need to reach ingress or linknet
               // routes to internet are allready established becuase Firewall is a Private with Egress Subnet
               routes: [

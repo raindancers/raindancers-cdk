@@ -599,6 +599,7 @@ class SubnetRoutes extends core.NestedStack {
             break;
           }
 
+
           case interfaces.NextHop.IPV6_EGREGSS_ONLY: {
             break;
           }

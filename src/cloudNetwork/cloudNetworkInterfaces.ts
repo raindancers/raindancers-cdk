@@ -161,7 +161,7 @@ export enum NextHop{
   //
   FIREWALL_ENDPOINT = 'FIREWALL_ENDPOINT',
   //
-  BLACKHOLE = 'BLACK_HOLE'
+  BLACKHOLE = 'BLACK_HOLE',
 }
 
 
