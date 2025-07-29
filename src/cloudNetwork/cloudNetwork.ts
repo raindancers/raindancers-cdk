@@ -635,7 +635,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
                 //Add Routes to the TransitGateway if they exist
                 ...(this.tgRoutes ? this.tgRoutes.map(destCidr => ({ destCidr, description: `${subnetConfig.name} to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
                 // if firewallSubnetGroup is defined, we need to add a route to the blackhole for the firewall subnet
-                ...(ztn ? [{ destSubnetGroup: linknet, description: `${subnetConfig.name} to  ${ztn.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }] : []),
+                ...(ztn ? [{ destSubnetGroup: ztn, description: `${subnetConfig.name} to  ${ztn.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }] : []),
                 ...(linknet ? [{ destSubnetGroup: linknet, description: `${subnetConfig.name} to  ${linknet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(firewallSubnet ? [{ destSubnetGroup: firewallSubnet, description: `${subnetConfig.name} to  ${firewallSubnet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 //if dmz is defined, we add a route via the FIREWALL_ENDPOINT
@@ -701,7 +701,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
               // routes to all subnets are via local, does not need to reach ingress or linknet
               // routes to internet are allready established becuase Firewall is a Private with Egress Subnet
               routes: [
-                ...(ztn ? [{ destSubnetGroup: linknet, description: `${subnetConfig.name} to  ${ztn.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
+                ...(ztn ? [{ destSubnetGroup: ztn, description: `${subnetConfig.name} to  ${ztn.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(ingress ? [{ destSubnetGroup: ingress, description: `${subnetConfig.name} to  ${ingress.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(firewallSubnet ? [{ destSubnetGroup: firewallSubnet, description: `${subnetConfig.name} to  ${firewallSubnet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(linknet ? [{ destSubnetGroup: linknet, description: `${subnetConfig.name} to  ${linknet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
