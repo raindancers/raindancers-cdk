@@ -98,10 +98,15 @@ export class Router extends constructs.Construct {
       },
     });
 
+    let subnetRouteDep: SubnetRoutes | undefined;
 
-    // for each Group create a stack
+    // for each Group create a stack, and build in dependancys so the stacks only create one at a time.
     props.subnetRoutes.forEach((routerGroup) => {
-      this.subnetRoutes(routerGroup);
+      if (subnetRouteDep) {
+        subnetRouteDep = this.subnetRoutes(routerGroup, subnetRouteDep);
+      } else {
+        subnetRouteDep = this.subnetRoutes(routerGroup);
+      }
     });
 
     // if there are routes on the internet gateway add them.
@@ -143,7 +148,7 @@ export class Router extends constructs.Construct {
    * @param routerGroup - The router group containing subnet and route definitions
    * @throws Error if route validation fails
    */
-  private subnetRoutes(routerGroup: interfaces.RouterGroup): void {
+  private subnetRoutes(routerGroup: interfaces.RouterGroup, dep?: SubnetRoutes): SubnetRoutes {
 
     // validate the routes and create a blackhole if/when needed.
     routerGroup.routes.forEach((route) => {
@@ -170,7 +175,8 @@ export class Router extends constructs.Construct {
 
     });
 
-    new SubnetRoutes(this, `${routerGroup.subnetGroup.name}Routes`, {
+
+    const subnetRoutes = new SubnetRoutes(this, `${routerGroup.subnetGroup.name}Routes`, {
       routerGroup: routerGroup,
       vpc: this.vpc,
       cidrLookup: this.cidrLookup,
@@ -182,6 +188,12 @@ export class Router extends constructs.Construct {
       firewall: this.firewall,
       blackhole: this.blackhole,
     });
+
+    if (dep) {
+      subnetRoutes.node.addDependency(dep);
+    }
+
+    return subnetRoutes;
 
   }
 
@@ -241,7 +253,6 @@ export class Router extends constructs.Construct {
     }
   }
 }
-
 
 /**
  * Properties for InternetGatewayRoutes nested stack.
