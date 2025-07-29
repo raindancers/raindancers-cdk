@@ -69,7 +69,7 @@ def vpc_subnet_lookup(event, request_type):
         vpc_info = ec2.describe_vpcs(VpcIds=[os.environ['VPC_ID']])['Vpcs'][0]
         if 'Ipv6CidrBlockAssociationSet' in vpc_info and vpc_info['Ipv6CidrBlockAssociationSet']:
             vpc_ipv6_cidr = vpc_info['Ipv6CidrBlockAssociationSet'][0]['Ipv6CidrBlock'].split('/')[0]
-            data['VpcCidr'] = ':'.join(vpc_ipv6_cidr.split(':')[:4])
+            data['VpcCidr'] = ':'.join(vpc_ipv6_cidr.split(':')[:3])
 
         for subnet in subnets:
             # Get subnet group name from tags
