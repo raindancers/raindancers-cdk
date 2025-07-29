@@ -59,11 +59,17 @@ def vpc_subnet_lookup(event, request_type):
     if request_type in ['Delete']:
         return { 'IsComplete': True } 
     else:
+        
         ec2 = boto3.client('ec2')
+        
         data = {}
         subnets = ec2.describe_subnets(Filters=[{'Name': 'vpc-id', 'Values': [os.environ['VPC_ID']]}])['Subnets']
-
-        
+       
+        # Get VPC IPv6 CIDR
+        vpc_info = ec2.describe_vpcs(VpcIds=[os.environ['VPC_ID']])['Vpcs'][0]
+        if 'Ipv6CidrBlockAssociationSet' in vpc_info and vpc_info['Ipv6CidrBlockAssociationSet']:
+            vpc_ipv6_cidr = vpc_info['Ipv6CidrBlockAssociationSet'][0]['Ipv6CidrBlock'].split('/')[0]
+            data['VpcCidr'] = ':'.join(vpc_ipv6_cidr.split(':')[:4])
 
         for subnet in subnets:
             # Get subnet group name from tags
@@ -84,8 +90,7 @@ def vpc_subnet_lookup(event, request_type):
                     ipv6_full = subnet['Ipv6CidrBlockAssociationSet'][0]['Ipv6CidrBlock'].split('/')[0]
                     data[key_ipv6] = ipv6_full.split(':')[3]  # Just the 4th group (variable part)
 
-                if 'VpcCidr' not in data:
-                    data['VpcCidr'] = subnet['Ipv6CidrBlockAssociationSet'][0]['Ipv6CidrBlock'][:14]
+                
 
         return {
             'IsComplete': True,
