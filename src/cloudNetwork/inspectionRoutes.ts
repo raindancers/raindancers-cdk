@@ -1,9 +1,11 @@
+import * as path from 'path';
+import * as core from 'aws-cdk-lib';
 import {
   aws_ec2 as ec2,
-  // custom_resources as cr,
-  // aws_iam as iam,
-  // aws_lambda as lambda,
-  // aws_logs as logs,
+  custom_resources as cr,
+  aws_iam as iam,
+  aws_lambda as lambda,
+  aws_logs as logs,
 }
   from 'aws-cdk-lib';
 import * as constructs from 'constructs';
@@ -34,11 +36,40 @@ export class InspectionRoutes extends constructs.Construct {
 
     // routes in the local TG route table to reach all other internal destinations.
 
-    props.inspectionRoutes.forEach((route) => {
-      new ec2.CfnTransitGatewayRoute(this, `tglocalroute${route.replace(/[^a-zA-Z0-9]/g, '')}`, {
-        transitGatewayRouteTableId: props.localTgRouteTable.transitGatewayRouteTableId,
-        destinationCidrBlock: route,
-        transitGatewayAttachmentId: props.firewallAttachmentId,
+    const routeExistsFn = new lambda.Function(this, 'routeExistsFn', {
+      runtime: lambda.Runtime.PYTHON_3_13,
+      handler: 'route_exists.handler',
+      timeout: core.Duration.minutes(2),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/cloudNetwork/lambda/inspectionRoutes/')),
+      logGroup: new logs.LogGroup(this, 'routeExists', {
+        retention: logs.RetentionDays.ONE_WEEK,
+      }),
+      loggingFormat: lambda.LoggingFormat.JSON,
+      systemLogLevelV2: lambda.SystemLogLevel.INFO,
+      applicationLogLevelV2: lambda.ApplicationLogLevel.INFO,
+    });
+
+    routeExistsFn.addToRolePolicy(
+      new iam.PolicyStatement({
+        effect: iam.Effect.ALLOW,
+        actions: ['ec2:SearchTransitGatewayRoutes', 'ec2:CreateTransitGatewayRoute'],
+        resources: ['*'],
+      }),
+    );
+
+    const provider = new cr.Provider(this, 'routeProvider', {
+      onEventHandler: routeExistsFn,
+    });
+
+    props.inspectionRoutes.forEach((route, index) => {
+      new core.CustomResource(this, `routeCreator${index}`, {
+        serviceToken: provider.serviceToken,
+        properties: {
+          Route: route,
+          TgRouteTableId: props.localTgRouteTable.transitGatewayRouteTableId,
+          AttachmentId: props.firewallAttachmentId,
+          Action: 'CREATE_ROUTE_IF_NOT_EXISTS',
+        },
       });
     });
 

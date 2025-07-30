@@ -7,29 +7,28 @@ logger.setLevel(logging.INFO)
 
 def handler(event, context):
     """
-    Check if a route exists in a Transit Gateway route table
+    Create a route in Transit Gateway route table if it doesn't exist
     
     Properties:
-    - Route: CIDR block to check
+    - Route: CIDR block
     - TgRouteTableId: Transit Gateway route table ID
-    
-    Returns:
-    - RouteExists: 'True' or 'False'
+    - AttachmentId: Transit Gateway attachment ID
+    - Action: CREATE_ROUTE_IF_NOT_EXISTS
     """
-    
     
     request_type = event['RequestType']
     properties = event['ResourceProperties']
     
     route_cidr = properties['Route']
     tg_route_table_id = properties['TgRouteTableId']
+    attachment_id = properties['AttachmentId']
     
-    logger.info(f"Checking route {route_cidr} in route table {tg_route_table_id}")
+    logger.info(f"Processing route {route_cidr} in route table {tg_route_table_id}")
     
     if request_type in ['Create', 'Update']:
         ec2_client = boto3.client('ec2')
         
-        # Search for the route in the transit gateway route table
+        # Check if route exists
         response = ec2_client.search_transit_gateway_routes(
             TransitGatewayRouteTableId=tg_route_table_id,
             Filters=[
@@ -41,18 +40,26 @@ def handler(event, context):
         )
         
         route_exists = len(response['Routes']) > 0
-        logger.info(f"Route {route_cidr} exists: {route_exists}")
+        
+        if not route_exists:
+            logger.info(f"Creating route {route_cidr}")
+            ec2_client.create_transit_gateway_route(
+                DestinationCidrBlock=route_cidr,
+                TransitGatewayRouteTableId=tg_route_table_id,
+                TransitGatewayAttachmentId=attachment_id
+            )
+        else:
+            logger.info(f"Route {route_cidr} already exists")
         
         return {
-            'PhysicalResourceId': f"{tg_route_table_id}-{route_cidr}",
-            'Data': {
-                'RouteExists': 'True' if route_exists else 'False'
-            }
+            'PhysicalResourceId': f"{tg_route_table_id}-{route_cidr}"
         }
     
     elif request_type == 'Delete':
-        # Nothing to do on delete
-        return {}
+        # Don't delete routes on stack deletion to avoid breaking other resources
+        return {
+            'PhysicalResourceId': f"{tg_route_table_id}-{route_cidr}"
+        }
         
         
     
