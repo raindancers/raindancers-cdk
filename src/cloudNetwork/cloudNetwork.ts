@@ -671,7 +671,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
                 { destCidr: '0.0.0.0/0', description: `d-ipv4${subnetConfig.name}->internet`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT },
                 { destCidr: '::/0', description: `d-ipv6${subnetConfig.name}->internet`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT },
                 // All local subnets must route via the firewall.
-                ...(this.subnetConfigurations.map(destSubnetGroup => ({ destSubnetGroup, description: `${subnetConfig.name} to  ${destSubnetGroup.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }))),
+                ...(this.subnetConfigurations.filter(dest => dest.name !== subnetConfig.name).map(destSubnetGroup => ({ destSubnetGroup, description: `${subnetConfig.name} to  ${destSubnetGroup.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }))),
               ],
             });
             break;
@@ -732,7 +732,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
               routes: [
                 ...(this.tgRoutes ? this.tgRoutes.map(destCidr => ({ destCidr, description: `l-Route to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
                 ...(firewallSubnet ? [{ destSubnetGroup: firewallSubnet, description: `${subnetConfig.name} to  ${firewallSubnet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
-                ...(egress ? [{ destSubnetGroup: firewallSubnet, description: `${subnetConfig.name} to  ${egress.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
+                ...(egress ? [{ destSubnetGroup: egress, description: `${subnetConfig.name} to  ${egress.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(linknet ? [{ destSubnetGroup: linknet, description: `${subnetConfig.name} to  ${linknet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(dmz ? [{ destSubnetGroup: dmz, description: `${subnetConfig.name} to  ${dmz.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }] : []),
                 // all private subnets shoudl be via the firewall
