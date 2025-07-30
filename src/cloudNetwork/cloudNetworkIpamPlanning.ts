@@ -54,6 +54,7 @@ export interface IIpamPlanningTool {
  * pools with the VPC as the source resource.
  */
 export class IpamVPCPlanningTools extends constructs.Construct implements IIpamPlanningTool {
+
   /** IPv6 IPAM pool for subnet allocation */
   ipv6PlanningPool: ec2.CfnIPAMPool;
   /** IPv4 IPAM pool for subnet allocation */
