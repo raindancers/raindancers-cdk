@@ -1,11 +1,9 @@
-import * as path from 'path';
-import * as core from 'aws-cdk-lib';
 import {
   aws_ec2 as ec2,
-  custom_resources as cr,
-  aws_iam as iam,
-  aws_lambda as lambda,
-  aws_logs as logs,
+  // custom_resources as cr,
+  // aws_iam as iam,
+  // aws_lambda as lambda,
+  // aws_logs as logs,
 }
   from 'aws-cdk-lib';
 import * as constructs from 'constructs';
@@ -36,56 +34,12 @@ export class InspectionRoutes extends constructs.Construct {
 
     // routes in the local TG route table to reach all other internal destinations.
 
-    const routeExistsFn = new lambda.Function(this, 'poolCidrWaiterFn', {
-      // amazonq-ignore-next-line
-      runtime: lambda.Runtime.PYTHON_3_13,
-      handler: 'route_exists.handler',
-      timeout: core.Duration.minutes(2),
-      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/cloudNetwork/lambda/inspectionRoutes/')),
-      logGroup: new logs.LogGroup(this, 'routeExists', {
-        retention: logs.RetentionDays.ONE_WEEK,
-      }),
-      loggingFormat: lambda.LoggingFormat.JSON,
-      systemLogLevelV2: lambda.SystemLogLevel.INFO,
-      applicationLogLevelV2: lambda.ApplicationLogLevel.INFO,
-    });
-
-    routeExistsFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        effect: iam.Effect.ALLOW,
-        actions: ['ec2:SearchTransitGatewayRoutes'],
-        resources: ['*'],
-      }),
-    );
-
-    const provider = new cr.Provider(this, 'poolCidrWaiterProvider', {
-      onEventHandler: routeExistsFn,
-    });
-
-
     props.inspectionRoutes.forEach((route) => {
-
-
-      const routeExisits = new core.CustomResource(this, `checkRouteExisits${route}`, {
-        serviceToken: provider.serviceToken,
-        properties: {
-          Route: route,
-          TgRouteTableId: props.localTgRouteTable.transitGatewayRouteTableId,
-        },
-      });
-
-      const condition = new core.CfnCondition(this, `CreateRouteCondition${route}`, {
-        expression: core.Fn.conditionEquals(routeExisits.getAttString('RouteExists'), 'False'),
-      });
-
-      const gwRoute = new ec2.CfnTransitGatewayRoute(this, `tglocalroute${route}`, {
+      new ec2.CfnTransitGatewayRoute(this, `tglocalroute${route.replace(/[^a-zA-Z0-9]/g, '')}`, {
         transitGatewayRouteTableId: props.localTgRouteTable.transitGatewayRouteTableId,
         destinationCidrBlock: route,
         transitGatewayAttachmentId: props.firewallAttachmentId,
       });
-
-      gwRoute.cfnOptions.condition = condition;
-
     });
 
     // Note: ipv6 routes do not propogate, so we have to add them explicity.

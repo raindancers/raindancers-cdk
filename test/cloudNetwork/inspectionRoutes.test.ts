@@ -3,19 +3,6 @@ import { Template } from 'aws-cdk-lib/assertions';
 import { InspectionRoutes } from '../../src/cloudNetwork/inspectionRoutes';
 import { ITransitGatewayRouteTable } from '../../src/network/transitGateway';
 
-// Mock the Provider to avoid validation error
-jest.mock('aws-cdk-lib/custom-resources', () => {
-  const actual = jest.requireActual('aws-cdk-lib/custom-resources');
-  return {
-    ...actual,
-    Provider: jest.fn().mockImplementation((_scope, _id, _props) => {
-      return {
-        serviceToken: 'mock-service-token',
-      };
-    }),
-  };
-});
-
 describe('InspectionRoutes', () => {
   let stack: Stack;
   let localTgRouteTable: ITransitGatewayRouteTable;
@@ -105,9 +92,9 @@ describe('InspectionRoutes', () => {
       TransitGatewayAttachmentId: 'tgw-attach-local-456',
     });
 
-    // Check that Lambda function and custom resource are created
-    template.resourceCountIs('AWS::Lambda::Function', 1);
-    template.resourceCountIs('AWS::CloudFormation::CustomResource', 1);
+    // Check that no Lambda functions or custom resources are created
+    template.resourceCountIs('AWS::Lambda::Function', 0);
+    template.resourceCountIs('AWS::CloudFormation::CustomResource', 0);
   });
 
   test('handles single inspection route', () => {
@@ -146,9 +133,9 @@ describe('InspectionRoutes', () => {
     // Should create 3 inspection routes + 4 explicit routes (2 local + 2 inspection IPv4/IPv6)
     template.resourceCountIs('AWS::EC2::TransitGatewayRoute', 7);
     template.resourceCountIs('AWS::EC2::TransitGatewayRouteTablePropagation', 0);
-    // Should also create Lambda function, custom resources, and conditions
-    template.resourceCountIs('AWS::Lambda::Function', 1);
-    template.resourceCountIs('AWS::CloudFormation::CustomResource', 3); // One per inspection route
+    // Should not create Lambda functions or custom resources
+    template.resourceCountIs('AWS::Lambda::Function', 0);
+    template.resourceCountIs('AWS::CloudFormation::CustomResource', 0);
   });
 
   test('handles empty inspection routes array', () => {
@@ -167,9 +154,9 @@ describe('InspectionRoutes', () => {
     // Should create 4 explicit routes (2 local + 2 inspection IPv4/IPv6), no inspection routes
     template.resourceCountIs('AWS::EC2::TransitGatewayRoute', 4);
     template.resourceCountIs('AWS::EC2::TransitGatewayRouteTablePropagation', 0);
-    // Should still create Lambda function even with no inspection routes
-    template.resourceCountIs('AWS::Lambda::Function', 1);
-    template.resourceCountIs('AWS::CloudFormation::CustomResource', 0); // No custom resources for empty array
+    // Should not create Lambda functions or custom resources
+    template.resourceCountIs('AWS::Lambda::Function', 0);
+    template.resourceCountIs('AWS::CloudFormation::CustomResource', 0);
   });
 
   test('validates all required properties are used', () => {
