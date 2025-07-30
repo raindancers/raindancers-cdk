@@ -60,7 +60,6 @@ export class InspectionRoutes extends constructs.Construct {
 
     const provider = new cr.Provider(this, 'poolCidrWaiterProvider', {
       onEventHandler: routeExistsFn,
-      totalTimeout: core.Duration.minutes(30),
     });
 
 
