@@ -39,24 +39,25 @@ export class InspectionRoutes extends constructs.Construct {
       });
     });
 
+    // ipv6 routes do not propogate :-()
     // propogate the VPC routes to the INspection TG routing table.
-    new ec2.CfnTransitGatewayRouteTablePropagation(this, 'propogationToInspection', {
+    // new ec2.CfnTransitGatewayRouteTablePropagation(this, 'propogationToInspection', {
+    //   transitGatewayRouteTableId: props.inspectionTgRouteTable.transitGatewayRouteTableId,
+    //   transitGatewayAttachmentId: props.localAttachmentId,
+    // });
+
+    // ipv6 routes in Transitgateway
+    new ec2.CfnTransitGatewayRoute(this, 'tginspectionrouteIpv6', {
       transitGatewayRouteTableId: props.inspectionTgRouteTable.transitGatewayRouteTableId,
+      destinationCidrBlock: props.vpcIpv6Cidr,
       transitGatewayAttachmentId: props.localAttachmentId,
     });
 
-    // // ipv6 routes in Transitgateway
-    // new ec2.CfnTransitGatewayRoute(this, 'tginspectionrouteIpv6', {
-    //   transitGatewayRouteTableId: props.inspectionTgRouteTable.transitGatewayRouteTableId,
-    //   destinationCidrBlock: props.vpcIpv6Cidr,
-    //   transitGatewayAttachmentId: props.localAttachmentId,
-    // });
-
-    // // ipv4 routes in Transitgateway
-    // new ec2.CfnTransitGatewayRoute(this, 'tginspectionrouteIpv4', {
-    //   transitGatewayRouteTableId: props.inspectionTgRouteTable.transitGatewayRouteTableId,
-    //   destinationCidrBlock: props.vpcIpv4Cidr,
-    //   transitGatewayAttachmentId: props.localAttachmentId,
-    // });
+    // ipv4 routes in Transitgateway
+    new ec2.CfnTransitGatewayRoute(this, 'tginspectionrouteIpv4', {
+      transitGatewayRouteTableId: props.inspectionTgRouteTable.transitGatewayRouteTableId,
+      destinationCidrBlock: props.vpcIpv4Cidr,
+      transitGatewayAttachmentId: props.localAttachmentId,
+    });
   }
 }

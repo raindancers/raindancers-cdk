@@ -635,8 +635,11 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
                 //Add Routes to the TransitGateway if they exist
                 ...(this.tgRoutes ? this.tgRoutes.map(destCidr => ({ destCidr, description: `${subnetConfig.name} to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
                 // if firewallSubnetGroup is defined, we need to add a route to the blackhole for the firewall subnet
+
+
                 ...(ztn ? [{ destSubnetGroup: ztn, description: `${subnetConfig.name} to  ${ztn.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }] : []),
                 ...(linknet ? [{ destSubnetGroup: linknet, description: `${subnetConfig.name} to  ${linknet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
+
                 ...(firewallSubnet ? [{ destSubnetGroup: firewallSubnet, description: `${subnetConfig.name} to  ${firewallSubnet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 //if dmz is defined, we add a route via the FIREWALL_ENDPOINT
                 ...(dmz ? [{ destSubnetGroup: dmz, description: `${subnetConfig.name} to  ${dmz.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }] : []),
@@ -663,6 +666,8 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
             });
             break;
           }
+
+          // the DMZ Subnet woudl benefit from modifying local.
 
           case interfaces.SubnetPersonality.DMZ: {
             routerGroups.push({
@@ -694,6 +699,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
             break;
           }
 
+          //
           case interfaces.SubnetPersonality.PUBLIC_EGRESS: {
             // routes to Transit Gateway are included because this is a public subnet
             routerGroups.push({
