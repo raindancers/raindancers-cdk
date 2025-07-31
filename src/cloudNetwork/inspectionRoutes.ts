@@ -78,6 +78,7 @@ export class InspectionRoutes extends constructs.Construct {
      * Add routes in the local TG route table, for the VpcsCidr. This gets used if there
      * are multiple TG's attached to the same routing table.
      */
+
     // ipv6 routes in Transitgateway
     new ec2.CfnTransitGatewayRoute(this, 'tginspectionrouteIpv6local', {
       transitGatewayRouteTableId: props.localTgRouteTable.transitGatewayRouteTableId,

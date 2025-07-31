@@ -666,12 +666,13 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
             break;
           }
 
-          // the DMZ Subnet woudl benefit from modifying local.
+          // Traffic to the Transit Gateway shoudl get sent directly. It will get inspected at inline.
 
           case interfaces.SubnetPersonality.DMZ: {
             routerGroups.push({
               subnetGroup: subnetConfig,
               routes: [
+                ...(this.tgRoutes ? this.tgRoutes.map(destCidr => ({ destCidr, description: `f-Route to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
                 { destCidr: '0.0.0.0/0', description: `d-ipv4${subnetConfig.name}->internet`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT },
                 { destCidr: '::/0', description: `d-ipv6${subnetConfig.name}->internet`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT },
                 // All local subnets must route via the firewall.
@@ -725,7 +726,8 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
                 ...(this.tgRoutes ? this.tgRoutes.map(destCidr => ({ destCidr, description: `l-Route to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
                 ...(firewallSubnet ? [{ destSubnetGroup: firewallSubnet, description: `${subnetConfig.name} to  ${firewallSubnet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(egress ? [{ destSubnetGroup: egress, description: `${subnetConfig.name} to  ${egress.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }] : []),
-                ...(dmz ? [{ destSubnetGroup: dmz, description: `${subnetConfig.name} to  ${dmz.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }] : []),
+                // Traffic to the DMZ from the
+                //...(dmz ? [{ destSubnetGroup: dmz, description: `${subnetConfig.name} to  ${dmz.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }] : []),
               ],
             });
             break;
