@@ -40,7 +40,7 @@ export class FirewallDashboard extends constructs.Construct {
 
     // Create an asset from the CloudFormation template
     const templateAsset = new s3_assets.Asset(this, 'DashboardTemplateAsset', {
-      path: path.join(__dirname, 'dashboard.yaml'),
+      path: path.join(__dirname, '../../../assets/firewalldashboard/dashboard.yaml'),
     });
 
     // get the subnet Ids from props.firewallSubnetGroup
