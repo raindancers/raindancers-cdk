@@ -95,7 +95,7 @@ export class NetworkFirewall extends constructs.Construct implements INetworkFir
    */
   public readonly alertLogs: logs.LogGroup;
 
-
+  public readonly firewallSubnetIds: string[];
   /**
    *
    * @param scope Scope
@@ -114,6 +114,7 @@ export class NetworkFirewall extends constructs.Construct implements INetworkFir
         }
       ),
     	);
+
 
     const fw = new firewall.CfnFirewall(this, 'Resource', {
       firewallName: props.firewallName,
@@ -163,6 +164,7 @@ export class NetworkFirewall extends constructs.Construct implements INetworkFir
     this.firewallArn = fw.attrFirewallArn;
     this.firewallId = fw.attrFirewallId;
     this.endPointIds = fw.attrEndpointIds;
+    this.firewallSubnetIds = firewallSubnetList.map(subnet => subnet.subnetId);
 
 
   }

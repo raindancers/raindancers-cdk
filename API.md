@@ -7426,6 +7426,7 @@ Any object.
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.endPointIds">endPointIds</a></code> | <code>string[]</code> | Gateway Endpoints for the Firewalls. |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.firewallArn">firewallArn</a></code> | <code>string</code> | Arn of the firewall. |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.firewallId">firewallId</a></code> | <code>string</code> | Firewall ID. |
+| <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.firewallSubnetIds">firewallSubnetIds</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.nwFirewall.NetworkFirewall.property.flowLogs">flowLogs</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | flow log. |
 
 ---
@@ -7487,6 +7488,16 @@ public readonly firewallId: string;
 - *Type:* string
 
 Firewall ID.
+
+---
+
+##### `firewallSubnetIds`<sup>Required</sup> <a name="firewallSubnetIds" id="raindancers-cdk.nwFirewall.NetworkFirewall.property.firewallSubnetIds"></a>
+
+```typescript
+public readonly firewallSubnetIds: string[];
+```
+
+- *Type:* string[]
 
 ---
 
