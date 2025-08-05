@@ -5238,6 +5238,105 @@ public readonly subnets: ISubnet[];
 ---
 
 
+### FirewallDashboard <a name="FirewallDashboard" id="raindancers-cdk.nwFirewall.FirewallDashboard"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.nwFirewall.FirewallDashboard.Initializer"></a>
+
+```typescript
+import { nwFirewall } from 'raindancers-cdk'
+
+new nwFirewall.FirewallDashboard(scope: Construct, id: string, props: FirewallDashboardProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.FirewallDashboard.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.FirewallDashboard.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.nwFirewall.FirewallDashboard.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.nwFirewall.FirewallDashboardProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.nwFirewall.FirewallDashboard.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.nwFirewall.FirewallDashboard.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.nwFirewall.FirewallDashboard.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.nwFirewall.FirewallDashboardProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.FirewallDashboard.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.nwFirewall.FirewallDashboard.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.FirewallDashboard.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.nwFirewall.FirewallDashboard.isConstruct"></a>
+
+```typescript
+import { nwFirewall } from 'raindancers-cdk'
+
+nwFirewall.FirewallDashboard.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.nwFirewall.FirewallDashboard.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.FirewallDashboard.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.nwFirewall.FirewallDashboard.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
 ### FirewallPolicy <a name="FirewallPolicy" id="raindancers-cdk.nwFirewall.FirewallPolicy"></a>
 
 #### Initializers <a name="Initializers" id="raindancers-cdk.nwFirewall.FirewallPolicy.Initializer"></a>
@@ -14289,6 +14388,89 @@ public readonly nameSpace: string;
 ```
 
 - *Type:* string
+
+---
+
+### FirewallDashboardProps <a name="FirewallDashboardProps" id="raindancers-cdk.nwFirewall.FirewallDashboardProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.nwFirewall.FirewallDashboardProps.Initializer"></a>
+
+```typescript
+import { nwFirewall } from 'raindancers-cdk'
+
+const firewallDashboardProps: nwFirewall.FirewallDashboardProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.nwFirewall.FirewallDashboardProps.property.firewallAlertLog">firewallAlertLog</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | Name of the CloudWatch log group where firewall alert logs are stored. |
+| <code><a href="#raindancers-cdk.nwFirewall.FirewallDashboardProps.property.firewallFlowLog">firewallFlowLog</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | Name of the CloudWatch log group where firewall flow logs are stored. |
+| <code><a href="#raindancers-cdk.nwFirewall.FirewallDashboardProps.property.firewallName">firewallName</a></code> | <code>string</code> | The name of the firewall as seen in the firewall console. |
+| <code><a href="#raindancers-cdk.nwFirewall.FirewallDashboardProps.property.firewallSubnets">firewallSubnets</a></code> | <code>string[]</code> | The firewall subnet IDs. |
+| <code><a href="#raindancers-cdk.nwFirewall.FirewallDashboardProps.property.contributorInsightsRuleState">contributorInsightsRuleState</a></code> | <code>string</code> | State of the Contributor Insights rules (ENABLED or DISABLED). |
+
+---
+
+##### `firewallAlertLog`<sup>Required</sup> <a name="firewallAlertLog" id="raindancers-cdk.nwFirewall.FirewallDashboardProps.property.firewallAlertLog"></a>
+
+```typescript
+public readonly firewallAlertLog: LogGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.LogGroup
+
+Name of the CloudWatch log group where firewall alert logs are stored.
+
+---
+
+##### `firewallFlowLog`<sup>Required</sup> <a name="firewallFlowLog" id="raindancers-cdk.nwFirewall.FirewallDashboardProps.property.firewallFlowLog"></a>
+
+```typescript
+public readonly firewallFlowLog: LogGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.LogGroup
+
+Name of the CloudWatch log group where firewall flow logs are stored.
+
+---
+
+##### `firewallName`<sup>Required</sup> <a name="firewallName" id="raindancers-cdk.nwFirewall.FirewallDashboardProps.property.firewallName"></a>
+
+```typescript
+public readonly firewallName: string;
+```
+
+- *Type:* string
+
+The name of the firewall as seen in the firewall console.
+
+---
+
+##### `firewallSubnets`<sup>Required</sup> <a name="firewallSubnets" id="raindancers-cdk.nwFirewall.FirewallDashboardProps.property.firewallSubnets"></a>
+
+```typescript
+public readonly firewallSubnets: string[];
+```
+
+- *Type:* string[]
+
+The firewall subnet IDs.
+
+---
+
+##### `contributorInsightsRuleState`<sup>Optional</sup> <a name="contributorInsightsRuleState" id="raindancers-cdk.nwFirewall.FirewallDashboardProps.property.contributorInsightsRuleState"></a>
+
+```typescript
+public readonly contributorInsightsRuleState: string;
+```
+
+- *Type:* string
+- *Default:* ENABLED
+
+State of the Contributor Insights rules (ENABLED or DISABLED).
 
 ---
 

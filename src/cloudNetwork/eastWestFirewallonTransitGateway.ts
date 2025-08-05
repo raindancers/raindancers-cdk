@@ -89,6 +89,7 @@ export class EastWestFirewallOnTg extends constructs.Construct {
       firewall,
     );
 
+
     if (network.networkFirewall) {
       this.firewall = network.networkFirewall;
     }
