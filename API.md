@@ -652,6 +652,172 @@ public readonly passwordObject: ISecret;
 ---
 
 
+### AgentCoreOpenAPI <a name="AgentCoreOpenAPI" id="raindancers-cdk.agentCore.AgentCoreOpenAPI"></a>
+
+A construct that creates a complete AgentCore Gateway setup with Cognito authentication, S3 storage for OpenAPI specs, and Bedrock AgentCore integration.
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.agentCore.AgentCoreOpenAPI.Initializer"></a>
+
+```typescript
+import { agentCore } from 'raindancers-cdk'
+
+new agentCore.AgentCoreOpenAPI(scope: Construct, id: string, props: AgentCoreOpenAPIProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPI.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPI.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPI.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.agentCore.AgentCoreOpenAPIProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.agentCore.AgentCoreOpenAPI.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.agentCore.AgentCoreOpenAPI.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.agentCore.AgentCoreOpenAPI.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.agentCore.AgentCoreOpenAPIProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPI.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.agentCore.AgentCoreOpenAPI.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPI.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.agentCore.AgentCoreOpenAPI.isConstruct"></a>
+
+```typescript
+import { agentCore } from 'raindancers-cdk'
+
+agentCore.AgentCoreOpenAPI.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.agentCore.AgentCoreOpenAPI.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPI.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPI.property.gatewayId">gatewayId</a></code> | <code>string</code> | The Bedrock AgentCore Gateway ID. |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPI.property.gatewayUrl">gatewayUrl</a></code> | <code>string</code> | The Bedrock AgentCore Gateway URL. |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPI.property.s3BucketName">s3BucketName</a></code> | <code>string</code> | The S3 bucket name containing the OpenAPI spec. |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPI.property.userPoolClientId">userPoolClientId</a></code> | <code>string</code> | The Cognito User Pool Client ID. |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPI.property.userPoolId">userPoolId</a></code> | <code>string</code> | The Cognito User Pool ID. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.agentCore.AgentCoreOpenAPI.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `gatewayId`<sup>Required</sup> <a name="gatewayId" id="raindancers-cdk.agentCore.AgentCoreOpenAPI.property.gatewayId"></a>
+
+```typescript
+public readonly gatewayId: string;
+```
+
+- *Type:* string
+
+The Bedrock AgentCore Gateway ID.
+
+---
+
+##### `gatewayUrl`<sup>Required</sup> <a name="gatewayUrl" id="raindancers-cdk.agentCore.AgentCoreOpenAPI.property.gatewayUrl"></a>
+
+```typescript
+public readonly gatewayUrl: string;
+```
+
+- *Type:* string
+
+The Bedrock AgentCore Gateway URL.
+
+---
+
+##### `s3BucketName`<sup>Required</sup> <a name="s3BucketName" id="raindancers-cdk.agentCore.AgentCoreOpenAPI.property.s3BucketName"></a>
+
+```typescript
+public readonly s3BucketName: string;
+```
+
+- *Type:* string
+
+The S3 bucket name containing the OpenAPI spec.
+
+---
+
+##### `userPoolClientId`<sup>Required</sup> <a name="userPoolClientId" id="raindancers-cdk.agentCore.AgentCoreOpenAPI.property.userPoolClientId"></a>
+
+```typescript
+public readonly userPoolClientId: string;
+```
+
+- *Type:* string
+
+The Cognito User Pool Client ID.
+
+---
+
+##### `userPoolId`<sup>Required</sup> <a name="userPoolId" id="raindancers-cdk.agentCore.AgentCoreOpenAPI.property.userPoolId"></a>
+
+```typescript
+public readonly userPoolId: string;
+```
+
+- *Type:* string
+
+The Cognito User Pool ID.
+
+---
+
+
 ### ApplySCPOnAccountCreation <a name="ApplySCPOnAccountCreation" id="raindancers-cdk.serviceControlPolicy.ApplySCPOnAccountCreation"></a>
 
 Applys SCP to account when it is created.
@@ -11386,6 +11552,77 @@ public readonly capacity: number;
 
 ---
 
+### AgentCoreOpenAPIProps <a name="AgentCoreOpenAPIProps" id="raindancers-cdk.agentCore.AgentCoreOpenAPIProps"></a>
+
+Properties for the AgentCore construct.
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.agentCore.AgentCoreOpenAPIProps.Initializer"></a>
+
+```typescript
+import { agentCore } from 'raindancers-cdk'
+
+const agentCoreOpenAPIProps: agentCore.AgentCoreOpenAPIProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.apiKey">apiKey</a></code> | <code>raindancers-cdk.agentCore.ApiKey</code> | Secret containing the API token. |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.name">name</a></code> | <code>string</code> | The name prefix for all resources. |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.pathToOpenApiSpec">pathToOpenApiSpec</a></code> | <code>string</code> | Path to the OpenAPI specification file. |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.gatewayDescription">gatewayDescription</a></code> | <code>string</code> | Optional description for the gateway. |
+
+---
+
+##### `apiKey`<sup>Required</sup> <a name="apiKey" id="raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.apiKey"></a>
+
+```typescript
+public readonly apiKey: ApiKey;
+```
+
+- *Type:* raindancers-cdk.agentCore.ApiKey
+
+Secret containing the API token.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name prefix for all resources.
+
+---
+
+##### `pathToOpenApiSpec`<sup>Required</sup> <a name="pathToOpenApiSpec" id="raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.pathToOpenApiSpec"></a>
+
+```typescript
+public readonly pathToOpenApiSpec: string;
+```
+
+- *Type:* string
+
+Path to the OpenAPI specification file.
+
+---
+
+##### `gatewayDescription`<sup>Optional</sup> <a name="gatewayDescription" id="raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.gatewayDescription"></a>
+
+```typescript
+public readonly gatewayDescription: string;
+```
+
+- *Type:* string
+
+Optional description for the gateway.
+
+---
+
 ### AllowedPrefixes <a name="AllowedPrefixes" id="raindancers-cdk.transitGateway.AllowedPrefixes"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.transitGateway.AllowedPrefixes.Initializer"></a>
@@ -11411,6 +11648,45 @@ public readonly cidr: string;
 ```
 
 - *Type:* string
+
+---
+
+### ApiKey <a name="ApiKey" id="raindancers-cdk.agentCore.ApiKey"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.agentCore.ApiKey.Initializer"></a>
+
+```typescript
+import { agentCore } from 'raindancers-cdk'
+
+const apiKey: agentCore.ApiKey = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.agentCore.ApiKey.property.key">key</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.agentCore.ApiKey.property.secret">secret</a></code> | <code>aws-cdk-lib.aws_secretsmanager.ISecret</code> | *No description.* |
+
+---
+
+##### `key`<sup>Required</sup> <a name="key" id="raindancers-cdk.agentCore.ApiKey.property.key"></a>
+
+```typescript
+public readonly key: string;
+```
+
+- *Type:* string
+
+---
+
+##### `secret`<sup>Required</sup> <a name="secret" id="raindancers-cdk.agentCore.ApiKey.property.secret"></a>
+
+```typescript
+public readonly secret: ISecret;
+```
+
+- *Type:* aws-cdk-lib.aws_secretsmanager.ISecret
 
 ---
 
