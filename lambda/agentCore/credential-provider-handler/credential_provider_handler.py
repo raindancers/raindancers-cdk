@@ -45,7 +45,7 @@ def handler(event, context):
             print(f"Created: {arn[:100]}...")
             
             result = {
-                'PhysicalResourceId': arn,
+                'PhysicalResourceId': f"{event['ResourceProperties']['Name']}#{arn}",
                 'Data': {
                     'CredentialProviderArn': arn
                 }
@@ -60,10 +60,22 @@ def handler(event, context):
             
         elif event['RequestType'] == 'Delete':
             try:
-                bedrock_client.delete_credential_provider(credentialProviderArn=event['PhysicalResourceId'])
-                print(f"Successfully deleted credential provider: {event['PhysicalResourceId']}")
+                # Extract name from PhysicalResourceId (format: "name#arn")
+                physical_id = event['PhysicalResourceId']
+                if '#' in physical_id:
+                    provider_name = physical_id.split('#')[0]
+                else:
+                    # Fallback to ResourceProperties if available
+                    provider_name = event.get('ResourceProperties', {}).get('Name')
+                
+                if not provider_name:
+                    print(f"No provider name found, cannot delete credential provider")
+                    return {'PhysicalResourceId': event['PhysicalResourceId']}
+                
+                bedrock_client.delete_api_key_credential_provider(name=provider_name)
+                print(f"Successfully deleted API key credential provider: {provider_name}")
             except bedrock_client.exceptions.ResourceNotFoundException:
-                print(f"Credential provider {event['PhysicalResourceId']} not found - already deleted")
+                print(f"API key credential provider {provider_name} not found - already deleted")
             except Exception as e:
                 print(f"Delete failed: {e}")
                 # Don't raise - allow stack deletion to continue
