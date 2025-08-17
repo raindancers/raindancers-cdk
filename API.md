@@ -11570,8 +11570,9 @@ const agentCoreOpenAPIProps: agentCore.AgentCoreOpenAPIProps = { ... }
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.apiKey">apiKey</a></code> | <code>raindancers-cdk.agentCore.ApiKey</code> | Secret containing the API token. |
 | <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.name">name</a></code> | <code>string</code> | The name prefix for all resources. |
-| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.pathToOpenApiSpec">pathToOpenApiSpec</a></code> | <code>string</code> | Path to the OpenAPI specification file. |
 | <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.gatewayDescription">gatewayDescription</a></code> | <code>string</code> | Optional description for the gateway. |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.pathToOpenApiSpec">pathToOpenApiSpec</a></code> | <code>string</code> | Path to the OpenAPI specification file. |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.s3Uri">s3Uri</a></code> | <code>string</code> | S3 URI to the OpenAPI specification file. |
 
 ---
 
@@ -11599,7 +11600,19 @@ The name prefix for all resources.
 
 ---
 
-##### `pathToOpenApiSpec`<sup>Required</sup> <a name="pathToOpenApiSpec" id="raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.pathToOpenApiSpec"></a>
+##### `gatewayDescription`<sup>Optional</sup> <a name="gatewayDescription" id="raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.gatewayDescription"></a>
+
+```typescript
+public readonly gatewayDescription: string;
+```
+
+- *Type:* string
+
+Optional description for the gateway.
+
+---
+
+##### `pathToOpenApiSpec`<sup>Optional</sup> <a name="pathToOpenApiSpec" id="raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.pathToOpenApiSpec"></a>
 
 ```typescript
 public readonly pathToOpenApiSpec: string;
@@ -11611,15 +11624,15 @@ Path to the OpenAPI specification file.
 
 ---
 
-##### `gatewayDescription`<sup>Optional</sup> <a name="gatewayDescription" id="raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.gatewayDescription"></a>
+##### `s3Uri`<sup>Optional</sup> <a name="s3Uri" id="raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.s3Uri"></a>
 
 ```typescript
-public readonly gatewayDescription: string;
+public readonly s3Uri: string;
 ```
 
 - *Type:* string
 
-Optional description for the gateway.
+S3 URI to the OpenAPI specification file.
 
 ---
 

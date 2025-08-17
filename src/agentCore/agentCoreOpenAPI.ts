@@ -27,7 +27,9 @@ export interface AgentCoreOpenAPIProps {
   /** The name prefix for all resources */
   readonly name: string;
   /** Path to the OpenAPI specification file */
-  readonly pathToOpenApiSpec: string;
+  readonly pathToOpenApiSpec?: string;
+  /** S3 URI to the OpenAPI specification file */
+  readonly s3Uri?: string;
   /** Secret containing the API token */
   readonly apiKey: ApiKey;
   /** Optional description for the gateway */
@@ -55,7 +57,21 @@ export class AgentCoreOpenAPI extends constructs.Construct {
   constructor(scope: constructs.Construct, id: string, props: AgentCoreOpenAPIProps) {
     super(scope, id);
 
-    this.validateAssetExists(props.pathToOpenApiSpec);
+    // Validate that exactly one of pathToOpenApiSpec or s3Uri is provided
+    const hasPath = !!props.pathToOpenApiSpec;
+    const hasS3Uri = !!props.s3Uri;
+
+    if (!hasPath && !hasS3Uri) {
+      throw new Error('Either pathToOpenApiSpec or s3Uri must be provided');
+    }
+    if (hasPath && hasS3Uri) {
+      throw new Error('Only one of pathToOpenApiSpec or s3Uri can be provided');
+    }
+
+    if (props.pathToOpenApiSpec) {
+      this.validateAssetExists(props.pathToOpenApiSpec);
+    }
+
     const normalizedName = this.normalizeBucketName(props.name);
 
     // IAM Role for AgentCore Gateway
@@ -140,24 +156,30 @@ export class AgentCoreOpenAPI extends constructs.Construct {
       supportedIdentityProviders: [cognito.UserPoolClientIdentityProvider.COGNITO],
     });
 
-    // S3 Bucket for OpenAPI spec
-    const openApiBucket = new s3.Bucket(this, 'AgentCoreOpenApiBucket', {
-      bucketName: `${normalizedName}-gateway-${core.Stack.of(this).account}-${core.Stack.of(this).region}`,
-      removalPolicy: core.RemovalPolicy.DESTROY,
-      autoDeleteObjects: true,
-    });
+    // S3 Bucket for OpenAPI spec (only if pathToOpenApiSpec is provided)
+    let openApiBucket: s3.IBucket | undefined;
+    let s3Uri: string;
 
-    // Note: No explicit bucket policy needed - Bedrock service uses IAM role permissions
+    if (props.pathToOpenApiSpec) {
+      openApiBucket = new s3.Bucket(this, 'AgentCoreOpenApiBucket', {
+        bucketName: `${normalizedName}-gateway-${core.Stack.of(this).account}-${core.Stack.of(this).region}`,
+        removalPolicy: core.RemovalPolicy.DESTROY,
+        autoDeleteObjects: true,
+      });
 
-    // Deploy OpenAPI spec to S3
-    //const bucketDeployment =
-    new s3deploy.BucketDeployment(this, 'DeployOpenApiSpec', {
-      sources: [s3deploy.Source.asset(path.dirname(props.pathToOpenApiSpec))],
-      destinationBucket: openApiBucket,
-      destinationKeyPrefix: '',
-      retainOnDelete: false,
-      include: [path.basename(props.pathToOpenApiSpec)],
-    });
+      // Deploy OpenAPI spec to S3
+      new s3deploy.BucketDeployment(this, 'DeployOpenApiSpec', {
+        sources: [s3deploy.Source.asset(path.dirname(props.pathToOpenApiSpec))],
+        destinationBucket: openApiBucket,
+        destinationKeyPrefix: '',
+        retainOnDelete: false,
+        include: [path.basename(props.pathToOpenApiSpec)],
+      });
+
+      s3Uri = `s3://${openApiBucket.bucketName}/${path.basename(props.pathToOpenApiSpec)}`;
+    } else {
+      s3Uri = props.s3Uri!;
+    }
 
     //Custom Resource for Bedrock AgentCore Gateway
     const gatewayCustomResource = new core.CustomResource(this, 'BedrockGateway', {
@@ -190,7 +212,7 @@ export class AgentCoreOpenAPI extends constructs.Construct {
     // Custom Resource for Gateway Target
     //const gatewayTarget =
     new core.CustomResource(this, 'GatewayTarget', {
-      serviceToken: this.createGatewayTargetProvider(openApiBucket).serviceToken,
+      serviceToken: this.createGatewayTargetProvider(openApiBucket, props.s3Uri).serviceToken,
       properties: {
         GatewayIdentifier: gatewayCustomResource.ref,
         Name: `${props.name}Target`,
@@ -199,7 +221,7 @@ export class AgentCoreOpenAPI extends constructs.Construct {
           mcp: {
             openApiSchema: {
               s3: {
-                uri: `s3://${openApiBucket.bucketName}/${path.basename(props.pathToOpenApiSpec)}`,
+                uri: s3Uri,
               },
             },
           },
@@ -223,7 +245,7 @@ export class AgentCoreOpenAPI extends constructs.Construct {
     this.userPoolClientId = userPoolClient.userPoolClientId;
     this.gatewayId = gatewayCustomResource.ref;
     this.gatewayUrl = gatewayCustomResource.getAttString('GatewayUrl');
-    this.s3BucketName = openApiBucket.bucketName;
+    this.s3BucketName = openApiBucket?.bucketName ?? '';
   }
 
   /**
@@ -324,7 +346,7 @@ export class AgentCoreOpenAPI extends constructs.Construct {
   /**
    * Creates a custom resource provider for managing gateway targets
    */
-  private createGatewayTargetProvider(bucket: s3.IBucket): cr.Provider {
+  private createGatewayTargetProvider(bucket?: s3.IBucket, s3Uri?: string): cr.Provider {
     const onEventHandler = new lambda.Function(this, 'GatewayTargetHandler', {
       runtime: lambda.Runtime.PYTHON_3_13,
       handler: 'gateway_target_handler.handler',
@@ -344,7 +366,15 @@ export class AgentCoreOpenAPI extends constructs.Construct {
       },
     });
 
-    bucket.grantRead(onEventHandler);
+    if (bucket) {
+      bucket.grantRead(onEventHandler);
+    } else if (s3Uri) {
+      // Grant S3 read permissions for external S3 URI
+      onEventHandler.addToRolePolicy(new iam.PolicyStatement({
+        actions: ['s3:GetObject'],
+        resources: [s3Uri.replace('s3://', 'arn:aws:s3:::').replace('/', '/*')],
+      }));
+    }
 
     onEventHandler.addToRolePolicy(new iam.PolicyStatement({
       actions: [

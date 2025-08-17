@@ -129,4 +129,48 @@ describe('AgentCoreOpenAPI', () => {
       });
     }).toThrow();
   });
+
+  test('validates that exactly one of pathToOpenApiSpec or s3Uri is provided', () => {
+    const secret = new Secret(stack, 'TestSecret');
+
+    // Test neither provided
+    expect(() => {
+      new AgentCoreOpenAPI(stack, 'TestAgentCore1', {
+        name: 'test-agent',
+        apiKey: {
+          secret: secret,
+          key: 'api-key',
+        },
+      });
+    }).toThrow('Either pathToOpenApiSpec or s3Uri must be provided');
+
+    // Test both provided
+    expect(() => {
+      new AgentCoreOpenAPI(stack, 'TestAgentCore2', {
+        name: 'test-agent',
+        pathToOpenApiSpec: __filename,
+        s3Uri: 's3://bucket/spec.yaml',
+        apiKey: {
+          secret: secret,
+          key: 'api-key',
+        },
+      });
+    }).toThrow('Only one of pathToOpenApiSpec or s3Uri can be provided');
+  });
+
+  test('works with s3Uri instead of pathToOpenApiSpec', () => {
+    const secret = new Secret(stack, 'TestSecret');
+
+    const agentCore = new AgentCoreOpenAPI(stack, 'TestAgentCore', {
+      name: 'test-agent',
+      s3Uri: 's3://my-bucket/openapi.yaml',
+      apiKey: {
+        secret: secret,
+        key: 'api-key',
+      },
+    });
+
+    expect(agentCore).toBeDefined();
+    expect(agentCore.s3BucketName).toBe('');
+  });
 });
