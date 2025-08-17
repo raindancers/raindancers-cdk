@@ -53,6 +53,8 @@ export class AgentCoreOpenAPI extends constructs.Construct {
   public readonly gatewayUrl: string;
   /** The S3 bucket name containing the OpenAPI spec */
   public readonly s3BucketName: string;
+  /** The IAM role used for target execution */
+  public readonly targetExecutionRole: iam.IRole;
 
   constructor(scope: constructs.Construct, id: string, props: AgentCoreOpenAPIProps) {
     super(scope, id);
@@ -246,6 +248,7 @@ export class AgentCoreOpenAPI extends constructs.Construct {
     this.gatewayId = gatewayCustomResource.ref;
     this.gatewayUrl = gatewayCustomResource.getAttString('GatewayUrl');
     this.s3BucketName = openApiBucket?.bucketName ?? '';
+    this.targetExecutionRole = gatewayRole;
   }
 
   /**

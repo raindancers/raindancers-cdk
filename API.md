@@ -740,6 +740,7 @@ Any object.
 | <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPI.property.gatewayId">gatewayId</a></code> | <code>string</code> | The Bedrock AgentCore Gateway ID. |
 | <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPI.property.gatewayUrl">gatewayUrl</a></code> | <code>string</code> | The Bedrock AgentCore Gateway URL. |
 | <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPI.property.s3BucketName">s3BucketName</a></code> | <code>string</code> | The S3 bucket name containing the OpenAPI spec. |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPI.property.targetExecutionRole">targetExecutionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The IAM role used for target execution. |
 | <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPI.property.userPoolClientId">userPoolClientId</a></code> | <code>string</code> | The Cognito User Pool Client ID. |
 | <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPI.property.userPoolId">userPoolId</a></code> | <code>string</code> | The Cognito User Pool ID. |
 
@@ -790,6 +791,18 @@ public readonly s3BucketName: string;
 - *Type:* string
 
 The S3 bucket name containing the OpenAPI spec.
+
+---
+
+##### `targetExecutionRole`<sup>Required</sup> <a name="targetExecutionRole" id="raindancers-cdk.agentCore.AgentCoreOpenAPI.property.targetExecutionRole"></a>
+
+```typescript
+public readonly targetExecutionRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+The IAM role used for target execution.
 
 ---
 

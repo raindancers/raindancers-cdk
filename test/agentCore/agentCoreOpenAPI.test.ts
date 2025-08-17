@@ -30,6 +30,7 @@ describe('AgentCoreOpenAPI', () => {
     expect(agentCore.gatewayId).toBeDefined();
     expect(agentCore.gatewayUrl).toBeDefined();
     expect(agentCore.s3BucketName).toBeDefined();
+    expect(agentCore.targetExecutionRole).toBeDefined();
   });
 
   test('creates Cognito User Pool with correct configuration', () => {
