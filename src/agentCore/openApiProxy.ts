@@ -9,8 +9,8 @@ import {
 import * as constructs from 'constructs';
 
 export interface OpenAPIProxyProps {
-  pathToOpenApiSpec: string;
-  proxyFunctionName: string;
+  readonly pathToOpenApiSpec: string;
+  readonly proxyFunctionName: string;
 }
 
 export class OpenAPIProxy extends constructs.Construct {

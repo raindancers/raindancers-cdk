@@ -7792,6 +7792,138 @@ The tree node.
 ---
 
 
+### OpenAPIProxy <a name="OpenAPIProxy" id="raindancers-cdk.agentCore.OpenAPIProxy"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.agentCore.OpenAPIProxy.Initializer"></a>
+
+```typescript
+import { agentCore } from 'raindancers-cdk'
+
+new agentCore.OpenAPIProxy(scope: Construct, id: string, props: OpenAPIProxyProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.agentCore.OpenAPIProxy.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.agentCore.OpenAPIProxy.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.agentCore.OpenAPIProxy.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.agentCore.OpenAPIProxyProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.agentCore.OpenAPIProxy.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.agentCore.OpenAPIProxy.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.agentCore.OpenAPIProxy.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.agentCore.OpenAPIProxyProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.agentCore.OpenAPIProxy.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.agentCore.OpenAPIProxy.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.agentCore.OpenAPIProxy.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.agentCore.OpenAPIProxy.isConstruct"></a>
+
+```typescript
+import { agentCore } from 'raindancers-cdk'
+
+agentCore.OpenAPIProxy.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.agentCore.OpenAPIProxy.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.agentCore.OpenAPIProxy.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.agentCore.OpenAPIProxy.property.functionUrl">functionUrl</a></code> | <code>aws-cdk-lib.aws_lambda.FunctionUrl</code> | *No description.* |
+| <code><a href="#raindancers-cdk.agentCore.OpenAPIProxy.property.objectUri">objectUri</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.agentCore.OpenAPIProxy.property.proxyFunction">proxyFunction</a></code> | <code>aws-cdk-lib.aws_lambda.Function</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.agentCore.OpenAPIProxy.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `functionUrl`<sup>Required</sup> <a name="functionUrl" id="raindancers-cdk.agentCore.OpenAPIProxy.property.functionUrl"></a>
+
+```typescript
+public readonly functionUrl: FunctionUrl;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.FunctionUrl
+
+---
+
+##### `objectUri`<sup>Required</sup> <a name="objectUri" id="raindancers-cdk.agentCore.OpenAPIProxy.property.objectUri"></a>
+
+```typescript
+public readonly objectUri: string;
+```
+
+- *Type:* string
+
+---
+
+##### `proxyFunction`<sup>Required</sup> <a name="proxyFunction" id="raindancers-cdk.agentCore.OpenAPIProxy.property.proxyFunction"></a>
+
+```typescript
+public readonly proxyFunction: Function;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.Function
+
+---
+
+
 ### OrganizationalUnit <a name="OrganizationalUnit" id="raindancers-cdk.organizations.OrganizationalUnit"></a>
 
 - *Implements:* raindancers-cdk.organizations.IOrganizationalUnit
@@ -16331,6 +16463,45 @@ public readonly iPStackMode: FirewallSubnetMappingIPAddressType;
 - *Type:* raindancers-cdk.nwFirewall.FirewallSubnetMappingIPAddressType
 
 Determine how the Firewall stacks will behave.
+
+---
+
+### OpenAPIProxyProps <a name="OpenAPIProxyProps" id="raindancers-cdk.agentCore.OpenAPIProxyProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.agentCore.OpenAPIProxyProps.Initializer"></a>
+
+```typescript
+import { agentCore } from 'raindancers-cdk'
+
+const openAPIProxyProps: agentCore.OpenAPIProxyProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.agentCore.OpenAPIProxyProps.property.pathToOpenApiSpec">pathToOpenApiSpec</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.agentCore.OpenAPIProxyProps.property.proxyFunctionName">proxyFunctionName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `pathToOpenApiSpec`<sup>Required</sup> <a name="pathToOpenApiSpec" id="raindancers-cdk.agentCore.OpenAPIProxyProps.property.pathToOpenApiSpec"></a>
+
+```typescript
+public readonly pathToOpenApiSpec: string;
+```
+
+- *Type:* string
+
+---
+
+##### `proxyFunctionName`<sup>Required</sup> <a name="proxyFunctionName" id="raindancers-cdk.agentCore.OpenAPIProxyProps.property.proxyFunctionName"></a>
+
+```typescript
+public readonly proxyFunctionName: string;
+```
+
+- *Type:* string
 
 ---
 
