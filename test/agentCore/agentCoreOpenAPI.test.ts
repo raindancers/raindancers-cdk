@@ -1,7 +1,7 @@
 import { App, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
-import { AgentCoreOpenAPI } from '../../src/agentCore/agentCoreOpenAPI';
+import { AgentCoreOpenAPI, CredentialLocation } from '../../src/agentCore/agentCoreOpenAPI';
 
 describe('AgentCoreOpenAPI', () => {
   let app: App;
@@ -173,5 +173,38 @@ describe('AgentCoreOpenAPI', () => {
 
     expect(agentCore).toBeDefined();
     expect(agentCore.s3BucketName).toBe('');
+  });
+
+  test('handles custom credential configuration', () => {
+    const secret = new Secret(stack, 'TestSecret');
+
+    const agentCore = new AgentCoreOpenAPI(stack, 'TestAgentCore', {
+      name: 'test-agent',
+      pathToOpenApiSpec: __filename,
+      apiKey: {
+        secret: secret,
+        key: 'api-key',
+      },
+      credentialParameterName: 'custom_api_key',
+      credentialLocation: CredentialLocation.QUERY_PARAMETER,
+    });
+
+    expect(agentCore).toBeDefined();
+  });
+
+  test('uses default credential configuration when not specified', () => {
+    const secret = new Secret(stack, 'TestSecret');
+
+    const agentCore = new AgentCoreOpenAPI(stack, 'TestAgentCore', {
+      name: 'test-agent',
+      pathToOpenApiSpec: __filename,
+      apiKey: {
+        secret: secret,
+        key: 'api-key',
+      },
+    });
+
+    expect(agentCore).toBeDefined();
+    // Should use defaults: credentialParameterName='api_key', credentialLocation=HEADER
   });
 });

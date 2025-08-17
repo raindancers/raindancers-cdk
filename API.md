@@ -11583,6 +11583,8 @@ const agentCoreOpenAPIProps: agentCore.AgentCoreOpenAPIProps = { ... }
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.apiKey">apiKey</a></code> | <code>raindancers-cdk.agentCore.ApiKey</code> | Secret containing the API token. |
 | <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.name">name</a></code> | <code>string</code> | The name prefix for all resources. |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.credentialLocation">credentialLocation</a></code> | <code>raindancers-cdk.agentCore.CredentialLocation</code> | Credential Location *. |
+| <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.credentialParameterName">credentialParameterName</a></code> | <code>string</code> | *. |
 | <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.gatewayDescription">gatewayDescription</a></code> | <code>string</code> | Optional description for the gateway. |
 | <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.pathToOpenApiSpec">pathToOpenApiSpec</a></code> | <code>string</code> | Path to the OpenAPI specification file. |
 | <code><a href="#raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.s3Uri">s3Uri</a></code> | <code>string</code> | S3 URI to the OpenAPI specification file. |
@@ -11610,6 +11612,30 @@ public readonly name: string;
 - *Type:* string
 
 The name prefix for all resources.
+
+---
+
+##### `credentialLocation`<sup>Optional</sup> <a name="credentialLocation" id="raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.credentialLocation"></a>
+
+```typescript
+public readonly credentialLocation: CredentialLocation;
+```
+
+- *Type:* raindancers-cdk.agentCore.CredentialLocation
+
+Credential Location *.
+
+---
+
+##### `credentialParameterName`<sup>Optional</sup> <a name="credentialParameterName" id="raindancers-cdk.agentCore.AgentCoreOpenAPIProps.property.credentialParameterName"></a>
+
+```typescript
+public readonly credentialParameterName: string;
+```
+
+- *Type:* string
+
+*.
 
 ---
 
@@ -21996,6 +22022,27 @@ enable Connecting VPC to TransitGateway in Appliance Mode.
 
 
 ##### `PRIVATE_SERVICE_EDGE` <a name="PRIVATE_SERVICE_EDGE" id="raindancers-cdk.zscaler.ComponentType.PRIVATE_SERVICE_EDGE"></a>
+
+---
+
+
+### CredentialLocation <a name="CredentialLocation" id="raindancers-cdk.agentCore.CredentialLocation"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.agentCore.CredentialLocation.HEADER">HEADER</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.agentCore.CredentialLocation.QUERY_PARAMETER">QUERY_PARAMETER</a></code> | *No description.* |
+
+---
+
+##### `HEADER` <a name="HEADER" id="raindancers-cdk.agentCore.CredentialLocation.HEADER"></a>
+
+---
+
+
+##### `QUERY_PARAMETER` <a name="QUERY_PARAMETER" id="raindancers-cdk.agentCore.CredentialLocation.QUERY_PARAMETER"></a>
 
 ---
 

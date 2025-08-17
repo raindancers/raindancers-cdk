@@ -19,6 +19,11 @@ export interface ApiKey {
   readonly key: string;
 }
 
+export enum CredentialLocation {
+  HEADER = 'HEADER',
+  QUERY_PARAMETER = 'QUERY_PARAMETER'
+}
+
 
 /**
  * Properties for the AgentCore construct
@@ -34,6 +39,11 @@ export interface AgentCoreOpenAPIProps {
   readonly apiKey: ApiKey;
   /** Optional description for the gateway */
   readonly gatewayDescription?: string | undefined;
+  /** Credential Location **/
+  readonly credentialLocation?: CredentialLocation | undefined;
+  /** **/
+  readonly credentialParameterName?: string | undefined;
+
 }
 
 /**
@@ -232,9 +242,9 @@ export class AgentCoreOpenAPI extends constructs.Construct {
           credentialProviderType: 'API_KEY',
           credentialProvider: {
             apiKeyCredentialProvider: {
-              credentialParameterName: 'api_key',
+              credentialParameterName: props.credentialParameterName ?? 'api_key',
               providerArn: credentialProvider.getAttString('CredentialProviderArn'),
-              credentialLocation: 'QUERY_PARAMETER',
+              credentialLocation: props.credentialLocation ?? CredentialLocation.HEADER,
             },
           },
         }],
