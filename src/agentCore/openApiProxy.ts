@@ -68,7 +68,7 @@ export class OpenAPIProxy extends constructs.Construct {
 
     // Create Lambda function URL with no auth for direct access
     this.functionUrl = this.proxyFunction.addFunctionUrl({
-      authType: lambda.FunctionUrlAuthType.NONE,
+      authType: lambda.FunctionUrlAuthType.AWS_IAM,
     });
 
     // Create S3 bucket
