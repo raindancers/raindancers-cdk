@@ -74,7 +74,7 @@ export class OpenAPIProxy extends constructs.Construct {
     const modifierFunction = new lambda.Function(this, 'ModifierFunction', {
       runtime: lambda.Runtime.PYTHON_3_11,
       handler: 'modifier.handler',
-      code: lambda.Code.fromAsset(path.resolve(__dirname, '../../lambda/agentCore/modifier')),
+      code: lambda.Code.fromAsset(path.resolve(__dirname, '../../lambda/agentCore')),
       timeout: core.Duration.seconds(60),
     });
 
