@@ -11,6 +11,8 @@ import * as constructs from 'constructs';
 export interface OpenAPIProxyProps {
   readonly pathToOpenApiSpec: string;
   readonly proxyFunctionName: string;
+  // this is a work around for the time being.
+  readonly authHeaderOveride?: string | undefined;
 }
 
 export class OpenAPIProxy extends constructs.Construct {
@@ -23,16 +25,28 @@ export class OpenAPIProxy extends constructs.Construct {
 
     // Read base URL and extract API key header from OpenAPI spec
     const openApiSpec = JSON.parse(fs.readFileSync(props.pathToOpenApiSpec, 'utf8'));
-    const baseUrl = openApiSpec.servers[0].url;
+    let baseUrl = openApiSpec.servers[0].url;
 
+    // Handle server variables by substituting with default values
+    if (openApiSpec.servers[0].variables) {
+      for (const [varName, varConfig] of Object.entries(openApiSpec.servers[0].variables)) {
+        const defaultValue = (varConfig as any).default;
+        baseUrl = baseUrl.replace(`{${varName}}`, defaultValue);
+      }
+    }
+
+    let apiKeyHeaderName = 'X-API-Key';
+    if (props.authHeaderOveride) {
+      apiKeyHeaderName = props.authHeaderOveride;
+    } else {
     // Extract API key header name from security schemes
-    let apiKeyHeaderName = 'X-API-Key'; // default fallback
-    if (openApiSpec.components?.securitySchemes) {
-      for (const [, scheme] of Object.entries(openApiSpec.components.securitySchemes)) {
-        const s = scheme as any;
-        if (s.type === 'apiKey' && s.in === 'header') {
-          apiKeyHeaderName = s.name;
-          break;
+      if (openApiSpec.components?.securitySchemes) {
+        for (const [, scheme] of Object.entries(openApiSpec.components.securitySchemes)) {
+          const s = scheme as any;
+          if (s.type === 'apiKey' && s.in === 'header') {
+            apiKeyHeaderName = s.name;
+            break;
+          }
         }
       }
     }
@@ -76,6 +90,7 @@ export class OpenAPIProxy extends constructs.Construct {
       handler: 'modifier.handler',
       code: lambda.Code.fromAsset(path.resolve(__dirname, '../../lambda/agentCore')),
       timeout: core.Duration.seconds(60),
+
     });
 
     // Grant permissions
@@ -92,7 +107,7 @@ export class OpenAPIProxy extends constructs.Construct {
         OriginalKey: `specs/${fileName}`,
         ModifiedKey: `modified/${fileName}`,
         FunctionUrl: this.functionUrl.url,
-        ApiKeyHeaderName: apiKeyHeaderName,
+
       },
     });
 

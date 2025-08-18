@@ -16482,6 +16482,7 @@ const openAPIProxyProps: agentCore.OpenAPIProxyProps = { ... }
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.agentCore.OpenAPIProxyProps.property.pathToOpenApiSpec">pathToOpenApiSpec</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.agentCore.OpenAPIProxyProps.property.proxyFunctionName">proxyFunctionName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.agentCore.OpenAPIProxyProps.property.authHeaderOveride">authHeaderOveride</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -16499,6 +16500,16 @@ public readonly pathToOpenApiSpec: string;
 
 ```typescript
 public readonly proxyFunctionName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `authHeaderOveride`<sup>Optional</sup> <a name="authHeaderOveride" id="raindancers-cdk.agentCore.OpenAPIProxyProps.property.authHeaderOveride"></a>
+
+```typescript
+public readonly authHeaderOveride: string;
 ```
 
 - *Type:* string
