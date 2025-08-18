@@ -35,6 +35,54 @@ def handler(event, context):
             
             return result
             
+        elif event['RequestType'] == 'Update':
+            # For updates, update the gateway target
+            props = event['ResourceProperties']
+            
+            try:
+                response = client.update_gateway_target(
+                    gatewayIdentifier=props['GatewayIdentifier'],
+                    targetId=event['PhysicalResourceId'],
+                    name=props['Name'],
+                    description=props.get('Description', ''),
+                    targetConfiguration=props['TargetConfiguration'],
+                    credentialProviderConfigurations=props['CredentialProviderConfigurations']
+                )
+                
+                return {
+                    'PhysicalResourceId': event['PhysicalResourceId'],
+                    'Data': {
+                        'TargetId': event['PhysicalResourceId']
+                    }
+                }
+            except Exception as e:
+                print(f"Update failed, attempting recreate: {e}")
+                # If update fails, try delete and recreate
+                try:
+                    client.delete_gateway_target(
+                        gatewayIdentifier=props['GatewayIdentifier'],
+                        targetId=event['PhysicalResourceId']
+                    )
+                except:
+                    pass
+                
+                # Recreate
+                response = client.create_gateway_target(
+                    gatewayIdentifier=props['GatewayIdentifier'],
+                    name=props['Name'],
+                    description=props.get('Description', ''),
+                    targetConfiguration=props['TargetConfiguration'],
+                    credentialProviderConfigurations=props['CredentialProviderConfigurations']
+                )
+                
+                target_id = response['targetId']
+                return {
+                    'PhysicalResourceId': target_id,
+                    'Data': {
+                        'TargetId': target_id
+                    }
+                }
+            
         elif event['RequestType'] == 'Delete':
             try:
                 client.delete_gateway_target(

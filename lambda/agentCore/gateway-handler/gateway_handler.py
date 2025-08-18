@@ -28,6 +28,44 @@ def handler(event, context):
                 'PhysicalResourceId': gw_id
             }
             
+        elif event['RequestType'] == 'Update':
+            # For gateway updates, try to update or recreate
+            props = event['ResourceProperties']
+            
+            try:
+                # Try to update the gateway
+                response = client.update_gateway(
+                    gatewayIdentifier=event['PhysicalResourceId'],
+                    name=props['GatewayName'],
+                    description=props.get('Description', '')
+                )
+                
+                return {
+                    'PhysicalResourceId': event['PhysicalResourceId']
+                }
+            except Exception as e:
+                print(f"Update failed, attempting recreate: {e}")
+                # If update fails, delete and recreate
+                try:
+                    client.delete_gateway(gatewayIdentifier=event['PhysicalResourceId'])
+                except:
+                    pass
+                
+                # Recreate gateway
+                response = client.create_gateway(
+                    name=props['GatewayName'],
+                    roleArn=props['RoleArn'],
+                    protocolType=props['ProtocolType'],
+                    authorizerType=props['AuthorizerType'],
+                    authorizerConfiguration=props['AuthorizerConfiguration'],
+                    description=props.get('Description', '')
+                )
+                
+                gw_id = response['gatewayId']
+                return {
+                    'PhysicalResourceId': gw_id
+                }
+            
         elif event['RequestType'] == 'Delete':
             try:
                 client.delete_gateway(gatewayIdentifier=event['PhysicalResourceId'])

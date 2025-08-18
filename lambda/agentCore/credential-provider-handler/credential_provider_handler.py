@@ -58,6 +58,50 @@ def handler(event, context):
             
             return result
             
+        elif event['RequestType'] == 'Update':
+            # For updates, recreate the credential provider
+            # Get API key from Secrets Manager
+            secret_response = secrets_client.get_secret_value(
+                SecretId=event['ResourceProperties']['SecretArn']
+            )
+            api_key = json.loads(secret_response['SecretString'])[event['ResourceProperties']['SecretKey']]
+            
+            # Delete old provider if name changed
+            old_props = event.get('OldResourceProperties', {})
+            old_name = old_props.get('Name')
+            new_name = event['ResourceProperties']['Name']
+            
+            if old_name and old_name != new_name:
+                try:
+                    bedrock_client.delete_api_key_credential_provider(name=old_name)
+                except Exception as e:
+                    print(f"Failed to delete old provider {old_name}: {e}")
+            
+            # Create/update credential provider
+            try:
+                response = bedrock_client.create_api_key_credential_provider(
+                    name=new_name,
+                    apiKey=api_key
+                )
+            except Exception as e:
+                if 'already exists' in str(e).lower():
+                    # Provider exists, get existing one
+                    existing_providers = bedrock_client.list_api_key_credential_providers()
+                    for provider in existing_providers.get('items', []):
+                        if provider['name'] == new_name:
+                            response = {'credentialProviderArn': provider['credentialProviderArn']}
+                            break
+                else:
+                    raise e
+            
+            arn = str(response['credentialProviderArn'])[:500]
+            return {
+                'PhysicalResourceId': f"{new_name}#{arn}",
+                'Data': {
+                    'CredentialProviderArn': arn
+                }
+            }
+            
         elif event['RequestType'] == 'Delete':
             try:
                 # Extract name from PhysicalResourceId (format: "name#arn")
