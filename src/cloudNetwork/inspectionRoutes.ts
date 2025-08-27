@@ -1,11 +1,5 @@
-import * as path from 'path';
-import * as core from 'aws-cdk-lib';
 import {
   aws_ec2 as ec2,
-  custom_resources as cr,
-  aws_iam as iam,
-  aws_lambda as lambda,
-  aws_logs as logs,
 }
   from 'aws-cdk-lib';
 import * as constructs from 'constructs';
@@ -34,46 +28,17 @@ export class InspectionRoutes extends constructs.Construct {
   constructor(scope: constructs.Construct, id: string, props: InspectionRoutesProps) {
     super(scope, id);
 
-    // routes in the local TG route table to reach all other internal destinations.
-
-    const routeExistsFn = new lambda.Function(this, 'routeExistsFn', {
-      runtime: lambda.Runtime.PYTHON_3_13,
-      handler: 'route_exists.handler',
-      timeout: core.Duration.minutes(2),
-      code: lambda.Code.fromAsset(path.join(__dirname, '../../lambda/cloudNetwork/lambda/inspectionRoutes/')),
-      logGroup: new logs.LogGroup(this, 'routeExists', {
-        retention: logs.RetentionDays.ONE_WEEK,
-      }),
-      loggingFormat: lambda.LoggingFormat.JSON,
-      systemLogLevelV2: lambda.SystemLogLevel.INFO,
-      applicationLogLevelV2: lambda.ApplicationLogLevel.INFO,
-    });
-
-    routeExistsFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        effect: iam.Effect.ALLOW,
-        actions: ['ec2:SearchTransitGatewayRoutes', 'ec2:CreateTransitGatewayRoute'],
-        resources: ['*'],
-      }),
-    );
-
-    const provider = new cr.Provider(this, 'routeProvider', {
-      onEventHandler: routeExistsFn,
-    });
-
-    props.inspectionRoutes.forEach((route, index) => {
-      new core.CustomResource(this, `routeCreator${index}`, {
-        serviceToken: provider.serviceToken,
-        properties: {
-          Route: route,
-          TgRouteTableId: props.localTgRouteTable.transitGatewayRouteTableId,
-          AttachmentId: props.firewallAttachmentId,
-          Action: 'CREATE_ROUTE_IF_NOT_EXISTS',
-        },
+    // Create inspection routes in the local TG route table towards the firewall
+    props.inspectionRoutes.forEach((route) => {
+      const routeId = route.replace(/[^a-zA-Z0-9]/g, '');
+      new ec2.CfnTransitGatewayRoute(this, `inspectionRoute${routeId}`, {
+        transitGatewayRouteTableId: props.localTgRouteTable.transitGatewayRouteTableId,
+        destinationCidrBlock: route,
+        transitGatewayAttachmentId: props.firewallAttachmentId,
       });
     });
 
-    // Note: ipv6 routes do not propogate, so we have to add them explicity.
+    // Note: ipv6 routes do not propogate, so we have to add them explicity,
     /**
      * Add routes in the local TG route table, for the VpcsCidr. This gets used if there
      * are multiple TG's attached to the same routing table.

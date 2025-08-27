@@ -3,19 +3,6 @@ import { Template } from 'aws-cdk-lib/assertions';
 import { InspectionRoutes } from '../../src/cloudNetwork/inspectionRoutes';
 import { ITransitGatewayRouteTable } from '../../src/network/transitGateway';
 
-// Mock the Provider to avoid validation error
-jest.mock('aws-cdk-lib/custom-resources', () => {
-  const actual = jest.requireActual('aws-cdk-lib/custom-resources');
-  return {
-    ...actual,
-    Provider: jest.fn().mockImplementation((_scope, _id, _props) => {
-      return {
-        serviceToken: 'mock-service-token',
-      };
-    }),
-  };
-});
-
 describe('InspectionRoutes', () => {
   let stack: Stack;
   let localTgRouteTable: ITransitGatewayRouteTable;
@@ -51,7 +38,7 @@ describe('InspectionRoutes', () => {
     expect(inspectionRoutes).toBeDefined();
   });
 
-  test('creates custom resources for inspection routes', () => {
+  test('creates transit gateway routes for inspection routes', () => {
     new InspectionRoutes(stack, 'TestInspectionRoutes', {
       firewallAttachmentId: 'tgw-attach-firewall-123',
       localAttachmentId: 'tgw-attach-local-456',
@@ -64,8 +51,21 @@ describe('InspectionRoutes', () => {
 
     const template = Template.fromStack(stack);
 
-    // Check that custom resources are created for inspection routes
-    template.resourceCountIs('AWS::CloudFormation::CustomResource', 2);
+    // Check that transit gateway routes are created (2 inspection + 4 explicit = 6 total)
+    template.resourceCountIs('AWS::EC2::TransitGatewayRoute', 6);
+
+    // Verify inspection routes are created with correct properties
+    template.hasResourceProperties('AWS::EC2::TransitGatewayRoute', {
+      TransitGatewayRouteTableId: 'tgw-rtb-local-123',
+      DestinationCidrBlock: '10.1.0.0/16',
+      TransitGatewayAttachmentId: 'tgw-attach-firewall-123',
+    });
+
+    template.hasResourceProperties('AWS::EC2::TransitGatewayRoute', {
+      TransitGatewayRouteTableId: 'tgw-rtb-local-123',
+      DestinationCidrBlock: '10.2.0.0/16',
+      TransitGatewayAttachmentId: 'tgw-attach-firewall-123',
+    });
   });
 
   test('creates explicit IPv4 and IPv6 routes to inspection route table', () => {
@@ -95,9 +95,15 @@ describe('InspectionRoutes', () => {
       TransitGatewayAttachmentId: 'tgw-attach-local-456',
     });
 
-    // Check that Lambda function and custom resource are created
-    template.resourceCountIs('AWS::Lambda::Function', 1);
-    template.resourceCountIs('AWS::CloudFormation::CustomResource', 1);
+    // Check total transit gateway routes (1 inspection + 4 explicit = 5 total)
+    template.resourceCountIs('AWS::EC2::TransitGatewayRoute', 5);
+
+    // Verify inspection route properties
+    template.hasResourceProperties('AWS::EC2::TransitGatewayRoute', {
+      TransitGatewayRouteTableId: 'tgw-rtb-local-123',
+      DestinationCidrBlock: '10.1.0.0/16',
+      TransitGatewayAttachmentId: 'tgw-attach-firewall-123',
+    });
   });
 
   test('handles single inspection route', () => {
@@ -113,7 +119,8 @@ describe('InspectionRoutes', () => {
 
     const template = Template.fromStack(stack);
 
-    template.resourceCountIs('AWS::CloudFormation::CustomResource', 1);
+    // 1 inspection route + 4 explicit routes = 5 total
+    template.resourceCountIs('AWS::EC2::TransitGatewayRoute', 5);
   });
 
   test('handles multiple inspection routes', () => {
@@ -129,12 +136,9 @@ describe('InspectionRoutes', () => {
 
     const template = Template.fromStack(stack);
 
-    // Should create 4 explicit routes (2 local + 2 inspection IPv4/IPv6) + 3 custom resources
-    template.resourceCountIs('AWS::EC2::TransitGatewayRoute', 4);
+    // Should create 3 inspection routes + 4 explicit routes = 7 total
+    template.resourceCountIs('AWS::EC2::TransitGatewayRoute', 7);
     template.resourceCountIs('AWS::EC2::TransitGatewayRouteTablePropagation', 0);
-    // Should create Lambda function and custom resources
-    template.resourceCountIs('AWS::Lambda::Function', 1);
-    template.resourceCountIs('AWS::CloudFormation::CustomResource', 3);
   });
 
   test('handles empty inspection routes array', () => {
@@ -153,9 +157,6 @@ describe('InspectionRoutes', () => {
     // Should create 4 explicit routes (2 local + 2 inspection IPv4/IPv6), no inspection routes
     template.resourceCountIs('AWS::EC2::TransitGatewayRoute', 4);
     template.resourceCountIs('AWS::EC2::TransitGatewayRouteTablePropagation', 0);
-    // Should create Lambda function but no custom resources for empty array
-    template.resourceCountIs('AWS::Lambda::Function', 1);
-    template.resourceCountIs('AWS::CloudFormation::CustomResource', 0);
   });
 
   test('validates all required properties are used', () => {
@@ -192,9 +193,9 @@ describe('InspectionRoutes', () => {
     const template = Template.fromStack(stack);
     const routes = template.findResources('AWS::EC2::TransitGatewayRoute');
 
-    // Verify we have unique resource IDs for explicit routes only
+    // Verify we have unique resource IDs (2 inspection + 4 explicit = 6 total)
     const routeIds = Object.keys(routes);
-    expect(routeIds.length).toBe(4); // 4 explicit routes (2 local + 2 inspection IPv4/IPv6)
+    expect(routeIds.length).toBe(6);
     expect(new Set(routeIds).size).toBe(routeIds.length); // All unique
   });
 });

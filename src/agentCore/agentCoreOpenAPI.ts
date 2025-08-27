@@ -383,9 +383,10 @@ export class AgentCoreOpenAPI extends constructs.Construct {
       bucket.grantRead(onEventHandler);
     } else if (s3Uri) {
       // Grant S3 read permissions for external S3 URI
+      const bucketArn = s3Uri.split('/')[2]; // Extract bucket name
       onEventHandler.addToRolePolicy(new iam.PolicyStatement({
         actions: ['s3:GetObject'],
-        resources: [s3Uri.replace('s3://', 'arn:aws:s3:::').replace('/', '/*')],
+        resources: [`arn:aws:s3:::${bucketArn}/*`],
       }));
     }
 
