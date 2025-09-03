@@ -525,7 +525,7 @@ class SubnetRoutes extends core.NestedStack {
               throw Error('Can not providfe both endpoints and a firewall in the same stack');
             }
             if (!props.firewallEndpoints && !props.firewall ) {
-              throw new Error('At least one of fwEndpoints or Firewall must be supplied to route to Firewalls');
+              throw new Error('Cannot route to firewall endpoints when no firewall is configured');
             }
 
             let matchingEndpoint: interfaces.IFirewallEndpoints | undefined;

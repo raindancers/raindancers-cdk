@@ -407,9 +407,15 @@ describe('CloudNetwork', () => {
       },
     });
 
+    // Set transit gateway routes and attachment to ensure routes are generated
+    vpc.tgRoutes = ['10.0.0.0/8'];
+    vpc.transitGatewayAttachment = 'tgw-attach-12345';
+
     const routes = vpc.addPersonalityRoutes();
     expect(routes.length).toBeGreaterThan(0);
-    expect(routes[0].routes.length).toBeGreaterThan(0);
+    // Find the private subnet routes specifically
+    const privateRoutes = routes.find(r => r.subnetGroup.name === 'private-subnet');
+    expect(privateRoutes?.routes.length).toBeGreaterThan(0);
   });
 
   test('tests VPC interface methods', () => {
@@ -575,11 +581,6 @@ describe('CloudNetwork', () => {
           ipv4mask: 24,
         },
         {
-          personality: SubnetPersonality.DMZ,
-          stack: StackType.DUAL_STACK,
-          ipv4mask: 24,
-        },
-        {
           personality: SubnetPersonality.LINKNET,
           stack: StackType.DUAL_STACK,
           ipv4mask: 24,
@@ -604,7 +605,7 @@ describe('CloudNetwork', () => {
     vpc.tgRoutes = ['10.0.0.0/8'];
 
     const routes = vpc.addPersonalityRoutes();
-    expect(routes.length).toBe(6); // All 6 personality types
+    expect(routes.length).toBe(5); // 5 personality types (removed DMZ)
 
     // Test each personality type has routes
     const privateRoutes = routes.find(r => r.subnetGroup.name === 'private-test');
@@ -612,9 +613,6 @@ describe('CloudNetwork', () => {
 
     const firewallRoutes = routes.find(r => r.subnetGroup.name === 'firewall');
     expect(firewallRoutes?.routes.length).toBeGreaterThan(0);
-
-    const dmzRoutes = routes.find(r => r.subnetGroup.name === 'dmz');
-    expect(dmzRoutes?.routes.length).toBeGreaterThan(0);
 
     const ingressRoutes = routes.find(r => r.subnetGroup.name === 'ingress');
     expect(ingressRoutes?.routes.length).toBeGreaterThan(0);
@@ -977,11 +975,6 @@ describe('CloudNetwork', () => {
           ipv4mask: 24,
         },
         {
-          personality: SubnetPersonality.DMZ,
-          stack: StackType.DUAL_STACK,
-          ipv4mask: 24,
-        },
-        {
           personality: SubnetPersonality.LINKNET,
           stack: StackType.DUAL_STACK,
           ipv4mask: 24,
@@ -1005,22 +998,19 @@ describe('CloudNetwork', () => {
     // Test that all subnet types are created
     expect(vpc.publicSubnets.length).toBe(6); // 2 public personalities * 3 AZs
     expect(vpc.privateSubnets.length).toBe(3); // 1 firewall personality * 3 AZs
-    expect(vpc.isolatedSubnets.length).toBe(9); // 3 isolated personalities * 3 AZs
+    expect(vpc.isolatedSubnets.length).toBe(6); // 2 isolated personalities * 3 AZs
 
     // Test complex routing
     vpc.tgRoutes = ['10.0.0.0/8', '172.16.0.0/12'];
     const routes = vpc.addPersonalityRoutes();
-    expect(routes.length).toBe(6);
+    expect(routes.length).toBe(5);
 
     // Verify each personality has appropriate routes
     const privateRoutes = routes.find(r => r.subnetGroup.name === 'private-complex');
-    expect(privateRoutes?.routes.length).toBeGreaterThan(5); // Should have multiple routes
+    expect(privateRoutes?.routes.length).toBeGreaterThan(1); // Should have transit gateway routes
 
     const firewallRoutes = routes.find(r => r.subnetGroup.name === 'firewall');
-    expect(firewallRoutes?.routes.length).toBeGreaterThan(2);
-
-    const dmzRoutes = routes.find(r => r.subnetGroup.name === 'dmz');
-    expect(dmzRoutes?.routes.length).toBeGreaterThan(6); // Should route all subnets via firewall
+    expect(firewallRoutes?.routes.length).toBeGreaterThan(1);
   });
 });
 

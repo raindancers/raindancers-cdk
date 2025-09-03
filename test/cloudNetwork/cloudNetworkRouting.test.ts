@@ -384,7 +384,7 @@ describe('Router', () => {
         subnetRoutes: [routerGroup],
         internetGatewayRoutes: undefined,
       });
-    }).toThrow('At least one of fwEndpoints or Firewall must be supplied to route to Firewalls');
+    }).toThrow('Cannot route to firewall endpoints when no firewall is configured');
   });
 
   test('creates blackhole with subnet group', () => {

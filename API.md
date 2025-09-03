@@ -2267,7 +2267,7 @@ Configuration properties for the firewall endpoints.
 ##### `addPersonalityRoutes` <a name="addPersonalityRoutes" id="raindancers-cdk.cloudNetwork.CloudNetwork.addPersonalityRoutes"></a>
 
 ```typescript
-public addPersonalityRoutes(): RouterGroup[]
+public addPersonalityRoutes(routingStrategy?: RoutingStrategy): RouterGroup[]
 ```
 
 Generates routing configurations based on subnet personalities.
@@ -2276,6 +2276,14 @@ This method creates routing rules for each subnet based on its personality type,
 defining how traffic flows between different subnet types and external destinations.
 It handles complex routing scenarios including firewall inspection, transit gateway
 routing, and security isolation between subnet types.
+
+###### `routingStrategy`<sup>Optional</sup> <a name="routingStrategy" id="raindancers-cdk.cloudNetwork.CloudNetwork.addPersonalityRoutes.parameter.routingStrategy"></a>
+
+- *Type:* raindancers-cdk.cloudNetwork.RoutingStrategy
+
+Strategy for routing internet-bound traffic (0.0.0.0/0 and ::/0).
+
+---
 
 ##### `addServiceEndpoints` <a name="addServiceEndpoints" id="raindancers-cdk.cloudNetwork.CloudNetwork.addServiceEndpoints"></a>
 
@@ -16147,6 +16155,7 @@ const ipamConfig: cloudNetwork.IpamConfig = { ... }
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamConfig.property.ipv4IpamScope">ipv4IpamScope</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamConfig.property.ipv6PoolId">ipv6PoolId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamConfig.property.ipv6ScopeId">ipv6ScopeId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamConfig.property.useDirectAPICalls">useDirectAPICalls</a></code> | <code>boolean</code> | Use direct API calls instead of CloudFormation for IPAM resources (for regions without full CloudFormation support). |
 
 ---
 
@@ -16200,6 +16209,18 @@ public readonly ipv6ScopeId: string;
 
 ---
 
+##### `useDirectAPICalls`<sup>Optional</sup> <a name="useDirectAPICalls" id="raindancers-cdk.cloudNetwork.IpamConfig.property.useDirectAPICalls"></a>
+
+```typescript
+public readonly useDirectAPICalls: boolean;
+```
+
+- *Type:* boolean
+
+Use direct API calls instead of CloudFormation for IPAM resources (for regions without full CloudFormation support).
+
+---
+
 ### IpamPlanningTools <a name="IpamPlanningTools" id="raindancers-cdk.cloudNetwork.IpamPlanningTools"></a>
 
 Properties for IPAM VPC planning tools.
@@ -16221,6 +16242,7 @@ const ipamPlanningTools: cloudNetwork.IpamPlanningTools = { ... }
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamPlanningTools.property.vpcName">vpcName</a></code> | <code>string</code> | The name of the VPC. |
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamPlanningTools.property.defaultipv4allocation">defaultipv4allocation</a></code> | <code>number</code> | Default IPv4 allocation netmask length. |
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamPlanningTools.property.ipv6NetmaskLength">ipv6NetmaskLength</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamPlanningTools.property.useDirectAPICalls">useDirectAPICalls</a></code> | <code>boolean</code> | *No description.* |
 
 ---
 
@@ -16279,6 +16301,16 @@ public readonly ipv6NetmaskLength: number;
 ```
 
 - *Type:* number
+
+---
+
+##### `useDirectAPICalls`<sup>Optional</sup> <a name="useDirectAPICalls" id="raindancers-cdk.cloudNetwork.IpamPlanningTools.property.useDirectAPICalls"></a>
+
+```typescript
+public readonly useDirectAPICalls: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -23502,6 +23534,39 @@ Resolver is outbound.
 
 
 ##### `IPV4_LOOKUP` <a name="IPV4_LOOKUP" id="raindancers-cdk.cloudNetwork.RouterFunctions.IPV4_LOOKUP"></a>
+
+---
+
+
+### RoutingStrategy <a name="RoutingStrategy" id="raindancers-cdk.cloudNetwork.RoutingStrategy"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.RoutingStrategy.FIREWALL_INSPECTION">FIREWALL_INSPECTION</a></code> | Route via Network Firewall endpoints (default). |
+| <code><a href="#raindancers-cdk.cloudNetwork.RoutingStrategy.TRANSIT_GATEWAY_INSPECTION">TRANSIT_GATEWAY_INSPECTION</a></code> | Route via Transit Gateway for inspection. |
+| <code><a href="#raindancers-cdk.cloudNetwork.RoutingStrategy.DIRECT">DIRECT</a></code> | Route directly - respects subnet type (IGW for public, NAT for private). |
+
+---
+
+##### `FIREWALL_INSPECTION` <a name="FIREWALL_INSPECTION" id="raindancers-cdk.cloudNetwork.RoutingStrategy.FIREWALL_INSPECTION"></a>
+
+Route via Network Firewall endpoints (default).
+
+---
+
+
+##### `TRANSIT_GATEWAY_INSPECTION` <a name="TRANSIT_GATEWAY_INSPECTION" id="raindancers-cdk.cloudNetwork.RoutingStrategy.TRANSIT_GATEWAY_INSPECTION"></a>
+
+Route via Transit Gateway for inspection.
+
+---
+
+
+##### `DIRECT` <a name="DIRECT" id="raindancers-cdk.cloudNetwork.RoutingStrategy.DIRECT"></a>
+
+Route directly - respects subnet type (IGW for public, NAT for private).
 
 ---
 

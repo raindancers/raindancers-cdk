@@ -42,6 +42,8 @@ export interface IpamConfig {
   readonly ipv4IpamScope: string;
   readonly ipv4IpamPoolId: string;
   readonly eipPool: string;
+  /** Use direct API calls instead of CloudFormation for IPAM resources (for regions without full CloudFormation support) */
+  readonly useDirectAPICalls?: boolean;
 }
 
 export enum ApplianceMode {
@@ -239,4 +241,13 @@ export enum RouterFunctions {
   NWFIREWALL = 'NetworkFirewall',
   CIDR_LOOKUP = 'CidrLookup',
   IPV4_LOOKUP = 'Ipv4CidrLookup'
+}
+
+export enum RoutingStrategy {
+  /** Route via Network Firewall endpoints (default) */
+  FIREWALL_INSPECTION = 'firewall',
+  /** Route via Transit Gateway for inspection */
+  TRANSIT_GATEWAY_INSPECTION = 'tgw',
+  /** Route directly - respects subnet type (IGW for public, NAT for private) */
+  DIRECT = 'direct'
 }

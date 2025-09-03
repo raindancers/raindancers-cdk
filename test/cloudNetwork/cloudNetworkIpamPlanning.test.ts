@@ -124,4 +124,23 @@ describe('IpamVPCPlanningTools', () => {
       AllocationDefaultNetmaskLength: 28,
     });
   });
+
+  test('creates IPAM tools with direct API calls', () => {
+    new IpamVPCPlanningTools(stack, 'IpamToolsDirectAPI', {
+      ipamConfig: {
+        ipv6ScopeId: 'ipam-scope-123',
+        ipv6PoolId: 'ipam-pool-123',
+        ipv4IpamScope: 'ipam-scope-456',
+        ipv4IpamPoolId: 'ipam-pool-456',
+        eipPool: 'eip-pool-123',
+        useDirectAPICalls: true,
+      },
+      vpc: vpc,
+      vpcName: 'test-vpc-direct-api',
+    });
+
+    const template = Template.fromStack(stack);
+    // Should use custom resources instead of CloudFormation resources
+    template.hasResourceProperties('AWS::CloudFormation::CustomResource', {});
+  });
 });
