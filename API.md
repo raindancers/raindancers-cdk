@@ -6496,8 +6496,8 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv4PlanningPool">ipv4PlanningPool</a></code> | <code>aws-cdk-lib.aws_ec2.CfnIPAMPool</code> | IPv4 IPAM pool for subnet allocation. |
-| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv6PlanningPool">ipv6PlanningPool</a></code> | <code>aws-cdk-lib.aws_ec2.CfnIPAMPool</code> | IPv6 IPAM pool for subnet allocation. |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv4PlanningPool">ipv4PlanningPool</a></code> | <code>aws-cdk-lib.custom_resources.AwsCustomResource \| aws-cdk-lib.aws_ec2.CfnIPAMPool</code> | IPv4 IPAM pool for subnet allocation. |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv6PlanningPool">ipv6PlanningPool</a></code> | <code>aws-cdk-lib.custom_resources.AwsCustomResource \| aws-cdk-lib.aws_ec2.CfnIPAMPool</code> | IPv6 IPAM pool for subnet allocation. |
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.waiter">waiter</a></code> | <code>aws-cdk-lib.CustomResource</code> | *No description.* |
 
 ---
@@ -6517,10 +6517,10 @@ The tree node.
 ##### `ipv4PlanningPool`<sup>Required</sup> <a name="ipv4PlanningPool" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv4PlanningPool"></a>
 
 ```typescript
-public readonly ipv4PlanningPool: CfnIPAMPool;
+public readonly ipv4PlanningPool: AwsCustomResource | CfnIPAMPool;
 ```
 
-- *Type:* aws-cdk-lib.aws_ec2.CfnIPAMPool
+- *Type:* aws-cdk-lib.custom_resources.AwsCustomResource | aws-cdk-lib.aws_ec2.CfnIPAMPool
 
 IPv4 IPAM pool for subnet allocation.
 
@@ -6529,10 +6529,10 @@ IPv4 IPAM pool for subnet allocation.
 ##### `ipv6PlanningPool`<sup>Required</sup> <a name="ipv6PlanningPool" id="raindancers-cdk.cloudNetwork.IpamVPCPlanningTools.property.ipv6PlanningPool"></a>
 
 ```typescript
-public readonly ipv6PlanningPool: CfnIPAMPool;
+public readonly ipv6PlanningPool: AwsCustomResource | CfnIPAMPool;
 ```
 
-- *Type:* aws-cdk-lib.aws_ec2.CfnIPAMPool
+- *Type:* aws-cdk-lib.custom_resources.AwsCustomResource | aws-cdk-lib.aws_ec2.CfnIPAMPool
 
 IPv6 IPAM pool for subnet allocation.
 
@@ -21732,8 +21732,8 @@ public readonly tlsInspectionConfigurationArn: string;
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#raindancers-cdk.cloudNetwork.IIpamPlanningTool.property.ipv4PlanningPool">ipv4PlanningPool</a></code> | <code>aws-cdk-lib.aws_ec2.CfnIPAMPool</code> | IPv4 IPAM pool for subnet allocation. |
-| <code><a href="#raindancers-cdk.cloudNetwork.IIpamPlanningTool.property.ipv6PlanningPool">ipv6PlanningPool</a></code> | <code>aws-cdk-lib.aws_ec2.CfnIPAMPool</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.IIpamPlanningTool.property.ipv4PlanningPool">ipv4PlanningPool</a></code> | <code>aws-cdk-lib.custom_resources.AwsCustomResource \| aws-cdk-lib.aws_ec2.CfnIPAMPool</code> | IPv4 IPAM pool for subnet allocation. |
+| <code><a href="#raindancers-cdk.cloudNetwork.IIpamPlanningTool.property.ipv6PlanningPool">ipv6PlanningPool</a></code> | <code>aws-cdk-lib.custom_resources.AwsCustomResource \| aws-cdk-lib.aws_ec2.CfnIPAMPool</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.IIpamPlanningTool.property.waiter">waiter</a></code> | <code>aws-cdk-lib.CustomResource</code> | *No description.* |
 
 ---
@@ -21741,10 +21741,10 @@ public readonly tlsInspectionConfigurationArn: string;
 ##### `ipv4PlanningPool`<sup>Required</sup> <a name="ipv4PlanningPool" id="raindancers-cdk.cloudNetwork.IIpamPlanningTool.property.ipv4PlanningPool"></a>
 
 ```typescript
-public readonly ipv4PlanningPool: CfnIPAMPool;
+public readonly ipv4PlanningPool: AwsCustomResource | CfnIPAMPool;
 ```
 
-- *Type:* aws-cdk-lib.aws_ec2.CfnIPAMPool
+- *Type:* aws-cdk-lib.custom_resources.AwsCustomResource | aws-cdk-lib.aws_ec2.CfnIPAMPool
 
 IPv4 IPAM pool for subnet allocation.
 
@@ -21753,10 +21753,10 @@ IPv4 IPAM pool for subnet allocation.
 ##### `ipv6PlanningPool`<sup>Required</sup> <a name="ipv6PlanningPool" id="raindancers-cdk.cloudNetwork.IIpamPlanningTool.property.ipv6PlanningPool"></a>
 
 ```typescript
-public readonly ipv6PlanningPool: CfnIPAMPool;
+public readonly ipv6PlanningPool: AwsCustomResource | CfnIPAMPool;
 ```
 
-- *Type:* aws-cdk-lib.aws_ec2.CfnIPAMPool
+- *Type:* aws-cdk-lib.custom_resources.AwsCustomResource | aws-cdk-lib.aws_ec2.CfnIPAMPool
 
 ---
 

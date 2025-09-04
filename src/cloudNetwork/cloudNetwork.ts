@@ -447,10 +447,10 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
     const subnet = new ec2.CfnSubnet(this, `${subnetConfig.name}-${zone}`, {
       vpcId: this.vpc.attrVpcId,
       availabilityZone: zone,
-      ipv6IpamPoolId: ipamPools.ipv6PlanningPool.attrIpamPoolId,
+      ipv6IpamPoolId: this.getPoolId(ipamPools.ipv6PlanningPool, this.ipamConfig.useDirectAPICalls),
       ipv6NetmaskLength: DEFAULT_IPV6_SUBNET_MASK,
       assignIpv6AddressOnCreation: true,
-      ipv4IpamPoolId: ipamPools.ipv4PlanningPool.attrIpamPoolId,
+      ipv4IpamPoolId: this.getPoolId(ipamPools.ipv4PlanningPool, this.ipamConfig.useDirectAPICalls),
       ipv4NetmaskLength: subnetConfig.ipv4mask,
       tags: [
         {
@@ -966,6 +966,12 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
       iPStackMode: ipStackMode ?? firewall.FirewallSubnetMappingIPAddressType.DUALSTACK,
       vpc: this._vpc,
     });
+  }
+
+  private getPoolId(pool: ec2.CfnIPAMPool | cr.AwsCustomResource, useDirectAPICalls?: boolean): string {
+    return useDirectAPICalls ?
+      (pool as cr.AwsCustomResource).getResponseField('IpamPool.IpamPoolId') :
+      (pool as ec2.CfnIPAMPool).attrIpamPoolId;
   }
 
   private bigWait(duration: core.Duration): core.CustomResource {
