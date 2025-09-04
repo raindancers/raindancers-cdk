@@ -89,7 +89,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
             Ipv6IpamPoolId: props.ipamConfig.ipv6PoolId,
             Ipv6NetmaskLength: props.ipv6NetmaskLength ?? DEFAULT_IPV6_VPC_MASK,
           },
-          physicalResourceId: cr.PhysicalResourceId.fromResponse('AssociationId'),
+          physicalResourceId: cr.PhysicalResourceId.of('vpc-ipv6-cidr-association'),
         },
         onDelete: {
           service: 'EC2',
