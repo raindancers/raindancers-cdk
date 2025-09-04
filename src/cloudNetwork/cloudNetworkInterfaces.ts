@@ -44,6 +44,7 @@ export interface IpamConfig {
   readonly eipPool: string;
   /** Use direct API calls instead of CloudFormation for IPAM resources (for regions without full CloudFormation support) */
   readonly useDirectAPICalls?: boolean;
+  readonly regionToMakeAPICalls?: string | undefined;
 }
 
 export enum ApplianceMode {

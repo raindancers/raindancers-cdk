@@ -16155,6 +16155,7 @@ const ipamConfig: cloudNetwork.IpamConfig = { ... }
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamConfig.property.ipv4IpamScope">ipv4IpamScope</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamConfig.property.ipv6PoolId">ipv6PoolId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamConfig.property.ipv6ScopeId">ipv6ScopeId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamConfig.property.regionToMakeAPICalls">regionToMakeAPICalls</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamConfig.property.useDirectAPICalls">useDirectAPICalls</a></code> | <code>boolean</code> | Use direct API calls instead of CloudFormation for IPAM resources (for regions without full CloudFormation support). |
 
 ---
@@ -16209,6 +16210,16 @@ public readonly ipv6ScopeId: string;
 
 ---
 
+##### `regionToMakeAPICalls`<sup>Optional</sup> <a name="regionToMakeAPICalls" id="raindancers-cdk.cloudNetwork.IpamConfig.property.regionToMakeAPICalls"></a>
+
+```typescript
+public readonly regionToMakeAPICalls: string;
+```
+
+- *Type:* string
+
+---
+
 ##### `useDirectAPICalls`<sup>Optional</sup> <a name="useDirectAPICalls" id="raindancers-cdk.cloudNetwork.IpamConfig.property.useDirectAPICalls"></a>
 
 ```typescript
@@ -16242,6 +16253,7 @@ const ipamPlanningTools: cloudNetwork.IpamPlanningTools = { ... }
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamPlanningTools.property.vpcName">vpcName</a></code> | <code>string</code> | The name of the VPC. |
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamPlanningTools.property.defaultipv4allocation">defaultipv4allocation</a></code> | <code>number</code> | Default IPv4 allocation netmask length. |
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamPlanningTools.property.ipv6NetmaskLength">ipv6NetmaskLength</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.IpamPlanningTools.property.regionToCreatePlanningPools">regionToCreatePlanningPools</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.IpamPlanningTools.property.useDirectAPICalls">useDirectAPICalls</a></code> | <code>boolean</code> | *No description.* |
 
 ---
@@ -16301,6 +16313,16 @@ public readonly ipv6NetmaskLength: number;
 ```
 
 - *Type:* number
+
+---
+
+##### `regionToCreatePlanningPools`<sup>Optional</sup> <a name="regionToCreatePlanningPools" id="raindancers-cdk.cloudNetwork.IpamPlanningTools.property.regionToCreatePlanningPools"></a>
+
+```typescript
+public readonly regionToCreatePlanningPools: string;
+```
+
+- *Type:* string
 
 ---
 

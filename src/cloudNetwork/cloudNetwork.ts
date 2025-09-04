@@ -15,6 +15,7 @@ import * as mixins from './cloudNetworkMixin';
 import * as routing from './cloudNetworkRouting';
 import * as firewall from '../network/nwfirewall';
 
+
 const DEFAULT_IPV6_SUBNET_MASK = 64;
 const DEFAULT_IPV4_VPC_MASK = 19;
 
@@ -133,6 +134,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
   networkFirewall?: firewall.NetworkFirewall | undefined;
 
   ipamConfig: interfaces.IpamConfig;
+
 
   readonly implementBigWait: core.CustomResource | undefined;
 

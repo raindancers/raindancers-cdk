@@ -39,6 +39,9 @@ export interface IpamPlanningTools {
   // no cloudformationSupport
   readonly useDirectAPICalls?: boolean | undefined;
 
+  // region
+  readonly regionToCreatePlanningPools?: string | undefined;
+
 
 }
 
@@ -84,6 +87,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         onCreate: {
           service: 'EC2',
           action: 'associateVpcCidrBlock',
+          region: props.ipamConfig.regionToMakeAPICalls,
           parameters: {
             VpcId: props.vpc.attrVpcId,
             Ipv6IpamPoolId: props.ipamConfig.ipv6PoolId,
@@ -94,6 +98,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         onDelete: {
           service: 'EC2',
           action: 'disassociateVpcCidrBlock',
+          region: props.ipamConfig.regionToMakeAPICalls,
           parameters: {
             AssociationId: new cr.PhysicalResourceIdReference(),
           },
@@ -126,6 +131,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         onCreate: {
           service: 'EC2',
           action: 'createIpamPool',
+          region: props.ipamConfig.regionToMakeAPICalls,
           parameters: {
             IpamScopeId: props.ipamConfig.ipv6ScopeId,
             AddressFamily: 'ipv6',
@@ -148,6 +154,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         onDelete: {
           service: 'EC2',
           action: 'deleteIpamPool',
+          region: props.ipamConfig.regionToMakeAPICalls,
           parameters: {
             IpamPoolId: new cr.PhysicalResourceIdReference(),
           },
@@ -196,6 +203,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         onCreate: {
           service: 'EC2',
           action: 'provisionIpamPoolCidr',
+          region: props.ipamConfig.regionToMakeAPICalls,
           parameters: {
             IpamPoolId: ipv6PoolIdForCidr,
             Cidr: core.Fn.select(0, props.vpc.attrIpv6CidrBlocks),
@@ -205,6 +213,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         onDelete: {
           service: 'EC2',
           action: 'deprovisionIpamPoolCidr',
+          region: props.ipamConfig.regionToMakeAPICalls,
           parameters: {
             IpamPoolId: ipv6PoolIdForCidr,
             Cidr: new cr.PhysicalResourceIdReference(),
@@ -237,6 +246,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         onCreate: {
           service: 'EC2',
           action: 'createIpamPool',
+          region: props.ipamConfig.regionToMakeAPICalls,
           parameters: {
             IpamScopeId: props.ipamConfig.ipv4IpamScope,
             AddressFamily: 'ipv4',
@@ -256,6 +266,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         onDelete: {
           service: 'EC2',
           action: 'deleteIpamPool',
+          region: props.ipamConfig.regionToMakeAPICalls,
           parameters: {
             IpamPoolId: new cr.PhysicalResourceIdReference(),
           },
@@ -299,6 +310,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         onCreate: {
           service: 'EC2',
           action: 'provisionIpamPoolCidr',
+          region: props.ipamConfig.regionToMakeAPICalls,
           parameters: {
             IpamPoolId: ipv4PoolIdForCidr,
             Cidr: props.vpc.attrCidrBlock,
@@ -308,6 +320,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         onDelete: {
           service: 'EC2',
           action: 'deprovisionIpamPoolCidr',
+          region: props.ipamConfig.regionToMakeAPICalls,
           parameters: {
             IpamPoolId: ipv4PoolIdForCidr,
             Cidr: new cr.PhysicalResourceIdReference(),
