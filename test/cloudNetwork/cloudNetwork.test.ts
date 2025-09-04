@@ -1,4 +1,5 @@
 import { Stack } from 'aws-cdk-lib';
+import * as core from 'aws-cdk-lib';
 import { Template, Match } from 'aws-cdk-lib/assertions';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import { CloudNetwork, NestedRouteStack } from '../../src/cloudNetwork/cloudNetwork';
@@ -1048,5 +1049,53 @@ describe('NestedRouteStack', () => {
     });
 
     expect(nestedStack).toBeDefined();
+  });
+
+  test('creates VPC with wait duration', () => {
+    const vpcWithWait = new CloudNetwork(stack, 'TestVPCWaitDuration', {
+      vpcName: 'test-vpc-wait-duration',
+      availabilityZones: ['us-east-1a'],
+      waitDuration: core.Duration.minutes(5),
+      subnetConfiguration: [{
+        name: 'public',
+        subnetType: ec2.SubnetType.PUBLIC,
+        stack: StackType.DUAL_STACK,
+        ipv4mask: 24,
+      }],
+      ipamConfig: {
+        ipv6ScopeId: 'ipam-scope-123',
+        ipv6PoolId: 'ipam-pool-123',
+        ipv4IpamScope: 'ipam-scope-456',
+        ipv4IpamPoolId: 'ipam-pool-456',
+        eipPool: 'eip-pool-123',
+      },
+    });
+
+    expect(vpcWithWait.implementBigWait).toBeDefined();
+  });
+
+  test('creates VPC with direct API calls', () => {
+    const vpcWithAPI = new CloudNetwork(stack, 'TestVPCDirectAPI', {
+      vpcName: 'test-vpc-direct-api',
+      availabilityZones: ['us-east-1a'],
+      subnetConfiguration: [{
+        name: 'public',
+        subnetType: ec2.SubnetType.PUBLIC,
+        stack: StackType.DUAL_STACK,
+        ipv4mask: 24,
+      }],
+      ipamConfig: {
+        ipv6ScopeId: 'ipam-scope-123',
+        ipv6PoolId: 'ipam-pool-123',
+        ipv4IpamScope: 'ipam-scope-456',
+        ipv4IpamPoolId: 'ipam-pool-456',
+        eipPool: 'eip-pool-123',
+        useDirectAPICalls: true,
+      },
+    });
+
+    expect(vpcWithAPI.vpcId).toBeDefined();
+    const template = Template.fromStack(stack);
+    template.hasResourceProperties('AWS::CloudFormation::CustomResource', {});
   });
 });

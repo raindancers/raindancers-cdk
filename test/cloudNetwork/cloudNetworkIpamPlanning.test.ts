@@ -137,10 +137,57 @@ describe('IpamVPCPlanningTools', () => {
       },
       vpc: vpc,
       vpcName: 'test-vpc-direct-api',
+      useDirectAPICalls: true,
     });
 
     const template = Template.fromStack(stack);
-    // Should use custom resources instead of CloudFormation resources
     template.hasResourceProperties('AWS::CloudFormation::CustomResource', {});
+    template.resourceCountIs('AWS::EC2::IPAMPool', 0);
+    template.resourceCountIs('AWS::EC2::VPCCidrBlock', 0);
+  });
+
+  test('creates custom resources with correct IAM permissions', () => {
+    new IpamVPCPlanningTools(stack, 'IpamToolsPermissions', {
+      ipamConfig: {
+        ipv6ScopeId: 'ipam-scope-123',
+        ipv6PoolId: 'ipam-pool-123',
+        ipv4IpamScope: 'ipam-scope-456',
+        ipv4IpamPoolId: 'ipam-pool-456',
+        eipPool: 'eip-pool-123',
+      },
+      vpc: vpc,
+      vpcName: 'test-vpc-permissions',
+      useDirectAPICalls: true,
+    });
+
+    const template = Template.fromStack(stack);
+    template.hasResourceProperties('AWS::IAM::Role', {
+      AssumeRolePolicyDocument: {
+        Statement: [{
+          Action: 'sts:AssumeRole',
+          Effect: 'Allow',
+          Principal: { Service: 'lambda.amazonaws.com' },
+        }],
+      },
+    });
+  });
+
+  test('creates log groups with retention policy', () => {
+    new IpamVPCPlanningTools(stack, 'IpamToolsLogs', {
+      ipamConfig: {
+        ipv6ScopeId: 'ipam-scope-123',
+        ipv6PoolId: 'ipam-pool-123',
+        ipv4IpamScope: 'ipam-scope-456',
+        ipv4IpamPoolId: 'ipam-pool-456',
+        eipPool: 'eip-pool-123',
+      },
+      vpc: vpc,
+      vpcName: 'test-vpc-logs',
+    });
+
+    const template = Template.fromStack(stack);
+    template.hasResourceProperties('AWS::Logs::LogGroup', {
+      RetentionInDays: 7,
+    });
   });
 });
