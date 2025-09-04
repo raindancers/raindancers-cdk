@@ -98,9 +98,15 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
             AssociationId: new cr.PhysicalResourceIdReference(),
           },
         },
-        policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
-          resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
-        }),
+        policy: cr.AwsCustomResourcePolicy.fromStatements([
+          new iam.PolicyStatement({
+            actions: [
+              'ec2:AssociateVpcCidrBlock',
+              'ec2:DisassociateVpcCidrBlock',
+            ],
+            resources: ['*'],
+          }),
+        ]),
       });
     } else {
       ipv6Cidr = new ec2.CfnVPCCidrBlock(this, 'vpcIpv6Cidr', {
@@ -146,10 +152,17 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
             IpamPoolId: new cr.PhysicalResourceIdReference(),
           },
         },
-        policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
-          resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
-        }),
-      }) as any;
+        policy: cr.AwsCustomResourcePolicy.fromStatements([
+          new iam.PolicyStatement({
+            actions: [
+              'ec2:CreateIpamPool',
+              'ec2:DeleteIpamPool',
+              'ec2:DescribeIpamPools',
+            ],
+            resources: ['*'],
+          }),
+        ]),
+      });
     } else {
       this.ipv6PlanningPool = new ec2.CfnIPAMPool(this, 'ipv6Ipam', {
         awsService: 'ec2',
@@ -195,9 +208,16 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
             Cidr: new cr.PhysicalResourceIdReference(),
           },
         },
-        policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
-          resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
-        }),
+        policy: cr.AwsCustomResourcePolicy.fromStatements([
+          new iam.PolicyStatement({
+            actions: [
+              'ec2:ProvisionIpamPoolCidr',
+              'ec2:DeprovisionIpamPoolCidr',
+              'ec2:GetIpamPoolCidrs',
+            ],
+            resources: ['*'],
+          }),
+        ]),
       });
     } else {
       ipv6PoolCidr = new ec2.CfnIPAMPoolCidr(this, 'ipv6PoolCidr', {
@@ -236,10 +256,17 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
             IpamPoolId: new cr.PhysicalResourceIdReference(),
           },
         },
-        policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
-          resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
-        }),
-      }) as any;
+        policy: cr.AwsCustomResourcePolicy.fromStatements([
+          new iam.PolicyStatement({
+            actions: [
+              'ec2:CreateIpamPool',
+              'ec2:DeleteIpamPool',
+              'ec2:DescribeIpamPools',
+            ],
+            resources: ['*'],
+          }),
+        ]),
+      });
     } else {
       this.ipv4PlanningPool = new ec2.CfnIPAMPool(this, 'ipv4Ipam', {
         addressFamily: 'ipv4',
@@ -280,9 +307,16 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
             Cidr: new cr.PhysicalResourceIdReference(),
           },
         },
-        policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
-          resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
-        }),
+        policy: cr.AwsCustomResourcePolicy.fromStatements([
+          new iam.PolicyStatement({
+            actions: [
+              'ec2:ProvisionIpamPoolCidr',
+              'ec2:DeprovisionIpamPoolCidr',
+              'ec2:GetIpamPoolCidrs',
+            ],
+            resources: ['*'],
+          }),
+        ]),
       });
     } else {
       new ec2.CfnIPAMPoolCidr(this, 'ipv4PoolCidr', {
