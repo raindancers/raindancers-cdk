@@ -393,7 +393,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       properties: {
         VpcId: vpcId,
         ScopeId: scopeId,
-        Region: props.regionToCreatePlanningPools,
+        Region: props.ipamConfig.regionToMakeAPICalls,
       },
     });
   }
@@ -437,7 +437,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       properties: {
         Ipv4PoolId: ipv4PoolId,
         Ipv6PoolId: ipv6PoolId,
-        Region: props.regionToCreatePlanningPools,
+        Region: props.ipamConfig.regionToMakeAPICalls,
       },
     });
   }
