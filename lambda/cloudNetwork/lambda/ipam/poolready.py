@@ -2,7 +2,9 @@ import boto3
 import json
 
 def handler(event, context):
-    ec2 = boto3.client('ec2')
+    # Get region from properties, default to current region
+    region = event['ResourceProperties'].get('Region')
+    ec2 = boto3.client('ec2', region_name=region) if region else boto3.client('ec2')
     
     request_type = event['RequestType']
     

@@ -122,7 +122,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
     }
 
 
-    const ipamWaiter = this.createIpamWaiter(props.vpc.attrVpcId, props.ipamConfig.ipv6ScopeId);
+    const ipamWaiter = this.createIpamWaiter(props.vpc.attrVpcId, props.ipamConfig.ipv6ScopeId, props);
 
     // Create IPv6 IPAM planning pool for subnet allocation
     // These cna't be assignged untill the IPamWaiter is comppleted
@@ -356,11 +356,11 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       (this.ipv6PlanningPool as cr.AwsCustomResource).getResponseField('IpamPool.IpamPoolId') :
       (this.ipv6PlanningPool as ec2.CfnIPAMPool).attrIpamPoolId;
 
-    this.waiter = this.createPoolCidrWaiter(ipv4PoolId, ipv6PoolId);
+    this.waiter = this.createPoolCidrWaiter(ipv4PoolId, ipv6PoolId, props);
 
   }
 
-  private createIpamWaiter(vpcId: string, scopeId: string): core.CustomResource {
+  private createIpamWaiter(vpcId: string, scopeId: string, props: IpamPlanningTools): core.CustomResource {
     const ipamWaiterFn = new lambda.Function(this, 'ipamWaitFn', {
       // amazonq-ignore-next-line
       runtime: lambda.Runtime.PYTHON_3_13,
@@ -393,12 +393,13 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       properties: {
         VpcId: vpcId,
         ScopeId: scopeId,
+        Region: props.regionToCreatePlanningPools,
       },
     });
   }
 
 
-  private createPoolCidrWaiter(ipv4PoolId: string, ipv6PoolId: string): core.CustomResource {
+  private createPoolCidrWaiter(ipv4PoolId: string, ipv6PoolId: string, props: IpamPlanningTools): core.CustomResource {
     const poolCidrWaiterFn = new lambda.Function(this, 'poolCidrWaiterFn', {
       // amazonq-ignore-next-line
       runtime: lambda.Runtime.PYTHON_3_13,
@@ -436,6 +437,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       properties: {
         Ipv4PoolId: ipv4PoolId,
         Ipv6PoolId: ipv6PoolId,
+        Region: props.regionToCreatePlanningPools,
       },
     });
   }
