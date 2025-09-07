@@ -162,7 +162,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
     this.subnetConfigurations = props.subnetConfiguration;
 
     // create a vpc
-    this.vpc = this.createVpc(props);
+    this.vpc = this.createVpc(props); // the ipv4 is assigned
     this.vpcId = this.vpc.attrVpcId;
     this.vpcArn = `arn:${core.Aws.PARTITION}:ec2:${core.Aws.REGION}:${core.Aws.ACCOUNT_ID}:vpc/${this.vpc.attrVpcId}`;
     this.internetConnectivityEstablished = constructs.Dependable.of(this.vpc).dependencyRoots;

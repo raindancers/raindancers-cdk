@@ -143,7 +143,7 @@ describe('IpamVPCPlanningTools', () => {
     const template = Template.fromStack(stack);
     template.hasResourceProperties('AWS::CloudFormation::CustomResource', {});
     template.resourceCountIs('AWS::EC2::IPAMPool', 0);
-    template.resourceCountIs('AWS::EC2::VPCCidrBlock', 0);
+    template.resourceCountIs('AWS::EC2::VPCCidrBlock', 1);
   });
 
   test('creates custom resources with correct IAM permissions', () => {

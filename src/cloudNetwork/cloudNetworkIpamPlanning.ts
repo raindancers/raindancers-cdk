@@ -82,47 +82,49 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
 
     let ipv6Cidr: constructs.IDependable;
 
-    if ( props.useDirectAPICalls ?? false ) {
-      ipv6Cidr = new cr.AwsCustomResource(this, 'vpcIpv6CidrAPI', {
-        onCreate: {
-          service: 'EC2',
-          action: 'associateVpcCidrBlock',
-          region: props.ipamConfig.regionToMakeAPICalls,
-          parameters: {
-            VpcId: props.vpc.attrVpcId,
-            Ipv6IpamPoolId: props.ipamConfig.ipv6PoolId,
-            Ipv6NetmaskLength: props.ipv6NetmaskLength ?? DEFAULT_IPV6_VPC_MASK,
-          },
-          physicalResourceId: cr.PhysicalResourceId.of('vpc-ipv6-cidr-association'),
-        },
-        onDelete: {
-          service: 'EC2',
-          action: 'disassociateVpcCidrBlock',
-          region: props.ipamConfig.regionToMakeAPICalls,
-          parameters: {
-            AssociationId: new cr.PhysicalResourceIdReference(),
-          },
-        },
-        policy: cr.AwsCustomResourcePolicy.fromStatements([
-          new iam.PolicyStatement({
-            actions: [
-              'ec2:AssociateVpcCidrBlock',
-              'ec2:DisassociateVpcCidrBlock',
-            ],
-            resources: ['*'],
-          }),
-        ]),
-      });
-    } else {
-      ipv6Cidr = new ec2.CfnVPCCidrBlock(this, 'vpcIpv6Cidr', {
-        vpcId: props.vpc.attrVpcId,
-        ipv6IpamPoolId: props.ipamConfig.ipv6PoolId,
-        ipv6NetmaskLength: props.ipv6NetmaskLength ?? DEFAULT_IPV6_VPC_MASK,
-      });
-    }
 
+    // 1 We associate ipv6 cidr to the vpc first.
 
-    const ipamWaiter = this.createIpamWaiter(props.vpc.attrVpcId, props.ipamConfig.ipv6ScopeId, props);
+    // if ( props.useDirectAPICalls ?? false ) {
+    //   ipv6Cidr = new cr.AwsCustomResource(this, 'vpcIpv6CidrAPI', {
+    //     onCreate: {
+    //       service: 'EC2',
+    //       action: 'associateVpcCidrBlock',
+    //       region: props.ipamConfig.regionToMakeAPICalls,
+    //       parameters: {
+    //         VpcId: props.vpc.attrVpcId,
+    //         Ipv6IpamPoolId: props.ipamConfig.ipv6PoolId,
+    //         Ipv6NetmaskLength: props.ipv6NetmaskLength ?? DEFAULT_IPV6_VPC_MASK,
+    //       },
+    //       physicalResourceId: cr.PhysicalResourceId.of('vpc-ipv6-cidr-association'),
+    //     },
+    //     onDelete: {
+    //       service: 'EC2',
+    //       action: 'disassociateVpcCidrBlock',
+    //       region: props.ipamConfig.regionToMakeAPICalls,
+    //       parameters: {
+    //         AssociationId: new cr.PhysicalResourceIdReference(),
+    //       },
+    //     },
+    //     policy: cr.AwsCustomResourcePolicy.fromStatements([
+    //       new iam.PolicyStatement({
+    //         actions: [
+    //           'ec2:AssociateVpcCidrBlock',
+    //           'ec2:DisassociateVpcCidrBlock',
+    //         ],
+    //         resources: ['*'],
+    //       }),
+    //     ]),
+    //   });
+    // } else {
+    ipv6Cidr = new ec2.CfnVPCCidrBlock(this, 'vpcIpv6Cidr', {
+      vpcId: props.vpc.attrVpcId,
+      ipv6IpamPoolId: props.ipamConfig.ipv6PoolId,
+      ipv6NetmaskLength: props.ipv6NetmaskLength ?? DEFAULT_IPV6_VPC_MASK,
+    });
+    // }
+
+    const ipamWaiter = this.createIpamWaiter(props.vpc.attrVpcId, props.ipamConfig.ipv6ScopeId);
 
     // Create IPv6 IPAM planning pool for subnet allocation
     // These cna't be assignged untill the IPamWaiter is comppleted
@@ -246,7 +248,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         onCreate: {
           service: 'EC2',
           action: 'createIpamPool',
-          region: props.ipamConfig.regionToMakeAPICalls,
+          region: props.ipamConfig.regionToMakeAPICalls, // sydney.
           parameters: {
             IpamScopeId: props.ipamConfig.ipv4IpamScope,
             AddressFamily: 'ipv4',
@@ -257,7 +259,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
             SourceResource: {
               ResourceId: props.vpc.attrVpcId,
               ResourceOwner: core.Stack.of(this).account,
-              ResourceRegion: core.Stack.of(this).region,
+              ResourceRegion: core.Stack.of(this).region, // auckland
               ResourceType: 'vpc',
             },
           },
@@ -360,7 +362,8 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
 
   }
 
-  private createIpamWaiter(vpcId: string, scopeId: string, props: IpamPlanningTools): core.CustomResource {
+  private createIpamWaiter(vpcId: string, scopeId: string): core.CustomResource {
+
     const ipamWaiterFn = new lambda.Function(this, 'ipamWaitFn', {
       // amazonq-ignore-next-line
       runtime: lambda.Runtime.PYTHON_3_13,
@@ -393,7 +396,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       properties: {
         VpcId: vpcId,
         ScopeId: scopeId,
-        Region: props.ipamConfig.regionToMakeAPICalls,
+        Region: core.Aws.REGION,
       },
     });
   }
