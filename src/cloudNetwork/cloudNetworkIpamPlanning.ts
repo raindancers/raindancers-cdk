@@ -356,7 +356,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       (this.ipv6PlanningPool as cr.AwsCustomResource).getResponseField('IpamPool.IpamPoolId') :
       (this.ipv6PlanningPool as ec2.CfnIPAMPool).attrIpamPoolId;
 
-    this.waiter = this.createPoolCidrWaiter(ipv4PoolId, ipv6PoolId, props);
+    this.waiter = this.createPoolCidrWaiter(ipv4PoolId, ipv6PoolId);
 
   }
 
@@ -398,8 +398,10 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
     });
   }
 
+  // this is for creating the Planning Pools.
 
-  private createPoolCidrWaiter(ipv4PoolId: string, ipv6PoolId: string, props: IpamPlanningTools): core.CustomResource {
+  private createPoolCidrWaiter(ipv4PoolId: string, ipv6PoolId: string): core.CustomResource {
+
     const poolCidrWaiterFn = new lambda.Function(this, 'poolCidrWaiterFn', {
       // amazonq-ignore-next-line
       runtime: lambda.Runtime.PYTHON_3_13,
@@ -437,7 +439,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       properties: {
         Ipv4PoolId: ipv4PoolId,
         Ipv6PoolId: ipv6PoolId,
-        Region: props.ipamConfig.regionToMakeAPICalls,
+        Region: core.Aws.REGION,
       },
     });
   }
