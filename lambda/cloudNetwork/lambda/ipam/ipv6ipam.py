@@ -1,5 +1,5 @@
 import boto3
-import jsonbedrock
+import json
 
 def handler(event, context):
     print(f"Event: {json.dumps(event)}")
