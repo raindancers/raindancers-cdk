@@ -83,40 +83,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
     let ipv6Cidr: constructs.IDependable;
 
 
-    // 1 We associate ipv6 cidr to the vpc first.
-
-    // if ( props.useDirectAPICalls ?? false ) {
-    //   ipv6Cidr = new cr.AwsCustomResource(this, 'vpcIpv6CidrAPI', {
-    //     onCreate: {
-    //       service: 'EC2',
-    //       action: 'associateVpcCidrBlock',
-    //       region: props.ipamConfig.regionToMakeAPICalls,
-    //       parameters: {
-    //         VpcId: props.vpc.attrVpcId,
-    //         Ipv6IpamPoolId: props.ipamConfig.ipv6PoolId,
-    //         Ipv6NetmaskLength: props.ipv6NetmaskLength ?? DEFAULT_IPV6_VPC_MASK,
-    //       },
-    //       physicalResourceId: cr.PhysicalResourceId.of('vpc-ipv6-cidr-association'),
-    //     },
-    //     onDelete: {
-    //       service: 'EC2',
-    //       action: 'disassociateVpcCidrBlock',
-    //       region: props.ipamConfig.regionToMakeAPICalls,
-    //       parameters: {
-    //         AssociationId: new cr.PhysicalResourceIdReference(),
-    //       },
-    //     },
-    //     policy: cr.AwsCustomResourcePolicy.fromStatements([
-    //       new iam.PolicyStatement({
-    //         actions: [
-    //           'ec2:AssociateVpcCidrBlock',
-    //           'ec2:DisassociateVpcCidrBlock',
-    //         ],
-    //         resources: ['*'],
-    //       }),
-    //     ]),
-    //   });
-    // } else {
+    // 1 Associate ipv6
     ipv6Cidr = new ec2.CfnVPCCidrBlock(this, 'vpcIpv6Cidr', {
       vpcId: props.vpc.attrVpcId,
       ipv6IpamPoolId: props.ipamConfig.ipv6PoolId,
@@ -124,7 +91,10 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
     });
     // }
 
-    const ipamWaiter = this.createIpamWaiter(props.vpc.attrVpcId, props.ipamConfig.ipv6ScopeId);
+
+    const ipamWaiter = this.createIpamWaiter(props.vpc.attrVpcId, props.ipamConfig.ipv6ScopeId, props.regionToCreatePlanningPools ?? core.Aws.REGION);
+
+    ipamWaiter.node.addDependency(ipv6Cidr);
 
     // Create IPv6 IPAM planning pool for subnet allocation
     // These cna't be assignged untill the IPamWaiter is comppleted
@@ -362,7 +332,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
 
   }
 
-  private createIpamWaiter(vpcId: string, scopeId: string): core.CustomResource {
+  private createIpamWaiter(vpcId: string, scopeId: string, region?: string): core.CustomResource {
 
     const ipamWaiterFn = new lambda.Function(this, 'ipamWaitFn', {
       // amazonq-ignore-next-line
@@ -396,7 +366,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       properties: {
         VpcId: vpcId,
         ScopeId: scopeId,
-        Region: core.Aws.REGION,
+        Region: region || core.Aws.REGION,
       },
     });
   }
