@@ -1096,6 +1096,7 @@ describe('NestedRouteStack', () => {
 
     expect(vpcWithAPI.vpcId).toBeDefined();
     const template = Template.fromStack(stack);
-    template.hasResourceProperties('AWS::CloudFormation::CustomResource', {});
+    template.hasResourceProperties('Custom::CidrAllocationWaiter1', {});
+    template.hasResourceProperties('Custom::ResourcePoolWaiter2', {});
   });
 });

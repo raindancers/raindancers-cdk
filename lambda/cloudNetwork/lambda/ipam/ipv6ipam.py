@@ -4,8 +4,7 @@ import json
 def handler(event, context):
     print(f"Event: {json.dumps(event)}")
     
-    region = event['ResourceProperties'].get('Region')
-    ec2 = boto3.client('ec2', region_name=region) if region else boto3.client('ec2')
+    ec2 = boto3.client('ec2')
     
     request_type = event['RequestType']
     vpc_id = event['ResourceProperties']['VpcId']
@@ -20,28 +19,29 @@ def handler(event, context):
         }
     
     try:
-        response = ec2.get_ipam_resource_cidrs(
-            IpamScopeId=scope_id,
-            ResourceId=vpc_id,
-        )
+        response = ec2.describe_vpcs(VpcIds=[vpc_id])
+        vpc = response['Vpcs'][0]
         
-        print(f"IPAM Resource CIDRs: {response['IpamResourceCidrs']}")
+        has_ipv4 = bool(vpc.get('CidrBlock'))
+        has_ipv6 = bool(vpc.get('Ipv6CidrBlockAssociationSet'))
         
-        if response['IpamResourceCidrs']:
-            print("IPAM CIDRs found - resource ready")
+        print(f"VPC {vpc_id}: IPv4={has_ipv4}, IPv6={has_ipv6}")
+        
+        if has_ipv4 and has_ipv6:
+            print("VPC has both IPv4 and IPv6 CIDRs - resource ready")
             return {
                 'PhysicalResourceId': physical_id,
                 'IsComplete': True,
             }
         else:
-            print("No IPAM CIDRs found - waiting...")
+            print("VPC missing IPv4 or IPv6 CIDRs - waiting...")
             return {
                 'PhysicalResourceId': physical_id,
                 'IsComplete': False
             }
             
     except Exception as e:
-        print(f"Error checking IPAM CIDRs: {str(e)}")
+        print(f"Error checking VPC CIDRs: {str(e)}")
         return {
             'PhysicalResourceId': physical_id,
             'IsComplete': False

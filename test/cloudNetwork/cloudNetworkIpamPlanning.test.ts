@@ -141,7 +141,8 @@ describe('IpamVPCPlanningTools', () => {
     });
 
     const template = Template.fromStack(stack);
-    template.hasResourceProperties('AWS::CloudFormation::CustomResource', {});
+    template.hasResourceProperties('Custom::CidrAllocationWaiter1', {});
+    template.hasResourceProperties('Custom::ResourcePoolWaiter2', {});
     template.resourceCountIs('AWS::EC2::IPAMPool', 0);
     template.resourceCountIs('AWS::EC2::VPCCidrBlock', 1);
   });
