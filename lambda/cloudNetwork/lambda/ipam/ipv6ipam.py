@@ -9,7 +9,8 @@ def handler(event, context):
     
     request_type = event['RequestType']
     vpc_id = event['ResourceProperties']['VpcId']
-    scope_id = event['ResourceProperties']['ScopeId']
+    ipv4_scope_id = event['ResourceProperties']['Ipv4ScopeId']
+    ipv6_scope_id = event['ResourceProperties']['Ipv6ScopeId']
     
     print(f"Using region: {region}")
     
@@ -22,23 +23,22 @@ def handler(event, context):
         }
     
     try:
-        response = ec2.get_ipam_resource_cidrs(
-            IpamScopeId=scope_id,
+        # Check IPv4 scope
+        ipv4_response = ec2.get_ipam_resource_cidrs(
+            IpamScopeId=ipv4_scope_id,
             ResourceId=vpc_id,
         )
+        ipv4_monitored = len(ipv4_response['IpamResourceCidrs']) > 0
         
-        print(f"IPAM Resource CIDRs: {response['IpamResourceCidrs']}")
+        # Check IPv6 scope
+        ipv6_response = ec2.get_ipam_resource_cidrs(
+            IpamScopeId=ipv6_scope_id,
+            ResourceId=vpc_id,
+        )
+        ipv6_monitored = len(ipv6_response['IpamResourceCidrs']) > 0
         
-        # Check if IPAM is monitoring both IPv4 and IPv6 CIDRs for this VPC
-        ipv4_monitored = False
-        ipv6_monitored = False
-        
-        for cidr_info in response['IpamResourceCidrs']:
-            if ':' in cidr_info['ResourceCidr']:
-                ipv6_monitored = True
-            else:
-                ipv4_monitored = True
-        
+        print(f"IPv4 CIDRs: {ipv4_response['IpamResourceCidrs']}")
+        print(f"IPv6 CIDRs: {ipv6_response['IpamResourceCidrs']}")
         print(f"IPAM monitoring - IPv4: {ipv4_monitored}, IPv6: {ipv6_monitored}")
         
         if ipv4_monitored and ipv6_monitored:
@@ -56,7 +56,7 @@ def handler(event, context):
             
     except Exception as e:
         print(f"Error checking IPAM CIDRs: {str(e)}")
-        print(f"Region: {region}, VPC: {vpc_id}, Scope: {scope_id}")
+        print(f"Region: {region}, VPC: {vpc_id}, IPv4 Scope: {ipv4_scope_id}, IPv6 Scope: {ipv6_scope_id}")
         return {
             'PhysicalResourceId': physical_id,
             'IsComplete': False
