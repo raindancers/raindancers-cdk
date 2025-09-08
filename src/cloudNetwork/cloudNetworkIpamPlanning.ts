@@ -117,7 +117,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
             SourceIpamPoolId: props.ipamConfig.ipv6PoolId,
             Description: `IPv6 planning pool for vpc ${props.vpcName} | ${props.vpc.attrVpcId}`,
             AllocationDefaultNetmaskLength: DEFAULT_IPV6_SUBNET_MASK,
-            AutoImport: true,
+            AutoImport: false,
             AwsService: 'ec2',
             PublicIpSource: 'amazon',
             SourceResource: {
@@ -160,7 +160,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         sourceIpamPoolId: props.ipamConfig.ipv6PoolId,
         description: `IPv6 planning pool for vpc ${props.vpcName} | ${props.vpc.attrVpcId}`,
         allocationDefaultNetmaskLength: DEFAULT_IPV6_SUBNET_MASK,
-        autoImport: true,
+        autoImport: false,
         sourceResource: {
           resourceId: props.vpc.attrVpcId,
           resourceOwner: core.Stack.of(this).account,
@@ -192,6 +192,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
             SourceIpamPoolId: props.ipamConfig.ipv4IpamPoolId,
             Description: `IPv4 planning pool for vpc ${props.vpcName} | ${props.vpc.attrVpcId}`,
             AllocationDefaultNetmaskLength: props.defaultipv4allocation ?? 24,
+            AutoImport: false,
             SourceResource: {
               ResourceId: props.vpc.attrVpcId,
               ResourceOwner: core.Stack.of(this).account,
@@ -230,6 +231,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         sourceIpamPoolId: props.ipamConfig.ipv4IpamPoolId,
         description: `IPv4 planning pool for vpc ${props.vpcName} | ${props.vpc.attrVpcId}`,
         allocationDefaultNetmaskLength: props.defaultipv4allocation ?? 24,
+        autoImport: false,
         sourceResource: {
           resourceId: props.vpc.attrVpcId,
           resourceOwner: core.Stack.of(this).account,
@@ -251,7 +253,13 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       (this.ipv6PlanningPool as cr.AwsCustomResource).getResponseField('IpamPool.IpamPoolId') :
       (this.ipv6PlanningPool as ec2.CfnIPAMPool).attrIpamPoolId;
 
-    this.waiter = this.createPoolCidrWaiter(ipv4PoolId, ipv6PoolId, props.regionToCreatePlanningPools ?? core.Aws.REGION);
+    this.waiter = this.createPoolCidrWaiter(
+      ipv4PoolId,
+      ipv6PoolId,
+      props.vpc.attrCidrBlock,
+      core.Fn.select(0, props.vpc.attrIpv6CidrBlocks),
+      props.regionToCreatePlanningPools ?? core.Aws.REGION,
+    );
 
   }
 
@@ -298,7 +306,12 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
 
   // this is for creating the Planning Pools.
 
-  private createPoolCidrWaiter(ipv4PoolId: string, ipv6PoolId: string, region?: string ): core.CustomResource {
+  private createPoolCidrWaiter(
+    ipv4PoolId: string,
+    ipv6PoolId: string,
+    vpcIpv4Cidr: string,
+    vpcIpv6Cidr: string,
+    region?: string ): core.CustomResource {
 
     const poolCidrWaiterFn = new lambda.Function(this, 'poolCidrWaiterFn', {
       // amazonq-ignore-next-line
@@ -313,7 +326,12 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
     });
 
     poolCidrWaiterFn.addToRolePolicy(new iam.PolicyStatement({
-      actions: ['ec2:GetIpamPoolCidrs', 'ec2:DescribeIpamPools'],
+      actions: [
+        'ec2:GetIpamPoolCidrs',
+        'ec2:DescribeIpamPools',
+        'ec2:ProvisionIpamPoolCidr',
+        'ec2:DeprovisionIpamPoolCidr',
+      ],
       resources: ['*'],
     }));
 
@@ -339,6 +357,8 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         Ipv4PoolId: ipv4PoolId,
         Ipv6PoolId: ipv6PoolId,
         Region: region ?? core.Aws.REGION,
+        VpcIpv4Cidr: vpcIpv4Cidr,
+        VpcIpv6Cidr: vpcIpv6Cidr,
       },
     });
   }

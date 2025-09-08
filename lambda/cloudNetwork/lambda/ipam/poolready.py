@@ -61,17 +61,36 @@ def handler(event, context):
         
         print(f"Pool CIDR status - IPv4: {ipv4_ready} ({len(ipv4_cidrs['IpamPoolCidrs'])} CIDRs), IPv6: {ipv6_ready} ({len(ipv6_cidrs['IpamPoolCidrs'])} CIDRs)")
         
+        # If pools are ready but don't have CIDRs, provision them
+        if not ipv4_ready:
+            vpc_ipv4_cidr = event['ResourceProperties']['VpcIpv4Cidr']
+            print(f"Provisioning IPv4 CIDR {vpc_ipv4_cidr} to pool {ipv4_pool_id}")
+            ec2.provision_ipam_pool_cidr(
+                IpamPoolId=ipv4_pool_id,
+                Cidr=vpc_ipv4_cidr
+            )
+
+        if not ipv6_ready:
+            vpc_ipv6_cidr = event['ResourceProperties']['VpcIpv6Cidr']
+            print(f"Provisioning IPv6 CIDR {vpc_ipv6_cidr} to pool {ipv6_pool_id}")
+            ec2.provision_ipam_pool_cidr(
+                IpamPoolId=ipv6_pool_id,
+                Cidr=vpc_ipv6_cidr
+            )
+
+        # If we just provisioned CIDRs, wait for next check
+        if not ipv4_ready or not ipv6_ready:
+            print("CIDRs provisioned - waiting for next check...")
+            return {
+                'PhysicalResourceId': physical_id,
+                'IsComplete': False
+            }
+        
         if ipv4_ready and ipv6_ready:
             print("Both pools ready - returning complete")
             return {
                 'PhysicalResourceId': physical_id,
                 'IsComplete': True
-            }
-        else:
-            print("Pools not ready - waiting...")
-            return {
-                'PhysicalResourceId': physical_id,
-                'IsComplete': False
             }
     except Exception as e:
         print(f"Error checking pool CIDRs: {str(e)}")
