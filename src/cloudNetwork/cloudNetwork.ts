@@ -180,6 +180,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
       vpc: this.vpc,
       vpcName: props.vpcName,
       useDirectAPICalls: props.ipamConfig.useDirectAPICalls,
+      regionToCreatePlanningPools: props.ipamConfig.regionToMakeAPICalls,
     });
 
     this.ipv6CidrBlock = core.Fn.select(0, this.vpc.attrIpv6CidrBlocks),
