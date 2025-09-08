@@ -83,7 +83,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
     let ipv6Cidr: constructs.IDependable;
 
 
-    // 1 Associate ipv6
+    // 1 Associate ipv6 with the VPC.
     ipv6Cidr = new ec2.CfnVPCCidrBlock(this, 'vpcIpv6Cidr', {
       vpcId: props.vpc.attrVpcId,
       ipv6IpamPoolId: props.ipamConfig.ipv6PoolId,
@@ -91,7 +91,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
     });
     // }
 
-
+    // create a waiter, that
     const ipamWaiter = this.createIpamWaiter(
       props.vpc.attrVpcId,
       props.ipamConfig.ipv4IpamScope,
@@ -105,6 +105,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
     // These cna't be assignged untill the IPamWaiter is comppleted
     if (props.useDirectAPICalls ?? false) {
       this.ipv6PlanningPool = new cr.AwsCustomResource(this, 'ipv6IpamAPI', {
+        resourceType: 'Custom::CreateIpamPlanningPoolIpv6',
         onCreate: {
           service: 'EC2',
           action: 'createIpamPool',
@@ -169,57 +170,17 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       });
     }
 
+    // the planning pool can't be started untill the the vpc and waiter arec completed.
     this.ipv6PlanningPool.node.addDependency(props.vpc);
     this.ipv6PlanningPool.node.addDependency(ipamWaiter);
 
-    // Provision the VPC's IPv6 CIDR block to the planning pool
-    let ipv6PoolCidr: constructs.IDependable;
-    if (props.useDirectAPICalls ?? false) {
-      const ipv6PoolIdForCidr = (this.ipv6PlanningPool as cr.AwsCustomResource).getResponseField('IpamPool.IpamPoolId');
-      ipv6PoolCidr = new cr.AwsCustomResource(this, 'ipv6PoolCidrAPI', {
-        onCreate: {
-          service: 'EC2',
-          action: 'provisionIpamPoolCidr',
-          region: props.ipamConfig.regionToMakeAPICalls,
-          parameters: {
-            IpamPoolId: ipv6PoolIdForCidr,
-            Cidr: core.Fn.select(0, props.vpc.attrIpv6CidrBlocks),
-          },
-          physicalResourceId: cr.PhysicalResourceId.fromResponse('IpamPoolCidr.Cidr'),
-        },
-        onDelete: {
-          service: 'EC2',
-          action: 'deprovisionIpamPoolCidr',
-          region: props.ipamConfig.regionToMakeAPICalls,
-          parameters: {
-            IpamPoolId: ipv6PoolIdForCidr,
-            Cidr: new cr.PhysicalResourceIdReference(),
-          },
-        },
-        policy: cr.AwsCustomResourcePolicy.fromStatements([
-          new iam.PolicyStatement({
-            actions: [
-              'ec2:ProvisionIpamPoolCidr',
-              'ec2:DeprovisionIpamPoolCidr',
-              'ec2:GetIpamPoolCidrs',
-              'ec2:AllocateIpamPoolCidr',
-              'ec2:ReleaseIpamPoolAllocation',
-            ],
-            resources: ['*'],
-          }),
-        ]),
-      });
-    } else {
-      ipv6PoolCidr = new ec2.CfnIPAMPoolCidr(this, 'ipv6PoolCidr', {
-        ipamPoolId: (this.ipv6PlanningPool as ec2.CfnIPAMPool).attrIpamPoolId,
-        cidr: core.Fn.select(0, props.vpc.attrIpv6CidrBlocks),
-      });
-    }
-    (ipv6PoolCidr as constructs.Construct).node.addDependency(ipv6Cidr);
+
+    // do the IPV4
 
     // Create IPv4 IPAM planning pool for subnet allocation
     if (props.useDirectAPICalls ?? false) {
       this.ipv4PlanningPool = new cr.AwsCustomResource(this, 'ipv4IpamAPI', {
+        resourceType: 'Custom::CreateIpamPlanningPoolIpv4',
         onCreate: {
           service: 'EC2',
           action: 'createIpamPool',
@@ -277,51 +238,8 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         },
       });
     }
-
+    this.ipv4PlanningPool.node.addDependency(props.vpc);
     this.ipv4PlanningPool.node.addDependency(ipamWaiter);
-
-    // Provision the VPC's IPv4 CIDR block to the planning pool
-    if (props.useDirectAPICalls ?? false) {
-      const ipv4PoolIdForCidr = (this.ipv4PlanningPool as cr.AwsCustomResource).getResponseField('IpamPool.IpamPoolId');
-      new cr.AwsCustomResource(this, 'ipv4PoolCidrAPI', {
-        onCreate: {
-          service: 'EC2',
-          action: 'provisionIpamPoolCidr',
-          region: props.ipamConfig.regionToMakeAPICalls,
-          parameters: {
-            IpamPoolId: ipv4PoolIdForCidr,
-            Cidr: props.vpc.attrCidrBlock,
-          },
-          physicalResourceId: cr.PhysicalResourceId.fromResponse('IpamPoolCidr.Cidr'),
-        },
-        onDelete: {
-          service: 'EC2',
-          action: 'deprovisionIpamPoolCidr',
-          region: props.ipamConfig.regionToMakeAPICalls,
-          parameters: {
-            IpamPoolId: ipv4PoolIdForCidr,
-            Cidr: new cr.PhysicalResourceIdReference(),
-          },
-        },
-        policy: cr.AwsCustomResourcePolicy.fromStatements([
-          new iam.PolicyStatement({
-            actions: [
-              'ec2:ProvisionIpamPoolCidr',
-              'ec2:DeprovisionIpamPoolCidr',
-              'ec2:GetIpamPoolCidrs',
-              'ec2:AllocateIpamPoolCidr',
-              'ec2:ReleaseIpamPoolAllocation',
-            ],
-            resources: ['*'],
-          }),
-        ]),
-      });
-    } else {
-      new ec2.CfnIPAMPoolCidr(this, 'ipv4PoolCidr', {
-        ipamPoolId: (this.ipv4PlanningPool as ec2.CfnIPAMPool).attrIpamPoolId,
-        cidr: props.vpc.attrCidrBlock,
-      });
-    }
 
 
     // Wait for pool CIDRs before starting the waiter.
@@ -395,7 +313,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
     });
 
     poolCidrWaiterFn.addToRolePolicy(new iam.PolicyStatement({
-      actions: ['ec2:GetIpamPoolCidrs'],
+      actions: ['ec2:GetIpamPoolCidrs', 'ec2:DescribeIpamPools'],
       resources: ['*'],
     }));
 
