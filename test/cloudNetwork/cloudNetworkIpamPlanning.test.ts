@@ -191,4 +191,23 @@ describe('IpamVPCPlanningTools', () => {
       RetentionInDays: 7,
     });
   });
+
+  test('creates IPAM tools with custom region', () => {
+    new IpamVPCPlanningTools(stack, 'IpamToolsRegion', {
+      ipamConfig: {
+        ipv6ScopeId: 'ipam-scope-123',
+        ipv6PoolId: 'ipam-pool-123',
+        ipv4IpamScope: 'ipam-scope-456',
+        ipv4IpamPoolId: 'ipam-pool-456',
+        eipPool: 'eip-pool-123',
+        regionToMakeAPICalls: 'us-west-2',
+      },
+      vpc: vpc,
+      vpcName: 'test-vpc-region',
+      regionToCreatePlanningPools: 'us-west-2',
+    });
+
+    const template = Template.fromStack(stack);
+    template.hasResourceProperties('Custom::CidrAllocationWaiter1', {});
+  });
 });
