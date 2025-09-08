@@ -346,7 +346,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
     });
 
     ipamWaiterFn.addToRolePolicy(new iam.PolicyStatement({
-      actions: ['ec2:DescribeVpcs'],
+      actions: ['ec2:GetIpamResourceCidrs'],
       // amazonq-ignore-next-line
       resources: ['*'],
     }));
@@ -355,7 +355,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       onEventHandler: ipamWaiterFn,
       isCompleteHandler: ipamWaiterFn,
       queryInterval: core.Duration.seconds(30),
-      totalTimeout: core.Duration.minutes(15),
+      totalTimeout: core.Duration.minutes(25),
       logGroup: new logs.LogGroup(this, 'ipamWaitProviderLogGroup', {
         retention: logs.RetentionDays.ONE_WEEK,
       }),

@@ -19,22 +19,33 @@ def handler(event, context):
         }
     
     try:
-        response = ec2.describe_vpcs(VpcIds=[vpc_id])
-        vpc = response['Vpcs'][0]
+        response = ec2.get_ipam_resource_cidrs(
+            IpamScopeId=scope_id,
+            ResourceId=vpc_id,
+        )
         
-        has_ipv4 = bool(vpc.get('CidrBlock'))
-        has_ipv6 = bool(vpc.get('Ipv6CidrBlockAssociationSet'))
+        print(f"IPAM Resource CIDRs: {response['IpamResourceCidrs']}")
         
-        print(f"VPC {vpc_id}: IPv4={has_ipv4}, IPv6={has_ipv6}")
+        # Check if IPAM is monitoring both IPv4 and IPv6 CIDRs for this VPC
+        ipv4_monitored = False
+        ipv6_monitored = False
         
-        if has_ipv4 and has_ipv6:
-            print("VPC has both IPv4 and IPv6 CIDRs - resource ready")
+        for cidr_info in response['IpamResourceCidrs']:
+            if ':' in cidr_info['ResourceCidr']:
+                ipv6_monitored = True
+            else:
+                ipv4_monitored = True
+        
+        print(f"IPAM monitoring - IPv4: {ipv4_monitored}, IPv6: {ipv6_monitored}")
+        
+        if ipv4_monitored and ipv6_monitored:
+            print("IPAM is monitoring both IPv4 and IPv6 CIDRs - resource ready")
             return {
                 'PhysicalResourceId': physical_id,
                 'IsComplete': True,
             }
         else:
-            print("VPC missing IPv4 or IPv6 CIDRs - waiting...")
+            print("IPAM not yet monitoring all CIDRs - waiting...")
             return {
                 'PhysicalResourceId': physical_id,
                 'IsComplete': False
