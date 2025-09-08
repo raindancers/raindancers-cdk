@@ -92,7 +92,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
     // }
 
 
-    const ipamWaiter = this.createIpamWaiter(props.vpc.attrVpcId, props.ipamConfig.ipv6ScopeId);
+    const ipamWaiter = this.createIpamWaiter(props.vpc.attrVpcId, props.ipamConfig.ipv6ScopeId, props.regionToCreatePlanningPools ?? core.Aws.REGION);
 
     ipamWaiter.node.addDependency(ipv6Cidr);
 
@@ -332,7 +332,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
 
   }
 
-  private createIpamWaiter(vpcId: string, scopeId: string): core.CustomResource {
+  private createIpamWaiter(vpcId: string, scopeId: string, region?: string): core.CustomResource {
 
     const ipamWaiterFn = new lambda.Function(this, 'ipamWaitFn', {
       // amazonq-ignore-next-line
@@ -365,6 +365,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       resourceType: 'Custom::CidrAllocationWaiter1',
       serviceToken: provider.serviceToken,
       properties: {
+        Region: region ?? core.Aws.REGION,
         VpcId: vpcId,
         ScopeId: scopeId,
       },

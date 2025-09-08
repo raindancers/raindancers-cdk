@@ -4,11 +4,14 @@ import json
 def handler(event, context):
     print(f"Event: {json.dumps(event)}")
     
-    ec2 = boto3.client('ec2')
+    region = event['ResourceProperties'].get('Region')
+    ec2 = boto3.client('ec2', region_name=region) if region else boto3.client('ec2')
     
     request_type = event['RequestType']
     vpc_id = event['ResourceProperties']['VpcId']
     scope_id = event['ResourceProperties']['ScopeId']
+    
+    print(f"Using region: {region}")
     
     physical_id = 'ipam-wait'
     
@@ -52,7 +55,8 @@ def handler(event, context):
             }
             
     except Exception as e:
-        print(f"Error checking VPC CIDRs: {str(e)}")
+        print(f"Error checking IPAM CIDRs: {str(e)}")
+        print(f"Region: {region}, VPC: {vpc_id}, Scope: {scope_id}")
         return {
             'PhysicalResourceId': physical_id,
             'IsComplete': False
