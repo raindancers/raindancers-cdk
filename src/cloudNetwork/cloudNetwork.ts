@@ -423,6 +423,9 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
         case interfaces.SubnetPersonality.PRIVATE:
           subnetType = ec2.SubnetType.PRIVATE_ISOLATED;
           break;
+        case interfaces.SubnetPersonality.PRIVATE_WITH_EGRESS:
+          subnetType = ec2.SubnetType.PRIVATE_WITH_EGRESS;
+          break;
         case interfaces.SubnetPersonality.FIREWALL:
           subnetType = ec2.SubnetType.PRIVATE_WITH_EGRESS;
           break;

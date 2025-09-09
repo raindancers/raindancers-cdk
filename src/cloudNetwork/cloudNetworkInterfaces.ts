@@ -18,6 +18,7 @@ export enum Services {
 }
 
 export enum SubnetPersonality {
+  PRIVATE_WITH_EGRESS = 'PRIVATE_WITH_EGRESS',
   PRIVATE = 'PRIVATE',
   FIREWALL = 'FIREWALL',
   DMZ = 'DMZ',

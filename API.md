@@ -23854,6 +23854,7 @@ Route directly - respects subnet type (IGW for public, NAT for private).
 
 | **Name** | **Description** |
 | --- | --- |
+| <code><a href="#raindancers-cdk.cloudNetwork.SubnetPersonality.PRIVATE_WITH_EGRESS">PRIVATE_WITH_EGRESS</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.SubnetPersonality.PRIVATE">PRIVATE</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.SubnetPersonality.FIREWALL">FIREWALL</a></code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.SubnetPersonality.DMZ">DMZ</a></code> | *No description.* |
@@ -23863,6 +23864,11 @@ Route directly - respects subnet type (IGW for public, NAT for private).
 | <code><a href="#raindancers-cdk.cloudNetwork.SubnetPersonality.ZEROTRUST_INGRESS">ZEROTRUST_INGRESS</a></code> | *No description.* |
 
 ---
+
+##### `PRIVATE_WITH_EGRESS` <a name="PRIVATE_WITH_EGRESS" id="raindancers-cdk.cloudNetwork.SubnetPersonality.PRIVATE_WITH_EGRESS"></a>
+
+---
+
 
 ##### `PRIVATE` <a name="PRIVATE" id="raindancers-cdk.cloudNetwork.SubnetPersonality.PRIVATE"></a>
 
