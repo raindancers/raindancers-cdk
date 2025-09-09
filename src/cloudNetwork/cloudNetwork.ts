@@ -283,6 +283,12 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
               throw Error('A Subnet with a Private personality must have a name');
             }
             break;
+          case interfaces.SubnetPersonality.PRIVATE_WITH_EGRESS:
+            subnetType = ec2.SubnetType.PRIVATE_WITH_EGRESS;
+            if (!subnetConfig.name) {
+              throw Error('A Subnet with a PRIVATE_WITH_EGRESS personality must have a name');
+            }
+            break;
           case interfaces.SubnetPersonality.DMZ:
             subnetType = ec2.SubnetType.PRIVATE_ISOLATED;
             subnetName = 'dmz';
