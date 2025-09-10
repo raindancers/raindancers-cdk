@@ -24,3 +24,4 @@ export * as securityLake from './securitylake/index';
 export * as localzone from './network/localzone';
 export * as cloudNetwork from './cloudNetwork';
 export * as agentCore from './agentCore';
+export * as cloudtrailMonitor from './cloudtrailMonitor';

@@ -1931,6 +1931,116 @@ public readonly assnRole: Role;
 ---
 
 
+### CentralNotificationTopic <a name="CentralNotificationTopic" id="raindancers-cdk.cloudtrailMonitor.CentralNotificationTopic"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.cloudtrailMonitor.CentralNotificationTopic.Initializer"></a>
+
+```typescript
+import { cloudtrailMonitor } from 'raindancers-cdk'
+
+new cloudtrailMonitor.CentralNotificationTopic(scope: Construct, id: string, props?: CentralNotificationTopicProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CentralNotificationTopic.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CentralNotificationTopic.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CentralNotificationTopic.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.cloudtrailMonitor.CentralNotificationTopicProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.cloudtrailMonitor.CentralNotificationTopic.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudtrailMonitor.CentralNotificationTopic.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Optional</sup> <a name="props" id="raindancers-cdk.cloudtrailMonitor.CentralNotificationTopic.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudtrailMonitor.CentralNotificationTopicProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CentralNotificationTopic.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.cloudtrailMonitor.CentralNotificationTopic.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CentralNotificationTopic.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.cloudtrailMonitor.CentralNotificationTopic.isConstruct"></a>
+
+```typescript
+import { cloudtrailMonitor } from 'raindancers-cdk'
+
+cloudtrailMonitor.CentralNotificationTopic.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.cloudtrailMonitor.CentralNotificationTopic.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CentralNotificationTopic.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CentralNotificationTopic.property.topic">topic</a></code> | <code>aws-cdk-lib.aws_sns.Topic</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.cloudtrailMonitor.CentralNotificationTopic.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `topic`<sup>Required</sup> <a name="topic" id="raindancers-cdk.cloudtrailMonitor.CentralNotificationTopic.property.topic"></a>
+
+```typescript
+public readonly topic: Topic;
+```
+
+- *Type:* aws-cdk-lib.aws_sns.Topic
+
+---
+
+
 ### CentralResolverRules <a name="CentralResolverRules" id="raindancers-cdk.dns.CentralResolverRules"></a>
 
 #### Initializers <a name="Initializers" id="raindancers-cdk.dns.CentralResolverRules.Initializer"></a>
@@ -3026,6 +3136,144 @@ public readonly snsTopic: Topic;
 
 ---
 
+
+### CloudTrailStackSet <a name="CloudTrailStackSet" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet"></a>
+
+#### Initializers <a name="Initializers" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.Initializer"></a>
+
+```typescript
+import { cloudtrailMonitor } from 'raindancers-cdk'
+
+new cloudtrailMonitor.CloudTrailStackSet(scope: Construct, id: string, props: CloudTrailStackSetProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.Initializer.parameter.props">props</a></code> | <code>raindancers-cdk.cloudtrailMonitor.CloudTrailStackSetProps</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.Initializer.parameter.props"></a>
+
+- *Type:* raindancers-cdk.cloudtrailMonitor.CloudTrailStackSetProps
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.isConstruct"></a>
+
+```typescript
+import { cloudtrailMonitor } from 'raindancers-cdk'
+
+cloudtrailMonitor.CloudTrailStackSet.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.property.stackSet">stackSet</a></code> | <code>aws-cdk-lib.aws_cloudformation.CfnStackSet</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.property.stackSetRole">stackSetRole</a></code> | <code>aws-cdk-lib.aws_iam.Role</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `stackSet`<sup>Required</sup> <a name="stackSet" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.property.stackSet"></a>
+
+```typescript
+public readonly stackSet: CfnStackSet;
+```
+
+- *Type:* aws-cdk-lib.aws_cloudformation.CfnStackSet
+
+---
+
+##### `stackSetRole`<sup>Required</sup> <a name="stackSetRole" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.property.stackSetRole"></a>
+
+```typescript
+public readonly stackSetRole: Role;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.Role
+
+---
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.property.COMMON_VIOLATION_RULES">COMMON_VIOLATION_RULES</a></code> | <code>raindancers-cdk.cloudtrailMonitor.CloudTrailEventRule[]</code> | *No description.* |
+
+---
+
+##### `COMMON_VIOLATION_RULES`<sup>Required</sup> <a name="COMMON_VIOLATION_RULES" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSet.property.COMMON_VIOLATION_RULES"></a>
+
+```typescript
+public readonly COMMON_VIOLATION_RULES: CloudTrailEventRule[];
+```
+
+- *Type:* raindancers-cdk.cloudtrailMonitor.CloudTrailEventRule[]
+
+---
 
 ### ComponentLaunchTemplate <a name="ComponentLaunchTemplate" id="raindancers-cdk.zscaler.ComponentLaunchTemplate"></a>
 
@@ -13005,6 +13253,56 @@ public readonly roleName: string;
 
 ---
 
+### CentralNotificationTopicProps <a name="CentralNotificationTopicProps" id="raindancers-cdk.cloudtrailMonitor.CentralNotificationTopicProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudtrailMonitor.CentralNotificationTopicProps.Initializer"></a>
+
+```typescript
+import { cloudtrailMonitor } from 'raindancers-cdk'
+
+const centralNotificationTopicProps: cloudtrailMonitor.CentralNotificationTopicProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CentralNotificationTopicProps.property.allowedAccounts">allowedAccounts</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CentralNotificationTopicProps.property.organizationId">organizationId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CentralNotificationTopicProps.property.topicName">topicName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `allowedAccounts`<sup>Optional</sup> <a name="allowedAccounts" id="raindancers-cdk.cloudtrailMonitor.CentralNotificationTopicProps.property.allowedAccounts"></a>
+
+```typescript
+public readonly allowedAccounts: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `organizationId`<sup>Optional</sup> <a name="organizationId" id="raindancers-cdk.cloudtrailMonitor.CentralNotificationTopicProps.property.organizationId"></a>
+
+```typescript
+public readonly organizationId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `topicName`<sup>Optional</sup> <a name="topicName" id="raindancers-cdk.cloudtrailMonitor.CentralNotificationTopicProps.property.topicName"></a>
+
+```typescript
+public readonly topicName: string;
+```
+
+- *Type:* string
+
+---
+
 ### CentralResolverRulesProps <a name="CentralResolverRulesProps" id="raindancers-cdk.dns.CentralResolverRulesProps"></a>
 
 #### Initializer <a name="Initializer" id="raindancers-cdk.dns.CentralResolverRulesProps.Initializer"></a>
@@ -13580,6 +13878,139 @@ public readonly nameSpace: string;
 
 ```typescript
 public readonly alarmSNSTopicName: string;
+```
+
+- *Type:* string
+
+---
+
+### CloudTrailEventRule <a name="CloudTrailEventRule" id="raindancers-cdk.cloudtrailMonitor.CloudTrailEventRule"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudtrailMonitor.CloudTrailEventRule.Initializer"></a>
+
+```typescript
+import { cloudtrailMonitor } from 'raindancers-cdk'
+
+const cloudTrailEventRule: cloudtrailMonitor.CloudTrailEventRule = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailEventRule.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailEventRule.property.eventNames">eventNames</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailEventRule.property.severity">severity</a></code> | <code>raindancers-cdk.cloudtrailMonitor.Severity</code> | *No description.* |
+
+---
+
+##### `description`<sup>Required</sup> <a name="description" id="raindancers-cdk.cloudtrailMonitor.CloudTrailEventRule.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `eventNames`<sup>Required</sup> <a name="eventNames" id="raindancers-cdk.cloudtrailMonitor.CloudTrailEventRule.property.eventNames"></a>
+
+```typescript
+public readonly eventNames: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `severity`<sup>Required</sup> <a name="severity" id="raindancers-cdk.cloudtrailMonitor.CloudTrailEventRule.property.severity"></a>
+
+```typescript
+public readonly severity: Severity;
+```
+
+- *Type:* raindancers-cdk.cloudtrailMonitor.Severity
+
+---
+
+### CloudTrailStackSetProps <a name="CloudTrailStackSetProps" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSetProps"></a>
+
+#### Initializer <a name="Initializer" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSetProps.Initializer"></a>
+
+```typescript
+import { cloudtrailMonitor } from 'raindancers-cdk'
+
+const cloudTrailStackSetProps: cloudtrailMonitor.CloudTrailStackSetProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailStackSetProps.property.eventRules">eventRules</a></code> | <code>raindancers-cdk.cloudtrailMonitor.CloudTrailEventRule[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailStackSetProps.property.notificationTopicArn">notificationTopicArn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailStackSetProps.property.targetAccounts">targetAccounts</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailStackSetProps.property.targetRegions">targetRegions</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailStackSetProps.property.organizationId">organizationId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.CloudTrailStackSetProps.property.stackSetName">stackSetName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `eventRules`<sup>Required</sup> <a name="eventRules" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSetProps.property.eventRules"></a>
+
+```typescript
+public readonly eventRules: CloudTrailEventRule[];
+```
+
+- *Type:* raindancers-cdk.cloudtrailMonitor.CloudTrailEventRule[]
+
+---
+
+##### `notificationTopicArn`<sup>Required</sup> <a name="notificationTopicArn" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSetProps.property.notificationTopicArn"></a>
+
+```typescript
+public readonly notificationTopicArn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `targetAccounts`<sup>Required</sup> <a name="targetAccounts" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSetProps.property.targetAccounts"></a>
+
+```typescript
+public readonly targetAccounts: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `targetRegions`<sup>Required</sup> <a name="targetRegions" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSetProps.property.targetRegions"></a>
+
+```typescript
+public readonly targetRegions: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `organizationId`<sup>Optional</sup> <a name="organizationId" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSetProps.property.organizationId"></a>
+
+```typescript
+public readonly organizationId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `stackSetName`<sup>Optional</sup> <a name="stackSetName" id="raindancers-cdk.cloudtrailMonitor.CloudTrailStackSetProps.property.stackSetName"></a>
+
+```typescript
+public readonly stackSetName: string;
 ```
 
 - *Type:* string
@@ -23703,6 +24134,39 @@ Route directly - respects subnet type (IGW for public, NAT for private).
 
 
 ##### `NATGATEWAY` <a name="NATGATEWAY" id="raindancers-cdk.cloudNetwork.Services.NATGATEWAY"></a>
+
+---
+
+
+### Severity <a name="Severity" id="raindancers-cdk.cloudtrailMonitor.Severity"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.Severity.LOW">LOW</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.Severity.MEDIUM">MEDIUM</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.Severity.HIGH">HIGH</a></code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudtrailMonitor.Severity.CRITICAL">CRITICAL</a></code> | *No description.* |
+
+---
+
+##### `LOW` <a name="LOW" id="raindancers-cdk.cloudtrailMonitor.Severity.LOW"></a>
+
+---
+
+
+##### `MEDIUM` <a name="MEDIUM" id="raindancers-cdk.cloudtrailMonitor.Severity.MEDIUM"></a>
+
+---
+
+
+##### `HIGH` <a name="HIGH" id="raindancers-cdk.cloudtrailMonitor.Severity.HIGH"></a>
+
+---
+
+
+##### `CRITICAL` <a name="CRITICAL" id="raindancers-cdk.cloudtrailMonitor.Severity.CRITICAL"></a>
 
 ---
 
