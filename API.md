@@ -2632,7 +2632,7 @@ Any object.
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcDefaultSecurityGroup">vpcDefaultSecurityGroup</a></code> | <code>string</code> | Default security group ID. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcId">vpcId</a></code> | <code>string</code> | The VPC ID. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcIpv6CidrBlocks">vpcIpv6CidrBlocks</a></code> | <code>string[]</code> | IPv6 CIDR blocks assigned to the VPC. |
-| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcRef">vpcRef</a></code> | <code>string</code> | VPC reference for CDK compatibility. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcRef">vpcRef</a></code> | <code>aws-cdk-lib.aws_ec2.VPCReference</code> | VPC reference for CDK compatibility. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.implementBigWait">implementBigWait</a></code> | <code>aws-cdk-lib.CustomResource</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.ipv6CidrBlock">ipv6CidrBlock</a></code> | <code>string</code> | The IPv6 CIDR block assigned to the VPC. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpnGatewayId">vpnGatewayId</a></code> | <code>string</code> | VPN Gateway ID if one is attached. |
@@ -2873,10 +2873,10 @@ IPv6 CIDR blocks assigned to the VPC.
 ##### `vpcRef`<sup>Required</sup> <a name="vpcRef" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcRef"></a>
 
 ```typescript
-public readonly vpcRef: string;
+public readonly vpcRef: VPCReference;
 ```
 
-- *Type:* string
+- *Type:* aws-cdk-lib.aws_ec2.VPCReference
 
 VPC reference for CDK compatibility.
 
@@ -13777,7 +13777,7 @@ public readonly notificationArns: string[];
 ```
 
 - *Type:* string[]
-- *Default:* no notfication arns.
+- *Default:* no notification arns.
 
 SNS Topic ARNs that will receive stack events.
 
@@ -19059,7 +19059,7 @@ public readonly notificationArns: string[];
 ```
 
 - *Type:* string[]
-- *Default:* no notfication arns.
+- *Default:* no notification arns.
 
 SNS Topic ARNs that will receive stack events.
 

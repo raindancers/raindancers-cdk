@@ -111,7 +111,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
   /** The IPv6 CIDR block assigned to the VPC */
   readonly ipv6CidrBlock: string | undefined;
   /** VPC reference for CDK compatibility */
-  readonly vpcRef: string;
+  readonly vpcRef: ec2.VPCReference;
   /** Default network ACL ID */
   readonly vpcDefaultNetworkAcl: string;
   /** Default security group ID */
@@ -172,7 +172,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
     // create a vpc
     this.vpc = this.createVpc(props); // the ipv4 is assigned
     this.vpcId = this.vpc.attrVpcId;
-    this.vpcRef = this.vpc.attrVpcId;
+    this.vpcRef = { vpcId: this.vpc.attrVpcId };
     this.vpcArn = `arn:${core.Aws.PARTITION}:ec2:${core.Aws.REGION}:${core.Aws.ACCOUNT_ID}:vpc/${this.vpc.attrVpcId}`;
     this.internetConnectivityEstablished = constructs.Dependable.of(this.vpc).dependencyRoots;
     this.vpcCidrBlock = this.vpc.attrCidrBlock;
