@@ -110,6 +110,14 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
   readonly vpnGatewayId?: string;
   /** The IPv6 CIDR block assigned to the VPC */
   readonly ipv6CidrBlock: string | undefined;
+  /** VPC reference for CDK compatibility */
+  readonly vpcRef: string;
+  /** Default network ACL ID */
+  readonly vpcDefaultNetworkAcl: string;
+  /** Default security group ID */
+  readonly vpcDefaultSecurityGroup: string;
+  /** IPv6 CIDR blocks assigned to the VPC */
+  readonly vpcIpv6CidrBlocks: string[];
 
   subnetCidrLookup: interfaces.ISubNetCidrLookup[] = [];
 
@@ -164,9 +172,13 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
     // create a vpc
     this.vpc = this.createVpc(props); // the ipv4 is assigned
     this.vpcId = this.vpc.attrVpcId;
+    this.vpcRef = this.vpc.attrVpcId;
     this.vpcArn = `arn:${core.Aws.PARTITION}:ec2:${core.Aws.REGION}:${core.Aws.ACCOUNT_ID}:vpc/${this.vpc.attrVpcId}`;
     this.internetConnectivityEstablished = constructs.Dependable.of(this.vpc).dependencyRoots;
     this.vpcCidrBlock = this.vpc.attrCidrBlock;
+    this.vpcDefaultNetworkAcl = this.vpc.attrDefaultNetworkAcl;
+    this.vpcDefaultSecurityGroup = this.vpc.attrDefaultSecurityGroup;
+    this.vpcIpv6CidrBlocks = this.vpc.attrIpv6CidrBlocks;
 
     // attach internet gateway
     if (props.createInternetGateway ?? true) {

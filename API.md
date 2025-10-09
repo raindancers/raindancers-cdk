@@ -2628,7 +2628,11 @@ Any object.
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.CfnVPC</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcArn">vpcArn</a></code> | <code>string</code> | The VPC ARN. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcCidrBlock">vpcCidrBlock</a></code> | <code>string</code> | The IPv4 CIDR block assigned to the VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcDefaultNetworkAcl">vpcDefaultNetworkAcl</a></code> | <code>string</code> | Default network ACL ID. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcDefaultSecurityGroup">vpcDefaultSecurityGroup</a></code> | <code>string</code> | Default security group ID. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcId">vpcId</a></code> | <code>string</code> | The VPC ID. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcIpv6CidrBlocks">vpcIpv6CidrBlocks</a></code> | <code>string[]</code> | IPv6 CIDR blocks assigned to the VPC. |
+| <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcRef">vpcRef</a></code> | <code>string</code> | VPC reference for CDK compatibility. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.implementBigWait">implementBigWait</a></code> | <code>aws-cdk-lib.CustomResource</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.ipv6CidrBlock">ipv6CidrBlock</a></code> | <code>string</code> | The IPv6 CIDR block assigned to the VPC. |
 | <code><a href="#raindancers-cdk.cloudNetwork.CloudNetwork.property.vpnGatewayId">vpnGatewayId</a></code> | <code>string</code> | VPN Gateway ID if one is attached. |
@@ -2818,6 +2822,30 @@ The IPv4 CIDR block assigned to the VPC.
 
 ---
 
+##### `vpcDefaultNetworkAcl`<sup>Required</sup> <a name="vpcDefaultNetworkAcl" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcDefaultNetworkAcl"></a>
+
+```typescript
+public readonly vpcDefaultNetworkAcl: string;
+```
+
+- *Type:* string
+
+Default network ACL ID.
+
+---
+
+##### `vpcDefaultSecurityGroup`<sup>Required</sup> <a name="vpcDefaultSecurityGroup" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcDefaultSecurityGroup"></a>
+
+```typescript
+public readonly vpcDefaultSecurityGroup: string;
+```
+
+- *Type:* string
+
+Default security group ID.
+
+---
+
 ##### `vpcId`<sup>Required</sup> <a name="vpcId" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcId"></a>
 
 ```typescript
@@ -2827,6 +2855,30 @@ public readonly vpcId: string;
 - *Type:* string
 
 The VPC ID.
+
+---
+
+##### `vpcIpv6CidrBlocks`<sup>Required</sup> <a name="vpcIpv6CidrBlocks" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcIpv6CidrBlocks"></a>
+
+```typescript
+public readonly vpcIpv6CidrBlocks: string[];
+```
+
+- *Type:* string[]
+
+IPv6 CIDR blocks assigned to the VPC.
+
+---
+
+##### `vpcRef`<sup>Required</sup> <a name="vpcRef" id="raindancers-cdk.cloudNetwork.CloudNetwork.property.vpcRef"></a>
+
+```typescript
+public readonly vpcRef: string;
+```
+
+- *Type:* string
+
+VPC reference for CDK compatibility.
 
 ---
 
