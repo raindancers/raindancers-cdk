@@ -73,25 +73,32 @@ export class AwsServiceEndPoints extends constructs.Construct {
 	    if (restrictToVpc) {
 	      newSg.addIngressRule(
 	        ec2.Peer.ipv4(props.vpc.vpcCidrBlock),
-	        ec2.Port.allTraffic(),
-	        'Allow from VPC IPv4',
+	        ec2.Port.tcp(443),
+	        'HTTPS from VPC IPv4',
 	      );
 
 	      if (props.vpc instanceof ec2.Vpc && props.vpc.vpcIpv6CidrBlocks && props.vpc.vpcIpv6CidrBlocks.length > 0) {
 	        new ec2.CfnSecurityGroupIngress(this, 'Ipv6Ingress', {
 	          groupId: newSg.securityGroupId,
-	          ipProtocol: '-1',
+	          ipProtocol: 'tcp',
+	          fromPort: 443,
+	          toPort: 443,
 	          cidrIpv6: core.Fn.select(0, props.vpc.vpcIpv6CidrBlocks),
-	          description: 'Allow from VPC IPv6',
+	          description: 'HTTPS from VPC IPv6',
 	        });
 	      }
 	    } else {
 	      console.warn('WARNING: VPC endpoint security group allows unrestricted access (0.0.0.0/0). Consider using restrictToVpcCidrsOnly=true or providing a custom securityGroup.');
 	      newSg.addIngressRule(
 	        ec2.Peer.anyIpv4(),
-	        ec2.Port.allTraffic(),
+	        ec2.Port.tcp(443),
 	      );
 	    }
+
+	    // Remove all egress rules - VPC endpoints are ingress only
+	    newSg.connections.allowToAnyIpv4(ec2.Port.tcp(443));
+	    const cfnSg = newSg.node.defaultChild as ec2.CfnSecurityGroup;
+	    cfnSg.securityGroupEgress = [];
 
 	    endpoint_sg = newSg;
 	  }
@@ -101,7 +108,6 @@ export class AwsServiceEndPoints extends constructs.Construct {
       new ec2.InterfaceVpcEndpoint(this, `Endpoint${service.shortName}`, {
 		  service: service,
 		  vpc: props.vpc,
-		  open: true, // this only allows traffic from within the vpc
 		  lookupSupportedAzs: true,
 		  privateDnsEnabled: true,
 		  subnets: {

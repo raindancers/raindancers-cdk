@@ -87,7 +87,7 @@ describe('AwsServiceEndPoints', () => {
     template.resourceCountIs('AWS::EC2::SecurityGroup', 1);
   });
 
-  test('restricts access to VPC CIDR by default', () => {
+  test('restricts access to VPC CIDR by default with HTTPS only', () => {
     new AwsServiceEndPoints(stack, 'TestRestrictedEndpoints', {
       vpc,
       services: [ec2.InterfaceVpcEndpointAwsService.S3],
@@ -99,10 +99,29 @@ describe('AwsServiceEndPoints', () => {
     const sgValues = Object.values(sgResources);
     const hasVpcCidrRule = sgValues.some((sg: any) =>
       sg.Properties.SecurityGroupIngress?.some((rule: any) =>
-        rule.CidrIp && typeof rule.CidrIp === 'object' && rule.CidrIp['Fn::GetAtt'] && rule.Description === 'Allow from VPC IPv4',
+        rule.CidrIp && typeof rule.CidrIp === 'object' && rule.CidrIp['Fn::GetAtt'] &&
+        rule.Description === 'HTTPS from VPC IPv4' &&
+        rule.IpProtocol === 'tcp' &&
+        rule.FromPort === 443 &&
+        rule.ToPort === 443,
       ),
     );
     expect(hasVpcCidrRule).toBe(true);
+  });
+
+  test('removes all egress rules from security group', () => {
+    new AwsServiceEndPoints(stack, 'TestNoEgress', {
+      vpc,
+      services: [ec2.InterfaceVpcEndpointAwsService.S3],
+      subnetGroup: 'Private',
+    });
+
+    const template = Template.fromStack(stack);
+    const sgResources = template.findResources('AWS::EC2::SecurityGroup');
+    const sgValues = Object.values(sgResources);
+    sgValues.forEach((sg: any) => {
+      expect(sg.Properties.SecurityGroupEgress).toEqual([]);
+    });
   });
 
   test('allows custom security group', () => {
@@ -131,7 +150,7 @@ describe('AwsServiceEndPoints', () => {
     }).toThrow('securityGroup and restrictToVpcCidrsOnly are mutually exclusive');
   });
 
-  test('allows unrestricted access when restrictToVpcCidrsOnly is false', () => {
+  test('allows unrestricted HTTPS access when restrictToVpcCidrsOnly is false', () => {
     const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
     new AwsServiceEndPoints(stack, 'TestUnrestricted', {
       vpc,
@@ -144,7 +163,12 @@ describe('AwsServiceEndPoints', () => {
     const sgResources = template.findResources('AWS::EC2::SecurityGroup');
     const sgValues = Object.values(sgResources);
     const hasUnrestrictedRule = sgValues.some((sg: any) =>
-      sg.Properties.SecurityGroupIngress?.some((rule: any) => rule.CidrIp === '0.0.0.0/0'),
+      sg.Properties.SecurityGroupIngress?.some((rule: any) =>
+        rule.CidrIp === '0.0.0.0/0' &&
+        rule.IpProtocol === 'tcp' &&
+        rule.FromPort === 443 &&
+        rule.ToPort === 443,
+      ),
     );
     expect(hasUnrestrictedRule).toBe(true);
     expect(consoleWarnSpy).toHaveBeenCalledWith(

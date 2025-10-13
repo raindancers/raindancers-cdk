@@ -150,22 +150,24 @@ export class DualStackVpcMethods {
     );
 
 
-    const flowlog = new ec2.FlowLog(scope, `${id}-VpcFlowLog`, {
-      destination: ec2.FlowLogDestination.toS3(
-			  flowLogBucket, `${id}VpcFlowLogs`, {
-          fileFormat: ec2.FlowLogFileFormat.PARQUET,
-          hiveCompatiblePartitions: false,
-          perHourPartition: true,
-			  }),
-      trafficType: ec2.FlowLogTrafficType.ALL,
-      flowLogName: `${id}VpcFlowLogs`,
-      resourceType: ec2.FlowLogResourceType.fromVpc(props.vpc),
+    const flowlog = new ec2.CfnFlowLog(scope, `${id}-VpcFlowLog`, {
+      resourceType: 'VPC',
+      resourceId: props.vpc.vpcId,
+      trafficType: 'ALL',
+      logDestinationType: 's3',
+      logDestination: flowLogBucket.bucketArn,
+      logFormat: '${version} ${account-id} ${interface-id} ${srcaddr} ${dstaddr} ${srcport} ${dstport} ${protocol} ${packets} ${bytes} ${start} ${end} ${action} ${log-status}',
+      destinationOptions: {
+        fileFormat: 'parquet',
+        hiveCompatiblePartitions: false,
+        perHourPartition: true,
+      },
+      tags: [{ key: 'Name', value: `${id}VpcFlowLogs` }],
     });
 
     // allow for more grandular flowlog at the minimum increment.
     if (props.oneMinuteFlowLogs === true) {
-      const CfnFlowLog = flowlog.node.defaultChild as ec2.CfnFlowLog;
-      CfnFlowLog.addPropertyOverride('MaxAggregationInterval', 60);
+      flowlog.maxAggregationInterval = 60;
     }
 
     if (props.localAthenaQuerys === true) {
@@ -204,7 +206,7 @@ export class DualStackVpcMethods {
         }).serviceToken,
         properties: {
           AthenaBucket: athenaResultsBucket.bucketArn,
-          FlowLogId: flowlog.flowLogId,
+          FlowLogId: flowlog.attrId,
           VpcName: props.vpc.vpcId,
         },
       });
