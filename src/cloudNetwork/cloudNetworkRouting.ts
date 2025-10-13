@@ -222,7 +222,12 @@ export class Router extends constructs.Construct {
     handler.addToRolePolicy(
       new iam.PolicyStatement({
         effect: iam.Effect.ALLOW,
-        actions: ['ec2:*', 'logs:*'],
+        actions: [
+          'ec2:DescribeVpcs',
+          'ec2:DescribeSubnets',
+          'ec2:DescribeTransitGateways',
+          'ec2:DescribeTransitGatewayVpcAttachments',
+        ],
         resources: ['*'],
       }),
     );
@@ -409,9 +414,12 @@ class SubnetRoutes extends core.NestedStack {
           outputPaths: outputPaths,
         },
         logRetention: logs.RetentionDays.FIVE_DAYS,
-        policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
-          resources: cr.AwsCustomResourcePolicy.ANY_RESOURCE,
-        }),
+        policy: cr.AwsCustomResourcePolicy.fromStatements([
+          new iam.PolicyStatement({
+            actions: ['network-firewall:DescribeFirewall'],
+            resources: ['*'],
+          }),
+        ]),
       });
     }
 

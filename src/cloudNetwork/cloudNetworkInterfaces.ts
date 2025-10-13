@@ -82,6 +82,17 @@ export interface AddAwsServiceEndPointsProps {
   readonly dynamoDbGateway?: boolean | undefined;
   readonly s3GatewayInterface?: boolean | undefined;
   readonly vpc?: ec2.IVpc | undefined;
+  /**
+   * Restrict endpoint access to VPC CIDR blocks only (default: true).
+   * Automatically restricts to both IPv4 and IPv6 (if available) CIDR blocks.
+   * Mutually exclusive with securityGroup.
+   */
+  readonly restrictToVpcCidrsOnly?: boolean | undefined;
+  /**
+   * Custom security group for endpoints. Mutually exclusive with restrictToVpcCidrsOnly.
+   * Use this if you need custom security rules beyond VPC CIDR restriction.
+   */
+  readonly securityGroup?: ec2.ISecurityGroup | undefined;
 }
 
 export interface FlowLogProps {

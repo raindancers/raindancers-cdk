@@ -3,6 +3,8 @@ import { Template } from 'aws-cdk-lib/assertions';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import { AwsServiceEndPoints } from '../../../src/network/endpoints/awsServiceEndpoints';
 
+jest.spyOn(console, 'warn').mockImplementation();
+
 describe('AwsServiceEndPoints', () => {
   let stack: Stack;
   let vpc: ec2.Vpc;
@@ -83,5 +85,71 @@ describe('AwsServiceEndPoints', () => {
 
     const template = Template.fromStack(stack);
     template.resourceCountIs('AWS::EC2::SecurityGroup', 1);
+  });
+
+  test('restricts access to VPC CIDR by default', () => {
+    new AwsServiceEndPoints(stack, 'TestRestrictedEndpoints', {
+      vpc,
+      services: [ec2.InterfaceVpcEndpointAwsService.S3],
+      subnetGroup: 'Private',
+    });
+
+    const template = Template.fromStack(stack);
+    const sgResources = template.findResources('AWS::EC2::SecurityGroup');
+    const sgValues = Object.values(sgResources);
+    const hasVpcCidrRule = sgValues.some((sg: any) =>
+      sg.Properties.SecurityGroupIngress?.some((rule: any) =>
+        rule.CidrIp && typeof rule.CidrIp === 'object' && rule.CidrIp['Fn::GetAtt'] && rule.Description === 'Allow from VPC IPv4',
+      ),
+    );
+    expect(hasVpcCidrRule).toBe(true);
+  });
+
+  test('allows custom security group', () => {
+    const customSg = new ec2.SecurityGroup(stack, 'CustomSG', { vpc });
+    new AwsServiceEndPoints(stack, 'TestCustomSG', {
+      vpc,
+      services: [ec2.InterfaceVpcEndpointAwsService.S3],
+      subnetGroup: 'Private',
+      securityGroup: customSg,
+    });
+
+    const template = Template.fromStack(stack);
+    template.resourceCountIs('AWS::EC2::SecurityGroup', 1);
+  });
+
+  test('throws error when both securityGroup and restrictToVpcCidrsOnly are provided', () => {
+    const customSg = new ec2.SecurityGroup(stack, 'CustomSG', { vpc });
+    expect(() => {
+      new AwsServiceEndPoints(stack, 'TestConflict', {
+        vpc,
+        services: [ec2.InterfaceVpcEndpointAwsService.S3],
+        subnetGroup: 'Private',
+        securityGroup: customSg,
+        restrictToVpcCidrsOnly: true,
+      });
+    }).toThrow('securityGroup and restrictToVpcCidrsOnly are mutually exclusive');
+  });
+
+  test('allows unrestricted access when restrictToVpcCidrsOnly is false', () => {
+    const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
+    new AwsServiceEndPoints(stack, 'TestUnrestricted', {
+      vpc,
+      services: [ec2.InterfaceVpcEndpointAwsService.S3],
+      subnetGroup: 'Private',
+      restrictToVpcCidrsOnly: false,
+    });
+
+    const template = Template.fromStack(stack);
+    const sgResources = template.findResources('AWS::EC2::SecurityGroup');
+    const sgValues = Object.values(sgResources);
+    const hasUnrestrictedRule = sgValues.some((sg: any) =>
+      sg.Properties.SecurityGroupIngress?.some((rule: any) => rule.CidrIp === '0.0.0.0/0'),
+    );
+    expect(hasUnrestrictedRule).toBe(true);
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      expect.stringContaining('WARNING: VPC endpoint security group allows unrestricted access'),
+    );
+    consoleWarnSpy.mockRestore();
   });
 });

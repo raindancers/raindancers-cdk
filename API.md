@@ -11469,7 +11469,9 @@ const addAwsServiceEndPointsProps: cloudNetwork.AddAwsServiceEndPointsProps = { 
 | <code><a href="#raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.services">services</a></code> | <code>aws-cdk-lib.aws_ec2.InterfaceVpcEndpointAwsService[]</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.subnetGroup">subnetGroup</a></code> | <code>raindancers-cdk.cloudNetwork.ISubnetGroup</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.dynamoDbGateway">dynamoDbGateway</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.restrictToVpcCidrsOnly">restrictToVpcCidrsOnly</a></code> | <code>boolean</code> | Restrict endpoint access to VPC CIDR blocks only (default: true). |
 | <code><a href="#raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.s3GatewayInterface">s3GatewayInterface</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.securityGroup">securityGroup</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup</code> | Custom security group for endpoints. |
 | <code><a href="#raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | *No description.* |
 
 ---
@@ -11504,6 +11506,21 @@ public readonly dynamoDbGateway: boolean;
 
 ---
 
+##### `restrictToVpcCidrsOnly`<sup>Optional</sup> <a name="restrictToVpcCidrsOnly" id="raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.restrictToVpcCidrsOnly"></a>
+
+```typescript
+public readonly restrictToVpcCidrsOnly: boolean;
+```
+
+- *Type:* boolean
+
+Restrict endpoint access to VPC CIDR blocks only (default: true).
+
+Automatically restricts to both IPv4 and IPv6 (if available) CIDR blocks.
+Mutually exclusive with securityGroup.
+
+---
+
 ##### `s3GatewayInterface`<sup>Optional</sup> <a name="s3GatewayInterface" id="raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.s3GatewayInterface"></a>
 
 ```typescript
@@ -11511,6 +11528,21 @@ public readonly s3GatewayInterface: boolean;
 ```
 
 - *Type:* boolean
+
+---
+
+##### `securityGroup`<sup>Optional</sup> <a name="securityGroup" id="raindancers-cdk.cloudNetwork.AddAwsServiceEndPointsProps.property.securityGroup"></a>
+
+```typescript
+public readonly securityGroup: ISecurityGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup
+
+Custom security group for endpoints.
+
+Mutually exclusive with restrictToVpcCidrsOnly.
+Use this if you need custom security rules beyond VPC CIDR restriction.
 
 ---
 
@@ -13094,7 +13126,9 @@ const awsServiceEndPointsProps: endpoints.AwsServiceEndPointsProps = { ... }
 | <code><a href="#raindancers-cdk.endpoints.AwsServiceEndPointsProps.property.subnetGroup">subnetGroup</a></code> | <code>string</code> | Subnet Group in which to create the service. |
 | <code><a href="#raindancers-cdk.endpoints.AwsServiceEndPointsProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc \| aws-cdk-lib.aws_ec2.Vpc</code> | The vpc in which the service is created. |
 | <code><a href="#raindancers-cdk.endpoints.AwsServiceEndPointsProps.property.dynamoDBGatewayInterface">dynamoDBGatewayInterface</a></code> | <code>boolean</code> | indicate true for a Dynamo Gateway Interface. |
+| <code><a href="#raindancers-cdk.endpoints.AwsServiceEndPointsProps.property.restrictToVpcCidrsOnly">restrictToVpcCidrsOnly</a></code> | <code>boolean</code> | Restrict endpoint access to VPC CIDR blocks only (default: true). |
 | <code><a href="#raindancers-cdk.endpoints.AwsServiceEndPointsProps.property.s3GatewayInterface">s3GatewayInterface</a></code> | <code>boolean</code> | indicate true for a S3 Gateway Interface. |
+| <code><a href="#raindancers-cdk.endpoints.AwsServiceEndPointsProps.property.securityGroup">securityGroup</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup</code> | Custom security group for endpoints. |
 
 ---
 
@@ -13148,6 +13182,21 @@ indicate true for a Dynamo Gateway Interface.
 
 ---
 
+##### `restrictToVpcCidrsOnly`<sup>Optional</sup> <a name="restrictToVpcCidrsOnly" id="raindancers-cdk.endpoints.AwsServiceEndPointsProps.property.restrictToVpcCidrsOnly"></a>
+
+```typescript
+public readonly restrictToVpcCidrsOnly: boolean;
+```
+
+- *Type:* boolean
+
+Restrict endpoint access to VPC CIDR blocks only (default: true).
+
+Automatically restricts to both IPv4 and IPv6 (if available) CIDR blocks.
+Mutually exclusive with securityGroup.
+
+---
+
 ##### `s3GatewayInterface`<sup>Optional</sup> <a name="s3GatewayInterface" id="raindancers-cdk.endpoints.AwsServiceEndPointsProps.property.s3GatewayInterface"></a>
 
 ```typescript
@@ -13157,6 +13206,21 @@ public readonly s3GatewayInterface: boolean;
 - *Type:* boolean
 
 indicate true for a S3 Gateway Interface.
+
+---
+
+##### `securityGroup`<sup>Optional</sup> <a name="securityGroup" id="raindancers-cdk.endpoints.AwsServiceEndPointsProps.property.securityGroup"></a>
+
+```typescript
+public readonly securityGroup: ISecurityGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup
+
+Custom security group for endpoints.
+
+Mutually exclusive with restrictToVpcCidrsOnly.
+Use this if you need custom security rules beyond VPC CIDR restriction.
 
 ---
 

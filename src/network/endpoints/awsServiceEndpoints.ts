@@ -1,7 +1,7 @@
 import {
   aws_ec2 as ec2,
-}
-  from 'aws-cdk-lib';
+} from 'aws-cdk-lib';
+import * as core from 'aws-cdk-lib';
 import * as constructs from 'constructs';
 
 
@@ -25,6 +25,19 @@ export interface AwsServiceEndPointsProps {
 
   /** indicate true for a Dynamo Gateway Interface */
   readonly dynamoDBGatewayInterface?: boolean;
+
+  /**
+   * Restrict endpoint access to VPC CIDR blocks only (default: true).
+   * Automatically restricts to both IPv4 and IPv6 (if available) CIDR blocks.
+   * Mutually exclusive with securityGroup.
+   */
+  readonly restrictToVpcCidrsOnly?: boolean;
+
+  /**
+   * Custom security group for endpoints. Mutually exclusive with restrictToVpcCidrsOnly.
+   * Use this if you need custom security rules beyond VPC CIDR restriction.
+   */
+  readonly securityGroup?: ec2.ISecurityGroup;
 }
 
 
@@ -41,14 +54,47 @@ export class AwsServiceEndPoints extends constructs.Construct {
   constructor(scope: constructs.Construct, id: string, props: AwsServiceEndPointsProps) {
 	  super(scope, id);
 
-	  const endpoint_sg = new ec2.SecurityGroup(this, 'Endpointsg', {
-      vpc: props.vpc,
-	  });
+	  // Validate mutually exclusive options
+	  if (props.securityGroup && props.restrictToVpcCidrsOnly !== undefined) {
+	    throw new Error('securityGroup and restrictToVpcCidrsOnly are mutually exclusive. Provide only one.');
+	  }
 
-	  endpoint_sg.addIngressRule(
-      ec2.Peer.anyIpv4(),
-      ec2.Port.allTraffic(),
-	  );
+	  let endpoint_sg: ec2.ISecurityGroup;
+
+	  if (props.securityGroup) {
+	    endpoint_sg = props.securityGroup;
+	  } else {
+	    const newSg = new ec2.SecurityGroup(this, 'Endpointsg', {
+	      vpc: props.vpc,
+	    });
+
+	    const restrictToVpc = props.restrictToVpcCidrsOnly ?? true;
+
+	    if (restrictToVpc) {
+	      newSg.addIngressRule(
+	        ec2.Peer.ipv4(props.vpc.vpcCidrBlock),
+	        ec2.Port.allTraffic(),
+	        'Allow from VPC IPv4',
+	      );
+
+	      if (props.vpc instanceof ec2.Vpc && props.vpc.vpcIpv6CidrBlocks && props.vpc.vpcIpv6CidrBlocks.length > 0) {
+	        new ec2.CfnSecurityGroupIngress(this, 'Ipv6Ingress', {
+	          groupId: newSg.securityGroupId,
+	          ipProtocol: '-1',
+	          cidrIpv6: core.Fn.select(0, props.vpc.vpcIpv6CidrBlocks),
+	          description: 'Allow from VPC IPv6',
+	        });
+	      }
+	    } else {
+	      console.warn('WARNING: VPC endpoint security group allows unrestricted access (0.0.0.0/0). Consider using restrictToVpcCidrsOnly=true or providing a custom securityGroup.');
+	      newSg.addIngressRule(
+	        ec2.Peer.anyIpv4(),
+	        ec2.Port.allTraffic(),
+	      );
+	    }
+
+	    endpoint_sg = newSg;
+	  }
 
 	  props.services.forEach((service) => {
 

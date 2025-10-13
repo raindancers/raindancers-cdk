@@ -60,6 +60,8 @@ export class DualStackVpcMethods {
       vpc: props.vpc!,
       dynamoDBGatewayInterface: props.dynamoDbGateway,
       s3GatewayInterface: props.s3GatewayInterface,
+      restrictToVpcCidrsOnly: props.restrictToVpcCidrsOnly,
+      securityGroup: props.securityGroup,
     });
   }
 
