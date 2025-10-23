@@ -160,7 +160,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         sourceIpamPoolId: props.ipamConfig.ipv6PoolId,
         description: `IPv6 planning pool for vpc ${props.vpcName} | ${props.vpc.attrVpcId}`,
         allocationDefaultNetmaskLength: DEFAULT_IPV6_SUBNET_MASK,
-        autoImport: false,
+        autoImport: true,
         sourceResource: {
           resourceId: props.vpc.attrVpcId,
           resourceOwner: core.Stack.of(this).account,
@@ -231,7 +231,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         sourceIpamPoolId: props.ipamConfig.ipv4IpamPoolId,
         description: `IPv4 planning pool for vpc ${props.vpcName} | ${props.vpc.attrVpcId}`,
         allocationDefaultNetmaskLength: props.defaultipv4allocation ?? 24,
-        autoImport: false,
+        autoImport: true,
         sourceResource: {
           resourceId: props.vpc.attrVpcId,
           resourceOwner: core.Stack.of(this).account,
@@ -259,6 +259,7 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       props.vpc.attrCidrBlock,
       core.Fn.select(0, props.vpc.attrIpv6CidrBlocks),
       props.regionToCreatePlanningPools ?? core.Aws.REGION,
+      props.useDirectAPICalls ?? false,
     );
 
   }
@@ -311,7 +312,8 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
     ipv6PoolId: string,
     vpcIpv4Cidr: string,
     vpcIpv6Cidr: string,
-    region?: string ): core.CustomResource {
+    region?: string,
+    useDirectAPICalls?: boolean ): core.CustomResource {
 
     const poolCidrWaiterFn = new lambda.Function(this, 'poolCidrWaiterFn', {
       // amazonq-ignore-next-line
@@ -330,7 +332,6 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
         'ec2:GetIpamPoolCidrs',
         'ec2:DescribeIpamPools',
         'ec2:ProvisionIpamPoolCidr',
-        'ec2:DeprovisionIpamPoolCidr',
       ],
       resources: ['*'],
     }));
@@ -356,9 +357,9 @@ export class IpamVPCPlanningTools extends constructs.Construct implements IIpamP
       properties: {
         Ipv4PoolId: ipv4PoolId,
         Ipv6PoolId: ipv6PoolId,
+        VpcIpv4Cidr: useDirectAPICalls ? vpcIpv4Cidr : undefined,
+        VpcIpv6Cidr: useDirectAPICalls ? vpcIpv6Cidr : undefined,
         Region: region ?? core.Aws.REGION,
-        VpcIpv4Cidr: vpcIpv4Cidr,
-        VpcIpv6Cidr: vpcIpv6Cidr,
       },
     });
   }

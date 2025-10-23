@@ -55,32 +55,38 @@ def handler(event, context):
         print(f"Getting IPv6 pool CIDRs for {ipv6_pool_id}")
         ipv6_cidrs = ec2.get_ipam_pool_cidrs(IpamPoolId=ipv6_pool_id)
         
-        # Pools are ready when they have at least one CIDR
-        ipv4_ready = len(ipv4_cidrs['IpamPoolCidrs']) > 0
-        ipv6_ready = len(ipv6_cidrs['IpamPoolCidrs']) > 0
+        # Pools are ready when they have at least one provisioned CIDR
+        ipv4_ready = any(cidr.get('State') == 'provisioned' for cidr in ipv4_cidrs['IpamPoolCidrs'])
+        ipv6_ready = any(cidr.get('State') == 'provisioned' for cidr in ipv6_cidrs['IpamPoolCidrs'])
         
         print(f"Pool CIDR status - IPv4: {ipv4_ready} ({len(ipv4_cidrs['IpamPoolCidrs'])} CIDRs), IPv6: {ipv6_ready} ({len(ipv6_cidrs['IpamPoolCidrs'])} CIDRs)")
         
-        # If pools are ready but don't have CIDRs, provision them
+        # For cross-region (AutoImport=false), manually provision CIDRs
+        # For same-region (autoImport=true), CIDRs auto-import from VPC sourceResource
         if not ipv4_ready:
-            vpc_ipv4_cidr = event['ResourceProperties']['VpcIpv4Cidr']
-            print(f"Provisioning IPv4 CIDR {vpc_ipv4_cidr} to pool {ipv4_pool_id}")
-            ec2.provision_ipam_pool_cidr(
-                IpamPoolId=ipv4_pool_id,
-                Cidr=vpc_ipv4_cidr
-            )
+            vpc_ipv4_cidr = event['ResourceProperties'].get('VpcIpv4Cidr')
+            if vpc_ipv4_cidr:
+                print(f"Provisioning IPv4 CIDR {vpc_ipv4_cidr} to pool {ipv4_pool_id}")
+                ec2.provision_ipam_pool_cidr(
+                    IpamPoolId=ipv4_pool_id,
+                    Cidr=vpc_ipv4_cidr
+                )
+            else:
+                print("Waiting for IPv4 CIDR to be auto-imported...")
 
         if not ipv6_ready:
-            vpc_ipv6_cidr = event['ResourceProperties']['VpcIpv6Cidr']
-            print(f"Provisioning IPv6 CIDR {vpc_ipv6_cidr} to pool {ipv6_pool_id}")
-            ec2.provision_ipam_pool_cidr(
-                IpamPoolId=ipv6_pool_id,
-                Cidr=vpc_ipv6_cidr
-            )
+            vpc_ipv6_cidr = event['ResourceProperties'].get('VpcIpv6Cidr')
+            if vpc_ipv6_cidr:
+                print(f"Provisioning IPv6 CIDR {vpc_ipv6_cidr} to pool {ipv6_pool_id}")
+                ec2.provision_ipam_pool_cidr(
+                    IpamPoolId=ipv6_pool_id,
+                    Cidr=vpc_ipv6_cidr
+                )
+            else:
+                print("Waiting for IPv6 CIDR to be auto-imported...")
 
-        # If we just provisioned CIDRs, wait for next check
         if not ipv4_ready or not ipv6_ready:
-            print("CIDRs provisioned - waiting for next check...")
+            print("Waiting for CIDRs to be provisioned...")
             return {
                 'PhysicalResourceId': physical_id,
                 'IsComplete': False
