@@ -2,12 +2,28 @@ import logging
 from typing import Dict
 from urllib import response
 import boto3
+from botocore.exceptions import ClientError
 import os
 import json
+import time
 
 logger = logging.getLogger(__name__)
 
 sts = boto3.client('sts')
+
+def create_tags_with_retry(ec2, resource_id, tags, max_retries=6):
+	"""Retry CreateTags with exponential backoff for RAM propagation delays"""
+	for attempt in range(max_retries):
+		try:
+			ec2.create_tags(Resources=[resource_id], Tags=tags)
+			return
+		except ClientError as e:
+			if e.response['Error']['Code'] == 'InvalidSubnetID.NotFound' and attempt < max_retries - 1:
+				delay = 2 ** attempt  # 1s, 2s, 4s, 8s, 16s, 32s
+				print(f"Resource {resource_id} not found, retrying in {delay}s (attempt {attempt + 1}/{max_retries})")
+				time.sleep(delay)
+			else:
+				raise
 
 def on_event(event, context):
 	
@@ -31,7 +47,7 @@ def on_create(event):
 	subnet_ids = props['SubnetIds']
 	role_name = props['RoleName']
 	accounts = props['Accounts']
-	region = props['Region']
+	physical_id = f"tag-share-{vpc}-{'-'.join(sorted(accounts))}"
 
 	
 	ec2_local = boto3.client('ec2')
@@ -101,31 +117,18 @@ def on_create(event):
     		aws_session_token=remote_credentials['SessionToken'],
 		)
 
-
 		# copy the vpc_tags from the source acount to the sharedtoAccount
-		ec2.create_tags(
-			Resources=[
-				vpc,
-			],
-			Tags= vpc_tags		
-		)
+		create_tags_with_retry(ec2, vpc, vpc_tags)
 
 		# copy the subnet Tags from the source account to the sharedAccount
 		for subnet in subnets:
-			ec2.create_tags(
-				Resources=[
-					subnet['SubnetId']
-				],
-				Tags = subnet['Tags']
-			)
+			create_tags_with_retry(ec2, subnet['SubnetId'], subnet['Tags'])
 
+	return {'PhysicalResourceId': physical_id}
 
 
 def on_update(event):
-
-	props = event['ResourceProperties']
-
+	return {}
 
 def on_delete(event):
-
-	props = event['ResourceProperties']
+	return {}
