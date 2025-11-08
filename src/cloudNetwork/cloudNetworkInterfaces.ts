@@ -262,5 +262,7 @@ export enum RoutingStrategy {
   /** Route via Transit Gateway for inspection */
   TRANSIT_GATEWAY_INSPECTION = 'tgw',
   /** Route directly - respects subnet type (IGW for public, NAT for private) */
-  DIRECT = 'direct'
+  DIRECT = 'direct',
+  /** Route Driectly_ No Transit Gateway */
+  DIRECT_ISOLATED = 'isolated'
 }

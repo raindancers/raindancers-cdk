@@ -673,7 +673,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
 
 
                 //Add Routes to the TransitGateway if they exist
-                ...(this.tgRoutes ? this.tgRoutes.map(destCidr => ({ destCidr, description: `${subnetConfig.name} to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
+                ...(this.tgRoutes && this.transitGatewayAttachment ? this.tgRoutes.map(destCidr => ({ destCidr, description: `${subnetConfig.name} to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
                 // if firewallSubnetGroup is defined, we need to add a route to the blackhole for the firewall subnet
 
 
@@ -696,8 +696,8 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
               // routes to all subnets are via local, does not need to reach ingress or linknet
               // routes to internet are allready established becuase Firewall is a Private with Egress Subnet
               routes: [
-                // Add Routes to the TransitGateway if they exist
-                ...(this.tgRoutes ? this.tgRoutes.map(destCidr => ({ destCidr, description: `f-Route to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
+                // Add Routes to the TransitGateway if they exist and attachment exists
+                ...(this.tgRoutes && this.transitGatewayAttachment ? this.tgRoutes.map(destCidr => ({ destCidr, description: `f-Route to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
                 // if ingress is defined,  for the Blackhole it
                 ...(ingress ? [{ destSubnetGroup: ingress, description: `${subnetConfig.name} to  ${ingress.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 // if linkent is defined, blackhole it
@@ -713,7 +713,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
             routerGroups.push({
               subnetGroup: subnetConfig,
               routes: [
-                ...(this.tgRoutes ? this.tgRoutes.map(destCidr => ({ destCidr, description: `f-Route to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
+                ...(this.tgRoutes && this.transitGatewayAttachment ? this.tgRoutes.map(destCidr => ({ destCidr, description: `f-Route to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
                 ...((this.networkFirewallEndpoints || this.networkFirewall) ? [
                   { destCidr: '0.0.0.0/0', description: `d-ipv4${subnetConfig.name}->internet`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT },
                   { destCidr: '::/0', description: `d-ipv6${subnetConfig.name}->internet`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT },
@@ -736,7 +736,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
                 ...(dmz ? [{ destSubnetGroup: dmz, description: `${subnetConfig.name} to  ${dmz.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(linknet ? [{ destSubnetGroup: linknet, description: `${subnetConfig.name} to  ${linknet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 // internal routes should be sent via the Transit Gateway, ( note not via Firewall!)
-                ...(this.tgRoutes ? this.tgRoutes.map(destCidr => ({ destCidr, description: `${subnetConfig.name} to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
+                ...(this.tgRoutes && this.transitGatewayAttachment ? this.tgRoutes.map(destCidr => ({ destCidr, description: `${subnetConfig.name} to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
               ],
             });
             break;
@@ -766,7 +766,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
             routerGroups.push({
               subnetGroup: subnetConfig,
               routes: [
-                ...(this.tgRoutes ? this.tgRoutes.map(destCidr => ({ destCidr, description: `l-Route to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
+                ...(this.tgRoutes && this.transitGatewayAttachment ? this.tgRoutes.map(destCidr => ({ destCidr, description: `l-Route to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
                 ...(firewallSubnet ? [{ destSubnetGroup: firewallSubnet, description: `${subnetConfig.name} to  ${firewallSubnet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(egress && (this.networkFirewallEndpoints || this.networkFirewall) ? [{ destSubnetGroup: egress, description: `${subnetConfig.name} to  ${egress.name}`, nextHop: interfaces.NextHop.FIREWALL_ENDPOINT }] : []),
                 // Traffic to the DMZ from the
@@ -780,7 +780,7 @@ export class CloudNetwork extends constructs.Construct implements ec2.IVpc {
             routerGroups.push({
               subnetGroup: subnetConfig,
               routes: [
-                ...(this.tgRoutes ? this.tgRoutes.map(destCidr => ({ destCidr, description: `l-Route to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
+                ...(this.tgRoutes && this.transitGatewayAttachment ? this.tgRoutes.map(destCidr => ({ destCidr, description: `l-Route to ${destCidr} via Transit Gateway`, nextHop: interfaces.NextHop.TRANSITGATEWAY })) : []),
                 ...(firewallSubnet ? [{ destSubnetGroup: firewallSubnet, description: `${subnetConfig.name} to  ${firewallSubnet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(egress ? [{ destSubnetGroup: egress, description: `${subnetConfig.name} to  ${egress.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),
                 ...(linknet ? [{ destSubnetGroup: linknet, description: `${subnetConfig.name} to  ${linknet.name}`, nextHop: interfaces.NextHop.BLACKHOLE }] : []),

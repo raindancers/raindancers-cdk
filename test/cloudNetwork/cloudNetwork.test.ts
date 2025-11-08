@@ -602,8 +602,9 @@ describe('CloudNetwork', () => {
       },
     });
 
-    // Set transit gateway routes to test more routing logic
+    // Set transit gateway routes and attachment to test more routing logic
     vpc.tgRoutes = ['10.0.0.0/8'];
+    vpc.transitGatewayAttachment = 'tgw-attach-12345';
 
     const routes = vpc.addPersonalityRoutes();
     expect(routes.length).toBe(5); // 5 personality types (removed DMZ)
@@ -1003,6 +1004,7 @@ describe('CloudNetwork', () => {
 
     // Test complex routing
     vpc.tgRoutes = ['10.0.0.0/8', '172.16.0.0/12'];
+    vpc.transitGatewayAttachment = 'tgw-attach-12345';
     const routes = vpc.addPersonalityRoutes();
     expect(routes.length).toBe(5);
 

@@ -24116,6 +24116,7 @@ Resolver is outbound.
 | <code><a href="#raindancers-cdk.cloudNetwork.RoutingStrategy.FIREWALL_INSPECTION">FIREWALL_INSPECTION</a></code> | Route via Network Firewall endpoints (default). |
 | <code><a href="#raindancers-cdk.cloudNetwork.RoutingStrategy.TRANSIT_GATEWAY_INSPECTION">TRANSIT_GATEWAY_INSPECTION</a></code> | Route via Transit Gateway for inspection. |
 | <code><a href="#raindancers-cdk.cloudNetwork.RoutingStrategy.DIRECT">DIRECT</a></code> | Route directly - respects subnet type (IGW for public, NAT for private). |
+| <code><a href="#raindancers-cdk.cloudNetwork.RoutingStrategy.DIRECT_ISOLATED">DIRECT_ISOLATED</a></code> | Route Driectly_ No Transit Gateway. |
 
 ---
 
@@ -24136,6 +24137,13 @@ Route via Transit Gateway for inspection.
 ##### `DIRECT` <a name="DIRECT" id="raindancers-cdk.cloudNetwork.RoutingStrategy.DIRECT"></a>
 
 Route directly - respects subnet type (IGW for public, NAT for private).
+
+---
+
+
+##### `DIRECT_ISOLATED` <a name="DIRECT_ISOLATED" id="raindancers-cdk.cloudNetwork.RoutingStrategy.DIRECT_ISOLATED"></a>
+
+Route Driectly_ No Transit Gateway.
 
 ---
 
