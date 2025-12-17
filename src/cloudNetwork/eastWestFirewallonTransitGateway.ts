@@ -24,6 +24,7 @@ export class EastWestFirewallOnTg extends constructs.Construct {
 
   firewall: nwFirewall.NetworkFirewall | undefined;
   attachmentId: string;
+  network: cloudNetwork.CloudNetwork;
 
   constructor(scope: constructs.Construct, id: string, props: EastWestFirewallOnTgProps) {
     super(scope, id);
@@ -42,7 +43,7 @@ export class EastWestFirewallOnTg extends constructs.Construct {
       subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
     };
 
-    const network = new cloudNetwork.CloudNetwork(this, 'vpc', {
+    this.network = new cloudNetwork.CloudNetwork(this, 'vpc', {
       vpcName: `${props.firewallName}-EastWestInSpector`,
       subnetConfiguration: [
         linknet,
@@ -52,13 +53,13 @@ export class EastWestFirewallOnTg extends constructs.Construct {
       ipamConfig: props.ipamConfig,
     });
 
-    network.createFlowLogwithAnalysis('testflowlogs', {
-      oneMinuteFlowLogs: true,
-      localAthenaQuerys: true,
-    });
+    // network.createFlowLogwithAnalysis('testflowlogs', {
+    //   oneMinuteFlowLogs: true,
+    //   localAthenaQuerys: true,
+    // });
 
 
-    const attachment = network.attachToTransitGateway('tgattach', {
+    const attachment = this.network.attachToTransitGateway('tgattach', {
       transitGateway: props.transitGateway,
       applianceMode: cloudNetwork.ApplianceMode.ENABLED,
       ipv6Support: cloudNetwork.IpV6Support.ENABLED,
@@ -83,15 +84,15 @@ export class EastWestFirewallOnTg extends constructs.Construct {
       ],
     });
 
-    network.addNetworkFirewall(
+    this.network.addNetworkFirewall(
       props.firewallName,
       policy.firewallpolicy,
       firewall,
     );
 
 
-    if (network.networkFirewall) {
-      this.firewall = network.networkFirewall;
+    if (this.network.networkFirewall) {
+      this.firewall = this.network.networkFirewall;
     }
 
     const routes: cloudNetwork.RouterGroup[] = [
@@ -114,11 +115,11 @@ export class EastWestFirewallOnTg extends constructs.Construct {
     ];
 
     new cloudNetwork.NestedRouteStack(this, 'routing', {
-      vpc: network,
+      vpc: this.network,
       subnetRoutes: routes,
-      nwfirewall: network.networkFirewall,
+      nwfirewall: this.network.networkFirewall,
       transitGatewayId: props.transitGateway.id,
-      transitGatewayAttachmentId: network.transitGatewayAttachment,
+      transitGatewayAttachmentId: this.network.transitGatewayAttachment,
     });
   }
 }

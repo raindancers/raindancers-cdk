@@ -3868,6 +3868,7 @@ Any object.
 | --- | --- | --- |
 | <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.property.attachmentId">attachmentId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.property.network">network</a></code> | <code>raindancers-cdk.cloudNetwork.CloudNetwork</code> | *No description.* |
 | <code><a href="#raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.property.firewall">firewall</a></code> | <code>raindancers-cdk.nwFirewall.NetworkFirewall</code> | *No description.* |
 
 ---
@@ -3891,6 +3892,16 @@ public readonly attachmentId: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `network`<sup>Required</sup> <a name="network" id="raindancers-cdk.cloudNetwork.EastWestFirewallOnTg.property.network"></a>
+
+```typescript
+public readonly network: CloudNetwork;
+```
+
+- *Type:* raindancers-cdk.cloudNetwork.CloudNetwork
 
 ---
 
